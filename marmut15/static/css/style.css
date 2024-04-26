@@ -11,10 +11,103 @@
     --neutral-8: #110F0E; 
     --neutral-sup: #1C1714;
     --primary: #FF7816;
+    --primary2: #F06B0c;
     --background-col: linear-gradient(180deg, var(--neutral-sup), var(--neutral-8));
+    
 }
 
+.plus-jakarta-sans-extralight {
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-weight:200;
+    font-style: normal;
+  }
+
+  
+.plus-jakarta-sans-light {
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 300;
+    font-style: normal;
+  }
+
+
+  .plus-jakarta-sans-regular {
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style:normal;
+  }
+
+  
+  .plus-jakarta-sans-medium {
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-style:normal;
+  }
+
+  .plus-jakarta-sans-semibold {
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 600;
+    font-style:normal;
+  }
+
+  .plus-jakarta-sans-bold {
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 700;
+    font-style:normal;
+  }
+
+  .plus-jakarta-sans-extrabold {
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 800;
+    font-style:normal;
+  }
+
+
 body {
+    height: 100vh;
+    width: 100wh;
     background: var(--background-col);
 }
 
+.button-primary{
+    padding-inline: 52px;
+    padding-block: 20px;
+    border-radius: 24px;
+    background-color: var(--primary);
+    color: var(--neutral-0);
+    width: fit-content;
+    height: fit-content;
+    border:0px;
+
+}
+.button-primary:hover{
+    padding-inline: 52px;
+    padding-block: 20px;
+    border-radius: 24px;
+    background-color: var(--primary2);
+    color: var(--neutral-0);
+    width: fit-content;
+    height: fit-content;
+}
+.button-secondary {
+    padding-inline: 52px;
+    padding-block: 20px;
+    border-radius: 24px;
+    border-color: var(--neutral-3);
+    color: var(--neutral-0);
+    width: fit-content;
+    height: fit-content;
+    background-color: transparent;
+    border-width: 2px; /* Lebar border */
+    border-style: solid; /* Jenis garis border */
+}
+
+.button-secondary:hover {
+    border-color: var(--neutral-2); /* Warna border saat hover */
+}
