@@ -1,0 +1,20 @@
+
+:root {
+    --neutral-0: #ffffff;
+    --neutral-1: #827E7C; 
+    --neutral-2: #504B48; 
+    --neutral-3: #35312F; 
+    --neutral-4: #262524; 
+    --neutral-5: #1D1C1B; 
+    --neutral-6: #161413; 
+    --neutral-7: #141211; 
+    --neutral-8: #110F0E; 
+    --neutral-sup: #1C1714;
+    --primary: #FF7816;
+    --background-col: linear-gradient(180deg, var(--neutral-sup), var(--neutral-8));
+}
+
+body {
+    background: var(--background-col);
+}
+
