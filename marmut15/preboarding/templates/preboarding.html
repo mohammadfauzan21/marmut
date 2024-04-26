@@ -4,9 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Document{% endblock %}</title>
-    <!-- Misalnya, file CSS -->
+    <title>
+        {% block title %}
+            Document
+        {% endblock %}
+    </title>
     <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap/bootstrap.min.css' %}">
+    <script src="{% static 'js/bootstrap/bootstrap.min.js' %}"></script>
 
 </head>
 <body>
@@ -24,7 +29,7 @@
         {% block content %}
         <!-- Konten dari halaman akan dimasukkan di sini -->
         
-        <img src="{% static 'assets/image/default.png' %}" alt="Main Image">
+        <img src="{% static 'img/default.png' %}" alt="Main Image">
 
         {% endblock %}
     </main>
