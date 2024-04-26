@@ -1,0 +1,27 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Document{% endblock %}</title>
+</head>
+<body>
+    <header>
+        <h1>My Django App</h1>
+        <nav>
+            <ul>
+                <a href="{%url 'preboarding:konten' %}">Default</a>
+                
+                <!-- Tambahkan link ke halaman lain di sini -->
+            </ul>
+        </nav>
+    </header>
+    <main>
+        {% block content %}
+        <!-- Konten dari halaman akan dimasukkan di sini -->
+        {% endblock %}
+    </main>
+    
+</body>
+</html>

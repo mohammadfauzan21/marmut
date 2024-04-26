@@ -20,10 +20,10 @@ from django.urls import include, path
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('preboarding.urls')),
-    path('login/', include('login.urls')),
-    path('register/', include('register.urls')),
-    path('user/dashboard/', include('dashboarduser.urls')),
-    path('artist/dashboard/', include('dashboardartist.urls')),
-    path('songwriter/dashboard/', include('dashboardsongwriter.urls')),
-    path('label/dashboard/', include('dashboardlabel.urls')),
+    # path('login/', include('login.urls')),
+    # path('register/', include('register.urls')),
+    # path('user/dashboard/', include('dashboarduser.urls')),
+    # path('artist/dashboard/', include('dashboardartist.urls')),
+    # path('songwriter/dashboard/', include('dashboardsongwriter.urls')),
+    # path('label/dashboard/', include('dashboardlabel.urls')),
 ]
