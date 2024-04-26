@@ -5,6 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Document{% endblock %}</title>
+    <!-- Misalnya, file CSS -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+
 </head>
 <body>
     <header>
@@ -20,6 +23,9 @@
     <main>
         {% block content %}
         <!-- Konten dari halaman akan dimasukkan di sini -->
+        
+        <img src="{% static 'assets/image/default.png' %}" alt="Main Image">
+
         {% endblock %}
     </main>
     
