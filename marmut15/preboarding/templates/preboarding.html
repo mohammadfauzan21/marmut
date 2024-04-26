@@ -3,6 +3,25 @@
 
 {% block content %}
 
-        <img src="{% static 'img/default.png' %}" alt="Main Image">
-
+        <div class="container-fluid">
+        
+                <div class="row">
+                        <div class="col-2"></div>
+                        <div class="col-8 d-flex justify-content-center align-items-center" style="height: 100vh;">
+                               <div class="column">
+                                <div class="row d-flex justify-content-center m-4">
+                                        <img src="{% static 'img/logo.svg' %}" alt="Logo Mrmut-15"></div>
+                                <div class="row d-flex justify-content-center m-4"><p class="plus-jakarta-sans-extrabold d-flex justify-content-center" style="font-size: 44px; color: var(--neutral-0);">Marmut-15</p></div>
+                                <div class="row">
+                                        <div class="column">
+                                                <button class="button-primary plus-jakarta-sans-extrabold m-2">Daftar</button>
+                                                <button class="button-secondary plus-jakarta-sans-extrabold m-2">Masuk</button>        
+                                        </div></div>
+                               </div>
+                               
+                        </div>
+                        <div class="col-2"></div>
+                </div>
+                
+        </div>
 {% endblock %}
