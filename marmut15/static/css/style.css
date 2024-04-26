@@ -111,3 +111,15 @@ body {
 .button-secondary:hover {
     border-color: var(--neutral-2); /* Warna border saat hover */
 }
+
+/* Style untuk tab aktif */
+.nav-link.active {
+    color: var(--neutral-0) !important; /* Warna teks saat aktif */
+    background-color: black !important; /* Warna latar belakang saat aktif */
+}
+
+/* Style untuk tab nonaktif */
+.nav-link:not(.active) {
+    color: var(--neutral-6) !important; /* Warna teks saat nonaktif */
+    background-color: transparent !important; /* Latar belakang transparan saat nonaktif */
+}
