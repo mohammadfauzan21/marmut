@@ -2,126 +2,35 @@
 {% load static %}
 
 {% block content %}
+
 <style>
-    
-/* Style untuk tab aktif */
-.nav-link.active {
-    color: var(--neutral-0) !important; /* Warna teks saat aktif */
-    background-color: var(--neutral-4) !important; /* Warna latar belakang saat aktif */
-}
-
-/* Style untuk tab nonaktif */
-.nav-link:not(.active) {
-    color: var(--neutral-1) !important; /* Warna teks saat nonaktif */
-    background-color: transparent !important; /* Latar belakang transparan saat nonaktif */
-}
-
-/* Style untuk label input */
-label {
-    color: var(--neutral-0); /* Misalnya, warna teks biru */
-}
-
-/* Warna untuk input */
-input, select {
-    color: var(--neutral-0) !important; /* Misalnya, warna teks merah */
-    background-color: transparent !important;
-}
-
-input.form-control:focus {
-    background-color: var(--neutral-2) !important; 
-    border: 2px solid var(--neutral-2) !important;
-}
-
-::placeholder{
-    color: var(--neutral-2) !important;
-    font-size: small;
-}
-
-.form-control{
-    border: 2px solid var(--neutral-3);
-    padding-block: 12px;
-    border-radius: 16px;
-    margin-bottom: 12px;
-}
-
-.form-select {
-    border: 2px solid var(--neutral-2) !important;
-    padding-block: 16px;
-    border-radius: 16px;
-    margin-bottom: 12px;
-}
-
 .container-parent{
-    background-color: var(--neutral-8);
-    min-height: 100vh;
-    background-image: url('{% static "img/background.svg" %}');
-    background-size: cover;
-    background-position: center;
-}
-
-.form-check-input[type=checkbox]{
-    border-color: var(--neutral-3);
-    border-radius: 0.4em;
-}
-
-/* Media query untuk layar besar ke atas */
-@media (min-width: 992px) {
-    .margin-konten-screen-lg {
-        margin-inline: 30vw;
+        background-color: var(--neutral-8);
+        min-height: 100vh;
+        background-image: url('{% static "img/background.svg" %}');
+        background-size: cover;
+        background-position: center;
     }
-}
-
-</style>
-
-<div class="container-fluid container-parent">
-    <div class="row">
-        <div class="col p-3 w-100 d-flex align-items-end" style="background-color: var(--neutral-6);">
-            <img src="{% static 'img/logo-sm.svg' %}" alt="Logo Marmut-15" >
-            <p class="plus-jakarta-sans-extrabold mx-2" style="font-size: 36; color: var(--neutral-0);">Marmut-15</p>
-        </div>
-        <div class="col-8 container-fluid d-flex justify-content-center align-items-center w-100 my-5">
-            <div class="row d-flex container-fluid justify-content-center align-items-center">
-                <p class="plus-jakarta-sans-extrabold my-4 d-flex justify-content-center" style="font-size: 24px; color: var(--neutral-0);">Masuk Akun Marmut-15</p>
-                
-                <div class="tab-content d-flex justify-content-center" id="pills-tabContent">
-                    <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
-                        <form class="d-flex justify-content-center align-items-center">
-                            <div class="margin-konten-screen-lg row container-fluid d-flex justify-content-center align-items-center">
-                                <div class="row-sm-6 container">
-                                    <label for="exampleFormControlInput1"><p class="m-auto plus-jakarta-sans-bold" style="font-size: 12px;">Email address</p></label>
-                                    <input type="email" class="form-control plus-jakarta-sans-regular" id="exampleFormControlInput1" placeholder="">
+    </style>
+        <div class="container-fluid container-parent" style="background-color: var(--neutral-8); ">
+        
+                <div class="row">
+                        <div class="col-2"></div>
+                        <div class="col-8 d-flex justify-content-center align-items-center" style="height: 100vh;">
+                               <div class="column">
+                                <div class="row d-flex justify-content-center m-4">
+                                        <img src="{% static 'img/logo.svg' %}" alt="Logo Mrmut-15"></div>
+                                <div class="row d-flex justify-content-center m-4"><p class="plus-jakarta-sans-extrabold d-flex justify-content-center" style="font-size: 44px; color: var(--neutral-0);">Marmut-15</p></div>
+                                        <div class="row">
+                                                <a class="button-primary container-fluid d-flex justify-content-center align-items-center plus-jakarta-sans-extrabold m-2" href="{% url 'register:registerkonten' %}" style="text-decoration: none;">Daftar</a>
+                                                <a class="button-secondary container-fluid d-flex justify-content-center align-items-center  plus-jakarta-sans-extrabold m-2" href="{% url 'login:loginkonten' %}" style="text-decoration: none;">Masuk</a>      
+                                        </div>
                                 </div>
-                                <div class=" row-sm-6 container">
-                                    <label for="exampleFormControlInput1"><p class="m-auto plus-jakarta-sans-bold" style="font-size: 12px;">Password</p></label>
-                                    <input type="password" class="form-control plus-jakarta-sans-regular" id="exampleFormControlInput1" placeholder="">
-                            
-                                </div>
-                                <div class="container-fluid d-flex justify-content-center">
-
-                                    <button type="submit" class="row container d-flex align-items-center justify-content-center plus-jakarta-sans-extrabold button-primary my-4">Submit</button>
-                                </div>
-                                <div class="container d-flex align-items-center justify-content-center">
-                                    <p class="plus-jakarta-sans-regular" style="color: var(--neutral-1); font-size: 12px;">Sudah punya akun? <span class="plus-jakarta-sans-bold" style="color: var(--neutral-0);">Login</span></p>
-                                    
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab" style="color: aliceblue;">Lanjutin Besok</div>
+                               </div>
+                               
+                        </div>
+                        <div class="col-2"></div>
                 </div>
-            </div>
+                
         </div>
-    </div>
-</div>
-
-<script>
-    $(document).ready(function(){
-        $('.datepicker').datepicker({
-            format: 'dd/mm/yyyy',
-            autoclose: true,
-            todayHighlight: true
-        });
-    });
-</script>
-
 {% endblock %}
