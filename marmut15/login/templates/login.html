@@ -15,32 +15,102 @@
     color: var(--neutral-1) !important; /* Warna teks saat nonaktif */
     background-color: transparent !important; /* Latar belakang transparan saat nonaktif */
 }
+
+/* Style untuk label input */
+label {
+    color: var(--neutral-0); /* Misalnya, warna teks biru */
+}
+
+/* Warna untuk input */
+input, select {
+    color: var(--neutral-0) !important; /* Misalnya, warna teks merah */
+    background-color: transparent !important;
+}
+
+::placeholder{
+    color: var(--neutral-2) !important;
+    font-size: small;
+}
+
+.form-control{
+    border: 2px solid var(--neutral-3);
+    padding-block: 12px;
+    border-radius: 16px;
+    margin-bottom: 12px;
+}
+
+.form-select {
+    border: 2px solid var(--neutral-2) !important;
+    padding-block: 16px;
+    border-radius: 16px;
+    margin-bottom: 12px;
+}
+
+.container-parent{
+    background-color: var(--neutral-8);
+    min-height: 100vh;
+}
+
+.form-check-input[type=checkbox]{
+    border-color: var(--neutral-3);
+    border-radius: 0.4em;
+}
+
+/* Media query untuk layar besar ke atas */
+@media (min-width: 992px) {
+    .margin-konten-screen-lg {
+        margin-inline: 30vw;
+    }
+}
+
 </style>
 
-<div class="container-fluid tab-1" style="height: 100vh;">
-    <div class="row tab-2">
-        <div class="col-2 p-3 w-100 d-flex align-items-end" style="background-color: var(--neutral-6);">
+<div class="container-fluid container-parent">
+    <div class="row">
+        <div class="col p-3 w-100 d-flex align-items-end" style="background-color: var(--neutral-6);">
             <img src="{% static 'img/logo-sm.svg' %}" alt="Logo Marmut-15" >
             <p class="plus-jakarta-sans-extrabold mx-2" style="font-size: 36; color: var(--neutral-0);">Marmut-15</p>
         </div>
-        <div class="col-8 tab-3 container-fluid d-flex justify-content-center align-items-center" style="height: 90vh;">
-            <div class="row tab-4 d-flex container-fluid justify-content-center align-items-center">
-                <p class="plus-jakarta-sans-extrabold my-4 d-flex justify-content-center" style="font-size: 24px; color: var(--neutral-0);">Daftar Marmut-15</p>
-                <ul class="nav tab-5 nav-pills mb-3 d-flex justify-content-center align-items-center" id="pills-tab" role="tablist">
-                    <li class="nav-item tab-6 p-1" style="background-color: var(--neutral-6); border-top-left-radius: 16px; border-bottom-left-radius: 16px;" role="presentation">
-                      <button class="nav-link active plus-jakarta-sans-extrabold" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true" style="font-size: 16; width: 196px; border-radius: 12px; font-weight: 900;">Pengguna</button>
-                    </li>
-                    <li class="nav-item p-1" style="background-color: var(--neutral-6); border-top-right-radius: 16px; border-bottom-right-radius: 16px;" role="presentation">
-                      <button class="nav-link plus-jakarta-sans-extrabold" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false"  style="font-size: 16; width: 196px; border-radius: 12px; font-weight: 900;">Label</button>
-                    </li>
-                </ul>
+        <div class="col-8 container-fluid d-flex justify-content-center align-items-center w-100 my-5">
+            <div class="row d-flex container-fluid justify-content-center align-items-center">
+                <p class="plus-jakarta-sans-extrabold my-4 d-flex justify-content-center" style="font-size: 24px; color: var(--neutral-0);">Masuk Akun Marmut-15</p>
+                
                 <div class="tab-content d-flex justify-content-center" id="pills-tabContent">
-                    <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab" style="color: aliceblue;">Lorem Ipsum</div>
+                    <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+                        <form class="d-flex justify-content-center align-items-center">
+                            <div class="margin-konten-screen-lg row container-fluid d-flex justify-content-center align-items-center">
+                                <div class="row-sm-6 container">
+                                    <label for="exampleFormControlInput1"><p class="m-auto plus-jakarta-sans-bold" style="font-size: 12px;">Email address</p></label>
+                                    <input type="email" class="form-control plus-jakarta-sans-regular" id="exampleFormControlInput1" placeholder="">
+                                </div>
+                                <div class=" row-sm-6 container">
+                                    <label for="exampleFormControlInput1"><p class="m-auto plus-jakarta-sans-bold" style="font-size: 12px;">Password</p></label>
+                                    <input type="password" class="form-control plus-jakarta-sans-regular" id="exampleFormControlInput1" placeholder="">
+                            
+                                </div>
+                                <button type="submit" class="row container d-flex align-items-center justify-content-center plus-jakarta-sans-extrabold button-primary my-4">Submit</button>
+                                <div class="container d-flex align-items-center justify-content-center">
+                                    <p class="plus-jakarta-sans-regular" style="color: var(--neutral-1); font-size: 12px;">Sudah punya akun? <span class="plus-jakarta-sans-bold" style="color: var(--neutral-0);">Login</span></p>
+                                    
+                                </div>
+                            </div>
+                        </form>
+                    </div>
                     <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab" style="color: aliceblue;">Lanjutin Besok</div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<script>
+    $(document).ready(function(){
+        $('.datepicker').datepicker({
+            format: 'dd/mm/yyyy',
+            autoclose: true,
+            todayHighlight: true
+        });
+    });
+</script>
 
 {% endblock %}
