@@ -22,6 +22,7 @@ urlpatterns = [
     path('', include('preboarding.urls')),
     path('login/', include('login.urls')),
     path('register/', include('register.urls')),
+    path('podcast/', include('podcast.urls')),
     # path('user/dashboard/', include('dashboarduser.urls')),
     # path('artist/dashboard/', include('dashboardartist.urls')),
     # path('songwriter/dashboard/', include('dashboardsongwriter.urls')),

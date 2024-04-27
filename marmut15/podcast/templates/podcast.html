@@ -1,0 +1,151 @@
+{% extends 'base.html' %} 
+{% load static %}
+
+{% block content %}
+<style>
+/* CSS untuk navbar */
+.navbar {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 24px;
+    gap: 24px;
+    width: 300px;
+    height: 312px;
+    background: #1D1C1B;
+    border-radius: 36px;
+}
+
+.nav-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    width: 100%;
+    height: 48px;
+}
+
+.nav-item-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    background: #FF7816;
+    border-radius: 20px;
+}
+
+.nav-item-icon img {
+    width: 32px;
+    height: 32px;
+}
+
+.nav-item-text {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 800;
+    font-size: 16px;
+    line-height: 24px;
+    color: #FFFFFF;
+}
+/* CSS untuk konten podcast */
+.container {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    padding: 24px;
+    gap: 24px;
+    width: 1068px;
+    height: 813px;
+    background: linear-gradient(180deg, #292724 0%, #1B1817 100%);
+    border-radius: 24px;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0px;
+    gap: 48px;
+    width: 1020px;
+    height: 677px;
+}
+
+/* Sisipkan seluruh CSS untuk konten podcast di sini */
+</style>
+</head>
+<body>
+    <div class="navbar">
+        <div class="nav-item">
+            <div class="nav-item-icon">
+                <img src="{% static 'img/icon1.svg' %}" alt="Icon Home">
+            </div>
+            <div class="nav-item-text">Beranda</div>
+        </div>
+        <div class="nav-item">
+            <div class="nav-item-icon">
+                <img src="{% static 'img/icon2.svg' %}" alt="Icon Chart">
+            </div>
+            <div class="nav-item-text">Chart</div>
+        </div>
+        <div class="nav-item">
+            <a href="podcast.html" class="nav-item-link"> <!-- Tautan ke podcast.html -->
+                <div class="nav-item-icon">
+                    <img src="{% static 'img/icon3.svg' %}" alt="Icon Podcast">
+                </div>
+                <div class="nav-item-text">Podcast</div>
+            </a>
+        </div>
+        <div class="nav-item">
+            <div class="nav-item-icon">
+                <img src="{% static 'img/icon4.svg' %}" alt="Icon Playlist">
+            </div>
+            <div class="nav-item-text">Playlist</div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="content">
+            <div class="header">
+                <div class="logo-container">
+                    <div class="logo">Telusuri Podcast</div>
+                    <div class="subtext">Podcast hadir untuk menemani harimu</div>
+                </div>
+            </div>
+            <div class="podcast-list">
+                <div class="podcast-item">
+                    <div class="item-number">No</div>
+                    <div class="item-title">Judul Podcast</div>
+                    <div class="item-name">Nama Pembuat Podcast</div>
+                    <div class="item-duration">Durasi</div>
+                    <div class="item-action">Tindakan</div>
+                </div>
+                <div class="separator"></div>
+                <!-- Contoh Item Podcast -->
+                <div class="podcast-item">
+                    <div class="item-number">01</div>
+                    <div class="item-title">Menjadi Pembuat Podcast</div>
+                    <div class="item-name">Jenny Doe</div>
+                    <div class="item-duration">32:45</div>
+                    <div class="item-action"><button>Telusuri</button></div>
+                </div>
+                <!-- Contoh Item Podcast -->
+                <div class="podcast-item">
+                    <div class="item-number">02</div>
+                    <div class="item-title">Mengedit Podcast</div>
+                    <div class="item-name">John Smith</div>
+                    <div class="item-duration">28:30</div>
+                    <div class="item-action"><button>Telusuri</button></div>
+                </div>
+                <!-- Contoh Item Podcast -->
+                <div class="podcast-item">
+                    <div class="item-number">03</div>
+                    <div class="item-title">Menyebarkan Podcast</div>
+                    <div class="item-name">Emma Johnson</div>
+                    <div class="item-duration">41:12</div>
+                    <div class="item-action"><button>Telusuri</button></div>
+                </div>
+            </div>
+        </div>
+    </div>    
+</body>
+</html>
+{% endblock %}
