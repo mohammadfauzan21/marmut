@@ -27,6 +27,14 @@ input, select {
     background-color: transparent !important;
 }
 
+input.form-control:focus {
+    background-color: var(--neutral-2) !important; 
+    border: 2px solid var(--neutral-2) !important;
+    border-color: orange;
+    outline: 0 !important; /* Hilangkan outline biru pada saat fokus */
+}
+
+
 ::placeholder{
     color: var(--neutral-2) !important;
     font-size: small;
@@ -139,7 +147,10 @@ input, select {
                                         </label>
                                     </div>
                                 </div>
-                                <button type="submit" class="row container d-flex align-items-center justify-content-center plus-jakarta-sans-extrabold button-primary my-4">Submit</button>
+                                <div class="container-fluid d-flex justify-content-center">
+
+                                    <button type="submit" class="row container d-flex align-items-center justify-content-center plus-jakarta-sans-extrabold button-primary my-4">Submit</button>
+                                </div>
                                 <div class="container d-flex align-items-center justify-content-center">
                                     <p class="plus-jakarta-sans-regular" style="color: var(--neutral-1); font-size: 12px;">Sudah punya akun? <span class="plus-jakarta-sans-bold" style="color: var(--neutral-0);">Login</span></p>
                                     
@@ -166,7 +177,10 @@ input, select {
                                     <label for="exampleFormControlInput1"><p class="m-auto plus-jakarta-sans-bold" style="font-size: 12px;">Kontak</p></label>
                                     <input type="text" class="form-control plus-jakarta-sans-regular" id="exampleFormControlInput1" placeholder="">
                                 </div>
-                                <button type="submit" class="row container d-flex align-items-center justify-content-center plus-jakarta-sans-extrabold button-primary my-4">Submit</button>
+                                <div class="container-fluid d-flex justify-content-center">
+
+                                    <button type="submit" class="row container d-flex align-items-center justify-content-center plus-jakarta-sans-extrabold button-primary my-4">Submit</button>
+                                </div>
                                 <div class="container d-flex align-items-center justify-content-center">
                                     <p class="plus-jakarta-sans-regular" style="color: var(--neutral-1); font-size: 12px;">Sudah punya akun? <span class="plus-jakarta-sans-bold" style="color: var(--neutral-0);">Login</span></p>
                                     

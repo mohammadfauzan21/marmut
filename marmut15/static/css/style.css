@@ -75,7 +75,7 @@ body {
 }
 
 .button-primary{
-  padding-inline: 24px;
+  padding-inline: 52px;
   padding-block: 12px;
     border-radius: 16px;
     background-color: var(--primary);
@@ -84,8 +84,8 @@ body {
 
 }
 .button-primary:hover{
-    padding-inline: 28px;
-    padding-block: 12px;
+  padding-inline: 52px;
+  padding-block: 12px;
     border-radius: 16px;
     background-color: var(--primary2);
     color: var(--neutral-0);
