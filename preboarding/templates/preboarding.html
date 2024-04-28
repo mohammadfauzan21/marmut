@@ -21,11 +21,11 @@
                                 <div class="row d-flex justify-content-center m-4">
                                         <img src="{% static 'img/logo.svg' %}" alt="Logo Mrmut-15"></div>
                                 <div class="row d-flex justify-content-center m-4"><p class="plus-jakarta-sans-extrabold d-flex justify-content-center" style="font-size: 44px; color: var(--neutral-0);">Marmut-15</p></div>
-                                        <div class="row">
-                                                <a class="button-primary container d-flex justify-content-center align-items-center plus-jakarta-sans-extrabold m-2" href="{% url 'register:registerkonten' %}" style="text-decoration: none;">Daftar</a>
-                                                <a class="button-secondary container d-flex justify-content-center align-items-center  plus-jakarta-sans-extrabold m-2" href="{% url 'login:loginkonten' %}" style="text-decoration: none;">Masuk</a>      
-                                        </div>
-                                </div>
+                                <div class="row">
+                                        <div class="column d-flex justify-content-center">
+                                                <a href="{% url 'login:loginkonten' %}" class="button-primary plus-jakarta-sans-extrabold m-2">Masuk</a>
+                                                <a href="{% url 'register:registerkonten' %}" class="button-secondary plus-jakarta-sans-extrabold m-2">Daftar</a>
+                                        </div></div>
                                </div>
                                
                         </div>

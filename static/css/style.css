@@ -81,6 +81,7 @@ body {
     background-color: var(--primary);
     color: var(--neutral-0);
     border:0px;
+    text-decoration: none;
 
 }
 .button-primary:hover{
@@ -89,6 +90,7 @@ body {
     border-radius: 16px;
     background-color: var(--primary2);
     color: var(--neutral-0);
+    text-decoration: none;
 
 }
 .button-secondary {
@@ -100,8 +102,10 @@ body {
     background-color: transparent;
     border-width: 2px; /* Lebar border */
     border-style: solid; /* Jenis garis border */
+    text-decoration: none;
 }
 
 .button-secondary:hover {
     border-color: var(--neutral-2); /* Warna border saat hover */
+    text-decoration: none;
 }

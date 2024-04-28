@@ -149,8 +149,10 @@ input.form-control:focus {
                                     </div>
                                 </div>
                                 <div class="container-fluid d-flex justify-content-center">
-
-                                    <button type="submit" class="row container d-flex align-items-center justify-content-center plus-jakarta-sans-extrabold button-primary my-4">Submit</button>
+                                    <form action="{% url 'login:loginkonten' %}" method="POST">
+                                        {% csrf_token %}
+                                        <button type="submit" class="row container d-flex align-items-center justify-content-center plus-jakarta-sans-extrabold button-primary my-4">Submit</button>
+                                    </form>
                                 </div>
                                 <div class="container d-flex align-items-center justify-content-center">
                                     <p class="plus-jakarta-sans-regular" style="color: var(--neutral-1); font-size: 12px;">Sudah punya akun? <span class="plus-jakarta-sans-bold" style="color: var(--neutral-0);">Login</span></p>
@@ -179,8 +181,10 @@ input.form-control:focus {
                                     <input type="text" class="form-control plus-jakarta-sans-regular" id="exampleFormControlInput1" placeholder="">
                                 </div>
                                 <div class="container-fluid d-flex justify-content-center">
-
-                                    <button type="submit" class="row container d-flex align-items-center justify-content-center plus-jakarta-sans-extrabold button-primary my-4">Submit</button>
+                                    <form action="{% url 'login:loginkonten' %}" method="POST">
+                                        {% csrf_token %}
+                                        <button type="submit" class="row container d-flex align-items-center justify-content-center plus-jakarta-sans-extrabold button-primary my-4">Submit</button>
+                                    </form>
                                 </div>
                                 <div class="container d-flex align-items-center justify-content-center">
                                     <div class="plus-jakarta-sans-regular" style="color: var(--neutral-1); font-size: 12px;">Sudah punya akun? <a class="plus-jakarta-sans-bold" style="color: var(--neutral-0); text-decoration: underline;" href="{% url 'register:registerkonten' %}">Login</a></div>
