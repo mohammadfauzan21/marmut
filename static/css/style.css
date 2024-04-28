@@ -12,7 +12,7 @@
     --neutral-sup: #1C1714;
     --primary: #FF7816;
     --primary2: #F06B0c;
-    --background-col: linear-gradient(180deg, var(--neutral-sup), var(--neutral-8));
+    --background-col: linear-gradient(180deg, #bb9451, #1B1817);
     
 }
 

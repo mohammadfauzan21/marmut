@@ -1,0 +1,257 @@
+{% extends 'base.html' %} 
+{% load static %}
+
+{% block content %}
+
+<style>
+    input, select {
+    color: var(--neutral-0) !important; /* Misalnya, warna teks merah */
+    background-color: transparent !important;
+}
+
+input.form-control:focus {
+    background-color: var(--neutral-6) !important; 
+    border: 0px solid var(--neutral-2) !important;
+}
+
+
+::placeholder{
+    color: var(--neutral-0) !important;
+    font-size:medium;
+    font-weight: 600;
+}
+    .top-content{  
+        background-image: url('{% static "img/dashboard-bg.svg" %}');
+        margin-bottom: -36px;
+    }
+    .top-content, .secondary-content{
+        min-height: 100%;
+        min-width: 100%;
+    }
+    .secondary-content{
+        margin-block: 24px;
+    }
+
+    .tertiary-content-1{
+        /* min-width: 240px;
+        max-width: 180px; */
+    }
+    @media only screen and (max-width: 2000px) {
+        
+        .tertiary-content-1{
+            min-width: 468px;
+        }
+        }
+
+    @media only screen and (max-width: 1900px) {
+        
+        .tertiary-content-1{
+            min-width: 420px;
+        }
+        }
+
+    @media only screen and (max-width: 1800px) {
+        
+        .tertiary-content-1{
+            min-width: 400px;
+        }
+        }
+
+    @media only screen and (max-width: 1700px) {
+        
+        .tertiary-content-1{
+            min-width: 380px;
+        }
+        }
+
+    @media only screen and (max-width: 1560px) {
+        
+        .tertiary-content-1{
+            min-width: 348px;
+        }
+        }
+
+    @media only screen and (max-width: 1440px) {
+        
+        .tertiary-content-1{
+            min-width: 340px;
+        }
+        }
+
+    @media only screen and (max-width: 1396px) {
+        
+        .tertiary-content-1{
+            min-width: 320px;
+        }
+        }
+
+    @media only screen and (max-width: 1344px) {
+        
+        .tertiary-content-1{
+            min-width: 284px;
+        }
+        }
+    @media only screen and (max-width: 1196px) {
+    
+    .tertiary-content-1{
+        min-width: 264px;
+    }
+    }
+    @media only screen and (max-width: 1100px) {
+    
+    .tertiary-content-1{
+        min-width: 236px;
+    }
+    }
+
+    @media only screen and (max-width: 998px) {
+    
+    .tertiary-content-1{
+        min-width: 264px;
+    }
+    }
+
+    @media only screen and (max-width: 996px) {
+    
+    .tertiary-content-1{
+        min-width: 224px;
+    }
+    }
+    @media only screen and (max-width: 988px) {
+    
+    .tertiary-content-1{
+        min-width: 284px;
+    }
+    }
+
+    @media only screen and (max-width: 896px) {
+    
+    .tertiary-content-1{
+        min-width: 264px;
+    }
+    }
+
+    @media only screen and (max-width: 836px) {
+    
+    .tertiary-content-1{
+        min-width: 244px;
+    }
+    }
+    
+    @media only screen and (max-width: 776px) {
+    
+    .tertiary-content-1{
+        min-width: 236px;
+    }
+    }
+    @media only screen and (max-width: 764px) {
+    
+    .tertiary-content-1{
+        min-width: 284px;
+    }
+    }
+    @media only screen and (max-width: 728px) {
+    
+    .tertiary-content-1{
+        min-width: 264px;
+    }
+    }
+
+    @media only screen and (max-width: 676px) {
+    
+    .tertiary-content-1{
+        min-width: 260px;
+    }
+    }
+    @media only screen and (max-width: 632px) {
+    
+    .tertiary-content-1{
+        min-width: 224px;
+    }
+    }
+    @media only screen and (max-width: 684px) {
+    
+    .tertiary-content-1{
+        min-width: 244px;
+    }
+    }
+
+    @media only screen and (max-width: 644px) {
+    
+    .tertiary-content-1{
+        min-width: 232px;
+    }
+    }
+    
+    @media only screen and (max-width: 604px) {
+    
+    .tertiary-content-1{
+        min-width: 212px;
+    }
+    }
+    @media only screen and (max-width: 576px) {
+    
+    .tertiary-content-1{
+        min-width: 10px;
+        max-width: 100%;
+        margin-bottom: 24px;
+    }
+    }
+    body{
+    }
+
+    transparent-bg{
+        background-color: transparent;
+    }
+
+</style>
+<div class="container-fluid bg-black top-content d-flex justify-content-center align-item-start">
+    <div class="row secondary-content container-fluid d-flex justify-content-center align-item-start no-gutters" style="">
+        <div class="col-sm-1 transparent-bg col-xxl-2 col-xl-2 col-md-1 col-lg-2 tertiary-content-1 d-flex container-fluid" style="margin-left: -2px;">
+            <div class="row container-fluid d-flex justify-content-start align-item-start tertiary-content-1" style="width: 100%; margin-inline: -12px;">
+
+                <!-- Atur Height Navbar -->
+                <div class=" container-fluid d-flex transparent-bg" style="width: 100%; margin-block: 12px; height: 36vh; margin-top: 36px; margin-bottom: 36px; border-radius: 24px;">
+                    <div class="row container-fluid d-flex " style="background-color: var(--neutral-5); width: 110%; margin-block: 12px; border-radius: 24px; margin-block: -1px;">
+                    ed
+                    </div>
+                </div>
+                <!-- Atur juga tinggi konten -->
+                <div class="container-fluid d-flex" style="background-color: var(--neutral-5); width: 100%; height: 52vh; border-radius: 24px; margin-top: -12px;">
+                    w
+                </div>
+            </div>
+            
+        </div>
+        
+        <div class="col-sm-7 col-xxl-9 col-xl-9 col-md-8 col-lg-9 transparent-bg tertiary-content-2 d-flex container-fluid" style="margin-right: -2px; height: 95%;">
+            <div class="row container-fluid d-flex justify-content-start align-item-start tertiary-content-1" style="width: 100%; margin-inline: -12px;">
+
+                <div class=" container-fluid d-flex transparent-bg" style="width: 100%; height: 8vh; margin-top: 36px; margin-bottom: 36px; border-radius: 24px; align-items: center;">
+                    <div class="row container-fluid d-flex justify-content-start" style="background-color: var(--neutral-5); width: 100%; margin-block: 12px; border-radius: 24px; margin-block: -1px; padding-block: 12px; ">
+                        
+                        <div class="col-md-11 row-lg-11 row-sm-6  container">
+                            <input type="text" class="form-control plus-jakarta-sans-bold" id="exampleFormControlInput1" placeholder="Cari lagu, album, atau playlist..." style="background-color: transparent; border: none;">
+                            
+                        </div>
+                        <div class="col-md-1 row-lg-1 container d-flex justify-content-end" style="max-width: 20px; margin-left: 8px;">
+                            <a type="submit" href="">
+                                <img src="{% static 'img/search.svg' %}" alt="search"></a>
+                                
+                        </div>
+                    </div>
+                    <a href="" class="row container-fluid d-flex " style="background-color: var(--neutral-5); width: 20%; margin-block: 12px; border-radius: 24px; width: 96px; margin-left: 36px; margin-block: -1px; height: 8vh; justify-content: center; align-items: center;">
+                        <img src="{% static 'img/logout.svg' %}" alt="Logout" width="32px" height="32px">
+                    </a>
+                </div>
+                <div class="container-fluid content-bg d-flex" style="
+                background: #38120B;
+                background: linear-gradient(180deg, #292724, #1B1817); width: 100%; height: 80vh; border-radius: 24px; margin-top: -12px;">
+                    w
+                </div>
+            </div>
+        </div>
+        <div class="col-12 container-fluid transparent-bg" style=" height: 72px;">j</div>
+    </div>
+</div>
+{% endblock %}
