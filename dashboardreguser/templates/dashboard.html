@@ -381,7 +381,7 @@
                     </div>
                 </div>
                 <div class=" container-fluid d-flex"
-                    style="width: 100%; height: fit-content; border-radius: 24px;">
+                    style="width: 100%; height: fit-content; border-radius: 24px; margin-top: 25px; margin-bottom: 10px;">
                     <div class="row container-fluid"
                         style="background-color: var(--neutral-5); width: 100%; border-radius: 24px; margin-top: -2em; ">
                         <div class="container" style="margin-top: 10px;">
@@ -718,7 +718,7 @@
         </div>
 
         <div class="col-sm-7 col-xxl-9 col-xl-9 col-md-8 col-lg-9 transparent-bg tertiary-content-2 d-flex container-fluid"
-            style="margin-right: -2px; height: 95%;">
+            style="margin-right: -2px; height: 95%; margin-bottom: 10px;">
             <div class="row container-fluid d-flex justify-content-start align-items-start tertiary-content-1"
                 style="width: 100%; margin-inline: -12px;">
 
@@ -738,13 +738,14 @@
                                 <img src="{% static 'img/search.svg' %}" alt="search"></a>
                         </div>
                     </div>
-                    <a href="" class="row container-fluid d-flex "
+                    <a href="{% url 'preboarding:konten' %}" class="row container-fluid d-flex "
                         style="background-color: var(--neutral-5); border-radius: 24px; width: 80px; margin-left: 36px; margin-block: -1px; height: 7vh; justify-content: center; align-items: center;">
                         <img src="{% static 'img/logout.svg' %}" alt="Logout" width="30px" height="30px">
                     </a>
                 </div>
                 <div class="container-fluid"
-                    style="background: linear-gradient(180deg, #292724, #1B1817); width: 100%; border-radius: 24px; margin-top: -1.2em; height: max-content; padding-bottom: 25px; padding-top: 20px;">
+                    style="background: linear-gradient(180deg, #292724, #1B1817); width: 100%; border-radius: 24px; margin-top: -1.2em; height: max-content; padding-bottom: 25px; padding-top: 20px;
+                    margin-top: 10px;">
                     <h1 class="plus-jakarta-sans-extrabold align-item-center"
                         style="margin-left: 15px; color: var(--neutral-0); margin-top: 10px;">Profil Saya
                     </h1>
@@ -801,38 +802,38 @@
     </div>
 </div>
 <footer class="position-absolute d-flex justify-content-between align-items-center" style="top: 90vh; width: 100%; height: 10vh; background-color: transparent">
-    <div class="d-flex align-items-center" style="margin-left: 50px;">
-        <img src="{% static 'img/default.png' %}" alt="kelola" style="width: 50px; height: 50px; background-color: #292724; border-radius: 20px;">
+    <div class="d-flex align-items-center" style="margin-left: 50px; margin-top: 20px;">
+        <img src="{% static 'img/default.png' %}" alt="kelola" style="width: 30px; height: 30px; background-color: #292724; border-radius: 20px;">
         <div style="margin: 0 12px; margin-top: 5px;">
-            <h3 class="plus-jakarta-sans-extrabold" style="font-size: 17px; color: #ffffff;">buat judul</h3>
-            <h3 class="plus-jakarta-sans-medium" style="font-size: 13px; color: var(--neutral-1)">buat nama penyanyi</h3>
+            <h3 class="plus-jakarta-sans-extrabold" style="font-size: 13px; color: #ffffff;">buat judul</h3>
+            <h3 class="plus-jakarta-sans-medium" style="font-size: 10px; color: var(--neutral-1)">buat nama penyanyi</h3>
         </div>
         <div class="d-flex">
             <a href="" class="mx-1">
-                <img src="{% static 'img/PlusCircle.svg' %}" alt="kelola" style="width: 24px; height: 24px; background-color: #292724;">
+                <img src="{% static 'img/PlusCircle.svg' %}" alt="kelola" style="width: 18px; height: 18px; background-color: #292724;">
             </a>
             <a href="" class="mx-1">
-                <img src="{% static 'img/Download.svg' %}" alt="kelola" style="width: 24px; height: 24px; background-color: #292724;">
+                <img src="{% static 'img/Download.svg' %}" alt="kelola" style="width: 18px; height: 18px; background-color: #292724;">
             </a>
         </div>
     </div>
-    <div style="margin-left: -150px; width: 500px;">
+    <div style="margin-left: -150px; width: 500px; align-content: center;">
         <div class="d-flex align-items-center" style="">
             <a href="" style="margin: 0 7px; margin-left: 180px;">
                 <img src="{% static 'img/LeftSkipStartFill.svg' %}" alt="kelola"
-                    style="width: 27px; height: 27px; background-color: #292724;">
+                    style="width: 23px; height: 23px; background-color: #292724;">
             </a>
             <a href="" style="margin: 0 7px;">
                 <img src="{% static 'img/PauseCircleFill.svg' %}" alt="kelola"
-                    style="width: 27px; height: 27px; background-color: #292724;">
+                    style="width: 23px; height: 23px; background-color: #292724;">
             </a>
             <a href="" style="margin: 0 7px;">
                 <img src="{% static 'img/StopCircleFill.svg' %}" alt="kelola"
-                    style="width: 27px; height: 27px; background-color: #292724;">
+                    style="width: 23px; height: 23px; background-color: #292724;">
             </a>
             <a href="" style="margin: 0 7px;">
                 <img src="{% static 'img/RightSkipStartFill.svg' %}" alt="kelola"
-                    style="width: 27px; height: 27px; background-color: #292724;">
+                    style="width: 23px; height: 23px; background-color: #292724;">
             </a>
         </div>
         <input type="range" id="vol" name="vol" min="0" max="100">

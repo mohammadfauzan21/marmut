@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'dashboardartist',
     'dashboardsongwriter',
     'dashboardlabel',
+    'dashboardpodcaster',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

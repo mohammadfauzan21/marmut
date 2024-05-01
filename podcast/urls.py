@@ -1,4 +1,4 @@
-from django.urls import include,path
+from django.urls import path
 from podcast.views import podcast_view, detail_podcast
 
 app_name = 'podcast'
