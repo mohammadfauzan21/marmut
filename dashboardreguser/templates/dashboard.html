@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <style>
+        .container {
+            display: grid;
+            grid-template-columns: 1fr 4fr;
+            position: relative;
+            margin-bottom: -22px;
+        }
+
+        .leftcontainer {
+            background-color: palevioletred;
+            margin: 0;
+        }
+
+        .rightcontainer {
+            background-color: aqua;
+        }
+        .leftcontainer .fitur ul{
+            list-style: none;
+        }
+        .leftcontainer .fitur ul li{
+            padding: 10px 0px;
+            margin: 3% 0;
+        }
+        .leftcontainer .fitur ul li a{
+            color: #504B48;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 120%;
+        }
+        .leftcontainer .fitur ul li a:hover{
+            color: white;
+        }
+        .leftcontainer .fitur ul li a:active{
+            
+        }
+        .leftcontainer .fitur ul li a:focus{
+            color: #ffffff;
+        }
+
+        .leftcontainer .ownContent{
+            margin: 0;
+        }
+        .leftcontainer .ownContent .pilContent {
+            background-color: red;
+            margin: 0 5%;
+        }
+
+        .leftcontainer .ownContent .pilContent ul {
+            list-style: none;
+            display: flex;
+            justify-content: space-between;
+            padding: 0;
+            margin: 0;
+        }
+
+        .leftcontainer .ownContent .pilContent ul li {
+            background-color: #262524;
+            border-radius: 15px;
+            padding: 3% 3%;
+        }
+
+        .leftcontainer .ownContent .pilContent ul li a {
+            text-decoration: none;
+        }
+
+        .leftcontainer .ownContent .pilContent ul li h4{
+            margin: 0;
+            color: #ffffff;
+        }
+
+        .leftcontainer .ownContent .tambahPlaylist{
+            background-color: #FF7816;
+            margin: 5% 5%;
+            padding: 1% 0;
+            display: flex;
+            justify-content: center;
+            border-radius: 30px;
+        }
+
+        .leftcontainer .ownContent .tambahPlaylist a{
+            text-decoration: none;
+        }
+        .leftcontainer .ownContent .tambahPlaylist a h3{
+            color: #ffffff;
+        }
+
+        .leftcontainer .ownContent .content{
+            background-color: blue;
+            margin: 0 5%;
+            /* height: 40vh; */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-direction: column;
+            /* padding: 2px; */
+            max-height: 250px;
+            overflow-y: auto;
+        }
+        .leftcontainer .ownContent .content .oneContent{
+            display: flex;
+            justify-content: space-around;
+            /* flex-direction: column;  */
+            align-items: center;
+            background-color: pink;
+            margin: 1% 2%;
+            width: 90%;
+        }
+        /* .leftcontainer .ownContent .content .oneContent .detailContent{
+            margin: 0;
+            margin-left: 20px; 
+        }
+        .leftcontainer .ownContent .content .oneContent .moreOption{
+            margin: 0;
+            margin-left: 20px; 
+        } */
+
+        footer{
+            background-color: purple;
+            display: flex;
+            height: 16vh;
+            justify-content: space-between;
+        }
+
+        footer .contentPlay{
+            background-color: wheat;
+        }
+
+        footer .statusPlay{
+            background-color:darkgoldenrod ;
+        }
+
+        footer .more{
+            background-color:teal;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="leftcontainer">
+            <div class="fitur" style="background-color: greenyellow; border-radius: 5%; width: 95%;">
+                <ul>
+                    <li>
+                        <a href="">
+                            <span class="fa fa-home"></span>
+                            <span>Beranda</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="">
+                            <span class="fa fa-chart"></span>
+                            <span>Chart</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="">
+                            <span class="fa fa-podcast"></span>
+                            <span>Podcast</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="">
+                            <span class="fa fa-playlist"></span>
+                            <span>Playlist</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="ownContent" style="background-color: burlywood;">
+                <h1>Punya Kamu</h1>
+                <div class="pilContent">
+                    <ul>
+                        <li>
+                            <a href="">
+                                <h4>Playlist</h4>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="">
+                                <h4>Album</h4>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="">
+                                <h4>Podcast</h4>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="tambahPlaylist">
+                    <a href="">
+                        <h3>Tambah Playlist</h3>
+                    </a>
+                </div>
+
+                <div class="content">
+                    <div class="oneContent">
+                        <h4>buat foto</h4>
+                        <div class="detailContent">
+                            <h3>Judul judul judul</h3>
+                            <h4>apakek</h4>
+                        </div>
+                        <div class="moreOption">
+                            <h5>...</h5>
+                        </div>
+                    </div>
+
+                    <div class="oneContent">
+                        <h4>buat foto</h4>
+                        <div class="detailContent">
+                            <h3>Judul judul judul</h3>
+                            <h4>apakek</h4>
+                        </div>
+                        <div class="moreOption">
+                            <h5>...</h5>
+                        </div>
+                    </div>
+
+                    <div class="oneContent">
+                        <h4>buat foto</h4>
+                        <div class="detailContent">
+                            <h3>Judul judul judul</h3>
+                            <h4>apakek</h4>
+                        </div>
+                        <div class="moreOption">
+                            <h5>...</h5>
+                        </div>
+                    </div>
+
+                    <div class="oneContent">
+                        <h4>buat foto</h4>
+                        <div class="detailContent">
+                            <h3>Judul judul judul</h3>
+                            <h4>apakek</h4>
+                        </div>
+                        <div class="moreOption">
+                            <h5>...</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="rightcontainer">
+            <h1>Container kanan</h1>
+        </div>
+    </div>
+    <footer>
+        <div class="contentPlay">
+            <h1>buat lagu</h1>
+        </div>
+        <div class="statusPlay">
+            <h1>buat sniker lagu</h1>
+        </div>
+        <div class="more">
+            <h1>gatau buat apa</h1>
+        </div>
+    </footer>
+</body>
+
+</html>

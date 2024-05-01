@@ -100,13 +100,12 @@ input.form-control:focus {
                                     <a href="{% url 'podcast:podcast' %}" class="row container d-flex align-items-center justify-content-center plus-jakarta-sans-extrabold button-primary my-4">Submit</a>
                                 </div>                                
                                 <div class="container d-flex align-items-center justify-content-center">
-                                    <p class="plus-jakarta-sans-regular" style="color: var(--neutral-1); font-size: 12px;">Sudah punya akun? <span class="plus-jakarta-sans-bold" style="color: var(--neutral-0);">Login</span></p>
+                                    <p class="plus-jakarta-sans-regular" style="color: var(--neutral-1); font-size: 12px;">Belum punya akun? <a class="plus-jakarta-sans-bold" style="color: var(--neutral-0);" href="{% url 'register:registerkonten' %}">Daftar</a></p>
                                     
                                 </div>
                             </div>
                         </form>
                     </div>
-                    <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab" style="color: aliceblue;">Lanjutin Besok</div>
                 </div>
             </div>
         </div>
