@@ -285,6 +285,16 @@ input.form-control:focus {
     text-decoration: none;
 }
 
+.chip-genres {
+    display: inline-block;
+    background-color: var(--neutral-2);
+    border-radius: 15px;
+    padding-inline: 10px;
+    padding-block: 5px;
+    color: var(--neutral-0);
+    width: 64px;
+    text-align: center;
+}
 
 </style>
 <div class="container-fluid bg-black top-content d-flex justify-content-center align-item-start">
@@ -578,108 +588,95 @@ input.form-control:focus {
                     <!-- Daftar podcast -->
                     <div class="row">
                         <div class="col-12" style="margin-left: 30px">
-                            <h2 class="plus-jakarta-sans-extrabold" style="color: var(--neutral-0); font-size: 40px; margin-top: 40px;">Telusuri Podcast</h2>
-                            <p class="plus-jakarta-sans-bold" style="color: var(--neutral-1); font-size: 18px; margin-top: 24px;">Podcast hadir untuk menemani harimu</p>
+                            <div style="height: 60px;">
+                                <a href="{% url 'podcast:podcast' %}" class="container d-flex align-item-center" style="padding-top: 36px; text-decoration: none; height: fit-content;">
+                                    <img src="{% static 'img/back-icon.svg' %}" alt="search" style="width: 20px; height: 20px; margin: left 5px;">
+                                    <p class="plus-jakarta-sans-extrabold align-item-center" style="margin-left: 10px; color: var(--neutral-0); height: auto; align-content: center; height: 20px;">Back</p>
+                                </a>
+                            </div>
+                            <p class="plus-jakarta-sans-bold" style="color: var(--neutral-1); font-size: 13px; margin-top:30px">Podcast</p>
+                            <h2 class="plus-jakarta-sans-extrabold" style="color: var(--neutral-0); font-size: 40px; margin-top: 10px;">Mistery of Love</h2>
+                            <p class="plus-jakarta-sans-bold" style="color: var(--neutral-0); font-size: 20px; margin: top 20px">Fawwaz</p>
+                            <p class="plus-jakarta-sans-bold" style="color: var(--neutral-1); font-size: 13px; margin-top:5px">20 Episodes, 1 jam 2 menit</p>
+                            <p class="plus-jakarta-sans-bold" style="color: var(--neutral-1); font-size: 15px; margin-top: 10px;">Genre</p>
+                            <p class="plus-jakarta-sans-bold chip-genres" style="color: var(--neutral-0); font-size: 13px; margin-top:0px;">Horror</p>
+                            <p class="plus-jakarta-sans-bold chip-genres" style="color: var(--neutral-0); font-size: 13px; margin-top:0px;width: 80px;">Romance</p>
 
                             <!-- Tabel untuk podcast -->
-                            <table class="table-podcast" style="width: 100%; border-collapse: collapse; margin-top: 48px;color: var(--neutral-1); padding: 10px;">
+                            <table class="table-podcast" style="width: 100%; border-collapse: collapse; margin-top: 28px;color: var(--neutral-1); padding: 10px;">
                                 <thead>
                                     <tr style="border-bottom: 1px solid var(--neutral-2);">
                                         <th style="color: var(--neutral-1); padding: 10px;">#</th>
                                         <th style="color: var(--neutral-1); padding-left: 120px;">Judul</th>
-                                        <th style="color: var(--neutral-1); padding-left: 120px;">Podcaster</th>
+                                        <th style="color: var(--neutral-1); padding-left: 120px;">Deskripsi</th>
                                         <th style="color: var(--neutral-1); padding-left: 120px;">Durasi</th>
-                                        <th style="color: var(--neutral-1); padding-left: 120px;">Action</th>
+                                        <th style="color: var(--neutral-1); padding-left: 120px;">Tanggal</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <!-- Gunakan loop untuk menampilkan episode -->
                                     <tr class="plus-jakarta-sans-bold" style="border-bottom: 0px solid var(--neutral-2); font-size:14px; text-align:start;padding:10px; ">
                                         <td style="padding-top: 30px; padding-bottom: 30px;padding: 10px;color: var(--neutral-1);">1</td>
-                                        <td style="padding-top: 30px; padding-bottom: 30px; padding-left: 120px;color: var(--neutral-1);">Mistery of Love</td>
-                                        <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">Fawwaz</td>
-                                        <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">1 jam 2 menit</td>
-                                        <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">
-                                            <a href="{% url 'podcast:detail_podcast' %}" class="button-lihat">Lihat</a>
-                                            <!-- <img src="{% static 'img/threedots.svg' %}" alt="action" style="width: 20px; height: 20px;"> -->
-                                        </td>
+                                        <td style="padding-top: 30px; padding-bottom: 30px; padding-left: 120px;color: var(--neutral-1);">Episode 1</td>
+                                        <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">Ya isinya episode 1</td>
+                                        <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">30 menit</td>
+                                        <td style="padding-top: 30px; padding-bottom: 30px; padding-left: 120px; color: var(--neutral-1);">{{ podcast_date|date:"d/m/Y" }}
                                     </tr>
 
                                     <tr class="plus-jakarta-sans-bold" style="border-bottom: 0px solid var(--neutral-2); font-size:14px; text-align:start;padding:10px; ">
                                         <td style="padding-top: 30px; padding-bottom: 30px;padding: 10px;color: var(--neutral-1);">1</td>
-                                        <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">Mistery of Love</td>
-                                        <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">Fawwaz</td>
-                                        <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">1 jam 2 menit</td>
-                                        <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">
-                                            <a href="{% url 'podcast:detail_podcast' %}" class="button-lihat">Lihat</a>
-                                            <!-- <img src="{% static 'img/threedots.svg' %}" alt="action" style="width: 20px; height: 20px;"> -->
-                                        </td>
+                                        <td style="padding-top: 30px; padding-bottom: 30px; padding-left: 120px;color: var(--neutral-1);">Episode 1</td>
+                                        <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">Ya isinya episode 1</td>
+                                        <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">30 menit</td>
+                                        <td style="padding-top: 30px; padding-bottom: 30px; padding-left: 120px; color: var(--neutral-1);">{{ podcast_date|date:"d/m/Y" }}
                                     </tr>
 
                                     <tr class="plus-jakarta-sans-bold" style="border-bottom: 0px solid var(--neutral-2); font-size:14px; text-align:start;padding:10px; ">
                                         <td style="padding-top: 30px; padding-bottom: 30px;padding: 10px;color: var(--neutral-1);">1</td>
-                                        <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">Mistery of Love</td>
-                                        <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">Fawwaz</td>
-                                        <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">1 jam 2 menit</td>
-                                        <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">
-                                            <a href="{% url 'podcast:detail_podcast' %}" class="button-lihat">Lihat</a>
-                                            <!-- <img src="{% static 'img/threedots.svg' %}" alt="action" style="width: 20px; height: 20px;"> -->
-                                        </td>
+                                        <td style="padding-top: 30px; padding-bottom: 30px; padding-left: 120px;color: var(--neutral-1);">Episode 1</td>
+                                        <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">Ya isinya episode 1</td>
+                                        <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">30 menit</td>
+                                        <td style="padding-top: 30px; padding-bottom: 30px; padding-left: 120px; color: var(--neutral-1);">{{ podcast_date|date:"d/m/Y" }}
                                     </tr>
 
                                     <tr class="plus-jakarta-sans-bold" style="border-bottom: 0px solid var(--neutral-2); font-size:14px; text-align:start;padding:10px; ">
                                         <td style="padding-top: 30px; padding-bottom: 30px;padding: 10px;color: var(--neutral-1);">1</td>
-                                        <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">Mistery of Love</td>
-                                        <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">Fawwaz</td>
-                                        <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">1 jam 2 menit</td>
-                                        <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">
-                                            <a href="{% url 'podcast:detail_podcast' %}" class="button-lihat">Lihat</a>
-                                            <!-- <img src="{% static 'img/threedots.svg' %}" alt="action" style="width: 20px; height: 20px;"> -->
-                                        </td>
+                                        <td style="padding-top: 30px; padding-bottom: 30px; padding-left: 120px;color: var(--neutral-1);">Episode 1</td>
+                                        <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">Ya isinya episode 1</td>
+                                        <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">30 menit</td>
+                                        <td style="padding-top: 30px; padding-bottom: 30px; padding-left: 120px; color: var(--neutral-1);">{{ podcast_date|date:"d/m/Y" }}
                                     </tr>
 
                                     <tr class="plus-jakarta-sans-bold" style="border-bottom: 0px solid var(--neutral-2); font-size:14px; text-align:start;padding:10px; ">
                                         <td style="padding-top: 30px; padding-bottom: 30px;padding: 10px;color: var(--neutral-1);">1</td>
-                                        <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">Mistery of Love</td>
-                                        <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">Fawwaz</td>
-                                        <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">1 jam 2 menit</td>
-                                        <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">
-                                            <a href="{% url 'podcast:detail_podcast' %}" class="button-lihat">Lihat</a>
-                                            <!-- <img src="{% static 'img/threedots.svg' %}" alt="action" style="width: 20px; height: 20px;"> -->
-                                        </td>
+                                        <td style="padding-top: 30px; padding-bottom: 30px; padding-left: 120px;color: var(--neutral-1);">Episode 1</td>
+                                        <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">Ya isinya episode 1</td>
+                                        <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">30 menit</td>
+                                        <td style="padding-top: 30px; padding-bottom: 30px; padding-left: 120px; color: var(--neutral-1);">{{ podcast_date|date:"d/m/Y" }}
                                     </tr>
 
                                     <tr class="plus-jakarta-sans-bold" style="border-bottom: 0px solid var(--neutral-2); font-size:14px; text-align:start;padding:10px; ">
                                         <td style="padding-top: 30px; padding-bottom: 30px;padding: 10px;color: var(--neutral-1);">1</td>
-                                        <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">Mistery of Love</td>
-                                        <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">Fawwaz</td>
-                                        <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">1 jam 2 menit</td>
-                                        <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">
-                                            <a href="{% url 'podcast:detail_podcast' %}" class="button-lihat">Lihat</a>
-                                            <!-- <img src="{% static 'img/threedots.svg' %}" alt="action" style="width: 20px; height: 20px;"> -->
-                                        </td>
+                                        <td style="padding-top: 30px; padding-bottom: 30px; padding-left: 120px;color: var(--neutral-1);">Episode 1</td>
+                                        <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">Ya isinya episode 1</td>
+                                        <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">30 menit</td>
+                                        <td style="padding-top: 30px; padding-bottom: 30px; padding-left: 120px; color: var(--neutral-1);">{{ podcast_date|date:"d/m/Y" }}
                                     </tr>
 
                                     <tr class="plus-jakarta-sans-bold" style="border-bottom: 0px solid var(--neutral-2); font-size:14px; text-align:start;padding:10px; ">
                                         <td style="padding-top: 30px; padding-bottom: 30px;padding: 10px;color: var(--neutral-1);">1</td>
-                                        <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">Mistery of Love</td>
-                                        <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">Fawwaz</td>
-                                        <td style="padding-top: 30px; padding-bottom: 30px;padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">1 jam 2 menit</td>
-                                        <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">
-                                            <a href="{% url 'podcast:detail_podcast' %}" class="button-lihat">Lihat</a>
-                                            <!-- <img src="{% static 'img/threedots.svg' %}" alt="action" style="width: 20px; height: 20px;"> -->
-                                        </td>
+                                        <td style="padding-top: 30px; padding-bottom: 30px; padding-left: 120px;color: var(--neutral-1);">Episode 1</td>
+                                        <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">Ya isinya episode 1</td>
+                                        <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">30 menit</td>
+                                        <td style="padding-top: 30px; padding-bottom: 30px; padding-left: 120px; color: var(--neutral-1);">{{ podcast_date|date:"d/m/Y" }}
                                     </tr>
 
                                     <tr class="plus-jakarta-sans-bold" style="border-bottom: 0px solid var(--neutral-2); font-size:14px; text-align:start;padding:10px; ">
                                         <td style="padding-top: 30px; padding-bottom: 30px;padding: 10px;color: var(--neutral-1);">1</td>
-                                        <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">Mistery of Love</td>
-                                        <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">Fawwaz</td>
-                                        <td style="padding-top: 30px; padding-bottom: 30px;padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">1 jam 2 menit</td>
-                                        <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">
-                                            <a href="{% url 'podcast:detail_podcast' %}" class="button-lihat">Lihat</a>
-                                            <!-- <img src="{% static 'img/threedots.svg' %}" alt="action" style="width: 20px; height: 20px;"> -->
-                                        </td>
+                                        <td style="padding-top: 30px; padding-bottom: 30px; padding-left: 120px;color: var(--neutral-1);">Episode 1</td>
+                                        <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">Ya isinya episode 1</td>
+                                        <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">30 menit</td>
+                                        <td style="padding-top: 30px; padding-bottom: 30px; padding-left: 120px; color: var(--neutral-1);">{{ podcast_date|date:"d/m/Y" }}
                                     </tr>
                                     
                                 </tbody>
