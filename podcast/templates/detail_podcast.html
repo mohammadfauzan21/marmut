@@ -327,7 +327,7 @@ input.form-control:focus {
                         </div>
                     </div>
                 </div>
-                <div class=" container-fluid d-flex transparent-bg" style="width: 100%; margin-block: 12px; height: fit-content; margin-top: 36px; margin-bottom: 36px; border-radius: 24px;">
+                <div class=" container-fluid d-flex transparent-bg" style="width: 100%; margin-block: 12px; height: fit-content; margin-top: 0px; margin-bottom: 36px; border-radius: 24px;">
                     <div class="row container-fluid d-flex align-item-start justify-content-start" style="background-color: var(--neutral-5); width: 110%;border-radius: 24px; margin-block: -1px; padding-bottom: 24px; max-height: 70vh; min-height: 61vh;">
                         <div class="container" style="height: fit-content;">
                             <a href="" class="container d-flex align-item-center" style="padding-top: 36px; text-decoration: none; height: fit-content;">
@@ -335,20 +335,39 @@ input.form-control:focus {
                             </a>
                         </div>
                         
-                        <ul class="nav nav-pills mb-3 d-flex justify-content-start align-items-start" id="pills-tab" role="tablist" >
-                            <li class="nav-item p-1" style="background-color: var(--neutral-5); border-top-left-radius: 16px; border-bottom-left-radius: 16px;" role="presentation">
-                                <button class="nav-link active plus-jakarta-sans-extrabold" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true" style="font-size: 16; border-radius: 12px; font-weight: 900; font-size: 12px;">Album</button>
+                        <ul class="nav nav-pills d-flex justify-content-around" id="pills-tab"
+                            role="tablist">
+                            <li class="nav-item p-1" style="background-color: var(--neutral-5); border-radius: 16px;" role="presentation">
+                                <button class="nav-link plus-jakarta-sans-extrabold" id="pills-profile-tab" data-bs-toggle="pill"
+                                    data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false"
+                                    style="font-size: 16; border-radius: 12px; font-weight: 900; font-size: 12px;">Playlist</button>
+                            </li>
+                            <li class="nav-item p-1"
+                                style="background-color: var(--neutral-5); border-radius: 16px;"
+                                role="presentation">
+                                <button class="nav-link active plus-jakarta-sans-extrabold" id="pills-home-tab"
+                                    data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab"
+                                    aria-controls="pills-home" aria-selected="true"
+                                    style="font-size: 16; border-radius: 12px; font-weight: 900; font-size: 12px;">Album</button>
                             </li>
                             <!-- Tambah kategori chips -->
-                            <li class="nav-item p-1" style="background-color: var(--neutral-5); border-top-right-radius: 16px; border-bottom-right-radius: 16px;" role="presentation">
-                                <button class="nav-link plus-jakarta-sans-extrabold" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false"  style="font-size: 16; border-radius: 12px; font-weight: 900; font-size: 12px;">Playlist</button>
+                            <li class="nav-item p-1"
+                                style="background-color: var(--neutral-5); border-radius: 16px;"
+                                role="presentation">
+                                <button class="nav-link plus-jakarta-sans-extrabold" id="pills-profile-tab"
+                                    data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab"
+                                    aria-controls="pills-profile" aria-selected="false"
+                                    style="font-size: 16; border-radius: 12px; font-weight: 900; font-size: 12px;">Podcast</button>
                             </li>
                         </ul>
+                        
                         <div class="tab-content d-flex justify-content-center" id="pills-tabContent">
                             <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
                             </div>
                             <!-- Tambah kategori chips -->
                             <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab" style="color: aliceblue;">d
+                            </div>
+                            <div class="tab-pane fade" id="pills-podcast" role="tabpanel" aria-labelledby="pills-podcast-tab" style="color: aliceblue;">d
                             </div>
                         </div>
                         <!-- Tambah Button -->
