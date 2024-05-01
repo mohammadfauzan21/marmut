@@ -1,276 +1,844 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'base.html' %}
+{% load static %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" type="text/css" href="styles.css">
-    <style>
-        .container {
-            display: grid;
-            grid-template-columns: 1fr 4fr;
-            position: relative;
-            margin-bottom: -22px;
-        }
+{% block content %}
 
-        .leftcontainer {
-            background-color: palevioletred;
-            margin: 0;
-        }
+<style>
+    input[type=range] {
+        -webkit-appearance: none;
+        width: 100%;
+        margin: 10px 0;
+    }
 
-        .rightcontainer {
-            background-color: aqua;
-        }
-        .leftcontainer .fitur ul{
-            list-style: none;
-        }
-        .leftcontainer .fitur ul li{
-            padding: 10px 0px;
-            margin: 3% 0;
-        }
-        .leftcontainer .fitur ul li a{
-            color: #504B48;
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 120%;
-        }
-        .leftcontainer .fitur ul li a:hover{
-            color: white;
-        }
-        .leftcontainer .fitur ul li a:active{
-            
-        }
-        .leftcontainer .fitur ul li a:focus{
-            color: #ffffff;
-        }
+    input[type=range]:focus {
+        outline: none;
+    }
 
-        .leftcontainer .ownContent{
-            margin: 0;
-        }
-        .leftcontainer .ownContent .pilContent {
-            background-color: red;
-            margin: 0 5%;
-        }
+    input[type=range]::-webkit-slider-runnable-track {
+        width: 100%;
+        height: 8px;
+        cursor: pointer;
+        animate: 0.2s;
+        background: pink; /* Background warna putih */
+        border-radius: 5px;
+        border: none;
+    }
 
-        .leftcontainer .ownContent .pilContent ul {
-            list-style: none;
-            display: flex;
-            justify-content: space-between;
-            padding: 0;
-            margin: 0;
-        }
+    input[type=range]::-webkit-slider-thumb {
+        border: none;
+        height: 20px;
+        width: 20px;
+        border-radius: 50%;
+        background: transparent; /* Background warna putih */
+        cursor: pointer;
+        -webkit-appearance: none;
+        margin-top: -7px;
+    }
 
-        .leftcontainer .ownContent .pilContent ul li {
-            background-color: #262524;
-            border-radius: 15px;
-            padding: 3% 3%;
-        }
+    input[type=range]:hover::-webkit-slider-thumb {
+        border: none;
+        height: 12px;
+        width: 12px;
+        border-radius: 50%;
+        background: black; /* Background warna putih */
+        cursor: pointer;
+        -webkit-appearance: none;
+        margin-top: -2px;
+    }
 
-        .leftcontainer .ownContent .pilContent ul li a {
-            text-decoration: none;
-        }
+    input[type=range]:focus::-webkit-slider-runnable-track {
+        background: #ffffff; /* Background warna putih saat di-focus */
+    }
+    /* Untuk scrollbar vertikal */
+    ::-webkit-scrollbar {
+        width: 10px;
+        /* Ubah lebar scrollbar sesuai keinginan */
+    }
 
-        .leftcontainer .ownContent .pilContent ul li h4{
-            margin: 0;
-            color: #ffffff;
-        }
+    /* Untuk scrollbar horizontal */
+    ::-webkit-scrollbar-horizontal {
+        height: 10px;
+        /* Ubah tinggi scrollbar sesuai keinginan */
+    }
 
-        .leftcontainer .ownContent .tambahPlaylist{
-            background-color: #FF7816;
-            margin: 5% 5%;
-            padding: 1% 0;
-            display: flex;
-            justify-content: center;
-            border-radius: 30px;
-        }
+    /* Untuk bagian 'thumb' atau bagian yang dapat digerakkan di scrollbar */
+    ::-webkit-scrollbar-thumb {
+        background-color: var(--neutral-2);
+        /* Ubah warna 'thumb' sesuai keinginan */
+        border-radius: 5px;
+        /* Ubah radius border sesuai keinginan */
+    }
 
-        .leftcontainer .ownContent .tambahPlaylist a{
-            text-decoration: none;
-        }
-        .leftcontainer .ownContent .tambahPlaylist a h3{
-            color: #ffffff;
-        }
+    /* Untuk bagian yang menunjukkan area yang belum terlihat */
+    ::-webkit-scrollbar-track {
+        background-color: var(--neutral-4);
+        /* Ubah warna track scrollbar sesuai keinginan */
+    }
 
-        .leftcontainer .ownContent .content{
-            background-color: blue;
-            margin: 0 5%;
-            /* height: 40vh; */
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-direction: column;
-            /* padding: 2px; */
-            max-height: 250px;
-            overflow-y: auto;
+    /* Untuk memberikan gaya hover pada thumb */
+    ::-webkit-scrollbar-thumb:hover {
+        background-color: rgba(0, 0, 0, 0.7);
+        /* Ubah warna thumb saat hover sesuai keinginan */
+    }
+
+
+    input,
+    select {
+        color: var(--neutral-0) !important;
+        /* Misalnya, warna teks merah */
+        background-color: transparent !important;
+    }
+
+    /* Style untuk tab aktif */
+    .nav-link.active {
+        color: var(--neutral-0) !important;
+        /* Warna teks saat aktif */
+        background-color: var(--neutral-4) !important;
+        /* Warna latar belakang saat aktif */
+    }
+
+    /* Style untuk tab nonaktif */
+    .nav-link:not(.active) {
+        color: var(--neutral-1) !important;
+        /* Warna teks saat nonaktif */
+        background-color: transparent !important;
+        /* Latar belakang transparan saat nonaktif */
+    }
+
+    input.form-control:focus {
+        background-color: var(--neutral-6) !important;
+        border: 0px solid var(--neutral-2) !important;
+    }
+
+
+    ::placeholder {
+        color: var(--neutral-1) !important;
+        font-size: medium;
+        font-weight: 600;
+    }
+
+    .top-content {
+        background-image: url('{% static "img/dashboard-bg.svg" %}');
+        margin-bottom: -36px;
+    }
+
+    .top-content,
+    .secondary-content {
+        min-height: 100%;
+        min-width: 100%;
+    }
+
+    .secondary-content {
+        margin-block: 24px;
+    }
+
+    .tertiary-content-1 {
+        /* min-width: 240px;
+        max-width: 180px; */
+    }
+
+    @media only screen and (max-width: 2000px) {
+
+        .tertiary-content-1 {
+            min-width: 468px;
         }
-        .leftcontainer .ownContent .content .oneContent{
-            display: flex;
-            justify-content: space-around;
-            /* flex-direction: column;  */
-            align-items: center;
-            background-color: pink;
-            margin: 1% 2%;
-            width: 90%;
+    }
+
+    @media only screen and (max-width: 1900px) {
+
+        .tertiary-content-1 {
+            min-width: 420px;
         }
-        /* .leftcontainer .ownContent .content .oneContent .detailContent{
-            margin: 0;
-            margin-left: 20px; 
+    }
+
+    @media only screen and (max-width: 1800px) {
+
+        .tertiary-content-1 {
+            min-width: 400px;
         }
-        .leftcontainer .ownContent .content .oneContent .moreOption{
-            margin: 0;
-            margin-left: 20px; 
-        } */
+    }
 
-        footer{
-            background-color: purple;
-            display: flex;
-            height: 16vh;
-            justify-content: space-between;
+    @media only screen and (max-width: 1700px) {
+
+        .tertiary-content-1 {
+            min-width: 380px;
         }
+    }
 
-        footer .contentPlay{
-            background-color: wheat;
+    @media only screen and (max-width: 1560px) {
+
+        .tertiary-content-1 {
+            min-width: 348px;
         }
+    }
 
-        footer .statusPlay{
-            background-color:darkgoldenrod ;
+    @media only screen and (max-width: 1440px) {
+
+        .tertiary-content-1 {
+            min-width: 340px;
         }
+    }
 
-        footer .more{
-            background-color:teal;
+    @media only screen and (max-width: 1396px) {
+
+        .tertiary-content-1 {
+            min-width: 320px;
         }
-    </style>
-</head>
+    }
 
-<body>
-    <div class="container">
-        <div class="leftcontainer">
-            <div class="fitur" style="background-color: greenyellow; border-radius: 5%; width: 95%;">
-                <ul>
-                    <li>
-                        <a href="">
-                            <span class="fa fa-home"></span>
-                            <span>Beranda</span>
-                        </a>
-                    </li>
+    @media only screen and (max-width: 1344px) {
 
-                    <li>
-                        <a href="">
-                            <span class="fa fa-chart"></span>
-                            <span>Chart</span>
-                        </a>
-                    </li>
+        .tertiary-content-1 {
+            min-width: 284px;
+        }
+    }
 
-                    <li>
-                        <a href="">
-                            <span class="fa fa-podcast"></span>
-                            <span>Podcast</span>
-                        </a>
-                    </li>
+    @media only screen and (max-width: 1196px) {
 
-                    <li>
-                        <a href="">
-                            <span class="fa fa-playlist"></span>
-                            <span>Playlist</span>
-                        </a>
-                    </li>
-                </ul>
+        .tertiary-content-1 {
+            min-width: 264px;
+        }
+    }
+
+    @media only screen and (max-width: 1100px) {
+
+        .tertiary-content-1 {
+            min-width: 236px;
+        }
+    }
+
+    @media only screen and (max-width: 998px) {
+
+        .tertiary-content-1 {
+            min-width: 220px;
+        }
+    }
+
+    @media only screen and (max-width: 994px) {
+
+        .tertiary-content-1 {
+            min-width: 260px;
+        }
+    }
+
+    @media only screen and (max-width: 996px) {
+
+        .tertiary-content-1 {
+            min-width: 224px;
+        }
+    }
+
+    @media only screen and (max-width: 988px) {
+
+        .tertiary-content-1 {
+            min-width: 284px;
+        }
+    }
+
+    @media only screen and (max-width: 896px) {
+
+        .tertiary-content-1 {
+            min-width: 264px;
+        }
+    }
+
+    @media only screen and (max-width: 836px) {
+
+        .tertiary-content-1 {
+            min-width: 244px;
+        }
+    }
+
+    @media only screen and (max-width: 776px) {
+
+        .tertiary-content-1 {
+            min-width: 236px;
+        }
+    }
+
+    @media only screen and (max-width: 764px) {
+
+        .tertiary-content-1 {
+            min-width: 284px;
+        }
+    }
+
+    @media only screen and (max-width: 728px) {
+
+        .tertiary-content-1 {
+            min-width: 264px;
+        }
+    }
+
+    @media only screen and (max-width: 676px) {
+
+        .tertiary-content-1 {
+            min-width: 260px;
+        }
+    }
+
+    @media only screen and (max-width: 632px) {
+
+        .tertiary-content-1 {
+            min-width: 224px;
+        }
+    }
+
+    @media only screen and (max-width: 684px) {
+
+        .tertiary-content-1 {
+            min-width: 244px;
+        }
+    }
+
+    @media only screen and (max-width: 644px) {
+
+        .tertiary-content-1 {
+            min-width: 232px;
+        }
+    }
+
+    @media only screen and (max-width: 604px) {
+
+        .tertiary-content-1 {
+            min-width: 212px;
+        }
+    }
+
+    @media only screen and (max-width: 576px) {
+
+        .tertiary-content-1 {
+            min-width: 10px;
+            max-width: 100%;
+            margin-bottom: 24px;
+        }
+    }
+
+    body {}
+
+    transparent-bg {
+        background-color: transparent;
+    }
+</style>
+<div class="container-fluid bg-black top-content d-flex justify-content-center align-item-start">
+    <div class="row secondary-content container-fluid d-flex justify-content-center align-item-start no-gutters"
+        style="">
+        <div class="col-sm-1 transparent-bg col-xxl-2 col-xl-2 col-md-1 col-lg-2 tertiary-content-1 d-flex container-fluid"
+            style="margin-left: -2px;">
+            <div class="row container-fluid d-flex justify-content-start tertiary-content-1"
+                style="margin-inline: -12px;">
+
+                <!-- Atur Height Navbar -->
+                <div class=" container-fluid d-flex"
+                    style="width: 100%; height: fit-content; border-radius: 24px;">
+                    <!-- Buat Kotaknya -->
+                    <div class="row container-fluid d-flex"
+                        style="width: 100%;border-radius: 24px; padding-bottom: 15px; background-color: var(--neutral-5); padding-top: 8px;">
+                        <div class="container" style="margin-top: 10px;">
+                            <a href="" class="container d-flex align-items-center"
+                                style="text-decoration: none; height: 34px;">
+                                <img src="{% static 'img/home-active.svg' %}" alt="search"
+                                    style="width: 35px; height: 35px;">
+                                <h6 class="plus-jakarta-sans-extrabold"
+                                    style="color: var(--neutral-0); margin-top: 8px; margin-left: 15px">
+                                    Beranda
+                                </h6>
+                            </a>
+                        </div>
+                        <div class="container" style="margin-top: 15px;">
+                            <a href="" class="container d-flex align-items-center"
+                                style="text-decoration: none; height: 34px;">
+                                <img src="{% static 'img/chart-inactive.svg' %}" alt="search"
+                                    style="width: 35px; height: 35px;">
+                                <h6 class="plus-jakarta-sans-extrabold"
+                                    style="color: #504B48; margin-top: 8px; margin-left: 15px">
+                                    Chart
+                                </h6>
+                            </a>
+                        </div>
+                        <div class="container" style="margin-top: 15px;">
+                            <a href="" class="container d-flex align-items-center"
+                                style="text-decoration: none; height: 34px;">
+                                <img src="{% static 'img/podcast-inactive.svg' %}" alt="search"
+                                    style="width: 35px; height: 35px">
+                                <h6 class="plus-jakarta-sans-extrabold"
+                                    style="color: #504B48; margin-top: 8px; margin-left: 15px">
+                                    Podcast
+                                </h6>
+                            </a>
+                        </div>
+                        <div class="container" style=" margin-top: 15px;">
+                            <a href="" class="container d-flex align-items-center"
+                                style="text-decoration: none; height: 34px;">
+                                <img src="{% static 'img/playlist-inactive.svg' %}" alt="search"
+                                    style="width: 35px; height: 35px;">
+                                <h6 class="plus-jakarta-sans-extrabold"
+                                    style="color: #504B48; margin-top: 8px; margin-left: 15px">
+                                    Playlist
+                                </h6>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class=" container-fluid d-flex"
+                    style="width: 100%; height: fit-content; border-radius: 24px;">
+                    <div class="row container-fluid"
+                        style="background-color: var(--neutral-5); width: 100%; border-radius: 24px; margin-top: -2em; ">
+                        <div class="container" style="margin-top: 10px;">
+                            <a href="" class="container d-flex"
+                                style="text-decoration: none; margin-bottom: 0px;">
+                                <img src="{% static 'img/playlist-collection.svg' %}" alt="kelola"
+                                    style="width: 35px; height: 35px;">
+                                <p class="plus-jakarta-sans-extrabold align-item-center"
+                                    style="margin-left: 15px; color: var(--neutral-0); margin-top: 5px;">
+                                    Kelola album dan song</p>
+                            </a>
+                        </div>
+
+                        <ul class="nav nav-pills d-flex justify-content-around" id="pills-tab"
+                            role="tablist">
+                            <li class="nav-item p-1" style="background-color: var(--neutral-5); border-radius: 16px;" role="presentation">
+                                <button class="nav-link plus-jakarta-sans-extrabold" id="pills-profile-tab" data-bs-toggle="pill"
+                                    data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false"
+                                    style="font-size: 16; border-radius: 12px; font-weight: 900; font-size: 12px;">Playlist</button>
+                            </li>
+                            <li class="nav-item p-1"
+                                style="background-color: var(--neutral-5); border-radius: 16px;"
+                                role="presentation">
+                                <button class="nav-link active plus-jakarta-sans-extrabold" id="pills-home-tab"
+                                    data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab"
+                                    aria-controls="pills-home" aria-selected="true"
+                                    style="font-size: 16; border-radius: 12px; font-weight: 900; font-size: 12px;">Album</button>
+                            </li>
+                            <!-- Tambah kategori chips -->
+                            <li class="nav-item p-1"
+                                style="background-color: var(--neutral-5); border-radius: 16px;"
+                                role="presentation">
+                                <button class="nav-link plus-jakarta-sans-extrabold" id="pills-profile-tab"
+                                    data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab"
+                                    aria-controls="pills-profile" aria-selected="false"
+                                    style="font-size: 16; border-radius: 12px; font-weight: 900; font-size: 12px;">Podcast</button>
+                            </li>
+                        </ul>
+                        
+                        <!-- Tambah Button -->
+                        <div class="container d-flex">
+                            <form action="{% url 'login:loginkonten' %}" method="POST" class="w-100">
+                                {% csrf_token %}
+                                <button type="submit"
+                                    class=" container d-flex align-items-center justify-content-center plus-jakarta-sans-extrabold button-primary my-3">Tambah
+                                    Album</button>
+                            </form>
+
+                        </div>
+                        <div class="container" style="height: 272px; overflow-y: auto;">
+                            <div class="container row d-flex" style=" margin-inline: 1px;">
+                                <div class="container d-flex justify-content-center"
+                                    style="height: 68px; background-color: var(--neutral-4); border-radius: 16px;">
+                                    <div class="container col-2" style="align-content: center; margin-inline: -12px;">
+                                        <div class="justify-content-center align-content-center d-flex"
+                                            style="border-radius: 12px; height: 32px; width: 32px; background-color: var(--neutral-2);">
+
+                                            <img src="{% static 'img/default.png' %}" alt="kelola"
+                                                style="width: 24px; height: 24px;">
+                                        </div>
+                                    </div>
+                                    <div class="container col-7 " style="align-content: center;">
+                                        <div class="row d-flex">
+                                            <!-- Gunakan elemen <div> sebagai wadah untuk teks -->
+                                            <div class="plus-jakarta-sans-medium"
+                                                style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                                                <p class="d-inline"
+                                                    style="margin: 0; color: var(--neutral-0); font-size: 10px; font-weight: 900; font-size: 12px;">
+                                                    Nama Album</p>
+                                            </div>
+                                            <!-- Elemen <p> kedua dengan inline style yang sama -->
+                                            <div
+                                                style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                                                <p class="d-inline plus-jakarta-sans-medium"
+                                                    style="margin: 0; color: var(--neutral-1); font-size: 10px;">10 lagu
+                                                </p>
+                                                <p class="d-inline plus-jakarta-sans-medium"
+                                                    style="margin: 0; color: var(--neutral-1); font-size: 10px;">6209
+                                                    menit</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="container col-1" style="align-content: center;">
+                                        <img src="{% static 'img/threedots.svg' %}" alt="kelola"
+                                            style="width: 20px; height: 20px;">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="container row d-flex" style=" margin-inline: 1px;">
+                                <div class="container d-flex justify-content-center"
+                                    style="height: 68px; background-color: transparent; border-radius: 16px;">
+                                    <div class="container col-2" style="align-content: center; margin-inline: -12px;">
+                                        <div class="justify-content-center align-content-center d-flex"
+                                            style="border-radius: 12px; height: 32px; width: 32px; background-color: var(--neutral-4);">
+
+                                            <img src="{% static 'img/default.png' %}" alt="kelola"
+                                                style="width: 24px; height: 24px;">
+                                        </div>
+                                    </div>
+                                    <div class="container col-7 " style="align-content: center;">
+                                        <div class="row d-flex">
+                                            <!-- Gunakan elemen <div> sebagai wadah untuk teks -->
+                                            <div class="plus-jakarta-sans-medium"
+                                                style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                                                <p class="d-inline"
+                                                    style="margin: 0; color: var(--neutral-0); font-size: 10px; font-weight: 900; font-size: 12px;">
+                                                    Nama Album</p>
+                                            </div>
+                                            <!-- Elemen <p> kedua dengan inline style yang sama -->
+                                            <div
+                                                style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                                                <p class="d-inline plus-jakarta-sans-medium"
+                                                    style="margin: 0; color: var(--neutral-1); font-size: 10px;">10 lagu
+                                                </p>
+                                                <p class="d-inline plus-jakarta-sans-medium"
+                                                    style="margin: 0; color: var(--neutral-1); font-size: 10px;">6209
+                                                    menit</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="container col-1" style="align-content: center;">
+                                        <img src="{% static 'img/threedots.svg' %}" alt="kelola"
+                                            style="width: 20px; height: 20px;">
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="container row d-flex" style=" margin-inline: 1px;">
+                                <div class="container d-flex justify-content-center"
+                                    style="height: 68px; background-color: transparent; border-radius: 16px;">
+                                    <div class="container col-2" style="align-content: center; margin-inline: -12px;">
+                                        <div class="justify-content-center align-content-center d-flex"
+                                            style="border-radius: 12px; height: 32px; width: 32px; background-color: var(--neutral-4);">
+
+                                            <img src="{% static 'img/default.png' %}" alt="kelola"
+                                                style="width: 24px; height: 24px;">
+                                        </div>
+                                    </div>
+                                    <div class="container col-7 " style="align-content: center;">
+                                        <div class="row d-flex">
+                                            <!-- Gunakan elemen <div> sebagai wadah untuk teks -->
+                                            <div class="plus-jakarta-sans-medium"
+                                                style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                                                <p class="d-inline"
+                                                    style="margin: 0; color: var(--neutral-0); font-size: 10px; font-weight: 900; font-size: 12px;">
+                                                    Nama Album</p>
+                                            </div>
+                                            <!-- Elemen <p> kedua dengan inline style yang sama -->
+                                            <div
+                                                style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                                                <p class="d-inline plus-jakarta-sans-medium"
+                                                    style="margin: 0; color: var(--neutral-1); font-size: 10px;">10 lagu
+                                                </p>
+                                                <p class="d-inline plus-jakarta-sans-medium"
+                                                    style="margin: 0; color: var(--neutral-1); font-size: 10px;">6209
+                                                    menit</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="container col-1" style="align-content: center;">
+                                        <img src="{% static 'img/threedots.svg' %}" alt="kelola"
+                                            style="width: 20px; height: 20px;">
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="container row d-flex" style=" margin-inline: 1px;">
+                                <div class="container d-flex justify-content-center"
+                                    style="height: 68px; background-color: transparent; border-radius: 16px;">
+                                    <div class="container col-2" style="align-content: center; margin-inline: -12px;">
+                                        <div class="justify-content-center align-content-center d-flex"
+                                            style="border-radius: 12px; height: 32px; width: 32px; background-color: var(--neutral-4);">
+
+                                            <img src="{% static 'img/default.png' %}" alt="kelola"
+                                                style="width: 24px; height: 24px;">
+                                        </div>
+                                    </div>
+                                    <div class="container col-7 " style="align-content: center;">
+                                        <div class="row d-flex">
+                                            <!-- Gunakan elemen <div> sebagai wadah untuk teks -->
+                                            <div class="plus-jakarta-sans-medium"
+                                                style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                                                <p class="d-inline"
+                                                    style="margin: 0; color: var(--neutral-0); font-size: 10px; font-weight: 900; font-size: 12px;">
+                                                    Nama Album</p>
+                                            </div>
+                                            <!-- Elemen <p> kedua dengan inline style yang sama -->
+                                            <div
+                                                style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                                                <p class="d-inline plus-jakarta-sans-medium"
+                                                    style="margin: 0; color: var(--neutral-1); font-size: 10px;">10 lagu
+                                                </p>
+                                                <p class="d-inline plus-jakarta-sans-medium"
+                                                    style="margin: 0; color: var(--neutral-1); font-size: 10px;">6209
+                                                    menit</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="container col-1" style="align-content: center;">
+                                        <img src="{% static 'img/threedots.svg' %}" alt="kelola"
+                                            style="width: 20px; height: 20px;">
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="container row d-flex" style=" margin-inline: 1px;">
+                                <div class="container d-flex justify-content-center"
+                                    style="height: 68px; background-color: transparent; border-radius: 16px;">
+                                    <div class="container col-2" style="align-content: center; margin-inline: -12px;">
+                                        <div class="justify-content-center align-content-center d-flex"
+                                            style="border-radius: 12px; height: 32px; width: 32px; background-color: var(--neutral-4);">
+
+                                            <img src="{% static 'img/default.png' %}" alt="kelola"
+                                                style="width: 24px; height: 24px;">
+                                        </div>
+                                    </div>
+                                    <div class="container col-7 " style="align-content: center;">
+                                        <div class="row d-flex">
+                                            <!-- Gunakan elemen <div> sebagai wadah untuk teks -->
+                                            <div class="plus-jakarta-sans-medium"
+                                                style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                                                <p class="d-inline"
+                                                    style="margin: 0; color: var(--neutral-0); font-size: 10px; font-weight: 900; font-size: 12px;">
+                                                    Nama Album</p>
+                                            </div>
+                                            <!-- Elemen <p> kedua dengan inline style yang sama -->
+                                            <div
+                                                style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                                                <p class="d-inline plus-jakarta-sans-medium"
+                                                    style="margin: 0; color: var(--neutral-1); font-size: 10px;">10 lagu
+                                                </p>
+                                                <p class="d-inline plus-jakarta-sans-medium"
+                                                    style="margin: 0; color: var(--neutral-1); font-size: 10px;">6209
+                                                    menit</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="container col-1" style="align-content: center;">
+                                        <img src="{% static 'img/threedots.svg' %}" alt="kelola"
+                                            style="width: 20px; height: 20px;">
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="container row d-flex" style=" margin-inline: 1px;">
+                                <div class="container d-flex justify-content-center"
+                                    style="height: 68px; background-color: transparent; border-radius: 16px;">
+                                    <div class="container col-2" style="align-content: center; margin-inline: -12px;">
+                                        <div class="justify-content-center align-content-center d-flex"
+                                            style="border-radius: 12px; height: 32px; width: 32px; background-color: var(--neutral-4);">
+
+                                            <img src="{% static 'img/default.png' %}" alt="kelola"
+                                                style="width: 24px; height: 24px;">
+                                        </div>
+                                    </div>
+                                    <div class="container col-7 " style="align-content: center;">
+                                        <div class="row d-flex">
+                                            <!-- Gunakan elemen <div> sebagai wadah untuk teks -->
+                                            <div class="plus-jakarta-sans-medium"
+                                                style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                                                <p class="d-inline"
+                                                    style="margin: 0; color: var(--neutral-0); font-size: 10px; font-weight: 900; font-size: 12px;">
+                                                    Nama Album</p>
+                                            </div>
+                                            <!-- Elemen <p> kedua dengan inline style yang sama -->
+                                            <div
+                                                style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                                                <p class="d-inline plus-jakarta-sans-medium"
+                                                    style="margin: 0; color: var(--neutral-1); font-size: 10px;">10 lagu
+                                                </p>
+                                                <p class="d-inline plus-jakarta-sans-medium"
+                                                    style="margin: 0; color: var(--neutral-1); font-size: 10px;">6209
+                                                    menit</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="container col-1" style="align-content: center;">
+                                        <img src="{% static 'img/threedots.svg' %}" alt="kelola"
+                                            style="width: 20px; height: 20px;">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="container row d-flex" style=" margin-inline: 1px;">
+                                <div class="container d-flex justify-content-center"
+                                    style="height: 68px; background-color: transparent; border-radius: 16px;">
+                                    <div class="container col-2" style="align-content: center; margin-inline: -12px;">
+                                        <div class="justify-content-center align-content-center d-flex"
+                                            style="border-radius: 12px; height: 32px; width: 32px; background-color: var(--neutral-4);">
+
+                                            <img src="{% static 'img/default.png' %}" alt="kelola"
+                                                style="width: 24px; height: 24px;">
+                                        </div>
+                                    </div>
+                                    <div class="container col-7 " style="align-content: center;">
+                                        <div class="row d-flex">
+                                            <!-- Gunakan elemen <div> sebagai wadah untuk teks -->
+                                            <div class="plus-jakarta-sans-medium"
+                                                style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                                                <p class="d-inline"
+                                                    style="margin: 0; color: var(--neutral-0); font-size: 10px; font-weight: 900; font-size: 12px;">
+                                                    Nama Album</p>
+                                            </div>
+                                            <!-- Elemen <p> kedua dengan inline style yang sama -->
+                                            <div
+                                                style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                                                <p class="d-inline plus-jakarta-sans-medium"
+                                                    style="margin: 0; color: var(--neutral-1); font-size: 10px;">10 lagu
+                                                </p>
+                                                <p class="d-inline plus-jakarta-sans-medium"
+                                                    style="margin: 0; color: var(--neutral-1); font-size: 10px;">6209
+                                                    menit</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="container col-1" style="align-content: center;">
+                                        <img src="{% static 'img/threedots.svg' %}" alt="kelola"
+                                            style="width: 20px; height: 20px;">
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
             </div>
 
-            <div class="ownContent" style="background-color: burlywood;">
-                <h1>Punya Kamu</h1>
-                <div class="pilContent">
-                    <ul>
-                        <li>
-                            <a href="">
-                                <h4>Playlist</h4>
-                            </a>
-                        </li>
+        </div>
 
-                        <li>
-                            <a href="">
-                                <h4>Album</h4>
-                            </a>
-                        </li>
+        <div class="col-sm-7 col-xxl-9 col-xl-9 col-md-8 col-lg-9 transparent-bg tertiary-content-2 d-flex container-fluid"
+            style="margin-right: -2px; height: 95%;">
+            <div class="row container-fluid d-flex justify-content-start align-items-start tertiary-content-1"
+                style="width: 100%; margin-inline: -12px;">
 
-                        <li>
-                            <a href="">
-                                <h4>Podcast</h4>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
+                <div class=" container-fluid d-flex transparent-bg"
+                    style="width: 100%; height: 7vh; margin-bottom: 10px; border-radius: 24px; align-items: center;">
+                    <div class="row container-fluid d-flex justify-content-start"
+                        style="background-color: var(--neutral-5); width: 100%; border-radius: 24px; padding-block: 10px;">
 
-                <div class="tambahPlaylist">
-                    <a href="">
-                        <h3>Tambah Playlist</h3>
+                        <div class="col-md-11 row-lg-11 row-sm-6 container">
+                            <input type="text" class="form-control plus-jakarta-sans-bold" id="exampleFormControlInput1"
+                                placeholder="Cari lagu, album, atau playlist..."
+                                style="background-color: transparent; border: none;">
+                        </div>
+                        <div class="col-md-1 row-lg-1 container d-flex justify-content-end"
+                            style="max-width: 20px; margin-left: 8px;">
+                            <a type="submit" href="">
+                                <img src="{% static 'img/search.svg' %}" alt="search"></a>
+                        </div>
+                    </div>
+                    <a href="" class="row container-fluid d-flex "
+                        style="background-color: var(--neutral-5); border-radius: 24px; width: 80px; margin-left: 36px; margin-block: -1px; height: 7vh; justify-content: center; align-items: center;">
+                        <img src="{% static 'img/logout.svg' %}" alt="Logout" width="30px" height="30px">
                     </a>
                 </div>
-
-                <div class="content">
-                    <div class="oneContent">
-                        <h4>buat foto</h4>
-                        <div class="detailContent">
-                            <h3>Judul judul judul</h3>
-                            <h4>apakek</h4>
-                        </div>
-                        <div class="moreOption">
-                            <h5>...</h5>
-                        </div>
+                <div class="container-fluid"
+                    style="background: linear-gradient(180deg, #292724, #1B1817); width: 100%; border-radius: 24px; margin-top: -1.2em; height: max-content; padding-bottom: 25px; padding-top: 20px;">
+                    <h1 class="plus-jakarta-sans-extrabold align-item-center"
+                        style="margin-left: 15px; color: var(--neutral-0); margin-top: 10px;">Profil Saya
+                    </h1>
+                    <div class="nama" style="margin-top: 20px;">
+                        <p class="plus-jakarta-sans-extrabold align-item-center"
+                            style="margin-left: 15px; color: #504B48;">Nama</p>
+                        <p class="plus-jakarta-sans-extrabold align-item-center" style="margin-left: 15px; color: var(--neutral-0); margin-top: -5px;">
+                            Fauzan Nazly Said</p>
                     </div>
-
-                    <div class="oneContent">
-                        <h4>buat foto</h4>
-                        <div class="detailContent">
-                            <h3>Judul judul judul</h3>
-                            <h4>apakek</h4>
-                        </div>
-                        <div class="moreOption">
-                            <h5>...</h5>
-                        </div>
+                    <div class="nama" style="margin-top: 20px;">
+                        <p class="plus-jakarta-sans-extrabold align-item-center" style="margin-left: 15px; color: #504B48;">Email Akun</p>
+                        <p class="plus-jakarta-sans-extrabold align-item-center" style="margin-left: 15px; color: var(--neutral-0); margin-top: -5px;">
+                            fauzan.nazly@gmail.com</p>
                     </div>
-
-                    <div class="oneContent">
-                        <h4>buat foto</h4>
-                        <div class="detailContent">
-                            <h3>Judul judul judul</h3>
-                            <h4>apakek</h4>
-                        </div>
-                        <div class="moreOption">
-                            <h5>...</h5>
-                        </div>
+                    <div class="nama" style="margin-top: 20px;">
+                        <p class="plus-jakarta-sans-extrabold align-item-center" style="margin-left: 15px; color: #504B48;">Kota Asal</p>
+                        <p class="plus-jakarta-sans-extrabold align-item-center" style="margin-left: 15px; color: var(--neutral-0); margin-top: -5px;">
+                            Bekasi</p>
                     </div>
-
-                    <div class="oneContent">
-                        <h4>buat foto</h4>
-                        <div class="detailContent">
-                            <h3>Judul judul judul</h3>
-                            <h4>apakek</h4>
-                        </div>
-                        <div class="moreOption">
-                            <h5>...</h5>
-                        </div>
+                    <div class="nama" style="margin-top: 20px;">
+                        <p class="plus-jakarta-sans-extrabold align-item-center" style="margin-left: 15px; color: #504B48;">Gender</p>
+                        <p class="plus-jakarta-sans-extrabold align-item-center" style="margin-left: 15px; color: var(--neutral-0); margin-top: -5px;">
+                            Laki-Laki</p>
+                    </div>
+                    <div class="nama" style="margin-top: 20px;">
+                        <p class="plus-jakarta-sans-extrabold align-item-center" style="margin-left: 15px; color: #504B48;">Tempat Lahir</p>
+                        <p class="plus-jakarta-sans-extrabold align-item-center" style="margin-left: 15px; color: var(--neutral-0); margin-top: -5px;">
+                            3 Agustus 2003</p>
+                    </div>
+                    <div class="nama" style="margin-top: 20px;">
+                        <p class="plus-jakarta-sans-extrabold align-item-center" style="margin-left: 15px; color: #504B48;">Role</p>
+                        <ul class="nav nav-pills d-flex justify-content-start" id="pills-tab" role="tablist" style="margin-top: -5px;">
+                            <li class="nav-item p-1" style="background-color: var(--neutral-5); border-radius: 16px; margin: 0 12px;" role="presentation">
+                                <button class="nav-link active plus-jakarta-sans-extrabold disabled" id="pills-home-tab" data-bs-toggle="pill"
+                                    data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true"
+                                    style="font-size: 16; border-radius: 12px; font-weight: 900; font-size: 12px;">Artist</button>
+                            </li>
+                            <li class="nav-item p-1" style="background-color: var(--neutral-5); border-radius: 16px; margin-right: 12px; role="presentation">
+                                <button class="nav-link active plus-jakarta-sans-extrabold disabled" id="pills-home-tab" data-bs-toggle="pill"
+                                    data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true"
+                                    style="font-size: 16; border-radius: 12px; font-weight: 900; font-size: 12px;">Songwriter</button>
+                            </li>
+                            <!-- Tambah kategori chips -->
+                            <li class="nav-item p-1" style="background-color: var(--neutral-5); border-radius: 16px;" role="presentation">
+                                <button class="nav-link active plus-jakarta-sans-extrabold disabled" id="pills-home-tab" data-bs-toggle="pill"
+                                    data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true"
+                                    style="font-size: 16; border-radius: 12px; font-weight: 900; font-size: 12px;">Podcast</button>
+                            </li>
+                        </ul>
                     </div>
                 </div>
             </div>
         </div>
-        
-        <div class="rightcontainer">
-            <h1>Container kanan</h1>
+    </div>
+</div>
+<footer class="position-absolute d-flex justify-content-between align-items-center" style="top: 90vh; width: 100%; height: 10vh; background-color: transparent">
+    <div class="d-flex align-items-center" style="margin-left: 50px;">
+        <img src="{% static 'img/default.png' %}" alt="kelola" style="width: 50px; height: 50px; background-color: #292724; border-radius: 20px;">
+        <div style="margin: 0 12px; margin-top: 5px;">
+            <h3 class="plus-jakarta-sans-extrabold" style="font-size: 17px; color: #ffffff;">buat judul</h3>
+            <h3 class="plus-jakarta-sans-medium" style="font-size: 13px; color: var(--neutral-1)">buat nama penyanyi</h3>
+        </div>
+        <div class="d-flex">
+            <a href="" class="mx-1">
+                <img src="{% static 'img/PlusCircle.svg' %}" alt="kelola" style="width: 24px; height: 24px; background-color: #292724;">
+            </a>
+            <a href="" class="mx-1">
+                <img src="{% static 'img/Download.svg' %}" alt="kelola" style="width: 24px; height: 24px; background-color: #292724;">
+            </a>
         </div>
     </div>
-    <footer>
-        <div class="contentPlay">
-            <h1>buat lagu</h1>
+    <div style="margin-left: -150px; width: 500px;">
+        <div class="d-flex align-items-center" style="">
+            <a href="" style="margin: 0 7px; margin-left: 180px;">
+                <img src="{% static 'img/LeftSkipStartFill.svg' %}" alt="kelola"
+                    style="width: 27px; height: 27px; background-color: #292724;">
+            </a>
+            <a href="" style="margin: 0 7px;">
+                <img src="{% static 'img/PauseCircleFill.svg' %}" alt="kelola"
+                    style="width: 27px; height: 27px; background-color: #292724;">
+            </a>
+            <a href="" style="margin: 0 7px;">
+                <img src="{% static 'img/StopCircleFill.svg' %}" alt="kelola"
+                    style="width: 27px; height: 27px; background-color: #292724;">
+            </a>
+            <a href="" style="margin: 0 7px;">
+                <img src="{% static 'img/RightSkipStartFill.svg' %}" alt="kelola"
+                    style="width: 27px; height: 27px; background-color: #292724;">
+            </a>
         </div>
-        <div class="statusPlay">
-            <h1>buat sniker lagu</h1>
-        </div>
-        <div class="more">
-            <h1>gatau buat apa</h1>
-        </div>
-    </footer>
-</body>
-
-</html>
+        <input type="range" id="vol" name="vol" min="0" max="100">
+    </div>
+    <div style="">
+        <h1></h1>
+    </div>
+</footer>
+{% endblock %}
