@@ -7,4 +7,4 @@ def homepagelabel(request):
 
 
 def cekroyalti(request):
-    return render(request, 'royalti.html')
+    return render(request, 'cekroyalti.html')

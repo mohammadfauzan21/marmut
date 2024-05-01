@@ -4,5 +4,5 @@ from dashboardlabel.views import homepagelabel, cekroyalti
 app_name = 'dashboardlabel'
 urlpatterns = [
     path('', homepagelabel, name='homepagelabel'),
-    path('royalti', homepagelabel, name='royalti'),
+    path('cekroyalti', cekroyalti, name='cekroyalti'),
 ]
