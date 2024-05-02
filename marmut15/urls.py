@@ -26,7 +26,7 @@ urlpatterns = [
     path('chart/', include('chart.urls')),
     path('dashboard/podcaster/', include('dashboardpodcaster.urls')),
     path('dashboard/user/', include('dashboardreguser.urls')),
-    # path('artist/dashboard/', include('dashboardartist.urls')),
-    # path('songwriter/dashboard/', include('dashboardsongwriter.urls')),
+    path('artist/dashboard/', include('dashboardartist.urls')),
+    path('songwriter/dashboard/', include('dashboardsongwriter.urls')),
     path('label/dashboard/', include('dashboardlabel.urls')),
 ]

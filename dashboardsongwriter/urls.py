@@ -1,9 +1,9 @@
 from django.urls import path
-from dashboardlabel.views import homepagelabel, cekroyalti, listsong, detaillagu
+from dashboardsongwriter.views import homepagesongwriter, cekroyalti, listsong, detaillagu
 
-app_name = 'dashboardlabel'
+app_name = 'dashboardsongwriter'
 urlpatterns = [
-    path('', homepagelabel, name='homepagelabel'),
+    path('', homepagesongwriter, name='homepagesongwriter'),
     path('cekroyalti', cekroyalti, name='cekroyalti'),
     path('listsong', listsong, name='listsong'),
     path('detaillagu', detaillagu, name='detaillagu'),
