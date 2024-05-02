@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'register',
     'logout',
     'podcast',
+    'chart',
     'dashboardreguser',
     'dashboardartist',
     'dashboardsongwriter',

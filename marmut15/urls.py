@@ -23,6 +23,7 @@ urlpatterns = [
     path('login/', include('login.urls')),
     path('register/', include('register.urls')),
     path('podcast/', include('podcast.urls')),
+    path('chart/', include('chart.urls')),
     path('dashboard/podcaster/', include('dashboardpodcaster.urls')),
     path('dashboard/user/', include('dashboardreguser.urls')),
     # path('artist/dashboard/', include('dashboardartist.urls')),
