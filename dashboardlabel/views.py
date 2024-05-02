@@ -8,3 +8,11 @@ def homepagelabel(request):
 
 def cekroyalti(request):
     return render(request, 'cekroyalti.html')
+
+
+def listsong(request):
+    return render(request, 'listsong.html')
+
+
+def detaillagu(request):
+    return render(request, 'detaillagu.html')
