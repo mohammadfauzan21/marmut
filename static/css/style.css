@@ -12,7 +12,7 @@
     --neutral-sup: #1C1714;
     --primary: #FF7816;
     --primary2: #F06B0c;
-    --background-col: linear-gradient(180deg, #bb9451, #1B1817);
+    --background-col: linear-gradient(180deg, var(--neutral-sup), var(--neutral-8));
     
 }
 
@@ -75,37 +75,33 @@ body {
 }
 
 .button-primary{
-  padding-inline: 52px;
-  padding-block: 12px;
-    border-radius: 16px;
-    background-color: var(--primary);
-    color: var(--neutral-0);
-    border:0px;
-    text-decoration: none;
+  padding-inline: 52px !important;
+  padding-block: 12px !important;
+    border-radius: 16px !important;
+    background-color: var(--primary) !important;
+    color: var(--neutral-0) !important;
+    border:0px !important;
 
 }
 .button-primary:hover{
-  padding-inline: 52px;
-  padding-block: 12px;
-    border-radius: 16px;
-    background-color: var(--primary2);
-    color: var(--neutral-0);
-    text-decoration: none;
+  padding-inline: 52px !important;
+  padding-block: 12px !important;
+    border-radius: 16px !important;
+    background-color: var(--primary2) !important;
+    color: var(--neutral-0) !important;
 
 }
 .button-secondary {
-    padding-inline: 52px;
-    padding-block: 12px;
-    border-radius: 16px;
-    border-color: var(--neutral-3);
-    color: var(--neutral-0);
-    background-color: transparent;
-    border-width: 2px; /* Lebar border */
-    border-style: solid; /* Jenis garis border */
-    text-decoration: none;
+    padding-inline: 52px !important;
+    padding-block: 12px !important;
+    border-radius: 16px !important;
+    border-color: var(--neutral-3) !important;
+    color: var(--neutral-0) !important;
+    background-color: transparent !important;
+    border-width: 2px !important; /* Lebar border */
+    border-style: solid !important; /* Jenis garis border */
 }
 
 .button-secondary:hover {
-    border-color: var(--neutral-2); /* Warna border saat hover */
-    text-decoration: none;
+    border-color: var(--neutral-2) !important; /* Warna border saat hover */
 }
