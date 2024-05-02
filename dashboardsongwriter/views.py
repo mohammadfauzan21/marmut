@@ -6,13 +6,13 @@ def homepagesongwriter(request):
     return render(request, 'homepagesongwriter.html')
 
 
-def cekroyalti(request):
-    return render(request, 'cekroyalti.html')
+def cekroyaltisongwriter(request):
+    return render(request, 'cekroyaltisongwriter.html')
 
 
-def listsong(request):
-    return render(request, 'listsong.html')
+def listsongsongwriter(request):
+    return render(request, 'listsongsongwriter.html')
 
 
-def detaillagu(request):
-    return render(request, 'detaillagu.html')
+def detaillagusongwriter(request):
+    return render(request, 'detaillagusongwriter.html')
