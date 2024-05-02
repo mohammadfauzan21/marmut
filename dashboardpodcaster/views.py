@@ -7,5 +7,5 @@ def podcaster(request):
 
 def episodes(request):
     episodes_date = datetime.now()
-    context = {'podcast_date': episodes_date}
-    return render(request, 'detail_podcast.html', context)
+    context = {'episodes_date': episodes_date}
+    return render(request, 'episodes.html', context)
