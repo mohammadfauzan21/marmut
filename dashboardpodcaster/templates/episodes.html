@@ -857,34 +857,39 @@ body {
                     <!-- Daftar podcast -->
                     <div class="row">
                         <div class="col-12" style="margin-left: 30px">
-                            <h2 class="plus-jakarta-sans-extrabold" style="color: var(--neutral-0); font-size: 40px; margin-top: 20px;">Fawwaz's Podcast</h2>
-                            <p class="plus-jakarta-sans-bold" style="color: var(--neutral-1); font-size: 18px; margin-top: 24px;">Teruslah menyebarkan kegembiraan melalui podcast!</p>
+                            <div style="height: 40px;">
+                                <a href="{% url 'dashboard:podcaster' %}" class="container d-flex align-item-center" style="padding-top: 16px; text-decoration: none; height: fit-content;">
+                                    <img src="{% static 'img/back-icon.svg' %}" alt="search" style="width: 20px; height: 20px; margin: left 5px;">
+                                    <p class="plus-jakarta-sans-extrabold align-item-center" style="margin-left: 10px; color: var(--neutral-0); height: auto; align-content: center; height: 20px;">Back</p>
+                                </a>
+                            </div>
+                            <p class="plus-jakarta-sans-bold" style="color: var(--neutral-1); font-size: 13px; margin-top:30px">Podcast</p>
+                            <h2 class="plus-jakarta-sans-extrabold" style="color: var(--neutral-0); font-size: 40px; margin-top: 10px;">Mistery of Love</h2>
+                            <p class="plus-jakarta-sans-bold" style="color: var(--neutral-0); font-size: 20px; margin: top 20px">Fawwaz</p>
+                            <p class="plus-jakarta-sans-bold" style="color: var(--neutral-1); font-size: 13px; margin-top:5px">20 Episodes, 1 jam 2 menit</p>
+                            <p class="plus-jakarta-sans-bold" style="color: var(--neutral-1); font-size: 15px; margin-top: 10px;">Genre</p>
+                            <p class="plus-jakarta-sans-bold chip-genres" style="color: var(--neutral-0); font-size: 13px; margin-top:0px;">Horror</p>
+                            <p class="plus-jakarta-sans-bold chip-genres" style="color: var(--neutral-0); font-size: 13px; margin-top:0px;width: 80px;">Romance</p>
                             <a href="#" class="container d-flex align-items-left"
                                 style="text-decoration: none; height: 34px; margin-top: 40px;" onclick="showPopup()">
                                 <img src="{% static 'img/add-icon.svg' %}" alt="add" style="width: 45px; height: 45px">
                                 <h6 class="plus-jakarta-sans-extrabold"
                                     style="color: var(--neutral-0); margin-top: 13px; margin-left: 15px; text-align: center">
-                                    Tambah Podcast
+                                    Tambah Episode
                                 </h6>
                             </a>
                             <div class="popup-container" id="popupContainer">
                                 <div class="popup-content" style="margin-top:20px;">
-                                    <h2 style="text-align:center">Tambah Podcast</h2>
+                                    <h2 style="text-align:center">Tambah Episode</h2>
                                     <form class="popup-form plus-jakarta-sans-medium">
-                                        <label for="podcastTitle">Judul Podcast</label>
+                                        <label for="podcastTitle">Podcast</label>
                                         <input type="text" id="podcastTitle" name="podcastTitle" required>
-                                        <label for="genreSelect">Pilih Genre</label>
-                                        <select id="genreSelect" name="genreSelect" style="background-color:#292724;" required>
-                                            <option value="horror" style="color: var(--primary-2); background-color:#292724;">Horror</option>
-                                            <option value="romance" style="color: var(--primary-2); background-color:#292724;">Romance</option>
-                                            <option value="comedy" style="color: var(--primary-2); background-color:#292724;">Comedy</option>
-                                            <option value="drama" style="color: var(--primary-2); background-color:#292724;">Drama</option>
-                                            <!-- Daftar genre lainnya -->
-                                        </select>
-                                        <label for="podcastDuration">Durasi Podcast (menit):</label>
-                                        <input type="number" id="podcastDuration" name="podcastDuration" required>
-                                        <label for="episodeCount">Jumlah Episode:</label>
-                                        <input type="number" id="episodeCount" name="episodeCount" required>
+                                        <label for="episodeTitle">Judul Episode</label>
+                                        <input type="text" id="episodeTitle" name="episodeTitle" required>
+                                        <label for="episodeDescription">Deskripsi</label>
+                                        <input type="text" id="episodeDescription" name="episodeDescription" required>
+                                        <label for="episodeDuration">Durasi Episode (menit)</label>
+                                        <input type="number" id="episodeDuration" name="episodeDuration" required>
                                         <div class="button-container plus-jakarta-sans-bold" style="margin-top:20px; align-content: center;">
                                             <button class="button-secondary plus-jakarta-sans-bold" style="margin-right: 10px;" type="button" onclick="hidePopup()">Kembali</button>
                                             <button class="button-primary plus-jakarta-sans-bold" style="margin-right: 10px; align-content: center;" type="submit">Simpan</button>
@@ -896,10 +901,10 @@ body {
                             <table class="table-podcast" style="width: 95%; border-collapse: collapse; margin-top: 48px;color: var(--neutral-1); padding: 10px;">
                                 <thead>
                                     <tr style="border-bottom: 1px solid var(--neutral-2);">
-                                        <th style="color: var(--neutral-1); padding: 10px;">#</th>
-                                        <th style="color: var(--neutral-1); padding-left: 120px;">Judul</th>
-                                        <th style="color: var(--neutral-1); padding-left: 120px;">Jumlah Episode</th>
+                                        <th style="color: var(--neutral-1); padding: 10px;">Judul Episode</th>
+                                        <th style="color: var(--neutral-1); padding-left: 120px;">Deskripsi</th>
                                         <th style="color: var(--neutral-1); padding-left: 120px;">Durasi</th>
+                                        <th style="color: var(--neutral-1); padding-left: 120px;">Tanggal</th>
                                         <th style="color: var(--neutral-1); padding-left: 120px;">Action</th>
                                     </tr>
                                 </thead>
