@@ -1,10 +1,10 @@
 from django.urls import path
-from dashboardsongwriter.views import homepagesongwriter, cekroyalti, listsong, detaillagu
+from dashboardsongwriter.views import homepagesongwriter, cekroyaltisongwriter, listsongsongwriter, detaillagusongwriter
 
 app_name = 'dashboardsongwriter'
 urlpatterns = [
     path('', homepagesongwriter, name='homepagesongwriter'),
-    path('cekroyalti', cekroyalti, name='cekroyalti'),
-    path('listsong', listsong, name='listsong'),
-    path('detaillagu', detaillagu, name='detaillagu'),
+    path('cekroyaltisongwriter', cekroyaltisongwriter, name='cekroyaltisongwriter'),
+    path('listsongsongwriter', listsongsongwriter, name='listsongsongwriter'),
+    path('detaillagusongwriter', detaillagusongwriter, name='detaillagusongwriter'),
 ]
