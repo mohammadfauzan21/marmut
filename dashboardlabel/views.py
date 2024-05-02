@@ -4,3 +4,7 @@ from django.shortcuts import render
 
 def homepagelabel(request):
     return render(request, 'homepagelabel.html')
+
+
+def cekroyalti(request):
+    return render(request, 'cekroyalti.html')
