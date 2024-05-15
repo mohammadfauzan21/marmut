@@ -423,7 +423,7 @@
                     <div class="row container-fluid d-flex"
                     style="width: 100%;border-radius: 24px; padding-bottom: 15px; background-color: var(--neutral-5); padding-top: 8px;">
                     <div class="container" style="margin-top: 16px;">
-                        <a href="{% url 'dashboardsongwriter:homepagesongwriter' %}" class="container d-flex align-items-center"
+                        <a href="{% url 'dashboardartist:homepageartist' %}" class="container d-flex align-items-center"
                             style="text-decoration: none; height: 34px;">
                             <img src="{% static 'img/home-inactive.svg' %}" alt="search"
                                 style="width: 35px; height: 35px;">
@@ -467,7 +467,7 @@
                         </a>
                     </div>
                     <div class="container" style="margin-top: 24px;">
-                        <a href="{% url 'dashboardsongwriter:cekroyalti' %}" class="container d-flex align-items-center"
+                        <a href="{% url 'dashboardartist:cekroyaltiartist' %}" class="container d-flex align-items-center"
                             style="text-decoration: none; height: 34px;">
                             <img src="{% static 'img/royalti-inactive.svg' %}" alt="search"
                                 style="width: 35px; height: 35px;">
@@ -535,7 +535,7 @@
                                         <!-- Dari sini -->
                                         <div class="container d-flex justify-content-center card-playlist" style="height: 68px; border-radius: 16px; margin-top: 4px;">
                                             
-                                            <a href="{% url 'dashboardsongwriter:listsong' %}" class="d-flex" style="text-decoration: none;">
+                                            <a href="{% url 'dashboardartist:listsongartist' %}" class="d-flex" style="text-decoration: none;">
                                             <div class="container col-2" style="align-content: center; margin-inline: -12px;">
                                                 <div class="justify-content-center align-content-center d-flex" style="border-radius: 12px; height: 32px; width: 32px; background-color: var(--neutral-2);">
                                                     <img src="{% static 'img/default.png' %}" alt="kelola" style="width: 24px; height: 24px;">
@@ -547,8 +547,9 @@
                                                         <p class="d-inline" style="margin: 0; color: var(--neutral-0); font-size: 12px; font-weight: 900;">Nama Album</p>
                                                     </div>
                                                     <div style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                                                        <p class="d-inline plus-jakarta-sans-medium" style="margin: 0; color: var(--neutral-1); font-size: 10px;">Label</p>
                                                         <p class="d-inline plus-jakarta-sans-medium" style="margin: 0; color: var(--neutral-1); font-size: 10px;">10 lagu</p>
-                                                        <p class="d-inline plus-jakarta-sans-medium" style="margin: 0; color: var(--neutral-1); font-size: 10px;">6209 menit</p>
+                                                        <p class="d-inline plus-jakarta-sans-medium" style="margin: 0; color: var(--neutral-1); font-size: 10px;">6 menit</p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -558,7 +559,7 @@
                                                     <img src="{% static 'img/threedots.svg' %}" alt="kelola" style="width: 20px; height: 20px;">
                                                 </button>
                                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="background-color: var(--neutral-3); border-radius: 16px; padding: 4px; width: max-content !important;">
-                                                    <a class="dropdown-item plus-jakarta-sans-bold m-auto" style="color: var(--neutral-1); font-size: 12px; font-weight: 600;" href="{% url 'dashboardlabel:listsong' %}">Lihat daftar lagu</a>
+                                                    <a class="dropdown-item plus-jakarta-sans-bold m-auto" style="color: var(--neutral-1); font-size: 12px; font-weight: 600;" href="{% url 'dashboardartist:listsongartist' %}">Lihat daftar lagu</a>
                                                     <a class="dropdown-item plus-jakarta-sans-bold m-auto" style="color: var(--neutral-1); font-size: 12px; font-weight: 600;" href="#" data-toggle="modal" data-target="#modalHapusSong">Hapus</a>
 
                                                 </div>
@@ -590,7 +591,7 @@
                                         <!-- Dari sini -->
                                         <div class="container d-flex justify-content-center card-playlist" style="height: 68px; border-radius: 16px; margin-top: 4px;">
                                             
-                                            <a href="{% url 'dashboardsongwriter:listsong' %}" class="d-flex" style="text-decoration: none;">
+                                            <a href="{% url 'dashboardartist:listsongartist' %}" class="d-flex" style="text-decoration: none;">
                                             <div class="container col-2" style="align-content: center; margin-inline: -12px;">
                                                 <div class="justify-content-center align-content-center d-flex" style="border-radius: 12px; height: 32px; width: 32px; background-color: var(--neutral-2);">
                                                     <img src="{% static 'img/default.png' %}" alt="kelola" style="width: 24px; height: 24px;">
@@ -602,8 +603,9 @@
                                                         <p class="d-inline" style="margin: 0; color: var(--neutral-0); font-size: 12px; font-weight: 900;">Nama Album</p>
                                                     </div>
                                                     <div style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                                                        <p class="d-inline plus-jakarta-sans-medium" style="margin: 0; color: var(--neutral-1); font-size: 10px;">Label</p>
                                                         <p class="d-inline plus-jakarta-sans-medium" style="margin: 0; color: var(--neutral-1); font-size: 10px;">10 lagu</p>
-                                                        <p class="d-inline plus-jakarta-sans-medium" style="margin: 0; color: var(--neutral-1); font-size: 10px;">6209 menit</p>
+                                                        <p class="d-inline plus-jakarta-sans-medium" style="margin: 0; color: var(--neutral-1); font-size: 10px;">6 menit</p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -613,7 +615,7 @@
                                                     <img src="{% static 'img/threedots.svg' %}" alt="kelola" style="width: 20px; height: 20px;">
                                                 </button>
                                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="background-color: var(--neutral-3); border-radius: 16px; padding: 4px; width: max-content !important;">
-                                                    <a class="dropdown-item plus-jakarta-sans-bold m-auto" style="color: var(--neutral-1); font-size: 12px; font-weight: 600;" href="{% url 'dashboardlabel:listsong' %}">Lihat daftar lagu</a>
+                                                    <a class="dropdown-item plus-jakarta-sans-bold m-auto" style="color: var(--neutral-1); font-size: 12px; font-weight: 600;" href="{% url 'dashboardartist:listsongartist' %}">Lihat daftar lagu</a>
                                                     <a class="dropdown-item plus-jakarta-sans-bold m-auto" style="color: var(--neutral-1); font-size: 12px; font-weight: 600;" href="#" data-toggle="modal" data-target="#modalHapusSong">Hapus</a>
 
                                                 </div>
@@ -645,7 +647,7 @@
                                         <!-- Dari sini -->
                                         <div class="container d-flex justify-content-center card-playlist" style="height: 68px; border-radius: 16px; margin-top: 4px;">
                                             
-                                            <a href="{% url 'dashboardsongwriter:listsong' %}" class="d-flex" style="text-decoration: none;">
+                                            <a href="{% url 'dashboardartist:listsongartist' %}" class="d-flex" style="text-decoration: none;">
                                             <div class="container col-2" style="align-content: center; margin-inline: -12px;">
                                                 <div class="justify-content-center align-content-center d-flex" style="border-radius: 12px; height: 32px; width: 32px; background-color: var(--neutral-2);">
                                                     <img src="{% static 'img/default.png' %}" alt="kelola" style="width: 24px; height: 24px;">
@@ -657,8 +659,9 @@
                                                         <p class="d-inline" style="margin: 0; color: var(--neutral-0); font-size: 12px; font-weight: 900;">Nama Album</p>
                                                     </div>
                                                     <div style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                                                        <p class="d-inline plus-jakarta-sans-medium" style="margin: 0; color: var(--neutral-1); font-size: 10px;">Label</p>
                                                         <p class="d-inline plus-jakarta-sans-medium" style="margin: 0; color: var(--neutral-1); font-size: 10px;">10 lagu</p>
-                                                        <p class="d-inline plus-jakarta-sans-medium" style="margin: 0; color: var(--neutral-1); font-size: 10px;">6209 menit</p>
+                                                        <p class="d-inline plus-jakarta-sans-medium" style="margin: 0; color: var(--neutral-1); font-size: 10px;">6 menit</p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -668,7 +671,7 @@
                                                     <img src="{% static 'img/threedots.svg' %}" alt="kelola" style="width: 20px; height: 20px;">
                                                 </button>
                                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="background-color: var(--neutral-3); border-radius: 16px; padding: 4px; width: max-content !important;">
-                                                    <a class="dropdown-item plus-jakarta-sans-bold m-auto" style="color: var(--neutral-1); font-size: 12px; font-weight: 600;" href="{% url 'dashboardlabel:listsong' %}">Lihat daftar lagu</a>
+                                                    <a class="dropdown-item plus-jakarta-sans-bold m-auto" style="color: var(--neutral-1); font-size: 12px; font-weight: 600;" href="{% url 'dashboardartist:listsongartist' %}">Lihat daftar lagu</a>
                                                     <a class="dropdown-item plus-jakarta-sans-bold m-auto" style="color: var(--neutral-1); font-size: 12px; font-weight: 600;" href="#" data-toggle="modal" data-target="#modalHapusSong">Hapus</a>
 
                                                 </div>
@@ -700,7 +703,7 @@
                                         <!-- Dari sini -->
                                         <div class="container d-flex justify-content-center card-playlist" style="height: 68px; border-radius: 16px; margin-top: 4px;">
                                             
-                                            <a href="{% url 'dashboardsongwriter:listsong' %}" class="d-flex" style="text-decoration: none;">
+                                            <a href="{% url 'dashboardartist:listsongartist' %}" class="d-flex" style="text-decoration: none;">
                                             <div class="container col-2" style="align-content: center; margin-inline: -12px;">
                                                 <div class="justify-content-center align-content-center d-flex" style="border-radius: 12px; height: 32px; width: 32px; background-color: var(--neutral-2);">
                                                     <img src="{% static 'img/default.png' %}" alt="kelola" style="width: 24px; height: 24px;">
@@ -712,8 +715,9 @@
                                                         <p class="d-inline" style="margin: 0; color: var(--neutral-0); font-size: 12px; font-weight: 900;">Nama Album</p>
                                                     </div>
                                                     <div style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                                                        <p class="d-inline plus-jakarta-sans-medium" style="margin: 0; color: var(--neutral-1); font-size: 10px;">Label</p>
                                                         <p class="d-inline plus-jakarta-sans-medium" style="margin: 0; color: var(--neutral-1); font-size: 10px;">10 lagu</p>
-                                                        <p class="d-inline plus-jakarta-sans-medium" style="margin: 0; color: var(--neutral-1); font-size: 10px;">6209 menit</p>
+                                                        <p class="d-inline plus-jakarta-sans-medium" style="margin: 0; color: var(--neutral-1); font-size: 10px;">6 menit</p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -723,7 +727,7 @@
                                                     <img src="{% static 'img/threedots.svg' %}" alt="kelola" style="width: 20px; height: 20px;">
                                                 </button>
                                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="background-color: var(--neutral-3); border-radius: 16px; padding: 4px; width: max-content !important;">
-                                                    <a class="dropdown-item plus-jakarta-sans-bold m-auto" style="color: var(--neutral-1); font-size: 12px; font-weight: 600;" href="{% url 'dashboardlabel:listsong' %}">Lihat daftar lagu</a>
+                                                    <a class="dropdown-item plus-jakarta-sans-bold m-auto" style="color: var(--neutral-1); font-size: 12px; font-weight: 600;" href="{% url 'dashboardartist:listsongartist' %}">Lihat daftar lagu</a>
                                                     <a class="dropdown-item plus-jakarta-sans-bold m-auto" style="color: var(--neutral-1); font-size: 12px; font-weight: 600;" href="#" data-toggle="modal" data-target="#modalHapusSong">Hapus</a>
 
                                                 </div>
@@ -755,7 +759,7 @@
                                         <!-- Dari sini -->
                                         <div class="container d-flex justify-content-center card-playlist" style="height: 68px; border-radius: 16px; margin-top: 4px;">
                                             
-                                            <a href="{% url 'dashboardsongwriter:listsong' %}" class="d-flex" style="text-decoration: none;">
+                                            <a href="{% url 'dashboardartist:listsongartist' %}" class="d-flex" style="text-decoration: none;">
                                             <div class="container col-2" style="align-content: center; margin-inline: -12px;">
                                                 <div class="justify-content-center align-content-center d-flex" style="border-radius: 12px; height: 32px; width: 32px; background-color: var(--neutral-2);">
                                                     <img src="{% static 'img/default.png' %}" alt="kelola" style="width: 24px; height: 24px;">
@@ -767,8 +771,9 @@
                                                         <p class="d-inline" style="margin: 0; color: var(--neutral-0); font-size: 12px; font-weight: 900;">Nama Album</p>
                                                     </div>
                                                     <div style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                                                        <p class="d-inline plus-jakarta-sans-medium" style="margin: 0; color: var(--neutral-1); font-size: 10px;">Label</p>
                                                         <p class="d-inline plus-jakarta-sans-medium" style="margin: 0; color: var(--neutral-1); font-size: 10px;">10 lagu</p>
-                                                        <p class="d-inline plus-jakarta-sans-medium" style="margin: 0; color: var(--neutral-1); font-size: 10px;">6209 menit</p>
+                                                        <p class="d-inline plus-jakarta-sans-medium" style="margin: 0; color: var(--neutral-1); font-size: 10px;">6 menit</p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -778,7 +783,7 @@
                                                     <img src="{% static 'img/threedots.svg' %}" alt="kelola" style="width: 20px; height: 20px;">
                                                 </button>
                                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="background-color: var(--neutral-3); border-radius: 16px; padding: 4px; width: max-content !important;">
-                                                    <a class="dropdown-item plus-jakarta-sans-bold m-auto" style="color: var(--neutral-1); font-size: 12px; font-weight: 600;" href="{% url 'dashboardlabel:listsong' %}">Lihat daftar lagu</a>
+                                                    <a class="dropdown-item plus-jakarta-sans-bold m-auto" style="color: var(--neutral-1); font-size: 12px; font-weight: 600;" href="{% url 'dashboardartist:listsongartist' %}">Lihat daftar lagu</a>
                                                     <a class="dropdown-item plus-jakarta-sans-bold m-auto" style="color: var(--neutral-1); font-size: 12px; font-weight: 600;" href="#" data-toggle="modal" data-target="#modalHapusSong">Hapus</a>
 
                                                 </div>
@@ -810,7 +815,7 @@
                                         <!-- Dari sini -->
                                         <div class="container d-flex justify-content-center card-playlist" style="height: 68px; border-radius: 16px; margin-top: 4px;">
                                             
-                                            <a href="{% url 'dashboardsongwriter:listsong' %}" class="d-flex" style="text-decoration: none;">
+                                            <a href="{% url 'dashboardartist:listsongartist' %}" class="d-flex" style="text-decoration: none;">
                                             <div class="container col-2" style="align-content: center; margin-inline: -12px;">
                                                 <div class="justify-content-center align-content-center d-flex" style="border-radius: 12px; height: 32px; width: 32px; background-color: var(--neutral-2);">
                                                     <img src="{% static 'img/default.png' %}" alt="kelola" style="width: 24px; height: 24px;">
@@ -822,8 +827,9 @@
                                                         <p class="d-inline" style="margin: 0; color: var(--neutral-0); font-size: 12px; font-weight: 900;">Nama Album</p>
                                                     </div>
                                                     <div style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                                                        <p class="d-inline plus-jakarta-sans-medium" style="margin: 0; color: var(--neutral-1); font-size: 10px;">Label</p>
                                                         <p class="d-inline plus-jakarta-sans-medium" style="margin: 0; color: var(--neutral-1); font-size: 10px;">10 lagu</p>
-                                                        <p class="d-inline plus-jakarta-sans-medium" style="margin: 0; color: var(--neutral-1); font-size: 10px;">6209 menit</p>
+                                                        <p class="d-inline plus-jakarta-sans-medium" style="margin: 0; color: var(--neutral-1); font-size: 10px;">6 menit</p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -833,7 +839,7 @@
                                                     <img src="{% static 'img/threedots.svg' %}" alt="kelola" style="width: 20px; height: 20px;">
                                                 </button>
                                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="background-color: var(--neutral-3); border-radius: 16px; padding: 4px; width: max-content !important;">
-                                                    <a class="dropdown-item plus-jakarta-sans-bold m-auto" style="color: var(--neutral-1); font-size: 12px; font-weight: 600;" href="{% url 'dashboardlabel:listsong' %}">Lihat daftar lagu</a>
+                                                    <a class="dropdown-item plus-jakarta-sans-bold m-auto" style="color: var(--neutral-1); font-size: 12px; font-weight: 600;" href="{% url 'dashboardartist:listsongartist' %}">Lihat daftar lagu</a>
                                                     <a class="dropdown-item plus-jakarta-sans-bold m-auto" style="color: var(--neutral-1); font-size: 12px; font-weight: 600;" href="#" data-toggle="modal" data-target="#modalHapusSong">Hapus</a>
 
                                                 </div>
@@ -923,7 +929,7 @@
                                         <!-- Dari sini -->
                                         <div class="container d-flex justify-content-center card-playlist" style="height: 68px; border-radius: 16px; margin-top: 4px;">
                                             
-                                            <a href="{% url 'dashboardsongwriter:listsong' %}" class="d-flex" style="text-decoration: none;">
+                                            <a href="{% url 'dashboardartist:listsongartist' %}" class="d-flex" style="text-decoration: none;">
                                             <div class="container col-2" style="align-content: center; margin-inline: -12px;">
                                                 <div class="justify-content-center align-content-center d-flex" style="border-radius: 12px; height: 32px; width: 32px; background-color: var(--neutral-2);">
                                                     <img src="{% static 'img/default.png' %}" alt="kelola" style="width: 24px; height: 24px;">
@@ -935,8 +941,9 @@
                                                         <p class="d-inline" style="margin: 0; color: var(--neutral-0); font-size: 12px; font-weight: 900;">Nama Album</p>
                                                     </div>
                                                     <div style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                                                        <p class="d-inline plus-jakarta-sans-medium" style="margin: 0; color: var(--neutral-1); font-size: 10px;">Label</p>
                                                         <p class="d-inline plus-jakarta-sans-medium" style="margin: 0; color: var(--neutral-1); font-size: 10px;">10 lagu</p>
-                                                        <p class="d-inline plus-jakarta-sans-medium" style="margin: 0; color: var(--neutral-1); font-size: 10px;">6209 menit</p>
+                                                        <p class="d-inline plus-jakarta-sans-medium" style="margin: 0; color: var(--neutral-1); font-size: 10px;">6 menit</p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -947,7 +954,7 @@
                                                 </button>
                                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="background-color: var(--neutral-3); border-radius: 16px; padding: 4px; width: max-content !important;">
                                                     <a class="dropdown-item plus-jakarta-sans-bold m-auto" style="color: var(--neutral-1); font-size: 12px; font-weight: 600;" href="#" data-toggle="modal" data-target="#modalTambahLagu">Tambah lagu</a>
-                                                    <a class="dropdown-item plus-jakarta-sans-bold m-auto" style="color: var(--neutral-1); font-size: 12px; font-weight: 600;" href="{% url 'dashboardsongwriter:listsong' %}">Lihat daftar lagu</a>
+                                                    <a class="dropdown-item plus-jakarta-sans-bold m-auto" style="color: var(--neutral-1); font-size: 12px; font-weight: 600;" href="{% url 'dashboardartist:listsongartist' %}">Lihat daftar lagu</a>
                                                     <a class="dropdown-item plus-jakarta-sans-bold m-auto" style="color: var(--neutral-1); font-size: 12px; font-weight: 600;" href="#" data-toggle="modal" data-target="#modalHapusAlbum">Hapus</a>
 
                                                 </div>
@@ -963,7 +970,7 @@
                                                         </button> -->
                                                         </div>
                                                         <div class="modal-body plus-jakarta-sans-medium" style="color: var(--neutral-1);">
-                                                            Lagu baru akan ditambahkan ke album
+                                                            Lagu baru akan ditambahkan ke album Album-1
                                                         </div>
                                                         <div class="container m-1">
                                                             <label for="exampleFormControlInput1"><p class="m-auto plus-jakarta-sans-bold" style="font-size: 12px;">Judul Lagu</p></label>
@@ -978,23 +985,23 @@
                                                             </select>
                                                         </div>
                                                         <div class="container m-1">
-                                                            <label for="exampleFormControlInput1"><p class="m-auto plus-jakarta-sans-bold" style="font-size: 12px;">Songwriter</p></label>   
+                                                            <label for="exampleFormControlInput1"><p class="m-auto plus-jakarta-sans-bold" style="font-size: 12px;">artist</p></label>   
                                                             <div class="form-check">
                                                                 <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" disabled checked>
                                                                 <label class="form-check-label plus-jakarta-sans-medium" style="font-size: 12px; color: var(--neutral-1);" for="flexCheckDefault" cla>
-                                                                Songwriter-1
+                                                                artist-1
                                                                 </label>
                                                             </div>
                                                             <div class="form-check">
                                                                 <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
                                                                 <label class="form-check-label plus-jakarta-sans-medium" style="font-size: 12px; color: var(--neutral-1);" for="flexCheckDefault" cla>
-                                                                Songwriter-2
+                                                                artist-2
                                                                 </label>
                                                             </div>
                                                             <div class="form-check">
                                                                 <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
                                                                 <label class="form-check-label plus-jakarta-sans-medium" style="font-size: 12px; color: var(--neutral-1);" for="flexCheckDefault" cla>
-                                                                Songwriter-3
+                                                                artist-3
                                                                 </label>
                                                             </div>
                                                         </div>
@@ -1059,7 +1066,7 @@
                                     <!-- Dari sini -->
                                     <div class="container d-flex justify-content-center card-playlist" style="height: 68px; border-radius: 16px; margin-top: 4px;">
                                             
-                                        <a href="{% url 'dashboardsongwriter:listsong' %}" class="d-flex" style="text-decoration: none;">
+                                        <a href="{% url 'dashboardartist:listsongartist' %}" class="d-flex" style="text-decoration: none;">
                                         <div class="container col-2" style="align-content: center; margin-inline: -12px;">
                                             <div class="justify-content-center align-content-center d-flex" style="border-radius: 12px; height: 32px; width: 32px; background-color: var(--neutral-2);">
                                                 <img src="{% static 'img/default.png' %}" alt="kelola" style="width: 24px; height: 24px;">
@@ -1071,8 +1078,9 @@
                                                     <p class="d-inline" style="margin: 0; color: var(--neutral-0); font-size: 12px; font-weight: 900;">Nama Album</p>
                                                 </div>
                                                 <div style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                                                    <p class="d-inline plus-jakarta-sans-medium" style="margin: 0; color: var(--neutral-1); font-size: 10px;">Label</p>
                                                     <p class="d-inline plus-jakarta-sans-medium" style="margin: 0; color: var(--neutral-1); font-size: 10px;">10 lagu</p>
-                                                    <p class="d-inline plus-jakarta-sans-medium" style="margin: 0; color: var(--neutral-1); font-size: 10px;">6209 menit</p>
+                                                    <p class="d-inline plus-jakarta-sans-medium" style="margin: 0; color: var(--neutral-1); font-size: 10px;">6 menit</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -1083,7 +1091,7 @@
                                             </button>
                                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="background-color: var(--neutral-3); border-radius: 16px; padding: 4px; width: max-content !important;">
                                                 <a class="dropdown-item plus-jakarta-sans-bold m-auto" style="color: var(--neutral-1); font-size: 12px; font-weight: 600;" href="#" data-toggle="modal" data-target="#modalTambahLagu">Tambah lagu</a>
-                                                <a class="dropdown-item plus-jakarta-sans-bold m-auto" style="color: var(--neutral-1); font-size: 12px; font-weight: 600;" href="{% url 'dashboardsongwriter:listsong' %}">Lihat daftar lagu</a>
+                                                <a class="dropdown-item plus-jakarta-sans-bold m-auto" style="color: var(--neutral-1); font-size: 12px; font-weight: 600;" href="{% url 'dashboardartist:listsongartist' %}">Lihat daftar lagu</a>
                                                 <a class="dropdown-item plus-jakarta-sans-bold m-auto" style="color: var(--neutral-1); font-size: 12px; font-weight: 600;" href="#" data-toggle="modal" data-target="#modalHapusAlbum">Hapus</a>
 
                                             </div>
@@ -1099,7 +1107,7 @@
                                                     </button> -->
                                                     </div>
                                                     <div class="modal-body plus-jakarta-sans-medium" style="color: var(--neutral-1);">
-                                                        Lagu baru akan ditambahkan ke album
+                                                        Lagu baru akan ditambahkan ke album Album-1
                                                     </div>
                                                     <div class="container m-1">
                                                         <label for="exampleFormControlInput1"><p class="m-auto plus-jakarta-sans-bold" style="font-size: 12px;">Judul Lagu</p></label>
@@ -1114,23 +1122,23 @@
                                                         </select>
                                                     </div>
                                                     <div class="container m-1">
-                                                        <label for="exampleFormControlInput1"><p class="m-auto plus-jakarta-sans-bold" style="font-size: 12px;">Songwriter</p></label>   
+                                                        <label for="exampleFormControlInput1"><p class="m-auto plus-jakarta-sans-bold" style="font-size: 12px;">artist</p></label>   
                                                         <div class="form-check">
                                                             <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" disabled checked>
                                                             <label class="form-check-label plus-jakarta-sans-medium" style="font-size: 12px; color: var(--neutral-1);" for="flexCheckDefault" cla>
-                                                            Songwriter-1
+                                                            artist-1
                                                             </label>
                                                         </div>
                                                         <div class="form-check">
                                                             <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
                                                             <label class="form-check-label plus-jakarta-sans-medium" style="font-size: 12px; color: var(--neutral-1);" for="flexCheckDefault" cla>
-                                                            Songwriter-2
+                                                            artist-2
                                                             </label>
                                                         </div>
                                                         <div class="form-check">
                                                             <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
                                                             <label class="form-check-label plus-jakarta-sans-medium" style="font-size: 12px; color: var(--neutral-1);" for="flexCheckDefault" cla>
-                                                            Songwriter-3
+                                                            artist-3
                                                             </label>
                                                         </div>
                                                     </div>
@@ -1195,7 +1203,7 @@
                                     <!-- Dari sini -->
                                     <div class="container d-flex justify-content-center card-playlist" style="height: 68px; border-radius: 16px; margin-top: 4px;">
                                             
-                                        <a href="{% url 'dashboardsongwriter:listsong' %}" class="d-flex" style="text-decoration: none;">
+                                        <a href="{% url 'dashboardartist:listsongartist' %}" class="d-flex" style="text-decoration: none;">
                                         <div class="container col-2" style="align-content: center; margin-inline: -12px;">
                                             <div class="justify-content-center align-content-center d-flex" style="border-radius: 12px; height: 32px; width: 32px; background-color: var(--neutral-2);">
                                                 <img src="{% static 'img/default.png' %}" alt="kelola" style="width: 24px; height: 24px;">
@@ -1207,8 +1215,9 @@
                                                     <p class="d-inline" style="margin: 0; color: var(--neutral-0); font-size: 12px; font-weight: 900;">Nama Album</p>
                                                 </div>
                                                 <div style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                                                    <p class="d-inline plus-jakarta-sans-medium" style="margin: 0; color: var(--neutral-1); font-size: 10px;">Label</p>
                                                     <p class="d-inline plus-jakarta-sans-medium" style="margin: 0; color: var(--neutral-1); font-size: 10px;">10 lagu</p>
-                                                    <p class="d-inline plus-jakarta-sans-medium" style="margin: 0; color: var(--neutral-1); font-size: 10px;">6209 menit</p>
+                                                    <p class="d-inline plus-jakarta-sans-medium" style="margin: 0; color: var(--neutral-1); font-size: 10px;">6 menit</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -1219,7 +1228,7 @@
                                             </button>
                                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="background-color: var(--neutral-3); border-radius: 16px; padding: 4px; width: max-content !important;">
                                                 <a class="dropdown-item plus-jakarta-sans-bold m-auto" style="color: var(--neutral-1); font-size: 12px; font-weight: 600;" href="#" data-toggle="modal" data-target="#modalTambahLagu">Tambah lagu</a>
-                                                <a class="dropdown-item plus-jakarta-sans-bold m-auto" style="color: var(--neutral-1); font-size: 12px; font-weight: 600;" href="{% url 'dashboardsongwriter:listsong' %}">Lihat daftar lagu</a>
+                                                <a class="dropdown-item plus-jakarta-sans-bold m-auto" style="color: var(--neutral-1); font-size: 12px; font-weight: 600;" href="{% url 'dashboardartist:listsongartist' %}">Lihat daftar lagu</a>
                                                 <a class="dropdown-item plus-jakarta-sans-bold m-auto" style="color: var(--neutral-1); font-size: 12px; font-weight: 600;" href="#" data-toggle="modal" data-target="#modalHapusAlbum">Hapus</a>
 
                                             </div>
@@ -1235,7 +1244,7 @@
                                                     </button> -->
                                                     </div>
                                                     <div class="modal-body plus-jakarta-sans-medium" style="color: var(--neutral-1);">
-                                                        Lagu baru akan ditambahkan ke album
+                                                        Lagu baru akan ditambahkan ke album Album-1
                                                     </div>
                                                     <div class="container m-1">
                                                         <label for="exampleFormControlInput1"><p class="m-auto plus-jakarta-sans-bold" style="font-size: 12px;">Judul Lagu</p></label>
@@ -1250,160 +1259,23 @@
                                                         </select>
                                                     </div>
                                                     <div class="container m-1">
-                                                        <label for="exampleFormControlInput1"><p class="m-auto plus-jakarta-sans-bold" style="font-size: 12px;">Songwriter</p></label>   
+                                                        <label for="exampleFormControlInput1"><p class="m-auto plus-jakarta-sans-bold" style="font-size: 12px;">artist</p></label>   
                                                         <div class="form-check">
                                                             <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" disabled checked>
                                                             <label class="form-check-label plus-jakarta-sans-medium" style="font-size: 12px; color: var(--neutral-1);" for="flexCheckDefault" cla>
-                                                            Songwriter-1
+                                                            artist-1
                                                             </label>
                                                         </div>
                                                         <div class="form-check">
                                                             <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
                                                             <label class="form-check-label plus-jakarta-sans-medium" style="font-size: 12px; color: var(--neutral-1);" for="flexCheckDefault" cla>
-                                                            Songwriter-2
+                                                            artist-2
                                                             </label>
                                                         </div>
                                                         <div class="form-check">
                                                             <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
                                                             <label class="form-check-label plus-jakarta-sans-medium" style="font-size: 12px; color: var(--neutral-1);" for="flexCheckDefault" cla>
-                                                            Songwriter-3
-                                                            </label>
-                                                        </div>
-                                                    </div>
-                                                    <div class="container m-1">
-                                                        <label for="exampleFormControlInput1"><p class="m-auto plus-jakarta-sans-bold" style="font-size: 12px;">Genre</p></label>   
-                                                        <div class="form-check">
-                                                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                                                            <label class="form-check-label plus-jakarta-sans-medium" style="font-size: 12px; color: var(--neutral-1);" for="flexCheckDefault" cla>
-                                                            Genre-1
-                                                            </label>
-                                                        </div>
-                                                        <div class="form-check">
-                                                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                                                            <label class="form-check-label plus-jakarta-sans-medium" style="font-size: 12px; color: var(--neutral-1);" for="flexCheckDefault" cla>
-                                                            Genre-2
-                                                            </label>
-                                                        </div>
-                                                        <div class="form-check">
-                                                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                                                            <label class="form-check-label plus-jakarta-sans-medium" style="font-size: 12px; color: var(--neutral-1);" for="flexCheckDefault" cla>
-                                                            Genre-3
-                                                            </label>
-                                                        </div>
-                                                    </div>
-                                                    <div class="container m-1">
-                                                        <label for="exampleFormControlInput1"><p class="m-auto plus-jakarta-sans-bold" style="font-size: 12px;">Durasi</p></label>
-                                                        <input type="text" class="form-control plus-jakarta-sans-regular" id="exampleFormControlInput1" placeholder="">
-                                                    </div>
-                                                    <div class="modal-footer" style="border-top: none;">
-                                                        <button type="button" class="button-modal-secondary plus-jakarta-sans-bold secondary-button" style="border: none !important; border-radius: 16px; padding-block: 12px; padding-inline: 24px; text-decoration: 2px solid var(--neutral-1); background-color: var(--neutral-3); color: white;" data-dismiss="modal">Batal</button>
-                                                        <button type="button" class="button-modal-danger plus-jakarta-sans-bold danger-button" style="border: none !important; border-radius: 16px; padding-block: 12px; padding-inline: 24px; background-color: var(--primary); color: var(--neutral-0);">Tambah Lagu</button>
-                                                    </div>
-                                                </div>
-                                                </div>
-                                            </div>
-
-                                            <!-- Modal Hapus -->
-                                            <div class="modal fade" id="modalHapusAlbum" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                <div class="modal-dialog" role="document">
-                                                <div class="modal-content" style="background-color: var(--neutral-4); border-radius: 40px !important; padding: 20px;">
-                                                    <div class="modal-header" style="border-bottom: none;">
-                                                    <h5 class="modal-title plus-jakarta-sans-extrabold" id="exampleModalLabel" style="color: var(--neutral-0);">Konfirmasi Hapus</h5>
-                                                    <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button> -->
-                                                    </div>
-                                                    <div class="modal-body plus-jakarta-sans-medium" style="color: var(--neutral-1);">
-                                                        Apakah Anda yakin ingin menghapus item ini?
-                                                    </div>
-                                                    <div class="modal-footer" style="border-top: none;">
-                                                        <button type="button" class="button-modal-secondary plus-jakarta-sans-bold secondary-button" style="border: none !important; border-radius: 16px; padding-block: 12px; padding-inline: 24px; text-decoration: 2px solid var(--neutral-1); background-color: var(--neutral-3); color: white;" data-dismiss="modal">Batal</button>
-                                                        <button type="button" class="button-modal-danger plus-jakarta-sans-bold danger-button" style="border: none !important; border-radius: 16px; padding-block: 12px; padding-inline: 24px; background-color: rgb(255, 47, 47); color: var(--neutral-0);">Hapus</button>
-                                                    </div>
-                                                </div>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                    <!-- Repeat this card as needed -->
-
-
-                                    <!-- Dari sini -->
-                                    <div class="container d-flex justify-content-center card-playlist" style="height: 68px; border-radius: 16px; margin-top: 4px;">
-                                            
-                                        <a href="{% url 'dashboardsongwriter:listsong' %}" class="d-flex" style="text-decoration: none;">
-                                        <div class="container col-2" style="align-content: center; margin-inline: -12px;">
-                                            <div class="justify-content-center align-content-center d-flex" style="border-radius: 12px; height: 32px; width: 32px; background-color: var(--neutral-2);">
-                                                <img src="{% static 'img/default.png' %}" alt="kelola" style="width: 24px; height: 24px;">
-                                            </div>
-                                        </div>
-                                        <div class="container col-7" style="align-content: center;">
-                                            <div class="row d-flex">
-                                                <div class="plus-jakarta-sans-medium" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
-                                                    <p class="d-inline" style="margin: 0; color: var(--neutral-0); font-size: 12px; font-weight: 900;">Nama Album</p>
-                                                </div>
-                                                <div style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
-                                                    <p class="d-inline plus-jakarta-sans-medium" style="margin: 0; color: var(--neutral-1); font-size: 10px;">10 lagu</p>
-                                                    <p class="d-inline plus-jakarta-sans-medium" style="margin: 0; color: var(--neutral-1); font-size: 10px;">6209 menit</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        </a>
-                                        <div class="dropdown d-flex">
-                                            <button class="btn btn-secondary dropdown-toggle-iconless" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: transparent; border: none;">
-                                                <img src="{% static 'img/threedots.svg' %}" alt="kelola" style="width: 20px; height: 20px;">
-                                            </button>
-                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="background-color: var(--neutral-3); border-radius: 16px; padding: 4px; width: max-content !important;">
-                                                <a class="dropdown-item plus-jakarta-sans-bold m-auto" style="color: var(--neutral-1); font-size: 12px; font-weight: 600;" href="#" data-toggle="modal" data-target="#modalTambahLagu">Tambah lagu</a>
-                                                <a class="dropdown-item plus-jakarta-sans-bold m-auto" style="color: var(--neutral-1); font-size: 12px; font-weight: 600;" href="{% url 'dashboardsongwriter:listsong' %}">Lihat daftar lagu</a>
-                                                <a class="dropdown-item plus-jakarta-sans-bold m-auto" style="color: var(--neutral-1); font-size: 12px; font-weight: 600;" href="#" data-toggle="modal" data-target="#modalHapusAlbum">Hapus</a>
-
-                                            </div>
-
-                                            <!-- Modal Tambah Lagu -->
-                                            <div class="modal fade" id="modalTambahLagu" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                <div class="modal-dialog" role="document">
-                                                <div class="modal-content" style="background-color: var(--neutral-4); border-radius: 40px !important; padding: 20px;">
-                                                    <div class="modal-header" style="border-bottom: none;">
-                                                    <h5 class="modal-title plus-jakarta-sans-extrabold" id="exampleModalLabel" style="color: var(--neutral-0);">Tambah Lagu</h5>
-                                                    <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button> -->
-                                                    </div>
-                                                    <div class="modal-body plus-jakarta-sans-medium" style="color: var(--neutral-1);">
-                                                        Lagu baru akan ditambahkan ke album
-                                                    </div>
-                                                    <div class="container m-1">
-                                                        <label for="exampleFormControlInput1"><p class="m-auto plus-jakarta-sans-bold" style="font-size: 12px;">Judul Lagu</p></label>
-                                                        <input type="text" class="form-control plus-jakarta-sans-regular" id="exampleFormControlInput1" placeholder="">
-                                                    </div>
-                                                    <div class=" container m-1">
-                                                        <label for="exampleFormControlInput1"><p class="m-auto plus-jakarta-sans-bold" style="font-size: 12px;">Artis</p></label>
-                                                        <select class="form-select placeholder form-select-lg mb-3 plus-jakarta-sans-semibold"  style="font-size: 12px;"  aria-label=".form-select-lg example">
-                                                            <option selected class="plus-jakarta-sans-semibold" style="background-color: var(--neutral-3);">Artis-1</option>
-                                                            <option value="1" class="plus-jakarta-sans-semibold" style="background-color: var(--neutral-3); ">Artis-2</option>
-                                                            <option value="2" class="plus-jakarta-sans-semibold" style="background-color: var(--neutral-3);">Artis-3</option>
-                                                        </select>
-                                                    </div>
-                                                    <div class="container m-1">
-                                                        <label for="exampleFormControlInput1"><p class="m-auto plus-jakarta-sans-bold" style="font-size: 12px;">Songwriter</p></label>   
-                                                        <div class="form-check">
-                                                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" disabled checked>
-                                                            <label class="form-check-label plus-jakarta-sans-medium" style="font-size: 12px; color: var(--neutral-1);" for="flexCheckDefault" cla>
-                                                            Songwriter-1
-                                                            </label>
-                                                        </div>
-                                                        <div class="form-check">
-                                                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                                                            <label class="form-check-label plus-jakarta-sans-medium" style="font-size: 12px; color: var(--neutral-1);" for="flexCheckDefault" cla>
-                                                            Songwriter-2
-                                                            </label>
-                                                        </div>
-                                                        <div class="form-check">
-                                                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                                                            <label class="form-check-label plus-jakarta-sans-medium" style="font-size: 12px; color: var(--neutral-1);" for="flexCheckDefault" cla>
-                                                            Songwriter-3
+                                                            artist-3
                                                             </label>
                                                         </div>
                                                     </div>
@@ -1469,7 +1341,7 @@
                                     <!-- Dari sini -->
                                     <div class="container d-flex justify-content-center card-playlist" style="height: 68px; border-radius: 16px; margin-top: 4px;">
                                             
-                                        <a href="{% url 'dashboardsongwriter:listsong' %}" class="d-flex" style="text-decoration: none;">
+                                        <a href="{% url 'dashboardartist:listsongartist' %}" class="d-flex" style="text-decoration: none;">
                                         <div class="container col-2" style="align-content: center; margin-inline: -12px;">
                                             <div class="justify-content-center align-content-center d-flex" style="border-radius: 12px; height: 32px; width: 32px; background-color: var(--neutral-2);">
                                                 <img src="{% static 'img/default.png' %}" alt="kelola" style="width: 24px; height: 24px;">
@@ -1481,8 +1353,9 @@
                                                     <p class="d-inline" style="margin: 0; color: var(--neutral-0); font-size: 12px; font-weight: 900;">Nama Album</p>
                                                 </div>
                                                 <div style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                                                    <p class="d-inline plus-jakarta-sans-medium" style="margin: 0; color: var(--neutral-1); font-size: 10px;">Label</p>
                                                     <p class="d-inline plus-jakarta-sans-medium" style="margin: 0; color: var(--neutral-1); font-size: 10px;">10 lagu</p>
-                                                    <p class="d-inline plus-jakarta-sans-medium" style="margin: 0; color: var(--neutral-1); font-size: 10px;">6209 menit</p>
+                                                    <p class="d-inline plus-jakarta-sans-medium" style="margin: 0; color: var(--neutral-1); font-size: 10px;">6 menit</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -1493,7 +1366,7 @@
                                             </button>
                                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="background-color: var(--neutral-3); border-radius: 16px; padding: 4px; width: max-content !important;">
                                                 <a class="dropdown-item plus-jakarta-sans-bold m-auto" style="color: var(--neutral-1); font-size: 12px; font-weight: 600;" href="#" data-toggle="modal" data-target="#modalTambahLagu">Tambah lagu</a>
-                                                <a class="dropdown-item plus-jakarta-sans-bold m-auto" style="color: var(--neutral-1); font-size: 12px; font-weight: 600;" href="{% url 'dashboardsongwriter:listsong' %}">Lihat daftar lagu</a>
+                                                <a class="dropdown-item plus-jakarta-sans-bold m-auto" style="color: var(--neutral-1); font-size: 12px; font-weight: 600;" href="{% url 'dashboardartist:listsongartist' %}">Lihat daftar lagu</a>
                                                 <a class="dropdown-item plus-jakarta-sans-bold m-auto" style="color: var(--neutral-1); font-size: 12px; font-weight: 600;" href="#" data-toggle="modal" data-target="#modalHapusAlbum">Hapus</a>
 
                                             </div>
@@ -1509,7 +1382,7 @@
                                                     </button> -->
                                                     </div>
                                                     <div class="modal-body plus-jakarta-sans-medium" style="color: var(--neutral-1);">
-                                                        Lagu baru akan ditambahkan ke album
+                                                        Lagu baru akan ditambahkan ke album Album-1
                                                     </div>
                                                     <div class="container m-1">
                                                         <label for="exampleFormControlInput1"><p class="m-auto plus-jakarta-sans-bold" style="font-size: 12px;">Judul Lagu</p></label>
@@ -1524,23 +1397,23 @@
                                                         </select>
                                                     </div>
                                                     <div class="container m-1">
-                                                        <label for="exampleFormControlInput1"><p class="m-auto plus-jakarta-sans-bold" style="font-size: 12px;">Songwriter</p></label>   
+                                                        <label for="exampleFormControlInput1"><p class="m-auto plus-jakarta-sans-bold" style="font-size: 12px;">artist</p></label>   
                                                         <div class="form-check">
                                                             <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" disabled checked>
                                                             <label class="form-check-label plus-jakarta-sans-medium" style="font-size: 12px; color: var(--neutral-1);" for="flexCheckDefault" cla>
-                                                            Songwriter-1
+                                                            artist-1
                                                             </label>
                                                         </div>
                                                         <div class="form-check">
                                                             <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
                                                             <label class="form-check-label plus-jakarta-sans-medium" style="font-size: 12px; color: var(--neutral-1);" for="flexCheckDefault" cla>
-                                                            Songwriter-2
+                                                            artist-2
                                                             </label>
                                                         </div>
                                                         <div class="form-check">
                                                             <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
                                                             <label class="form-check-label plus-jakarta-sans-medium" style="font-size: 12px; color: var(--neutral-1);" for="flexCheckDefault" cla>
-                                                            Songwriter-3
+                                                            artist-3
                                                             </label>
                                                         </div>
                                                     </div>
@@ -1606,7 +1479,7 @@
                                     <!-- Dari sini -->
                                     <div class="container d-flex justify-content-center card-playlist" style="height: 68px; border-radius: 16px; margin-top: 4px;">
                                             
-                                        <a href="{% url 'dashboardsongwriter:listsong' %}" class="d-flex" style="text-decoration: none;">
+                                        <a href="{% url 'dashboardartist:listsongartist' %}" class="d-flex" style="text-decoration: none;">
                                         <div class="container col-2" style="align-content: center; margin-inline: -12px;">
                                             <div class="justify-content-center align-content-center d-flex" style="border-radius: 12px; height: 32px; width: 32px; background-color: var(--neutral-2);">
                                                 <img src="{% static 'img/default.png' %}" alt="kelola" style="width: 24px; height: 24px;">
@@ -1618,8 +1491,9 @@
                                                     <p class="d-inline" style="margin: 0; color: var(--neutral-0); font-size: 12px; font-weight: 900;">Nama Album</p>
                                                 </div>
                                                 <div style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                                                    <p class="d-inline plus-jakarta-sans-medium" style="margin: 0; color: var(--neutral-1); font-size: 10px;">Label</p>
                                                     <p class="d-inline plus-jakarta-sans-medium" style="margin: 0; color: var(--neutral-1); font-size: 10px;">10 lagu</p>
-                                                    <p class="d-inline plus-jakarta-sans-medium" style="margin: 0; color: var(--neutral-1); font-size: 10px;">6209 menit</p>
+                                                    <p class="d-inline plus-jakarta-sans-medium" style="margin: 0; color: var(--neutral-1); font-size: 10px;">6 menit</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -1630,7 +1504,7 @@
                                             </button>
                                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="background-color: var(--neutral-3); border-radius: 16px; padding: 4px; width: max-content !important;">
                                                 <a class="dropdown-item plus-jakarta-sans-bold m-auto" style="color: var(--neutral-1); font-size: 12px; font-weight: 600;" href="#" data-toggle="modal" data-target="#modalTambahLagu">Tambah lagu</a>
-                                                <a class="dropdown-item plus-jakarta-sans-bold m-auto" style="color: var(--neutral-1); font-size: 12px; font-weight: 600;" href="{% url 'dashboardsongwriter:listsong' %}">Lihat daftar lagu</a>
+                                                <a class="dropdown-item plus-jakarta-sans-bold m-auto" style="color: var(--neutral-1); font-size: 12px; font-weight: 600;" href="{% url 'dashboardartist:listsongartist' %}">Lihat daftar lagu</a>
                                                 <a class="dropdown-item plus-jakarta-sans-bold m-auto" style="color: var(--neutral-1); font-size: 12px; font-weight: 600;" href="#" data-toggle="modal" data-target="#modalHapusAlbum">Hapus</a>
 
                                             </div>
@@ -1646,7 +1520,7 @@
                                                     </button> -->
                                                     </div>
                                                     <div class="modal-body plus-jakarta-sans-medium" style="color: var(--neutral-1);">
-                                                        Lagu baru akan ditambahkan ke album
+                                                        Lagu baru akan ditambahkan ke album Album-1
                                                     </div>
                                                     <div class="container m-1">
                                                         <label for="exampleFormControlInput1"><p class="m-auto plus-jakarta-sans-bold" style="font-size: 12px;">Judul Lagu</p></label>
@@ -1661,9 +1535,147 @@
                                                         </select>
                                                     </div>
                                                     <div class="container m-1">
-                                                        <label for="exampleFormControlInput1"><p class="m-auto plus-jakarta-sans-bold" style="font-size: 12px;">Songwriter</p></label>   
+                                                        <label for="exampleFormControlInput1"><p class="m-auto plus-jakarta-sans-bold" style="font-size: 12px;">artist</p></label>   
                                                         <div class="form-check">
                                                             <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" disabled checked>
+                                                            <label class="form-check-label plus-jakarta-sans-medium" style="font-size: 12px; color: var(--neutral-1);" for="flexCheckDefault" cla>
+                                                            lagu akan di
+                                                            </label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                                            <label class="form-check-label plus-jakarta-sans-medium" style="font-size: 12px; color: var(--neutral-1);" for="flexCheckDefault" cla>
+                                                            artist-2
+                                                            </label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                                            <label class="form-check-label plus-jakarta-sans-medium" style="font-size: 12px; color: var(--neutral-1);" for="flexCheckDefault" cla>
+                                                            artist-3
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="container m-1">
+                                                        <label for="exampleFormControlInput1"><p class="m-auto plus-jakarta-sans-bold" style="font-size: 12px;">Genre</p></label>   
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                                            <label class="form-check-label plus-jakarta-sans-medium" style="font-size: 12px; color: var(--neutral-1);" for="flexCheckDefault" cla>
+                                                            Genre-1
+                                                            </label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                                            <label class="form-check-label plus-jakarta-sans-medium" style="font-size: 12px; color: var(--neutral-1);" for="flexCheckDefault" cla>
+                                                            Genre-2
+                                                            </label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                                            <label class="form-check-label plus-jakarta-sans-medium" style="font-size: 12px; color: var(--neutral-1);" for="flexCheckDefault" cla>
+                                                            Genre-3
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="container m-1">
+                                                        <label for="exampleFormControlInput1"><p class="m-auto plus-jakarta-sans-bold" style="font-size: 12px;">Durasi</p></label>
+                                                        <input type="text" class="form-control plus-jakarta-sans-regular" id="exampleFormControlInput1" placeholder="">
+                                                    </div>
+                                                    <div class="modal-footer" style="border-top: none;">
+                                                        <button type="button" class="button-modal-secondary plus-jakarta-sans-bold secondary-button" style="border: none !important; border-radius: 16px; padding-block: 12px; padding-inline: 24px; text-decoration: 2px solid var(--neutral-1); background-color: var(--neutral-3); color: white;" data-dismiss="modal">Batal</button>
+                                                        <button type="button" class="button-modal-danger plus-jakarta-sans-bold danger-button" style="border: none !important; border-radius: 16px; padding-block: 12px; padding-inline: 24px; background-color: var(--primary); color: var(--neutral-0);">Tambah Lagu</button>
+                                                    </div>
+                                                </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Modal Hapus -->
+                                            <div class="modal fade" id="modalHapusAlbum" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog" role="document">
+                                                <div class="modal-content" style="background-color: var(--neutral-4); border-radius: 40px !important; padding: 20px;">
+                                                    <div class="modal-header" style="border-bottom: none;">
+                                                    <h5 class="modal-title plus-jakarta-sans-extrabold" id="exampleModalLabel" style="color: var(--neutral-0);">Konfirmasi Hapus</h5>
+                                                    <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button> -->
+                                                    </div>
+                                                    <div class="modal-body plus-jakarta-sans-medium" style="color: var(--neutral-1);">
+                                                        Apakah Anda yakin ingin menghapus item ini?
+                                                    </div>
+                                                    <div class="modal-footer" style="border-top: none;">
+                                                        <button type="button" class="button-modal-secondary plus-jakarta-sans-bold secondary-button" style="border: none !important; border-radius: 16px; padding-block: 12px; padding-inline: 24px; text-decoration: 2px solid var(--neutral-1); background-color: var(--neutral-3); color: white;" data-dismiss="modal">Batal</button>
+                                                        <button type="button" class="button-modal-danger plus-jakarta-sans-bold danger-button" style="border: none !important; border-radius: 16px; padding-block: 12px; padding-inline: 24px; background-color: rgb(255, 47, 47); color: var(--neutral-0);">Hapus</button>
+                                                    </div>
+                                                </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <!-- Repeat this card as needed -->
+
+
+                                    <!-- Dari sini -->
+                                    <div class="container d-flex justify-content-center card-playlist" style="height: 68px; border-radius: 16px; margin-top: 4px;">
+                                            
+                                        <a href="{% url 'dashboardartist:listsongartist' %}" class="d-flex" style="text-decoration: none;">
+                                        <div class="container col-2" style="align-content: center; margin-inline: -12px;">
+                                            <div class="justify-content-center align-content-center d-flex" style="border-radius: 12px; height: 32px; width: 32px; background-color: var(--neutral-2);">
+                                                <img src="{% static 'img/default.png' %}" alt="kelola" style="width: 24px; height: 24px;">
+                                            </div>
+                                        </div>
+                                        <div class="container col-7" style="align-content: center;">
+                                            <div class="row d-flex">
+                                                <div class="plus-jakarta-sans-medium" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                                                    <p class="d-inline" style="margin: 0; color: var(--neutral-0); font-size: 12px; font-weight: 900;">Nama Album</p>
+                                                </div>
+                                                <div style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                                                    <p class="d-inline plus-jakarta-sans-medium" style="margin: 0; color: var(--neutral-1); font-size: 10px;">Label</p>
+                                                    <p class="d-inline plus-jakarta-sans-medium" style="margin: 0; color: var(--neutral-1); font-size: 10px;">10 lagu</p>
+                                                    <p class="d-inline plus-jakarta-sans-medium" style="margin: 0; color: var(--neutral-1); font-size: 10px;">6 menit</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        </a>
+                                        <div class="dropdown d-flex">
+                                            <button class="btn btn-secondary dropdown-toggle-iconless" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: transparent; border: none;">
+                                                <img src="{% static 'img/threedots.svg' %}" alt="kelola" style="width: 20px; height: 20px;">
+                                            </button>
+                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="background-color: var(--neutral-3); border-radius: 16px; padding: 4px; width: max-content !important;">
+                                                <a class="dropdown-item plus-jakarta-sans-bold m-auto" style="color: var(--neutral-1); font-size: 12px; font-weight: 600;" href="#" data-toggle="modal" data-target="#modalTambahLagu">Tambah lagu</a>
+                                                <a class="dropdown-item plus-jakarta-sans-bold m-auto" style="color: var(--neutral-1); font-size: 12px; font-weight: 600;" href="{% url 'dashboardartist:listsongartist' %}">Lihat daftar lagu</a>
+                                                <a class="dropdown-item plus-jakarta-sans-bold m-auto" style="color: var(--neutral-1); font-size: 12px; font-weight: 600;" href="#" data-toggle="modal" data-target="#modalHapusAlbum">Hapus</a>
+
+                                            </div>
+
+                                            <!-- Modal Tambah Lagu -->
+                                            <div class="modal fade" id="modalTambahLagu" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog" role="document">
+                                                <div class="modal-content" style="background-color: var(--neutral-4); border-radius: 40px !important; padding: 20px;">
+                                                    <div class="modal-header" style="border-bottom: none;">
+                                                    <h5 class="modal-title plus-jakarta-sans-extrabold" id="exampleModalLabel" style="color: var(--neutral-0);">Tambah Lagu</h5>
+                                                    <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button> -->
+                                                    </div>
+                                                    <div class="modal-body plus-jakarta-sans-medium" style="color: var(--neutral-1);">
+                                                        Lagu baru akan ditambahkan ke album Album-1
+                                                    </div>
+                                                    <div class="container m-1">
+                                                        <label for="exampleFormControlInput1"><p class="m-auto plus-jakarta-sans-bold" style="font-size: 12px;">Judul Lagu</p></label>
+                                                        <input type="text" class="form-control plus-jakarta-sans-regular" id="exampleFormControlInput1" placeholder="">
+                                                    </div>
+                                                    <div class=" container m-1">
+                                                        <label for="exampleFormControlInput1"><p class="m-auto plus-jakarta-sans-bold" style="font-size: 12px;" >Artis</p></label>
+                                                        <select class="form-select placeholder form-select-lg mb-3 plus-jakarta-sans-semibold"  style="font-size: 12px;"  aria-label=".form-select-lg example" disabled>
+                                                            <option selected class="plus-jakarta-sans-semibold" style="background-color: var(--neutral-3);">Artis-1</option>
+                                                            <option value="1" class="plus-jakarta-sans-semibold" style="background-color: var(--neutral-3); ">Artis-2</option>
+                                                            <option value="2" class="plus-jakarta-sans-semibold" style="background-color: var(--neutral-3);">Artis-3</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="container m-1">
+                                                        <label for="exampleFormControlInput1"><p class="m-auto plus-jakarta-sans-bold" style="font-size: 12px;">Songwriter</p></label>   
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" >
                                                             <label class="form-check-label plus-jakarta-sans-medium" style="font-size: 12px; color: var(--neutral-1);" for="flexCheckDefault" cla>
                                                             Songwriter-1
                                                             </label>
@@ -1790,7 +1802,7 @@
 
                             
                             <div style="height: 40px;">
-                                <a href="{% url 'dashboardlabel:listsong' %}" class="container d-flex align-item-center" style="padding-top: 16px; text-decoration: none; height: fit-content;">
+                                <a href="{% url 'dashboardartist:listsongartist' %}" class="container d-flex align-item-center" style="padding-top: 16px; text-decoration: none; height: fit-content;">
                                     <img src="{% static 'img/ChevronLeft.svg' %}" alt="search" style="width: 20px; height: 20px; margin: left 5px;">
                                     <p class="plus-jakarta-sans-extrabold align-item-center" style="margin-left: 10px; color: var(--neutral-0); height: auto; align-content: center; height: 20px;">Back</p>
                                 </a>
@@ -1812,7 +1824,7 @@
                             </div>
 
                             <div class=" row d-flex" style="margin-bottom: 12px; ">
-                                <p class="plus-jakarta-sans-bold " style="color: var(--neutral-1); font-size: 14px; margin-bottom: 4px;">Songwriter</p>
+                                <p class="plus-jakarta-sans-bold " style="color: var(--neutral-1); font-size: 14px; margin-bottom: 4px;">artist</p>
                                 <p class="plus-jakarta-sans-bold" style="color: var(--neutral-0); font-size: 18px; background-color: var(--neutral-3); width: auto; border-radius: 20px; padding-block: 8px; margin-right: 8px;">Ariana Grande</p>
                                 <p class="plus-jakarta-sans-bold" style="color: var(--neutral-0); font-size: 18px; background-color: var(--neutral-3); width: auto; border-radius: 20px; padding-block: 8px; margin-right: 8px;">5SOS</p>
                             </div>
