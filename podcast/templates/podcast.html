@@ -1332,6 +1332,7 @@
                                 </thead>
                                 <tbody>
                                     {% for index, podcast_data in podcasts %}
+                                    <!-- {{ podcast_data.0 }} -->
                                     <tr class="plus-jakarta-sans-bold" style="border-bottom: 0px solid var(--neutral-2); font-size:14px; text-align:start;padding:10px; ">
                                         <td style="padding-top: 30px; padding-bottom: 30px;padding: 10px;color: var(--neutral-1); ">{{ index|add:1 }}</td>
                                         <td style="padding-top: 30px; padding-bottom: 30px; padding-left: 120px;color: var(--neutral-1); word-wrap: break-word;">{{ podcast_data.1 }}</td>
@@ -1343,7 +1344,7 @@
                                                     <img src="{% static 'img/threedots.svg' %}" alt="kelola" style="width: 20px; height: 20px;">
                                                 </button>
                                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="background-color: var(--neutral-3); border-radius: 16px; padding: 4px; width: max-content !important;">
-                                                    <a class="dropdown-item plus-jakarta-sans-bold m-auto" style="color: var(--neutral-1); font-size: 12px; font-weight: 600;" href="{% url 'podcast:detail_podcast' podcast_data.0.int%}">Lihat daftar episode</a>
+                                                    <a class="dropdown-item plus-jakarta-sans-bold m-auto" style="color: var(--neutral-1); font-size: 12px; font-weight: 600;" href="{% url 'podcast:detail_podcast' podcast_data.0%}">Lihat daftar episode</a>
                                                 </div>
                                             </div>
                                         </td>
