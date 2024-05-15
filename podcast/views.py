@@ -8,13 +8,11 @@ def podcast_view(request):
         with connection.cursor() as cursor:
             # Fetch podcast details
             cursor.execute("""
-                SELECT K.judul, array_agg(G.genre), A.nama, K.durasi, K.tanggal_rilis, K.tahun
-                FROM KONTEN K
-                JOIN PODCAST P ON K.id = P.id_konten
-                JOIN PODCASTER Po ON P.email_podcaster = Po.email
-                JOIN AKUN A ON Po.email = A.email
-                JOIN GENRE G ON K.id = G.id_konten
-                GROUP BY K.judul, A.nama, K.durasi, K.tanggal_rilis, K.tahun
+                SELECT K.judul AS judul_podcast, A.nama AS nama_podcaster, K.durasi AS durasi_podcast
+                FROM podcast P
+                JOIN konten K ON P.id_konten = K.id
+                JOIN podcaster Po ON P.email_podcaster = Po.email
+                JOIN akun A ON Po.email = A.email;
             """)
 
             podcasts = cursor.fetchall()
