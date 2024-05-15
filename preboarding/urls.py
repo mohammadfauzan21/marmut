@@ -6,4 +6,5 @@ urlpatterns = [
     path('', konten, name='konten'),
     path('login/', include('login.urls')),
     path('register/', include('register.urls')),
+    path('logout/', include('logout.urls')),
 ]

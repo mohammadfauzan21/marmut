@@ -2,36 +2,8 @@
 {% load static %}
 
 {% block content %}
-<!-- jQuery -->
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<!-- Bootstrap JS -->
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
 
 <style>
-    .card-playlist{
-        background-color: transparent;
-    }
-    .card-playlist:hover, .card-playlist:focus, .card-playlist:active{
-        background-color: var(--neutral-4);
-    }
-    .dropdown-item {
-        padding: 8px;
-        margin: 8px;
-        border-radius: 12px;
-
-    }
-    .dropdown-item:hover {
-        background-color: var(--neutral-2);
-        padding: 8px;
-        margin: 8px;
-        border-radius: 12px;
-        color: var(--neutral-0);
-    }
-
-    footer{
-        backdrop-filter: blur(100px);
-        
-    }
     input[type=range] {
         -webkit-appearance: none;
         width: 100%;
@@ -108,7 +80,11 @@
         background-color: rgba(0, 0, 0, 0.7);
         /* Ubah warna thumb saat hover sesuai keinginan */
     }
-
+    
+    footer{
+        backdrop-filter: blur(100px);
+        
+    }
 
     input,
     select {
@@ -147,7 +123,6 @@
 
     .top-content {
         background-image: url('{% static "img/dashboard-bg.svg" %}');
-        background-size: cover;
         margin-bottom: -36px;
     }
 
@@ -365,6 +340,17 @@
     /* border-color: var(--neutral-2); Warna border saat hover */
     background-color: var(--primary);
     text-decoration: none;
+}
+
+.chip-genres {
+    display: inline-block;
+    background-color: var(--neutral-2);
+    border-radius: 15px;
+    padding-inline: 10px;
+    padding-block: 5px;
+    color: var(--neutral-0);
+    width: 64px;
+    text-align: center;
 }
 
 </style>
@@ -1315,63 +1301,84 @@
                     </a>
                 </div>
                 <div class="container-fluid"
-                    style="background: linear-gradient(180deg, #292724, #1B1817); width: 100%; border-radius: 24px; margin-top: -1.2em; height: 610px; padding-bottom: 25px; padding-top: 20px;
-                    margin-top: 10px; white-space: nowrap; overflow-y: scroll; text-overflow: ellipsis;">
+                    style="background: linear-gradient(180deg, #292724, #1B1817); width: 100%; border-radius: 24px; margin-top: -1.2em; max-height: 610px; padding-bottom: 25px; padding-top: 20px;
+                    margin-top: 10px; white-space: nowrap; text-overflow: ellipsis; overflow-y: scroll;">
                     <!-- Daftar podcast -->
                     <div class="row">
-                        <div class="col-12" style="margin-left: 30px">
-                            <h2 class="plus-jakarta-sans-extrabold" style="color: var(--neutral-0); font-size: 40px; margin-top: 20px;">Telusuri Podcast</h2>
-                            <p class="plus-jakarta-sans-bold" style="color: var(--neutral-1); font-size: 18px; margin-top: 24px;">Podcast hadir untuk menemani harimu</p>
+                        <div class="col-12" style="margin-left: 30px;">
+                            <div style="height: 40px;">
+                                <a href="{% url 'podcast:podcast' %}" class="container d-flex align-item-center" style="padding-top: 16px; text-decoration: none; height: fit-content;">
+                                    <img src="{% static 'img/back-icon.svg' %}" alt="search" style="width: 20px; height: 20px; margin: left 5px;">
+                                    <p class="plus-jakarta-sans-extrabold align-item-center" style="margin-left: 10px; color: var(--neutral-0); height: auto; align-content: center; height: 20px;">Back</p>
+                                </a>
+                            </div>
+                            <p class="plus-jakarta-sans-bold" style="color: var(--neutral-1); font-size: 13px; margin-top:30px">Podcast</p>
+                            <h2 class="plus-jakarta-sans-extrabold" style="color: var(--neutral-0); font-size: 40px; margin-top: 10px;">Mystery of Love</h2>
+                            <p class="plus-jakarta-sans-bold" style="color: var(--neutral-0); font-size: 20px; margin: top 20px">
+                                <span style="color: var(--neutral-1); font-size: 13px; margin-right: 8px;">by</span>
+                                <span>Fawwaz</span>
+                            </p>
+                            <p class="plus-jakarta-sans-bold" style="color: var(--neutral-1); font-size: 13px; margin-top:5px">20 Episodes, 1 jam 2 menit</p>
+                            <p class="plus-jakarta-sans-bold" style="color: var(--neutral-1); font-size: 15px; margin-top: 10px;">Genre</p>
+                            <p class="plus-jakarta-sans-bold chip-genres" style="color: var(--neutral-0); font-size: 13px; margin-top:0px;">Horror</p>
+                            <p class="plus-jakarta-sans-bold chip-genres" style="color: var(--neutral-0); font-size: 13px; margin-top:0px;width: 80px;">
+                                <span>Romance</span>
+                                <span class="plus-jakarta-sans-medium" style="color: var(--neutral-1); font-size: 13px; margin-top:5px; margin-left: 50.0em">Released on 02 May 2024</span>
+                            </p>
 
                             <!-- Tabel untuk podcast -->
-                            <table class="table-podcast" style="width: 95%; border-collapse: collapse; margin-top: 48px;color: var(--neutral-1); padding: 10px;">
+                            <table class="table-podcast" style="width: 95%; border-collapse: collapse; margin-top: 28px;color: var(--neutral-1); padding: 10px; overflow-y: scroll;">
                                 <thead>
                                     <tr style="border-bottom: 1px solid var(--neutral-2);">
                                         <th style="color: var(--neutral-1); padding: 10px;">#</th>
                                         <th style="color: var(--neutral-1); padding-left: 120px;">Judul</th>
-                                        <th style="color: var(--neutral-1); padding-left: 120px;">Podcaster</th>
+                                        <th style="color: var(--neutral-1); padding-left: 120px;">Deskripsi</th>
                                         <th style="color: var(--neutral-1); padding-left: 120px;">Durasi</th>
-                                        <th style="color: var(--neutral-1); padding-left: 120px;">Action</th>
+                                        <th style="color: var(--neutral-1); padding-left: 120px;">Tanggal</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <!-- Gunakan loop untuk menampilkan episode -->
-                                    {% for podcast in podcasts %}
                                     <tr class="plus-jakarta-sans-bold" style="border-bottom: 0px solid var(--neutral-2); font-size:14px; text-align:start;padding:10px; ">
-                                        <td style="padding-top: 30px; padding-bottom: 30px;padding: 10px;color: var(--neutral-1);">{{ forloop.counter }}</td>
-                                        <td style="padding-top: 30px; padding-bottom: 30px; padding-left: 120px;color: var(--neutral-1);">{{ podcast.judul }}</td>
-                                        <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">{{ podcast.nama }}</td>
-                                        <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">{{ podcast.durasi }}</td>
-                                        <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">
-                                            <div class="dropdown d-flex">
-                                                <button class="btn btn-secondary dropdown-toggle-iconless" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: transparent; border: none;">
-                                                    <img src="{% static 'img/threedots.svg' %}" alt="kelola" style="width: 20px; height: 20px;">
-                                                </button>
-                                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="background-color: var(--neutral-3); border-radius: 16px; padding: 4px; width: max-content !important;">
-                                                    <a class="dropdown-item plus-jakarta-sans-bold m-auto" style="color: var(--neutral-1); font-size: 12px; font-weight: 600;" href="{% url 'podcast:detail_podcast' %}">Lihat daftar episode</a>
-                                                </div>
-                                            </div>
-                                        </td>
+                                        <td style="padding-top: 30px; padding-bottom: 30px;padding: 10px;color: var(--neutral-1);">1</td>
+                                        <td style="padding-top: 30px; padding-bottom: 30px; padding-left: 120px;color: var(--neutral-1);">Episode 1</td>
+                                        <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">Ya isinya episode 1</td>
+                                        <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">30 menit</td>
+                                        <td style="padding-top: 30px; padding-bottom: 30px; padding-left: 120px; color: var(--neutral-1);">{{ podcast_date|date:"d/m/Y" }}
                                     </tr>
-                                    {% endfor %}
 
                                     <tr class="plus-jakarta-sans-bold" style="border-bottom: 0px solid var(--neutral-2); font-size:14px; text-align:start;padding:10px; ">
                                         <td style="padding-top: 30px; padding-bottom: 30px;padding: 10px;color: var(--neutral-1);">1</td>
-                                        <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">Mystery of Love</td>
-                                        <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">Fawwaz</td>
-                                        <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">1 jam 2 menit</td>
-                                        <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">
-                                            <div class="dropdown d-flex">
-                                                <button class="btn btn-secondary dropdown-toggle-iconless" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: transparent; border: none;">
-                                                    <img src="{% static 'img/threedots.svg' %}" alt="kelola" style="width: 20px; height: 20px;">
-                                                </button>
-                                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="background-color: var(--neutral-3); border-radius: 16px; padding: 4px; width: max-content !important;">
-                                                    <a class="dropdown-item plus-jakarta-sans-bold m-auto" style="color: var(--neutral-1); font-size: 12px; font-weight: 600;" href="{% url 'podcast:detail_podcast' %}">Lihat daftar episode</a>
-                                                </div>
-                                            </div>
-                                        </td>
+                                        <td style="padding-top: 30px; padding-bottom: 30px; padding-left: 120px;color: var(--neutral-1);">Episode 1</td>
+                                        <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">Ya isinya episode 1</td>
+                                        <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">30 menit</td>
+                                        <td style="padding-top: 30px; padding-bottom: 30px; padding-left: 120px; color: var(--neutral-1);">{{ podcast_date|date:"d/m/Y" }}
                                     </tr>
                                     
+                                    <tr class="plus-jakarta-sans-bold" style="border-bottom: 0px solid var(--neutral-2); font-size:14px; text-align:start;padding:10px; ">
+                                        <td style="padding-top: 30px; padding-bottom: 30px;padding: 10px;color: var(--neutral-1);">1</td>
+                                        <td style="padding-top: 30px; padding-bottom: 30px; padding-left: 120px;color: var(--neutral-1);">Episode 1</td>
+                                        <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">Ya isinya episode 1</td>
+                                        <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">30 menit</td>
+                                        <td style="padding-top: 30px; padding-bottom: 30px; padding-left: 120px; color: var(--neutral-1);">{{ podcast_date|date:"d/m/Y" }}
+                                    </tr>
+
+                                    <tr class="plus-jakarta-sans-bold" style="border-bottom: 0px solid var(--neutral-2); font-size:14px; text-align:start;padding:10px; ">
+                                        <td style="padding-top: 30px; padding-bottom: 30px;padding: 10px;color: var(--neutral-1);">1</td>
+                                        <td style="padding-top: 30px; padding-bottom: 30px; padding-left: 120px;color: var(--neutral-1);">Episode 1</td>
+                                        <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">Ya isinya episode 1</td>
+                                        <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">30 menit</td>
+                                        <td style="padding-top: 30px; padding-bottom: 30px; padding-left: 120px; color: var(--neutral-1);">{{ podcast_date|date:"d/m/Y" }}
+                                    </tr>
+                                    
+                                    <tr class="plus-jakarta-sans-bold" style="border-bottom: 0px solid var(--neutral-2); font-size:14px; text-align:start;padding:10px; ">
+                                        <td style="padding-top: 30px; padding-bottom: 30px;padding: 10px;color: var(--neutral-1);">1</td>
+                                        <td style="padding-top: 30px; padding-bottom: 30px; padding-left: 120px;color: var(--neutral-1);">Episode 1</td>
+                                        <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">Ya isinya episode 1</td>
+                                        <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">30 menit</td>
+                                        <td style="padding-top: 30px; padding-bottom: 30px; padding-left: 120px; color: var(--neutral-1);">{{ podcast_date|date:"d/m/Y" }}
+                                    </tr>
+
                                 </tbody>
                             </table>
                         </div>
