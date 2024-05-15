@@ -94,8 +94,15 @@ WSGI_APPLICATION = 'marmut15.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'OPTIONS': {
+            'options': '-c search_path=marmut'
+        },
+        'HOST': "aws-0-ap-southeast-1.pooler.supabase.com",
+        'NAME': "postgres",
+        'USER': "postgres.dajerwcduxdoplsqjhtz",
+        'PASSWORD': "Basisdata_F15",
+        'PORT': "5432",
     }
 }
 

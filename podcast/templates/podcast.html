@@ -1336,11 +1336,12 @@
                                 </thead>
                                 <tbody>
                                     <!-- Gunakan loop untuk menampilkan episode -->
+                                    {% for podcast in podcasts %}
                                     <tr class="plus-jakarta-sans-bold" style="border-bottom: 0px solid var(--neutral-2); font-size:14px; text-align:start;padding:10px; ">
-                                        <td style="padding-top: 30px; padding-bottom: 30px;padding: 10px;color: var(--neutral-1);">1</td>
-                                        <td style="padding-top: 30px; padding-bottom: 30px; padding-left: 120px;color: var(--neutral-1);">Mystery of Love</td>
-                                        <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">Fawwaz</td>
-                                        <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">1 jam 2 menit</td>
+                                        <td style="padding-top: 30px; padding-bottom: 30px;padding: 10px;color: var(--neutral-1);">{{ forloop.counter }}</td>
+                                        <td style="padding-top: 30px; padding-bottom: 30px; padding-left: 120px;color: var(--neutral-1);">{{ podcast.judul }}</td>
+                                        <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">{{ podcast.nama }}</td>
+                                        <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">{{ podcast.durasi }}</td>
                                         <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">
                                             <div class="dropdown d-flex">
                                                 <button class="btn btn-secondary dropdown-toggle-iconless" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: transparent; border: none;">
@@ -1352,57 +1353,7 @@
                                             </div>
                                         </td>
                                     </tr>
-
-                                    <tr class="plus-jakarta-sans-bold" style="border-bottom: 0px solid var(--neutral-2); font-size:14px; text-align:start;padding:10px; ">
-                                        <td style="padding-top: 30px; padding-bottom: 30px;padding: 10px;color: var(--neutral-1);">1</td>
-                                        <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">Mystery of Love</td>
-                                        <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">Fawwaz</td>
-                                        <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">1 jam 2 menit</td>
-                                        <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">
-                                            <div class="dropdown d-flex">
-                                                <button class="btn btn-secondary dropdown-toggle-iconless" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: transparent; border: none;">
-                                                    <img src="{% static 'img/threedots.svg' %}" alt="kelola" style="width: 20px; height: 20px;">
-                                                </button>
-                                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="background-color: var(--neutral-3); border-radius: 16px; padding: 4px; width: max-content !important;">
-                                                    <a class="dropdown-item plus-jakarta-sans-bold m-auto" style="color: var(--neutral-1); font-size: 12px; font-weight: 600;" href="{% url 'podcast:detail_podcast' %}">Lihat daftar episode</a>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-
-                                    <tr class="plus-jakarta-sans-bold" style="border-bottom: 0px solid var(--neutral-2); font-size:14px; text-align:start;padding:10px; ">
-                                        <td style="padding-top: 30px; padding-bottom: 30px;padding: 10px;color: var(--neutral-1);">1</td>
-                                        <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">Mystery of Love</td>
-                                        <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">Fawwaz</td>
-                                        <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">1 jam 2 menit</td>
-                                        <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">
-                                            <div class="dropdown d-flex">
-                                                <button class="btn btn-secondary dropdown-toggle-iconless" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: transparent; border: none;">
-                                                    <img src="{% static 'img/threedots.svg' %}" alt="kelola" style="width: 20px; height: 20px;">
-                                                </button>
-                                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="background-color: var(--neutral-3); border-radius: 16px; padding: 4px; width: max-content !important;">
-                                                    <a class="dropdown-item plus-jakarta-sans-bold m-auto" style="color: var(--neutral-1); font-size: 12px; font-weight: 600;" href="{% url 'podcast:detail_podcast' %}">Lihat daftar episode</a>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-
-                                    <tr class="plus-jakarta-sans-bold" style="border-bottom: 0px solid var(--neutral-2); font-size:14px; text-align:start;padding:10px; ">
-                                        <td style="padding-top: 30px; padding-bottom: 30px;padding: 10px;color: var(--neutral-1);">1</td>
-                                        <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">Mystery of Love</td>
-                                        <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">Fawwaz</td>
-                                        <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">1 jam 2 menit</td>
-                                        <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">
-                                            <div class="dropdown d-flex">
-                                                <button class="btn btn-secondary dropdown-toggle-iconless" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: transparent; border: none;">
-                                                    <img src="{% static 'img/threedots.svg' %}" alt="kelola" style="width: 20px; height: 20px;">
-                                                </button>
-                                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="background-color: var(--neutral-3); border-radius: 16px; padding: 4px; width: max-content !important;">
-                                                    <a class="dropdown-item plus-jakarta-sans-bold m-auto" style="color: var(--neutral-1); font-size: 12px; font-weight: 600;" href="{% url 'podcast:detail_podcast' %}">Lihat daftar episode</a>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
+                                    {% endfor %}
 
                                     <tr class="plus-jakarta-sans-bold" style="border-bottom: 0px solid var(--neutral-2); font-size:14px; text-align:start;padding:10px; ">
                                         <td style="padding-top: 30px; padding-bottom: 30px;padding: 10px;color: var(--neutral-1);">1</td>
