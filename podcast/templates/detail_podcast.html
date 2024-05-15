@@ -1313,17 +1313,18 @@
                                 </a>
                             </div>
                             <p class="plus-jakarta-sans-bold" style="color: var(--neutral-1); font-size: 13px; margin-top:30px">Podcast</p>
-                            <h2 class="plus-jakarta-sans-extrabold" style="color: var(--neutral-0); font-size: 40px; margin-top: 10px;">Mystery of Love</h2>
+                            <h2 class="plus-jakarta-sans-extrabold" style="color: var(--neutral-0); font-size: 40px; margin-top: 10px;">{{ judul_podcast }}</h2> <!-- Judul Podcast-->
                             <p class="plus-jakarta-sans-bold" style="color: var(--neutral-0); font-size: 20px; margin: top 20px">
                                 <span style="color: var(--neutral-1); font-size: 13px; margin-right: 8px;">by</span>
-                                <span>Fawwaz</span>
+                                <span>{{ nama_podcaster }}</span> <!-- Nama Podcaster-->
                             </p>
-                            <p class="plus-jakarta-sans-bold" style="color: var(--neutral-1); font-size: 13px; margin-top:5px">20 Episodes, 1 jam 2 menit</p>
-                            <p class="plus-jakarta-sans-bold" style="color: var(--neutral-1); font-size: 15px; margin-top: 10px;">Genre</p>
-                            <p class="plus-jakarta-sans-bold chip-genres" style="color: var(--neutral-0); font-size: 13px; margin-top:0px;">Horror</p>
+                            <p class="plus-jakarta-sans-bold" style="color: var(--neutral-1); font-size: 13px; margin-top:5px">{{ total_episode }} Episodes, {{ total_durasi }}</p> <!-- Total Episode dan Durasi Podcast-->
+                            <p class="plus-jakarta-sans-bold" style="color: var(--neutral-1); font-size: 15px; margin-top: 10px;">Genre</p> <!-- Genre Podcast-->
+                            <p class="plus-jakarta-sans-bold chip-genres" style="color: var(--neutral-0); font-size: 13px; margin-top:0px;">{{ genre }}</p>
                             <p class="plus-jakarta-sans-bold chip-genres" style="color: var(--neutral-0); font-size: 13px; margin-top:0px;width: 80px;">
-                                <span>Romance</span>
+                                <span>{{ tanggal_rilis_podcast }}</span> <!-- Tanggal Rilis Podcast-->
                                 <span class="plus-jakarta-sans-medium" style="color: var(--neutral-1); font-size: 13px; margin-top:5px; margin-left: 50.0em">Released on 02 May 2024</span>
+                            </p>
                             </p>
 
                             <!-- Tabel untuk podcast -->
@@ -1339,13 +1340,15 @@
                                 </thead>
                                 <tbody>
                                     <!-- Gunakan loop untuk menampilkan episode -->
+                                    {% for index, episode in episodes %}
                                     <tr class="plus-jakarta-sans-bold" style="border-bottom: 0px solid var(--neutral-2); font-size:14px; text-align:start;padding:10px; ">
-                                        <td style="padding-top: 30px; padding-bottom: 30px;padding: 10px;color: var(--neutral-1);">1</td>
-                                        <td style="padding-top: 30px; padding-bottom: 30px; padding-left: 120px;color: var(--neutral-1);">Episode 1</td>
-                                        <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">Ya isinya episode 1</td>
-                                        <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">30 menit</td>
-                                        <td style="padding-top: 30px; padding-bottom: 30px; padding-left: 120px; color: var(--neutral-1);">{{ podcast_date|date:"d/m/Y" }}
+                                        <td style="padding-top: 30px; padding-bottom: 30px;padding: 10px;color: var(--neutral-1);">{{ index|add:1 }}</td>
+                                        <td style="padding-top: 30px; padding-bottom: 30px; padding-left: 120px;color: var(--neutral-1);">{{ episode.judul_episode }}</td>
+                                        <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">{{ episode.deskripsi_episode }}</td>
+                                        <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">{{ episode.durasi_episode }}</td>
+                                        <td style="padding-top: 30px; padding-bottom: 30px; padding-left: 120px; color: var(--neutral-1);">{{ episode.tanggal_rilis_episode|date:"d/m/Y" }}</td>
                                     </tr>
+                                    {% endfor %}
 
                                     <tr class="plus-jakarta-sans-bold" style="border-bottom: 0px solid var(--neutral-2); font-size:14px; text-align:start;padding:10px; ">
                                         <td style="padding-top: 30px; padding-bottom: 30px;padding: 10px;color: var(--neutral-1);">1</td>
@@ -1354,31 +1357,6 @@
                                         <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">30 menit</td>
                                         <td style="padding-top: 30px; padding-bottom: 30px; padding-left: 120px; color: var(--neutral-1);">{{ podcast_date|date:"d/m/Y" }}
                                     </tr>
-                                    
-                                    <tr class="plus-jakarta-sans-bold" style="border-bottom: 0px solid var(--neutral-2); font-size:14px; text-align:start;padding:10px; ">
-                                        <td style="padding-top: 30px; padding-bottom: 30px;padding: 10px;color: var(--neutral-1);">1</td>
-                                        <td style="padding-top: 30px; padding-bottom: 30px; padding-left: 120px;color: var(--neutral-1);">Episode 1</td>
-                                        <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">Ya isinya episode 1</td>
-                                        <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">30 menit</td>
-                                        <td style="padding-top: 30px; padding-bottom: 30px; padding-left: 120px; color: var(--neutral-1);">{{ podcast_date|date:"d/m/Y" }}
-                                    </tr>
-
-                                    <tr class="plus-jakarta-sans-bold" style="border-bottom: 0px solid var(--neutral-2); font-size:14px; text-align:start;padding:10px; ">
-                                        <td style="padding-top: 30px; padding-bottom: 30px;padding: 10px;color: var(--neutral-1);">1</td>
-                                        <td style="padding-top: 30px; padding-bottom: 30px; padding-left: 120px;color: var(--neutral-1);">Episode 1</td>
-                                        <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">Ya isinya episode 1</td>
-                                        <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">30 menit</td>
-                                        <td style="padding-top: 30px; padding-bottom: 30px; padding-left: 120px; color: var(--neutral-1);">{{ podcast_date|date:"d/m/Y" }}
-                                    </tr>
-                                    
-                                    <tr class="plus-jakarta-sans-bold" style="border-bottom: 0px solid var(--neutral-2); font-size:14px; text-align:start;padding:10px; ">
-                                        <td style="padding-top: 30px; padding-bottom: 30px;padding: 10px;color: var(--neutral-1);">1</td>
-                                        <td style="padding-top: 30px; padding-bottom: 30px; padding-left: 120px;color: var(--neutral-1);">Episode 1</td>
-                                        <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">Ya isinya episode 1</td>
-                                        <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">30 menit</td>
-                                        <td style="padding-top: 30px; padding-bottom: 30px; padding-left: 120px; color: var(--neutral-1);">{{ podcast_date|date:"d/m/Y" }}
-                                    </tr>
-
                                 </tbody>
                             </table>
                         </div>
