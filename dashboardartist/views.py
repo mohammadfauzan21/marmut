@@ -16,3 +16,12 @@ def listsongartist(request):
 
 def detaillaguartist(request):
     return render(request, 'detaillaguartist.html')
+
+def playlistartist(request):
+    return render(request, 'playlistartist.html')
+
+def podcastartist(request):
+    return render(request, 'podcastartist.html')
+
+def chartartist(request):
+    return render(request, 'chartartist.html')
