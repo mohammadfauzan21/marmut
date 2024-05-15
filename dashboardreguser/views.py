@@ -1,5 +1,11 @@
+import os
 from django.shortcuts import render
 from django.urls import resolve
+from supabase import create_client
+from django.db import connections #ini penting dr ghana
+#kata ghana buat file query.py untuk buat method ambil datanya dari database
+from dotenv import load_dotenv
+load_dotenv()
 
 # Create your views here.
 def dashboarduser(request):
@@ -32,3 +38,13 @@ def chart(request):
     request.session['prev_url'] = current_url
     print("Session = " + request.session.get('prev_url', ''))
     return render(request, 'chart.html')
+
+
+def data():
+    url = os.environ.get("SUPABASE_URL")
+    key = os.environ.get("SUPABASE_KEY")
+    supabase = create_client(url, key)
+
+    data = supabase.table("akun_permission").select("id,name").execute()
+
+    print(data)
