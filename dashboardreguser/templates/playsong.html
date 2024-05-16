@@ -1813,79 +1813,140 @@
                 <div class="container-fluid"
                     style="background: linear-gradient(180deg, #292724, #1B1817); width: 100%; border-radius: 24px; height: max-content; padding-bottom: 25px; padding-top: 20px; white-space: nowrap; overflow-y: scroll; text-overflow: ellipsis; max-height: 610px; margin-top: 1em;">
                     <div class="d-flex align-items-center">
-                        <button class="btn btn-secondary dropdown-toggle-iconless" type="button" id="dropdownMenuButton" data-toggle=""
-                            aria-haspopup="true" aria-expanded="false" style="background-color: transparent; border: none;" onclick="goBack()">
-                            <img src="{% static 'img/ChevronLeft.svg' %}" alt="kelola" style="width: 40px; height: 40px;">
-                        </button>
-                        <h1 class="plus-jakarta-sans-extrabold align-item-center"
-                            style="margin-left: 15px; color: var(--neutral-0); margin-top: 10px;">Judul Lagu
-                        </h1>
+                        <div class="d-flex align-items-center">
+                            <button class="btn btn-secondary dropdown-toggle-iconless" type="button" id="dropdownMenuButton" data-toggle=""
+                                aria-haspopup="true" aria-expanded="false" style="background-color: transparent; border: none;" onclick="goBack()">
+                                <img src="{% static 'img/ChevronLeft.svg' %}" alt="kelola" style="width: 40px; height: 40px;">
+                            </button>
+                            <h1 class="plus-jakarta-sans-extrabold align-item-center"
+                                style="margin-left: 15px; color: var(--neutral-0); margin-top: 10px;">{{judul_lagu}}
+                            </h1>
+                        </div>
+                        <div class="my-2 d-flex justify-content-between" style="width: 20%; height: 100px; margin-left: 20px;">
+                            <div>
+                                <a href="" class="mx-1" style="text-decoration: none;">
+                                    <button class="btn btn-secondary dropdown-toggle-iconless" type="button" id="dropdownMenuButton"
+                                        data-toggle="" aria-haspopup="true" aria-expanded="false"
+                                        style="background-color: transparent; border: none;">
+                                        <img src="{% static 'img/PlayCircleFill.svg' %}" alt="kelola" style="width: 70px; height: 70px;">
+                                    </button>
+                                    <p class="plus-jakarta-sans-extrabold"
+                                        style="color: var(--neutral-1); margin-left: 31px; text-decoration: none;">Putar</p>
+                                </a>
+                            </div>
+                            <div>
+                                <a href="#" class="mx-1" style="text-decoration: none;" data-toggle="modal" data-target="#tambahLaguModal">
+                                    <button class="btn btn-secondary dropdown-toggle-iconless" type="button" id="dropdownMenuButton"
+                                        aria-haspopup="true" aria-expanded="false" style="background-color: transparent; border: none;">
+                                        <img src="{% static 'img/PlusCircleAdd.svg' %}" alt="kelola" style="width: 70px; height: 70px; margin-left: 13px">
+                                    </button>
+                                    <p class="plus-jakarta-sans-extrabold" style="color: var(--neutral-1);">Tambah ke Playlist</p>
+                                </a>
+                            </div>
+                            <div>
+                                <a href="#" class="mx-1" style="text-decoration: none;" data-toggle="modal" data-target="#downloadLaguModal">
+                                    <button class="btn btn-secondary dropdown-toggle-iconless" type="button" id="dropdownMenuButton"
+                                        aria-haspopup="true" aria-expanded="false" style="background-color: transparent; border: none;">
+                                        <img src="{% static 'img/PlusCircleAdd.svg' %}" alt="kelola"
+                                            style="width: 70px; height: 70px; margin-left: 5px">
+                                    </button>
+                                    <p class="plus-jakarta-sans-extrabold" style="color: var(--neutral-1); margin-left: 17px">Download</p>
+                                </a>
+                            </div>
+                            <!-- Modal -->
+                            <div class="modal fade" id="tambahLaguModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                                aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content"
+                                        style="background-color: var(--neutral-4); border-radius: 40px !important; padding: 20px;">
+                                        <div class="modal-header" style="border-bottom: none;">
+                                            <h5 class="modal-title plus-jakarta-sans-extrabold" id="exampleModalLabel"
+                                                style="color: var(--neutral-0);">
+                                                Tambah Lagu</h5>
+                                        </div>
+                                        <div class="modal-body plus-jakarta-sans-medium" style="color: var(--neutral-1);">
+                                            <!-- Dropdown untuk judul -->
+                                            <div class="form-group">
+                                                <label for="judulDropdown">Lagu</label>
+                                                <select class="form-control" id="judulDropdown">
+                                                    <option value="judul1">Manusia - Tulus</option>
+                                                    <option value="judul2">Gajah - Tulus</option>
+                                                    <option value="judul3">Labirin - Tulus</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer" style="border-top: none;">
+                                            <button type="button" class="button-modal-secondary plus-jakarta-sans-bold secondary-button"
+                                                style="border: none !important; border-radius: 16px; padding-block: 12px; padding-inline: 24px; text-decoration: 2px solid var(--neutral-1); background-color: var(--neutral-3); color: white;"
+                                                data-dismiss="modal">Batal</button>
+                                            <button type="button" class="button-modal-danger plus-jakarta-sans-bold button-primary"
+                                                style="border: none !important; border-radius: 16px; padding-block: 12px; padding-inline: 24px; color: var(--neutral-0);">Tambah
+                                                ke Playlist</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="nama" style="margin-top: 20px;">
                         <p class="plus-jakarta-sans-extrabold align-item-center" style="margin-left: 15px; color: #504B48;">Artist</p>
                         <p class="plus-jakarta-sans-extrabold align-item-center"
                             style="margin-left: 15px; color: var(--neutral-0); margin-top: -5px;">
-                            Ariana Grande</p>
+                            {{artist}}</p>
                     </div>
                     <div class="nama" style="margin-top: 20px;">
                         <p class="plus-jakarta-sans-extrabold align-item-center" style="margin-left: 15px; color: #504B48;">Genre</p>
                         <ul class="nav nav-pills d-flex justify-content-start" id="pills-tab" role="tablist" style="margin-top: -5px;">
-                            <li class="nav-item p-1" style="background-color: var(--neutral-5); border-radius: 16px; margin: 0 12px;"
-                                role="presentation">
-                                <button class="nav-link active plus-jakarta-sans-extrabold disabled" id="pills-home-tab"
-                                    data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home"
-                                    aria-selected="true" style="border-radius: 12px; font-weight: 900; font-size: 12px;">Pop</button>
-                            </li>
-                            <li class="nav-item p-1" style="background-color: var(--neutral-5); border-radius: 16px; margin-right: 12px;"
-                                role="presentation">
-                                <button class="nav-link active plus-jakarta-sans-extrabold disabled" id="pills-home-tab"
-                                    data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home"
-                                    aria-selected="true" style=" border-radius: 12px; font-weight: 900; font-size: 12px;">Jazz</button>
-                            </li>
-                            <!-- Tambah kategori chips -->
-                            <li class="nav-item p-1" style="background-color: var(--neutral-5); border-radius: 16px;" role="presentation">
-                                <button class="nav-link active plus-jakarta-sans-extrabold disabled" id="pills-home-tab"
-                                    data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home"
-                                    aria-selected="true" style="border-radius: 12px; font-weight: 900; font-size: 12px;">Blues</button>
-                            </li>
+                            {% for genre in genres %}
+                                {% if genre %}
+                                <li class="nav-item p-1" style="background-color: var(--neutral-5); border-radius: 16px; margin: 0 5px;"
+                                    role="presentation">
+                                    <button class="nav-link active plus-jakarta-sans-extrabold disabled" id="pills-home-tab"
+                                        data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home"
+                                        aria-selected="true" style="border-radius: 12px; font-weight: 900; font-size: 12px;">{{genre}}</button>
+                                </li>
+                                {% else %}
+                                <li class="nav-item p-1" style="background-color: var(--neutral-5); border-radius: 16px; margin: 0 5px;"
+                                    role="presentation">
+                                    <button class="nav-link active plus-jakarta-sans-extrabold disabled" id="pills-home-tab" data-bs-toggle="pill"
+                                        data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true"
+                                        style="border-radius: 12px; font-weight: 900; font-size: 12px;">-</button>
+                                </li>
+                                {% endif %}
+                            {% endfor %}
                         </ul>
                     </div>
                     <div class="nama" style="margin-top: 20px;">
                         <p class="plus-jakarta-sans-extrabold align-item-center" style="margin-left: 15px; color: #504B48;">Songwriter</p>
                         <ul class="nav nav-pills d-flex justify-content-start" id="pills-tab" role="tablist" style="margin-top: -5px;">
-                            <li class="nav-item p-1" style="background-color: var(--neutral-5); border-radius: 16px; margin: 0 12px;"
+                            {% for name in songwriter %}
+                            <li class="nav-item p-1" style="background-color: var(--neutral-5); border-radius: 16px; margin: 3px 5px;"
                                 role="presentation">
                                 <button class="nav-link active plus-jakarta-sans-extrabold disabled" id="pills-home-tab"
                                     data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home"
-                                    aria-selected="true" style="border-radius: 12px; font-weight: 900; font-size: 12px;">Sarah Padi</button>
+                                    aria-selected="true" style="border-radius: 12px; font-weight: 900; font-size: 12px;">{{name.name}}</button>
                             </li>
-                            <li class="nav-item p-1" style="background-color: var(--neutral-5); border-radius: 16px; margin-right: 12px;"
-                                role="presentation">
-                                <button class="nav-link active plus-jakarta-sans-extrabold disabled" id="pills-home-tab"
-                                    data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home"
-                                    aria-selected="true" style=" border-radius: 12px; font-weight: 900; font-size: 12px;">Ozan
-                                    Kozawa</button>
-                            </li>
+                            {% endfor %}
                         </ul>
                     </div>
                     <div class="nama" style="margin-top: 20px;">
                         <p class="plus-jakarta-sans-extrabold align-item-center" style="margin-left: 15px; color: #504B48;">Durasi</p>
                         <p class="plus-jakarta-sans-extrabold align-item-center"
                             style="margin-left: 15px; color: var(--neutral-0); margin-top: -5px;">
-                            3:23</p>
+                            {{durasi}}</p>
                     </div>
                     <div class="nama" style="margin-top: 20px;">
                         <p class="plus-jakarta-sans-extrabold align-item-center" style="margin-left: 15px; color: #504B48;">Tanggal Rilis
                         </p>
                         <p class="plus-jakarta-sans-extrabold align-item-center"
                             style="margin-left: 15px; color: var(--neutral-0); margin-top: -5px;">
-                            3 Agustus 2024</p>
+                            {{tanggal_rilis}}</p>
                     </div>
                     <div class="nama" style="margin-top: 20px;">
                         <p class="plus-jakarta-sans-extrabold align-item-center" style="margin-left: 15px; color: #504B48;">Tahun</p>
                         <p class="plus-jakarta-sans-extrabold align-item-center"
                             style="margin-left: 15px; color: var(--neutral-0); margin-top: -5px;">
-                            2024</p>
+                            {{tahun}}</p>
                     </div>
                     <div class="nama d-flex" style="margin-top: 20px;">
                         <div>
@@ -1893,21 +1954,21 @@
                             </p>
                             <p class="plus-jakarta-sans-extrabold align-item-center"
                                 style="margin-left: 15px; color: var(--neutral-0); margin-top: -5px;">
-                                1</p>
+                                {{total_play}}</p>
                         </div>
                         <div>
                             <p class="plus-jakarta-sans-extrabold align-item-center" style="margin-left: 15px; color: #504B48;">Total
                                 Download</p>
                             <p class="plus-jakarta-sans-extrabold align-item-center"
                                 style="margin-left: 15px; color: var(--neutral-0); margin-top: -5px;">
-                                0</p>
+                                {{total_download}}</p>
                         </div>
                     </div>
                     <div class="nama" style="margin-top: 20px;">
                         <p class="plus-jakarta-sans-extrabold align-item-center" style="margin-left: 15px; color: #504B48;">Album</p>
                         <p class="plus-jakarta-sans-extrabold align-item-center"
                             style="margin-left: 15px; color: var(--neutral-0); margin-top: -5px;">
-                            Nama Album</p>
+                            {{nama_album}}</p>
                     </div>
                 </div>
             </div>

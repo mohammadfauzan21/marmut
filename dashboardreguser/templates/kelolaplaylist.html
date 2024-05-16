@@ -16,7 +16,7 @@
 </script>
 <script>
     function goBack() {
-        window.history.back();
+        window.location.href = "{% url 'dashboardreguser:userplaylist' %}";
     }
 </script>
 
@@ -1804,13 +1804,13 @@
                                         <img src="{% static 'img/ChevronLeft.svg' %}" alt="kelola" style="width: 40px; height: 40px;">
                                     </button>
                                     <div style="">
-                                        <p class="plus-jakarta-sans-bold mx-3" style="color: #ffffff; font-size: 12px;">Fauzan Nazly Said | 104 lagu |
-                                            2046 menit | 20 April 2024</p>
+                                        <p class="plus-jakarta-sans-bold mx-3" style="color: #ffffff; font-size: 12px;">{{pembuat}} | {{jumlah_lagu}} lagu |
+                                            {{durasi}} menit | {{tanggal_buat}}</p>
                                         <h1 class="plus-jakarta-sans-extrabold align-item-center"
-                                            style="margin-left: 15px; color: var(--neutral-0); margin-top: 10px;">Nama Playlist
+                                            style="margin-left: 15px; color: var(--neutral-0); margin-top: 10px;">{{judul_playlist}}
                                         </h1>
                                         <h6 class="plus-jakarta-sans-extrabold align-item-center"
-                                            style="margin-left: 15px; color: var(--neutral-1); margin-top: 10px;">Deskripsi Playlist
+                                            style="margin-left: 15px; color: var(--neutral-1); margin-top: 10px;">{{deskripsi_playlist}}
                                         </h6>
                                     </div>
                                 </div>
@@ -1891,17 +1891,19 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <!-- Gunakan loop untuk menampilkan episode -->
+                                    <!-- Gunakan loop untuk menampilkan lagu -->
+                                    {% for detail in detail_podcast %}
                                     <tr class="plus-jakarta-sans-bold"
                                         style="border-bottom: 0px solid var(--neutral-2); font-size:14px; text-align:start;padding:10px; ">
-                                        <td style="padding-top: 30px; padding-bottom: 30px;padding: 10px;color: var(--neutral-1);">1
+                                        <td style="padding-top: 30px; padding-bottom: 30px;padding: 10px;color: var(--neutral-1);">{{ detail.no }}
                                         </td>
                                         <td style="padding-top: 30px; padding-bottom: 30px; padding-left: 120px;color: var(--neutral-1);">
-                                            Mistery of Love</td>
+                                        {{ detail.judulLagu }}
+                                        </td>
                                         <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">
-                                            Positions</td>
+                                        {{ detail.artist }}</td>
                                         <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">
-                                            4</td>
+                                            {{ detail.durasi }}</td>
                                         <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">
                                             <div>
                                                 <button class="btn btn-secondary dropdown-toggle-iconless" type="button"
@@ -1920,7 +1922,7 @@
                                                     style="background-color: var(--neutral-3); border-radius: 16px; padding: 4px; width: max-content !important;">
                                                     <a class="dropdown-item plus-jakarta-sans-bold m-auto"
                                                         style="color: var(--neutral-1); font-size: 12px; font-weight: 600;"
-                                                        href="{% url 'dashboardreguser:playsong' %}">Detail</a>
+                                                        href="{% url 'dashboardreguser:playsong' detail.id_konten %}">Detail</a>
                                                     <a class="dropdown-item plus-jakarta-sans-bold m-auto"
                                                         style="color: var(--neutral-1); font-size: 12px; font-weight: 600;"
                                                         href="#">Ubah</a>
@@ -1959,341 +1961,7 @@
                                             </div>
                                         </td>
                                     </tr>
-                                    <tr class="plus-jakarta-sans-bold"
-                                        style="border-bottom: 0px solid var(--neutral-2); font-size:14px; text-align:start;padding:10px; ">
-                                        <td style="padding-top: 30px; padding-bottom: 30px;padding: 10px;color: var(--neutral-1);">2
-                                        </td>
-                                        <td style="padding-top: 30px; padding-bottom: 30px; padding-left: 120px;color: var(--neutral-1);">
-                                            Mistery of Love</td>
-                                        <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">
-                                            Positions</td>
-                                        <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">
-                                            4</td>
-                                        <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">
-                                            <div>
-                                                <button class="btn btn-secondary dropdown-toggle-iconless" type="button"
-                                                    id="dropdownMenuButton" data-toggle="" aria-haspopup="true" aria-expanded="false"
-                                                    style="background-color: transparent; border: none;">
-                                                    <img src="{% static 'img/PlayCircleFill.svg' %}" alt="kelola"
-                                                        style="width: 20px; height: 20px;">
-                                                </button>
-                                                <button class="btn btn-secondary dropdown-toggle-iconless" type="button"
-                                                    id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
-                                                    aria-expanded="false" style="background-color: transparent; border: none;">
-                                                    <img src="{% static 'img/threedots.svg' %}" alt="kelola"
-                                                        style="width: 20px; height: 20px;">
-                                                </button>
-                                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton"
-                                                    style="background-color: var(--neutral-3); border-radius: 16px; padding: 4px; width: max-content !important;">
-                                                    <a class="dropdown-item plus-jakarta-sans-bold m-auto"
-                                                        style="color: var(--neutral-1); font-size: 12px; font-weight: 600;"
-                                                        href="{% url 'dashboardreguser:playsong' %}">Detail</a>
-                                                    <a class="dropdown-item plus-jakarta-sans-bold m-auto"
-                                                        style="color: var(--neutral-1); font-size: 12px; font-weight: 600;"
-                                                        href="#">Ubah</a>
-                                                    <a class="dropdown-item plus-jakarta-sans-bold m-auto"
-                                                        style="color: var(--neutral-1); font-size: 12px; font-weight: 600;" href="#"
-                                                        data-toggle="modal" data-target="#modalHapusSong">Hapus</a>
-                    
-                                                </div>
-                                                <!-- Modal Hapus -->
-                                                <div class="modal fade" id="modalHapusSong" tabindex="-1" role="dialog"
-                                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                    <div class="modal-dialog" role="document">
-                                                        <div class="modal-content"
-                                                            style="background-color: var(--neutral-4); border-radius: 40px !important; padding: 20px;">
-                                                            <div class="modal-header" style="border-bottom: none;">
-                                                                <h5 class="modal-title plus-jakarta-sans-extrabold" id="exampleModalLabel"
-                                                                    style="color: var(--neutral-0);">
-                                                                    Konfirmasi Hapus</h5>
-                                                            </div>
-                                                            <div class="modal-body plus-jakarta-sans-medium"
-                                                                style="color: var(--neutral-1);">
-                                                                Apakah Anda yakin ingin menghapus item ini?
-                                                            </div>
-                                                            <div class="modal-footer" style="border-top: none;">
-                                                                <button type="button"
-                                                                    class="button-modal-secondary plus-jakarta-sans-bold secondary-button"
-                                                                    style="border: none !important; border-radius: 16px; padding-block: 12px; padding-inline: 24px; text-decoration: 2px solid var(--neutral-1); background-color: var(--neutral-3); color: white;"
-                                                                    data-dismiss="modal">Batal</button>
-                                                                <button type="button"
-                                                                    class="button-modal-danger plus-jakarta-sans-bold danger-button"
-                                                                    style="border: none !important; border-radius: 16px; padding-block: 12px; padding-inline: 24px; background-color: rgb(255, 47, 47); color: var(--neutral-0);">Hapus</button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr class="plus-jakarta-sans-bold"
-                                        style="border-bottom: 0px solid var(--neutral-2); font-size:14px; text-align:start;padding:10px; ">
-                                        <td style="padding-top: 30px; padding-bottom: 30px;padding: 10px;color: var(--neutral-1);">3
-                                        </td>
-                                        <td style="padding-top: 30px; padding-bottom: 30px; padding-left: 120px;color: var(--neutral-1);">
-                                            Mistery of Love</td>
-                                        <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">
-                                            Positions</td>
-                                        <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">
-                                            4</td>
-                                        <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">
-                                            <div>
-                                                <button class="btn btn-secondary dropdown-toggle-iconless" type="button"
-                                                    id="dropdownMenuButton" data-toggle="" aria-haspopup="true" aria-expanded="false"
-                                                    style="background-color: transparent; border: none;">
-                                                    <img src="{% static 'img/PlayCircleFill.svg' %}" alt="kelola"
-                                                        style="width: 20px; height: 20px;">
-                                                </button>
-                                                <button class="btn btn-secondary dropdown-toggle-iconless" type="button"
-                                                    id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
-                                                    aria-expanded="false" style="background-color: transparent; border: none;">
-                                                    <img src="{% static 'img/threedots.svg' %}" alt="kelola"
-                                                        style="width: 20px; height: 20px;">
-                                                </button>
-                                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton"
-                                                    style="background-color: var(--neutral-3); border-radius: 16px; padding: 4px; width: max-content !important;">
-                                                    <a class="dropdown-item plus-jakarta-sans-bold m-auto"
-                                                        style="color: var(--neutral-1); font-size: 12px; font-weight: 600;"
-                                                        href="{% url 'dashboardreguser:playsong' %}">Detail</a>
-                                                    <a class="dropdown-item plus-jakarta-sans-bold m-auto"
-                                                        style="color: var(--neutral-1); font-size: 12px; font-weight: 600;"
-                                                        href="#">Ubah</a>
-                                                    <a class="dropdown-item plus-jakarta-sans-bold m-auto"
-                                                        style="color: var(--neutral-1); font-size: 12px; font-weight: 600;" href="#"
-                                                        data-toggle="modal" data-target="#modalHapusSong">Hapus</a>
-                    
-                                                </div>
-                                                <!-- Modal Hapus -->
-                                                <div class="modal fade" id="modalHapusSong" tabindex="-1" role="dialog"
-                                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                    <div class="modal-dialog" role="document">
-                                                        <div class="modal-content"
-                                                            style="background-color: var(--neutral-4); border-radius: 40px !important; padding: 20px;">
-                                                            <div class="modal-header" style="border-bottom: none;">
-                                                                <h5 class="modal-title plus-jakarta-sans-extrabold" id="exampleModalLabel"
-                                                                    style="color: var(--neutral-0);">
-                                                                    Konfirmasi Hapus</h5>
-                                                            </div>
-                                                            <div class="modal-body plus-jakarta-sans-medium"
-                                                                style="color: var(--neutral-1);">
-                                                                Apakah Anda yakin ingin menghapus item ini?
-                                                            </div>
-                                                            <div class="modal-footer" style="border-top: none;">
-                                                                <button type="button"
-                                                                    class="button-modal-secondary plus-jakarta-sans-bold secondary-button"
-                                                                    style="border: none !important; border-radius: 16px; padding-block: 12px; padding-inline: 24px; text-decoration: 2px solid var(--neutral-1); background-color: var(--neutral-3); color: white;"
-                                                                    data-dismiss="modal">Batal</button>
-                                                                <button type="button"
-                                                                    class="button-modal-danger plus-jakarta-sans-bold danger-button"
-                                                                    style="border: none !important; border-radius: 16px; padding-block: 12px; padding-inline: 24px; background-color: rgb(255, 47, 47); color: var(--neutral-0);">Hapus</button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr class="plus-jakarta-sans-bold"
-                                        style="border-bottom: 0px solid var(--neutral-2); font-size:14px; text-align:start;padding:10px; ">
-                                        <td style="padding-top: 30px; padding-bottom: 30px;padding: 10px;color: var(--neutral-1);">4
-                                        </td>
-                                        <td style="padding-top: 30px; padding-bottom: 30px; padding-left: 120px;color: var(--neutral-1);">
-                                            Mistery of Love</td>
-                                        <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">
-                                            Positions</td>
-                                        <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">
-                                            4</td>
-                                        <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">
-                                            <div>
-                                                <button class="btn btn-secondary dropdown-toggle-iconless" type="button"
-                                                    id="dropdownMenuButton" data-toggle="" aria-haspopup="true" aria-expanded="false"
-                                                    style="background-color: transparent; border: none;">
-                                                    <img src="{% static 'img/PlayCircleFill.svg' %}" alt="kelola"
-                                                        style="width: 20px; height: 20px;">
-                                                </button>
-                                                <button class="btn btn-secondary dropdown-toggle-iconless" type="button"
-                                                    id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
-                                                    aria-expanded="false" style="background-color: transparent; border: none;">
-                                                    <img src="{% static 'img/threedots.svg' %}" alt="kelola"
-                                                        style="width: 20px; height: 20px;">
-                                                </button>
-                                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton"
-                                                    style="background-color: var(--neutral-3); border-radius: 16px; padding: 4px; width: max-content !important;">
-                                                    <a class="dropdown-item plus-jakarta-sans-bold m-auto"
-                                                        style="color: var(--neutral-1); font-size: 12px; font-weight: 600;"
-                                                        href="{% url 'dashboardreguser:playsong' %}">Detail</a>
-                                                    <a class="dropdown-item plus-jakarta-sans-bold m-auto"
-                                                        style="color: var(--neutral-1); font-size: 12px; font-weight: 600;"
-                                                        href="#">Ubah</a>
-                                                    <a class="dropdown-item plus-jakarta-sans-bold m-auto"
-                                                        style="color: var(--neutral-1); font-size: 12px; font-weight: 600;" href="#"
-                                                        data-toggle="modal" data-target="#modalHapusSong">Hapus</a>
-                    
-                                                </div>
-                                                <!-- Modal Hapus -->
-                                                <div class="modal fade" id="modalHapusSong" tabindex="-1" role="dialog"
-                                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                    <div class="modal-dialog" role="document">
-                                                        <div class="modal-content"
-                                                            style="background-color: var(--neutral-4); border-radius: 40px !important; padding: 20px;">
-                                                            <div class="modal-header" style="border-bottom: none;">
-                                                                <h5 class="modal-title plus-jakarta-sans-extrabold" id="exampleModalLabel"
-                                                                    style="color: var(--neutral-0);">
-                                                                    Konfirmasi Hapus</h5>
-                                                            </div>
-                                                            <div class="modal-body plus-jakarta-sans-medium"
-                                                                style="color: var(--neutral-1);">
-                                                                Apakah Anda yakin ingin menghapus item ini?
-                                                            </div>
-                                                            <div class="modal-footer" style="border-top: none;">
-                                                                <button type="button"
-                                                                    class="button-modal-secondary plus-jakarta-sans-bold secondary-button"
-                                                                    style="border: none !important; border-radius: 16px; padding-block: 12px; padding-inline: 24px; text-decoration: 2px solid var(--neutral-1); background-color: var(--neutral-3); color: white;"
-                                                                    data-dismiss="modal">Batal</button>
-                                                                <button type="button"
-                                                                    class="button-modal-danger plus-jakarta-sans-bold danger-button"
-                                                                    style="border: none !important; border-radius: 16px; padding-block: 12px; padding-inline: 24px; background-color: rgb(255, 47, 47); color: var(--neutral-0);">Hapus</button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr class="plus-jakarta-sans-bold"
-                                        style="border-bottom: 0px solid var(--neutral-2); font-size:14px; text-align:start;padding:10px; ">
-                                        <td style="padding-top: 30px; padding-bottom: 30px;padding: 10px;color: var(--neutral-1);">5
-                                        </td>
-                                        <td style="padding-top: 30px; padding-bottom: 30px; padding-left: 120px;color: var(--neutral-1);">
-                                            Mistery of Love</td>
-                                        <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">
-                                            Positions</td>
-                                        <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">
-                                            4</td>
-                                        <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">
-                                            <div>
-                                                <button class="btn btn-secondary dropdown-toggle-iconless" type="button"
-                                                    id="dropdownMenuButton" data-toggle="" aria-haspopup="true" aria-expanded="false"
-                                                    style="background-color: transparent; border: none;">
-                                                    <img src="{% static 'img/PlayCircleFill.svg' %}" alt="kelola"
-                                                        style="width: 20px; height: 20px;">
-                                                </button>
-                                                <button class="btn btn-secondary dropdown-toggle-iconless" type="button"
-                                                    id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
-                                                    aria-expanded="false" style="background-color: transparent; border: none;">
-                                                    <img src="{% static 'img/threedots.svg' %}" alt="kelola"
-                                                        style="width: 20px; height: 20px;">
-                                                </button>
-                                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton"
-                                                    style="background-color: var(--neutral-3); border-radius: 16px; padding: 4px; width: max-content !important;">
-                                                    <a class="dropdown-item plus-jakarta-sans-bold m-auto"
-                                                        style="color: var(--neutral-1); font-size: 12px; font-weight: 600;"
-                                                        href="{% url 'dashboardreguser:playsong' %}">Detail</a>
-                                                    <a class="dropdown-item plus-jakarta-sans-bold m-auto"
-                                                        style="color: var(--neutral-1); font-size: 12px; font-weight: 600;"
-                                                        href="#">Ubah</a>
-                                                    <a class="dropdown-item plus-jakarta-sans-bold m-auto"
-                                                        style="color: var(--neutral-1); font-size: 12px; font-weight: 600;" href="#"
-                                                        data-toggle="modal" data-target="#modalHapusSong">Hapus</a>
-                    
-                                                </div>
-                                                <!-- Modal Hapus -->
-                                                <div class="modal fade" id="modalHapusSong" tabindex="-1" role="dialog"
-                                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                    <div class="modal-dialog" role="document">
-                                                        <div class="modal-content"
-                                                            style="background-color: var(--neutral-4); border-radius: 40px !important; padding: 20px;">
-                                                            <div class="modal-header" style="border-bottom: none;">
-                                                                <h5 class="modal-title plus-jakarta-sans-extrabold" id="exampleModalLabel"
-                                                                    style="color: var(--neutral-0);">
-                                                                    Konfirmasi Hapus</h5>
-                                                            </div>
-                                                            <div class="modal-body plus-jakarta-sans-medium"
-                                                                style="color: var(--neutral-1);">
-                                                                Apakah Anda yakin ingin menghapus item ini?
-                                                            </div>
-                                                            <div class="modal-footer" style="border-top: none;">
-                                                                <button type="button"
-                                                                    class="button-modal-secondary plus-jakarta-sans-bold secondary-button"
-                                                                    style="border: none !important; border-radius: 16px; padding-block: 12px; padding-inline: 24px; text-decoration: 2px solid var(--neutral-1); background-color: var(--neutral-3); color: white;"
-                                                                    data-dismiss="modal">Batal</button>
-                                                                <button type="button"
-                                                                    class="button-modal-danger plus-jakarta-sans-bold danger-button"
-                                                                    style="border: none !important; border-radius: 16px; padding-block: 12px; padding-inline: 24px; background-color: rgb(255, 47, 47); color: var(--neutral-0);">Hapus</button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr class="plus-jakarta-sans-bold"
-                                        style="border-bottom: 0px solid var(--neutral-2); font-size:14px; text-align:start;padding:10px; ">
-                                        <td style="padding-top: 30px; padding-bottom: 30px;padding: 10px;color: var(--neutral-1);">6
-                                        </td>
-                                        <td style="padding-top: 30px; padding-bottom: 30px; padding-left: 120px;color: var(--neutral-1);">
-                                            Mistery of Love</td>
-                                        <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">
-                                            Positions</td>
-                                        <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">
-                                            4</td>
-                                        <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">
-                                            <div>
-                                                <button class="btn btn-secondary dropdown-toggle-iconless" type="button"
-                                                    id="dropdownMenuButton" data-toggle="" aria-haspopup="true" aria-expanded="false"
-                                                    style="background-color: transparent; border: none;">
-                                                    <img src="{% static 'img/PlayCircleFill.svg' %}" alt="kelola"
-                                                        style="width: 20px; height: 20px;">
-                                                </button>
-                                                <button class="btn btn-secondary dropdown-toggle-iconless" type="button"
-                                                    id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
-                                                    aria-expanded="false" style="background-color: transparent; border: none;">
-                                                    <img src="{% static 'img/threedots.svg' %}" alt="kelola"
-                                                        style="width: 20px; height: 20px;">
-                                                </button>
-                                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton"
-                                                    style="background-color: var(--neutral-3); border-radius: 16px; padding: 4px; width: max-content !important;">
-                                                    <a class="dropdown-item plus-jakarta-sans-bold m-auto"
-                                                        style="color: var(--neutral-1); font-size: 12px; font-weight: 600;"
-                                                        href="{% url 'dashboardreguser:playsong' %}">Detail</a>
-                                                    <a class="dropdown-item plus-jakarta-sans-bold m-auto"
-                                                        style="color: var(--neutral-1); font-size: 12px; font-weight: 600;"
-                                                        href="#">Ubah</a>
-                                                    <a class="dropdown-item plus-jakarta-sans-bold m-auto"
-                                                        style="color: var(--neutral-1); font-size: 12px; font-weight: 600;" href="#"
-                                                        data-toggle="modal" data-target="#modalHapusSong">Hapus</a>
-                    
-                                                </div>
-                                                <!-- Modal Hapus -->
-                                                <div class="modal fade" id="modalHapusSong" tabindex="-1" role="dialog"
-                                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                    <div class="modal-dialog" role="document">
-                                                        <div class="modal-content"
-                                                            style="background-color: var(--neutral-4); border-radius: 40px !important; padding: 20px;">
-                                                            <div class="modal-header" style="border-bottom: none;">
-                                                                <h5 class="modal-title plus-jakarta-sans-extrabold" id="exampleModalLabel"
-                                                                    style="color: var(--neutral-0);">
-                                                                    Konfirmasi Hapus</h5>
-                                                            </div>
-                                                            <div class="modal-body plus-jakarta-sans-medium"
-                                                                style="color: var(--neutral-1);">
-                                                                Apakah Anda yakin ingin menghapus item ini?
-                                                            </div>
-                                                            <div class="modal-footer" style="border-top: none;">
-                                                                <button type="button"
-                                                                    class="button-modal-secondary plus-jakarta-sans-bold secondary-button"
-                                                                    style="border: none !important; border-radius: 16px; padding-block: 12px; padding-inline: 24px; text-decoration: 2px solid var(--neutral-1); background-color: var(--neutral-3); color: white;"
-                                                                    data-dismiss="modal">Batal</button>
-                                                                <button type="button"
-                                                                    class="button-modal-danger plus-jakarta-sans-bold danger-button"
-                                                                    style="border: none !important; border-radius: 16px; padding-block: 12px; padding-inline: 24px; background-color: rgb(255, 47, 47); color: var(--neutral-0);">Hapus</button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
+                                    {% endfor %}
                                 </tbody>
                             </table>
                         </div>
