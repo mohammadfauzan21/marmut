@@ -89,21 +89,28 @@ input.form-control:focus {
                             {% csrf_token %}
                             <div class="margin-konten-screen-lg row container-fluid d-flex justify-content-center align-items-center">
                                 <div class="row-sm-6 container">
-                                    <label for="exampleFormControlInput1"><p class="m-auto plus-jakarta-sans-bold" style="font-size: 12px;">Email address</p></label>
-                                    <input type="email" class="form-control plus-jakarta-sans-regular" id="exampleFormControlInput1" name="email" placeholder="">
+                                    <label for="email"><p class="m-auto plus-jakarta-sans-bold" style="font-size: 12px;">Email address</p></label>
+                                    <input type="email" name="email" class="form-control plus-jakarta-sans-regular" id="email" placeholder="">
                                 </div>
                                 <div class=" row-sm-6 container">
-                                    <label for="exampleFormControlInput1"><p class="m-auto plus-jakarta-sans-bold" style="font-size: 12px;">Password</p></label>
-                                    <input type="password" class="form-control plus-jakarta-sans-regular" id="exampleFormControlInput1" name="password" placeholder="">
+                                    <label for="password"><p class="m-auto plus-jakarta-sans-bold" style="font-size: 12px;">Password</p></label>
+                                    <input type="password" name="password" class="form-control plus-jakarta-sans-regular" id="password" placeholder="">
                                 </div>
                                 <div class="container-fluid d-flex justify-content-center">
                                     <button type="submit" class="row container d-flex align-items-center justify-content-center plus-jakarta-sans-extrabold button-primary my-4">Submit</button>
-                                </div>
+                                </div>                                
                                 <div class="container d-flex align-items-center justify-content-center">
                                     <p class="plus-jakarta-sans-regular" style="color: var(--neutral-1); font-size: 12px;">Belum punya akun? <a class="plus-jakarta-sans-bold" style="color: var(--neutral-0);" href="{% url 'register:registerkonten' %}">Daftar</a></p>
                                 </div>
                             </div>
+                            
                         </form>
+                        {% if error_message %}
+                        <script>
+                            alert("{{ error_message }}");
+                            window.location.href = "{% url 'login:loginkonten' %}";
+                        </script>
+                        {% endif %}
                     </div>
                 </div>
             </div>
