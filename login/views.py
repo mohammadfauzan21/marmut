@@ -1,25 +1,27 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.db import connection
+from django.contrib.auth import authenticate, login as auth_login
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def determine_user_type(email, cursor):
-    cursor.execute("SELECT email FROM marmut.podcaster WHERE email = %s", [email])
+    cursor.execute("SELECT email FROM public.podcaster WHERE email = %s", [email])
     is_podcaster = cursor.fetchone() is not None
 
-    # cursor.execute("SELECT email FROM marmut.premium WHERE email = %s", [email])
+    # cursor.execute("SELECT email FROM public.premium WHERE email = %s", [email])
     # is_premium = cursor.fetchone() is not None
 
-    # cursor.execute("SELECT email_akun FROM marmut.artist WHERE email_akun = %s", [email])
+    # cursor.execute("SELECT email_akun FROM public.artist WHERE email_akun = %s", [email])
     # is_artist = cursor.fetchone() is not None
 
-    # cursor.execute("SELECT email_akun FROM marmut.songwriter WHERE email_akun = %s", [email])
+    # cursor.execute("SELECT email_akun FROM public.songwriter WHERE email_akun = %s", [email])
     # is_songwriter = cursor.fetchone() is not None
 
-    # cursor.execute("SELECT email FROM marmut.label WHERE email = %s", [email])
+    # cursor.execute("SELECT email FROM public.label WHERE email = %s", [email])
     # is_label = cursor.fetchone() is not None
 
-    # cursor.execute("SELECT email FROM marmut.non_premium WHERE email = %s", [email])
+    # cursor.execute("SELECT email FROM public.non_premium WHERE email = %s", [email])
     # is_non_premium = cursor.fetchone() is not None
 
     user_type = {
@@ -33,13 +35,14 @@ def determine_user_type(email, cursor):
 
     return user_type
 
+
 def loginkonten(request):
     if request.method == 'POST':
         email = request.POST['email']
         password = request.POST['password']
 
         with connection.cursor() as cursor:
-            cursor.execute("SELECT * FROM marmut.akun WHERE email = %s AND password = %s", [email, password])
+            cursor.execute("SELECT * FROM public.akun WHERE email = %s AND password = %s", [email, password])
             user = cursor.fetchone()
 
             if user is not None:
@@ -52,82 +55,82 @@ def loginkonten(request):
     else:
         return render(request, 'login.html')
 
-def register(request):
-    return render(request, 'register:registerkonten')
+# def register(request):
+#     return render(request, 'register:registerkonten')
 
-def register_user(request):
-    if request.method == 'POST':
-        email = request.POST['email']
-        password = request.POST['password']
-        name = request.POST['name']
-        gender = request.POST['gender']
-        birthplace = request.POST['birthplace']
-        birthdate = request.POST['birthdate']
-        city = request.POST['city']
-        role = request.POST.getlist('role')
+# def register_user(request):
+#     if request.method == 'POST':
+#         email = request.POST['email']
+#         password = request.POST['password']
+#         name = request.POST['name']
+#         gender = request.POST['gender']
+#         birthplace = request.POST['birthplace']
+#         birthdate = request.POST['birthdate']
+#         city = request.POST['city']
+#         role = request.POST.getlist('role')
 
-        # Convert gender to integer
-        gender = 1 if gender == 'Male' else 2
+#         # Convert gender to integer
+#         gender = 1 if gender == 'Male' else 2
 
-        with connection.cursor() as cursor:
-            # Check if email already exists
-            cursor.execute("SELECT email FROM marmut.akun WHERE email = %s", [email])
-            user = cursor.fetchone()
+#         with connection.cursor() as cursor:
+#             # Check if email already exists
+#             cursor.execute("SELECT email FROM public.akun WHERE email = %s", [email])
+#             user = cursor.fetchone()
 
-            if user is not None:
-                messages.error(request, 'Email already exists!')
-                return redirect('register:registerkonten')
+#             if user is not None:
+#                 messages.error(request, 'Email already exists!')
+#                 return redirect('register:registerkonten')
 
-            # Insert into akun table
-            cursor.execute("INSERT INTO marmut.akun (email, password, nama, gender, tempat_lahir, tanggal_lahir, is_verified, kota_asal) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)", [email, password, name, gender, birthplace, birthdate, len(role) > 0, city])
+#             # Insert into akun table
+#             cursor.execute("INSERT INTO public.akun (email, password, nama, gender, tempat_lahir, tanggal_lahir, is_verified, kota_asal) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)", [email, password, name, gender, birthplace, birthdate, len(role) > 0, city])
 
-            # Insert into role table
-            for r in role:
-                if r == 'Podcaster':
-                    cursor.execute("INSERT INTO marmut.podcaster (email) VALUES (%s)", [email])
-                elif r == 'Artist':
-                    cursor.execute("INSERT INTO marmut.artist (email_akun) VALUES (%s)", [email])
-                elif r == 'Songwriter':
-                    cursor.execute("INSERT INTO marmut.songwriter (email_akun) VALUES (%s)", [email])
+#             # Insert into role table
+#             for r in role:
+#                 if r == 'Podcaster':
+#                     cursor.execute("INSERT INTO public.podcaster (email) VALUES (%s)", [email])
+#                 elif r == 'Artist':
+#                     cursor.execute("INSERT INTO public.artist (email_akun) VALUES (%s)", [email])
+#                 elif r == 'Songwriter':
+#                     cursor.execute("INSERT INTO public.songwriter (email_akun) VALUES (%s)", [email])
 
-            # If no role is selected, the user is a non-premium user
-            if len(role) == 0:
-                cursor.execute("INSERT INTO marmut.non_premium (email) VALUES (%s)", [email])
+#             # If no role is selected, the user is a non-premium user
+#             if len(role) == 0:
+#                 cursor.execute("INSERT INTO public.non_premium (email) VALUES (%s)", [email])
 
-            messages.success(request, 'Registration successful!')
-            return redirect('loginkonten')
+#             messages.success(request, 'Registration successful!')
+#             return redirect('loginkonten')
 
-    else:
-        return redirect('register:registerkonten')
+#     else:
+#         return redirect('register:registerkonten')
 
 
-def register_label(request):
-    if request.method == 'POST':
-        email = request.POST['email']
-        password = request.POST['password']
-        name = request.POST['name']
-        contact = request.POST['contact']
+# def register_label(request):
+#     if request.method == 'POST':
+#         email = request.POST['email']
+#         password = request.POST['password']
+#         name = request.POST['name']
+#         contact = request.POST['contact']
 
-        with connection.cursor() as cursor:
-            # Check if email already exists
-            cursor.execute("SELECT email FROM marmut.akun WHERE email = %s", [email])
-            user = cursor.fetchone()
+#         with connection.cursor() as cursor:
+#             # Check if email already exists
+#             cursor.execute("SELECT email FROM public.akun WHERE email = %s", [email])
+#             user = cursor.fetchone()
 
-            if user is not None:
-                messages.error(request, 'Email already exists!')
-                return redirect('register:registerkonten')
+#             if user is not None:
+#                 messages.error(request, 'Email already exists!')
+#                 return redirect('register:registerkonten')
 
-            # Insert into akun table
-            cursor.execute("INSERT INTO marmut.akun (email, password, nama) VALUES (%s, %s, %s)", [email, password, name])
+#             # Insert into akun table
+#             cursor.execute("INSERT INTO public.akun (email, password, nama) VALUES (%s, %s, %s)", [email, password, name])
 
-            # Insert into label table
-            cursor.execute("INSERT INTO marmut.label (email, password, nama, kontak) VALUES (%s, %s, %s, %s)", [email, password, name, contact])
+#             # Insert into label table
+#             cursor.execute("INSERT INTO public.label (email, password, nama, kontak) VALUES (%s, %s, %s, %s)", [email, password, name, contact])
 
-            messages.success(request, 'Registration successful!')
-            return redirect('loginkonten')
+#             messages.success(request, 'Registration successful!')
+#             return redirect('loginkonten')
 
-    else:
-        return redirect('register:registerkonten')
+#     else:
+#         return redirect('register:registerkonten')
 
 
 def logout(request):
