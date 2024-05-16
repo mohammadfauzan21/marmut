@@ -44,8 +44,8 @@ def loginkonten(request):
                         # elif is_artist and is_songwriter and is_podcaster:
                         #     return redirect('dashboardmix:homepagemix')  # Redirect to a common dashboard page for both types
                         # registered as podcaster only
-                        # elif is_podcaster:
-                        #     return redirect('dashboardpodcaster:homepagepodcaster')  # Redirect to the podcaster dashboard
+                        elif is_podcaster:
+                            return redirect('dashboardpodcaster:homepagepodcaster')  # Redirect to the podcaster dashboard
 
                 
             else:
