@@ -1421,7 +1421,8 @@
                                       <td style="padding-top: 30px; padding-bottom: 30px; padding-left: 120px;color: var(--neutral-1); word-wrap: break-word; background-color: transparent;">{{ song.artist_name }}</td>
                                       <td style="padding-top: 30px; margin-left: 120px; padding-bottom: 30px;padding: 10px;color: var(--neutral-1); background-color: transparent;">{{ song.release_date|date:"d/m/Y" }}</td>
                                       <td style="padding-top: 30px; padding-bottom: 30px;padding: 10px;color: var(--neutral-1);background-color: transparent;">{{ song.plays }}</td>
-                                      <td style="font-size: 14px; margin-left: 118px; background-color: transparent;"><button type="button" style="background-color: transparent;" class="button-primary plus-jakarta-sans-bold" data-toggle="modal" data-target="#{{ song.title|slugify }}DetailsModal">
+                                      <td style="font-size: 14px; margin-left: 118px; background-color: transparent;">
+                                        <button type="button" style="background-color: transparent;" class="button-primary plus-jakarta-sans-bold" data-toggle="modal" data-target="#{{ song.title|slugify }}DetailsModal" href="{% url 'dashboardartist:detaillaguartist' %}">
                                         Lihat</button></td>
                                     </tr>
                                     {% endfor %}
