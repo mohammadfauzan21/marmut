@@ -162,26 +162,32 @@ input.form-control:focus {
                         </form>
                     </div>
                     <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab" style="color: aliceblue;">
-                        <form class="d-flex justify-content-center align-items-center">
+                        {% if success_message %}
+                        <script>
+                            alert("{{ success_message }}");
+                            window.location.href = "{% url 'register:registerkonten' %}";
+                        </script>
+                        {% endif %}
+                        <form class="d-flex justify-content-center align-items-center" method="POST" action="{% url 'register:registerlabel' %}">
                             <div class="margin-konten-screen-lg row container-fluid d-flex justify-content-center align-items-center">
                                 <div class=" row-sm-6 container">
                                     <label for="exampleFormControlInput1"><p class="m-auto plus-jakarta-sans-bold" style="font-size: 12px;">Email address</p></label>
-                                    <input type="email" class="form-control plus-jakarta-sans-regular" id="exampleFormControlInput1" placeholder="">
+                                    <input type="email" class="form-control plus-jakarta-sans-regular" id="email" placeholder="" name="email">
                                 </div>
                                 <div class="row-sm-6 container">
                                     <label for="exampleFormControlInput1"><p class="m-auto plus-jakarta-sans-bold" style="font-size: 12px;">Password</p></label>
-                                    <input type="password" class="form-control plus-jakarta-sans-regular" id="exampleFormControlInput1" placeholder="">
+                                    <input type="password" class="form-control plus-jakarta-sans-regular" id="password" placeholder="" name="password">
                                 </div>
                                 <div class="row-sm-6 container">
                                     <label for="exampleFormControlInput1"><p class="m-auto plus-jakarta-sans-bold" style="font-size: 12px;">Nama</p></label>
-                                    <input type="text" class="form-control plus-jakarta-sans-regular" id="exampleFormControlInput1" placeholder="">
+                                    <input type="Nama" class="form-control plus-jakarta-sans-regular" id="Nama" placeholder="" name="nama">
                                 </div>
                                 <div class="row-sm-6 container">
                                     <label for="exampleFormControlInput1"><p class="m-auto plus-jakarta-sans-bold" style="font-size: 12px;">Kontak</p></label>
-                                    <input type="text" class="form-control plus-jakarta-sans-regular" id="exampleFormControlInput1" placeholder="">
+                                    <input type="Kontak" class="form-control plus-jakarta-sans-regular" id="Kontak" placeholder="" name="kontak">
                                 </div>
                                 <div class="container-fluid d-flex justify-content-center">
-                                    <form action="{% url 'login:loginkonten' %}" method="POST">
+                                    <form action="{% url 'register:registerlabel' %}" method="POST">
                                         {% csrf_token %}
                                         <button type="submit" class="row container d-flex align-items-center justify-content-center plus-jakarta-sans-extrabold button-primary my-4">Submit</button>
                                     </form>
