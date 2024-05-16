@@ -40,10 +40,10 @@ def loginkonten(request):
                         # registered as either artist or songwriter or both
                         if (is_artist or is_songwriter) and (is_artist and is_songwriter):
                             return redirect('dashboardartist:homepageartist')  # Redirect to the artist/songwriter dashboard
-                        # registered as both artist/songwriter and podcaster
+                        # INI BISA DIBUKA YAH. registered as both artist/songwriter and podcaster
                         # elif is_artist and is_songwriter and is_podcaster:
                         #     return redirect('dashboardmix:homepagemix')  # Redirect to a common dashboard page for both types
-                        # registered as podcaster only
+                        # INI BISA DIBUKA YAH. registered as podcaster only
                         # elif is_podcaster:
                         #     return redirect('dashboardpodcaster:homepagepodcaster')  # Redirect to the podcaster dashboard
 
