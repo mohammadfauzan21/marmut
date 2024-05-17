@@ -412,7 +412,7 @@ body {
 }
 
 .popup-container {
-    display: none;
+    
     position: fixed;
     top: 0;
     left: 0;
@@ -1413,7 +1413,7 @@ body {
                     <!-- Daftar podcast -->
                     <div class="row">
                         <div class="col-12" style="margin-left: 30px">
-                            <h2 class="plus-jakarta-sans-extrabold" style="color: var(--neutral-0); font-size: 40px; margin-top: 20px;">Fawwaz's Podcast</h2> <!--Nama Podcaster-->
+                            <h2 class="plus-jakarta-sans-extrabold" style="color: var(--neutral-0); font-size: 40px; margin-top: 20px;">{{ nama_podcaster.1 }}'s Podcast</h2> <!--Nama Podcaster-->
                             <p class="plus-jakarta-sans-bold" style="color: var(--neutral-1); font-size: 18px; margin-top: 24px;">Teruslah menyebarkan kegembiraan melalui podcast!</p>
                             <a href="#" class="container d-flex align-items-left"
                                 style="text-decoration: none; height: 34px; margin-top: 40px;" onclick="showPopup()">
@@ -1427,23 +1427,25 @@ body {
                                 <div class="popup-container" id="popupContainer">
                                     <div class="popup-content" style="margin-top:20px;">
                                         <h2 style="text-align:center">Tambah Podcast</h2>
-                                        <form class="popup-form plus-jakarta-sans-medium" method="POST" action="{% url 'podcaster_dashboard' %}">
+                                        <form class="popup-form plus-jakarta-sans-medium" method="POST" action="{% url 'dashboard:add_podcast' %}">
                                             {% csrf_token %}
-                                            <label for="podcastTitle">Judul Podcast</label>
-                                            <input type="text" id="podcastTitle" name="podcastTitle" required>
+                                            <label for="podcastTitleId">Pilih Judul Podcast</label>
+                                            <input id="podcastTitleId" name="podcastTitleId" required>
+                                                {% for konten in kontens %}
+                                                    <text value="{{ konten.id }}">{{ konten.judul }}</text>
+                                                {% endfor %}
+                                        </input>
                                             <label for="genreSelect">Pilih Genre</label>
-                                            <select id="genreSelect" name="genreSelect" style="background-color:#292724;" required>
-                                                <option value="horror" style="color: var(--primary-2); background-color:#292724;">Horror</option>
-                                                <option value="romance" style="color: var(--primary-2); background-color:#292724;">Romance</option>
-                                                <option value="comedy" style="color: var(--primary-2); background-color:#292724;">Comedy</option>
-                                                <option value="drama" style="color: var(--primary-2); background-color:#292724;">Drama</option>
-                                                <!-- Daftar genre lainnya -->
+                                            <select id="genreSelect" name="genreSelect" style="background-color:#292724;" required multiple>
+                                                {% for genre in genres %}
+                                                    <option value="{{ genre.id }}">{{ genre.nama_genre }}</option>
+                                                {% endfor %}
                                             </select>
                                             <div class="button-container plus-jakarta-sans-bold" style="margin-top:20px; align-content: center;">
                                                 <button class="button-secondary plus-jakarta-sans-bold" style="margin-right: 10px;" type="button" onclick="hidePopup()">Kembali</button>
                                                 <button class="button-primary plus-jakarta-sans-bold" style="margin-right: 10px; align-content: center;" type="submit">Simpan</button>
                                             </div>
-                                        </form>
+                                        </form>                                        
                                     </div>
                                 </div>
                             </div>
@@ -1461,18 +1463,19 @@ body {
                                 <tbody>
                                     <!-- Gunakan loop untuk menampilkan episode -->
                                     {% for podcast in podcasts %}
+                                    <!-- {{ podcast }} -->
                                     <tr class="plus-jakarta-sans-bold" style="border-bottom: 0px solid var(--neutral-2); font-size:14px; text-align:start;padding:10px; ">
                                         <td style="padding-top: 30px; padding-bottom: 30px;padding: 10px;color: var(--neutral-1);">{{ forloop.counter }}</td>
-                                        <td style="padding-top: 30px; padding-bottom: 30px; padding-left: 120px;color: var(--neutral-1);">{{ podcast.title }}</td> <!--Judul Podcast-->
-                                        <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1); text-align: center">{{ podcast.total_episodes }}</td><!--Jumlah Episode Podcast-->
-                                        <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">{{ podcast.total_duration }}</td><!--Durasi Podcast-->
+                                        <td style="padding-top: 30px; padding-bottom: 30px; padding-left: 120px;color: var(--neutral-1);">{{ podcast.2 }}</td> <!--Judul Podcast-->
+                                        <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1); text-align: center">{{ podcast.3 }}</td><!--Jumlah Episode Podcast-->
+                                        <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">{{ podcast.4 }}</td><!--Durasi Podcast-->
                                         <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">
                                             <div class="dropdown d-flex">
                                                 <button class="btn btn-secondary dropdown-toggle-iconless" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: transparent; border: none;">
                                                     <img src="{% static 'img/threedots.svg' %}" alt="kelola" style="width: 20px; height: 20px;">
                                                 </button>
                                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="background-color: var(--neutral-3); border-radius: 16px; padding: 4px; width: max-content !important;">
-                                                    <a class="dropdown-item plus-jakarta-sans-bold m-auto" style="color: var(--neutral-1); font-size: 12px; font-weight: 600;" href="{% url 'dashboard:episodes' podcast.id %}">Lihat daftar episode</a><!--Refer Id Podcast-->
+                                                    <a class="dropdown-item plus-jakarta-sans-bold m-auto" style="color: var(--neutral-1); font-size: 12px; font-weight: 600;" href="{% url 'dashboard:episodes' podcast.0%}">Lihat daftar episode</a><!--Refer Id Podcast-->
                                                     <a class="dropdown-item plus-jakarta-sans-bold m-auto" style="color: var(--neutral-1); font-size: 12px; font-weight: 600;" href="#" data-toggle="modal" data-target="#modalHapusPodcast">Hapus</a>
 
                                                 </div>
@@ -1499,45 +1502,7 @@ body {
                                             </div>
                                         </td>
                                     </tr>
-
-                                    <tr class="plus-jakarta-sans-bold" style="border-bottom: 0px solid var(--neutral-2); font-size:14px; text-align:start;padding:10px; ">
-                                        <td style="padding-top: 30px; padding-bottom: 30px;padding: 10px;color: var(--neutral-1);">1</td>
-                                        <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">Mystery of Love</td>
-                                        <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);text-align: center">3</td>
-                                        <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">1 jam 2 menit</td>
-                                        <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">
-                                            <div class="dropdown d-flex">
-                                                <button class="btn btn-secondary dropdown-toggle-iconless" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: transparent; border: none;">
-                                                    <img src="{% static 'img/threedots.svg' %}" alt="kelola" style="width: 20px; height: 20px;">
-                                                </button>
-                                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="background-color: var(--neutral-3); border-radius: 16px; padding: 4px; width: max-content !important;">
-                                                    <a class="dropdown-item plus-jakarta-sans-bold m-auto" style="color: var(--neutral-1); font-size: 12px; font-weight: 600;" href="{% url 'dashboard:episodes' %}">Lihat daftar episode</a>
-                                                    <a class="dropdown-item plus-jakarta-sans-bold m-auto" style="color: var(--neutral-1); font-size: 12px; font-weight: 600;" href="#" data-toggle="modal" data-target="#modalHapusPodcast">Hapus</a>
-
-                                                </div>
-                                                <!-- Modal Hapus -->
-                                                <div class="modal fade" id="modalHapusPodcast" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                    <div class="modal-dialog" role="document">
-                                                    <div class="modal-content" style="background-color: var(--neutral-4); border-radius: 40px !important; padding: 20px;">
-                                                        <div class="modal-header" style="border-bottom: none;">
-                                                        <h5 class="modal-title plus-jakarta-sans-extrabold" id="exampleModalLabel" style="color: var(--neutral-0);">Konfirmasi Hapus</h5>
-                                                        <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                            <span aria-hidden="true">&times;</span>
-                                                        </button> -->
-                                                        </div>
-                                                        <div class="modal-body plus-jakarta-sans-medium" style="color: var(--neutral-1);">
-                                                            Apakah Anda yakin ingin menghapus podcast ini?
-                                                        </div>
-                                                        <div class="modal-footer" style="border-top: none;">
-                                                            <button type="button" class="button-modal-secondary plus-jakarta-sans-bold secondary-button" style="border: none !important; border-radius: 16px; padding-block: 12px; padding-inline: 24px; text-decoration: 2px solid var(--neutral-1); background-color: var(--neutral-3); color: white;" data-dismiss="modal">Batal</button>
-                                                            <button type="button" class="button-modal-danger plus-jakarta-sans-bold danger-button" style="border: none !important; border-radius: 16px; padding-block: 12px; padding-inline: 24px; background-color: rgb(255, 47, 47); color: var(--neutral-0);">Hapus</button>
-                                                        </div>
-                                                    </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
+                                    {% endfor %}
                                 </tbody>
                             </table>
                         </div>

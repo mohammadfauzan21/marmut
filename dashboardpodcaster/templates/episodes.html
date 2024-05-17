@@ -1423,29 +1423,31 @@ body {
                     margin-top: 10px; white-space: nowrap; overflow-y: scroll; text-overflow: ellipsis;">
                     <!-- Daftar podcast -->
                     <div class="row">
-                        <div class="col-12" style="margin-left: 30px">
+                        <div class="col-12" style="margin-left: 30px; margin-right: 30px;">
                             <div style="height: 40px;">
                                 <a href="{% url 'dashboard:podcaster' %}" class="container d-flex align-item-center" style="padding-top: 16px; text-decoration: none; height: fit-content;">
                                     <img src="{% static 'img/back-icon.svg' %}" alt="search" style="width: 20px; height: 20px;">
                                     <p class="plus-jakarta-sans-extrabold align-item-center" style="margin-left: 10px; color: var(--neutral-0); height: auto; align-content: center; height: 20px;">Back</p>
                                 </a>
                             </div>
-                            <p class="plus-jakarta-sans-bold" style="color: var(--neutral-1); font-size: 13px; margin-top:30px">Podcast</p>
-                            <h2 class="plus-jakarta-sans-extrabold" style="color: var(--neutral-0); font-size: 40px; margin-top: 10px;">Mystery of Love</h2>
+                            <p class="plus-jakarta-sans-bold" style="color: var(--neutral-1); font-size: 13px; margin-top:30px">Podcast, {{ podcast_detail.6 }}</p>
+                            <h2 class="plus-jakarta-sans-extrabold" style="color: var(--neutral-0); font-size: 40px; margin-top: 10px;">{{ podcast_detail.0 }}</h2> <!-- Judul Podcast-->
                             <p class="plus-jakarta-sans-bold" style="color: var(--neutral-0); font-size: 20px; margin: top 20px">
                                 <span style="color: var(--neutral-1); font-size: 13px; margin-right: 8px;">by</span>
-                                <span>Fawwaz</span>
+                                <span>{{ podcast_detail.2 }}</span> <!-- Nama Podcaster-->
                             </p>
-                            <p class="plus-jakarta-sans-bold" style="color: var(--neutral-1); font-size: 13px; margin-top:5px">20 Episodes, 1 jam 2 menit</p>
-                            <p class="plus-jakarta-sans-medium" style="color: var(--neutral-1); font-size: 13px; margin-top:5px;">Released on 02 May 2024</p>
-                            <div class="container d-flex justify-content-between align-items-left" style="text-decoration: none; margin-top: 20px;">
-                                <div>
-                                    <p class="plus-jakarta-sans-bold" style="color: var(--neutral-1); font-size: 13px; margin-left: 0px;">Genre</p>
-                                    <p class="plus-jakarta-sans-bold chip-genres" style="color: var(--neutral-0); font-size: 13px; margin-top:0px;">Horror</p>
-                                    <p class="plus-jakarta-sans-bold chip-genres" style="color: var(--neutral-0); font-size: 13px; margin-top:0px;width: 80px;">Romance</p>
-                                </div>
-                                <div class="container d-flex align-items-left" style="text-decoration: none; height: 50px; margin-left: 38.0em">
-                                    <a href="#" class="container d-flex flex-column align-items-center" style="text-decoration: none;" onclick="showPopup()">
+                            <p class="plus-jakarta-sans-bold" style="color: var(--neutral-1); font-size: 13px; margin-top:5px">{{ podcast_detail.3 }} Episodes, {{ total_durasi }}</p> <!-- Total Episode dan Durasi Podcast-->
+                            <p class="plus-jakarta-sans-bold" style="color: var(--neutral-1); font-size: 15px; margin-top: 10px;">Genre
+                                {% for genre in podcast_detail.1 %}
+                                <p class="plus-jakarta-sans-bold chip-genres" style="color: var(--neutral-0); font-size: 13px; margin-top:0px; width:fit-content;">
+                                    {{ genre }}
+                                </p>
+                                {%endfor%}
+                            </p> <!-- Genre Podcast-->
+                            <p class="plus-jakarta-sans-medium" style="color: var(--neutral-1); font-size: 13px; margin-top:5px;">Released on {{ podcast_detail.5 }}</p>
+                            <div class="container d-flex justify-content-between align-items-left" style="text-decoration: none; margin-top: 10px;">
+                                <div class="container align-items-left" style="text-decoration: none; height: 50px; margin-left: -28.0em;">
+                                    <a href="#" class="container d-flex flex-column align-items-center" style="text-decoration: none; margin-top: 5px;" onclick="showPopup()">
                                         <img src="{% static 'img/add-icon.svg' %}" alt="add" style="width: 55px; height: 55px;">
                                         <h7 class="plus-jakarta-sans-extrabold" style="color: var(--neutral-0); margin-top: 15px;">Tambah Episode</h7>
                                     </a>
@@ -1456,7 +1458,7 @@ body {
                                     <h2 style="text-align:center">Tambah Episode</h2>
                                     <form class="popup-form plus-jakarta-sans-medium">
                                         <label for="podcastTitle">Judul Podcast</label>
-                                        <input type="text" id="podcastTitle" name="podcastTitle" value="Mystery of Love" readonly>
+                                        <input type="text" id="podcastTitle" name="podcastTitle" value="{{ podcast_detail.0 }}" readonly>
                                         <label for="episodeTitle">Judul Episode</label>
                                         <input type="text" id="episodeTitle" name="episodeTitle" required>
                                         <label for="episodeDescription">Deskripsi</label>
@@ -1471,203 +1473,55 @@ body {
                                 </div>
                             </div>
                             <!-- Tabel untuk podcast -->
-                            <table class="table-podcast" style="width: 95%; border-collapse: collapse; margin-top: 48px;color: var(--neutral-1); padding: 10px;">
+                            <table class="table-podcast" style="width: 95%; border-collapse: collapse; margin-top: 50px;color: var(--neutral-1); padding: 10px; margin-right: 30px;">
                                 <thead>
                                     <tr style="border-bottom: 1px solid var(--neutral-2);">
                                         <th style="color: var(--neutral-1); padding: 10px;">Judul Episode</th>
                                         <th style="color: var(--neutral-1); padding-left: 120px;">Deskripsi</th>
                                         <th style="color: var(--neutral-1); padding-left: 120px;">Durasi</th>
                                         <th style="color: var(--neutral-1); padding-left: 120px;">Tanggal</th>
-                                        <th style="color: var(--neutral-1); padding-left: 120px;">Action</th>
+                                        <th style="color: var(--neutral-1); padding-left: 120px; margin-right: 30px;">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <!-- Gunakan loop untuk menampilkan episode -->
-                                    <tr class="plus-jakarta-sans-bold" style="border-bottom: 0px solid var(--neutral-2); font-size:14px; text-align:start;padding:10px; ">
-                                        <td style="padding-top: 30px; padding-bottom: 30px;padding: 10px;color: var(--neutral-1);">Episode 1</td>
-                                        <td style="padding-top: 30px; padding-bottom: 30px; padding-left: 120px;color: var(--neutral-1);">Lorem Ipsum</td>
-                                        <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">35 menit</td>
-                                        <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">{{ episodes_date|date:"d/m/Y"}}</td>
-                                        <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">
-                                            <div class="dropdown d-flex">
-                                                <button class="btn btn-secondary dropdown-toggle-iconless" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: transparent; border: none;">
-                                                    <img src="{% static 'img/threedots.svg' %}" alt="kelola" style="width: 20px; height: 20px;">
-                                                </button>
-                                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="background-color: var(--neutral-3); border-radius: 16px; padding: 4px; width: max-content !important;">
-                                                    <!-- <a class="dropdown-item plus-jakarta-sans-bold m-auto" style="color: var(--neutral-1); font-size: 12px; font-weight: 600;" href="#">Lihat daftar lagu</a> -->
-                                                    <a class="dropdown-item plus-jakarta-sans-bold m-auto" style="color: var(--neutral-1); font-size: 12px; font-weight: 600;" href="#" data-toggle="modal" data-target="#modalHapusEpisodes">Hapus</a>
+                                    {% for episode in episodes %}
+                                        <tr class="plus-jakarta-sans-bold" style="border-bottom: 0px solid var(--neutral-2); font-size:14px; text-align:start;padding:10px;">
+                                            <td style="padding-top: 30px; padding-bottom: 30px; padding: 10px; color: var(--neutral-1);">{{ episode.0 }}</td>
+                                            <td style="padding-top: 30px; padding-bottom: 30px; padding-left: 120px; color: var(--neutral-1);">{{ episode.1 }}</td>
+                                            <td style="padding-top: 30px; padding-bottom: 30px; padding-left: 120px; color: var(--neutral-1);">{{ episode.2 }}</td>
+                                            <td style="padding-top: 30px; padding-bottom: 30px; padding-left: 120px; color: var(--neutral-1);">{{ episode.3|date:"d/m/Y" }}</td>
+                                            <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">
+                                                <div class="dropdown d-flex">
+                                                    <button class="btn btn-secondary dropdown-toggle-iconless" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: transparent; border: none;">
+                                                        <img src="{% static 'img/threedots.svg' %}" alt="kelola" style="width: 20px; height: 20px;">
+                                                    </button>
+                                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="background-color: var(--neutral-3); border-radius: 16px; padding: 4px; width: max-content !important;">
+                                                        <!-- <a class="dropdown-item plus-jakarta-sans-bold m-auto" style="color: var(--neutral-1); font-size: 12px; font-weight: 600;" href="#">Lihat daftar lagu</a> -->
+                                                        <a class="dropdown-item plus-jakarta-sans-bold m-auto" style="color: var(--neutral-1); font-size: 12px; font-weight: 600;" href="#" data-toggle="modal" data-target="#modalHapusEpisodes">Hapus</a>
 
-                                                </div>
-                                                <!-- Modal Hapus -->
-                                                <div class="modal fade" id="modalHapusEpisodes" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                    <div class="modal-dialog" role="document">
-                                                    <div class="modal-content" style="background-color: var(--neutral-4); border-radius: 40px !important; padding: 20px;">
-                                                        <div class="modal-header" style="border-bottom: none;">
-                                                        <h5 class="modal-title plus-jakarta-sans-extrabold" id="exampleModalLabel" style="color: var(--neutral-0);">Konfirmasi Hapus</h5>
+                                                    </div>
+                                                    <!-- Modal Hapus -->
+                                                    <div class="modal fade" id="modalHapusEpisodes" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                        <div class="modal-dialog" role="document">
+                                                        <div class="modal-content" style="background-color: var(--neutral-4); border-radius: 40px !important; padding: 20px;">
+                                                            <div class="modal-header" style="border-bottom: none;">
+                                                            <h5 class="modal-title plus-jakarta-sans-extrabold" id="exampleModalLabel" style="color: var(--neutral-0);">Konfirmasi Hapus</h5>
+                                                            </div>
+                                                            <div class="modal-body plus-jakarta-sans-medium" style="color: var(--neutral-1);">
+                                                                Apakah Anda yakin ingin menghapus episode ini?
+                                                            </div>
+                                                            <div class="modal-footer" style="border-top: none;">
+                                                                <button type="button" class="button-modal-secondary plus-jakarta-sans-bold secondary-button" style="border: none !important; border-radius: 16px; padding-block: 12px; padding-inline: 24px; text-decoration: 2px solid var(--neutral-1); background-color: var(--neutral-3); color: white;" data-dismiss="modal">Batal</button>
+                                                                <button type="button" class="button-modal-danger plus-jakarta-sans-bold danger-button" style="border: none !important; border-radius: 16px; padding-block: 12px; padding-inline: 24px; background-color: rgb(255, 47, 47); color: var(--neutral-0);">Hapus</button>
+                                                            </div>
                                                         </div>
-                                                        <div class="modal-body plus-jakarta-sans-medium" style="color: var(--neutral-1);">
-                                                            Apakah Anda yakin ingin menghapus episode ini?
-                                                        </div>
-                                                        <div class="modal-footer" style="border-top: none;">
-                                                            <button type="button" class="button-modal-secondary plus-jakarta-sans-bold secondary-button" style="border: none !important; border-radius: 16px; padding-block: 12px; padding-inline: 24px; text-decoration: 2px solid var(--neutral-1); background-color: var(--neutral-3); color: white;" data-dismiss="modal">Batal</button>
-                                                            <button type="button" class="button-modal-danger plus-jakarta-sans-bold danger-button" style="border: none !important; border-radius: 16px; padding-block: 12px; padding-inline: 24px; background-color: rgb(255, 47, 47); color: var(--neutral-0);">Hapus</button>
                                                         </div>
                                                     </div>
-                                                    </div>
                                                 </div>
-  
-                                            </div>
-                                        </td>
-                                    </tr>
-
-                                    <tr class="plus-jakarta-sans-bold" style="border-bottom: 0px solid var(--neutral-2); font-size:14px; text-align:start;padding:10px; ">
-                                        <td style="padding-top: 30px; padding-bottom: 30px;padding: 10px;color: var(--neutral-1);">Episode 1</td>
-                                        <td style="padding-top: 30px; padding-bottom: 30px; padding-left: 120px;color: var(--neutral-1);">Lorem Ipsum</td>
-                                        <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">35 menit</td>
-                                        <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">{{ episodes_date|date:"d/m/Y"}}</td>
-                                        <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">
-                                            <div class="dropdown d-flex">
-                                                <button class="btn btn-secondary dropdown-toggle-iconless" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: transparent; border: none;">
-                                                    <img src="{% static 'img/threedots.svg' %}" alt="kelola" style="width: 20px; height: 20px;">
-                                                </button>
-                                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="background-color: var(--neutral-3); border-radius: 16px; padding: 4px; width: max-content !important;">
-                                                    <!-- <a class="dropdown-item plus-jakarta-sans-bold m-auto" style="color: var(--neutral-1); font-size: 12px; font-weight: 600;" href="#">Lihat daftar lagu</a> -->
-                                                    <a class="dropdown-item plus-jakarta-sans-bold m-auto" style="color: var(--neutral-1); font-size: 12px; font-weight: 600;" href="#" data-toggle="modal" data-target="#modalHapusEpisodes">Hapus</a>
-
-                                                </div>
-                                                <!-- Modal Hapus -->
-                                                <div class="modal fade" id="modalHapusEpisodes" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                    <div class="modal-dialog" role="document">
-                                                    <div class="modal-content" style="background-color: var(--neutral-4); border-radius: 40px !important; padding: 20px;">
-                                                        <div class="modal-header" style="border-bottom: none;">
-                                                        <h5 class="modal-title plus-jakarta-sans-extrabold" id="exampleModalLabel" style="color: var(--neutral-0);">Konfirmasi Hapus</h5>
-                                                        </div>
-                                                        <div class="modal-body plus-jakarta-sans-medium" style="color: var(--neutral-1);">
-                                                            Apakah Anda yakin ingin menghapus episode ini?
-                                                        </div>
-                                                        <div class="modal-footer" style="border-top: none;">
-                                                            <button type="button" class="button-modal-secondary plus-jakarta-sans-bold secondary-button" style="border: none !important; border-radius: 16px; padding-block: 12px; padding-inline: 24px; text-decoration: 2px solid var(--neutral-1); background-color: var(--neutral-3); color: white;" data-dismiss="modal">Batal</button>
-                                                            <button type="button" class="button-modal-danger plus-jakarta-sans-bold danger-button" style="border: none !important; border-radius: 16px; padding-block: 12px; padding-inline: 24px; background-color: rgb(255, 47, 47); color: var(--neutral-0);">Hapus</button>
-                                                        </div>
-                                                    </div>
-                                                    </div>
-                                                </div>
-  
-                                            </div>
-                                        </td>
-                                    </tr>
-
-                                    <tr class="plus-jakarta-sans-bold" style="border-bottom: 0px solid var(--neutral-2); font-size:14px; text-align:start;padding:10px; ">
-                                        <td style="padding-top: 30px; padding-bottom: 30px;padding: 10px;color: var(--neutral-1);">Episode 1</td>
-                                        <td style="padding-top: 30px; padding-bottom: 30px; padding-left: 120px;color: var(--neutral-1);">Lorem Ipsum</td>
-                                        <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">35 menit</td>
-                                        <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">{{ episodes_date|date:"d/m/Y"}}</td>
-                                        <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">
-                                            <div class="dropdown d-flex">
-                                                <button class="btn btn-secondary dropdown-toggle-iconless" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: transparent; border: none;">
-                                                    <img src="{% static 'img/threedots.svg' %}" alt="kelola" style="width: 20px; height: 20px;">
-                                                </button>
-                                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="background-color: var(--neutral-3); border-radius: 16px; padding: 4px; width: max-content !important;">
-                                                    <!-- <a class="dropdown-item plus-jakarta-sans-bold m-auto" style="color: var(--neutral-1); font-size: 12px; font-weight: 600;" href="#">Lihat daftar lagu</a> -->
-                                                    <a class="dropdown-item plus-jakarta-sans-bold m-auto" style="color: var(--neutral-1); font-size: 12px; font-weight: 600;" href="#" data-toggle="modal" data-target="#modalHapusEpisodes">Hapus</a>
-
-                                                </div>
-                                                <!-- Modal Hapus -->
-                                                <div class="modal fade" id="modalHapusEpisodes" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                    <div class="modal-dialog" role="document">
-                                                    <div class="modal-content" style="background-color: var(--neutral-4); border-radius: 40px !important; padding: 20px;">
-                                                        <div class="modal-header" style="border-bottom: none;">
-                                                        <h5 class="modal-title plus-jakarta-sans-extrabold" id="exampleModalLabel" style="color: var(--neutral-0);">Konfirmasi Hapus</h5>
-                                                        </div>
-                                                        <div class="modal-body plus-jakarta-sans-medium" style="color: var(--neutral-1);">
-                                                            Apakah Anda yakin ingin menghapus episode ini?
-                                                        </div>
-                                                        <div class="modal-footer" style="border-top: none;">
-                                                            <button type="button" class="button-modal-secondary plus-jakarta-sans-bold secondary-button" style="border: none !important; border-radius: 16px; padding-block: 12px; padding-inline: 24px; text-decoration: 2px solid var(--neutral-1); background-color: var(--neutral-3); color: white;" data-dismiss="modal">Batal</button>
-                                                            <button type="button" class="button-modal-danger plus-jakarta-sans-bold danger-button" style="border: none !important; border-radius: 16px; padding-block: 12px; padding-inline: 24px; background-color: rgb(255, 47, 47); color: var(--neutral-0);">Hapus</button>
-                                                        </div>
-                                                    </div>
-                                                    </div>
-                                                </div>
-  
-                                            </div>
-                                        </td>
-                                    </tr>
-
-                                    <tr class="plus-jakarta-sans-bold" style="border-bottom: 0px solid var(--neutral-2); font-size:14px; text-align:start;padding:10px; ">
-                                        <td style="padding-top: 30px; padding-bottom: 30px;padding: 10px;color: var(--neutral-1);">Episode 1</td>
-                                        <td style="padding-top: 30px; padding-bottom: 30px; padding-left: 120px;color: var(--neutral-1);">Lorem Ipsum</td>
-                                        <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">35 menit</td>
-                                        <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">{{ episodes_date|date:"d/m/Y"}}</td>
-                                        <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">
-                                            <div class="dropdown d-flex">
-                                                <button class="btn btn-secondary dropdown-toggle-iconless" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: transparent; border: none;">
-                                                    <img src="{% static 'img/threedots.svg' %}" alt="kelola" style="width: 20px; height: 20px;">
-                                                </button>
-                                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="background-color: var(--neutral-3); border-radius: 16px; padding: 4px; width: max-content !important;">
-                                                    <!-- <a class="dropdown-item plus-jakarta-sans-bold m-auto" style="color: var(--neutral-1); font-size: 12px; font-weight: 600;" href="#">Lihat daftar lagu</a> -->
-                                                    <a class="dropdown-item plus-jakarta-sans-bold m-auto" style="color: var(--neutral-1); font-size: 12px; font-weight: 600;" href="#" data-toggle="modal" data-target="#modalHapusEpisodes">Hapus</a>
-
-                                                </div>
-                                                <!-- Modal Hapus -->
-                                                <div class="modal fade" id="modalHapusEpisodes" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                    <div class="modal-dialog" role="document">
-                                                    <div class="modal-content" style="background-color: var(--neutral-4); border-radius: 40px !important; padding: 20px;">
-                                                        <div class="modal-header" style="border-bottom: none;">
-                                                        <h5 class="modal-title plus-jakarta-sans-extrabold" id="exampleModalLabel" style="color: var(--neutral-0);">Konfirmasi Hapus</h5>
-                                                        </div>
-                                                        <div class="modal-body plus-jakarta-sans-medium" style="color: var(--neutral-1);">
-                                                            Apakah Anda yakin ingin menghapus episode ini?
-                                                        </div>
-                                                        <div class="modal-footer" style="border-top: none;">
-                                                            <button type="button" class="button-modal-secondary plus-jakarta-sans-bold secondary-button" style="border: none !important; border-radius: 16px; padding-block: 12px; padding-inline: 24px; text-decoration: 2px solid var(--neutral-1); background-color: var(--neutral-3); color: white;" data-dismiss="modal">Batal</button>
-                                                            <button type="button" class="button-modal-danger plus-jakarta-sans-bold danger-button" style="border: none !important; border-radius: 16px; padding-block: 12px; padding-inline: 24px; background-color: rgb(255, 47, 47); color: var(--neutral-0);">Hapus</button>
-                                                        </div>
-                                                    </div>
-                                                    </div>
-                                                </div>
-  
-                                            </div>
-                                        </td>
-                                    </tr>
-
-                                    <tr class="plus-jakarta-sans-bold" style="border-bottom: 0px solid var(--neutral-2); font-size:14px; text-align:start;padding:10px; ">
-                                        <td style="padding-top: 30px; padding-bottom: 30px;padding: 10px;color: var(--neutral-1);">Episode 1</td>
-                                        <td style="padding-top: 30px; padding-bottom: 30px; padding-left: 120px;color: var(--neutral-1);">Lorem Ipsum</td>
-                                        <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">35 menit</td>
-                                        <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">{{ episodes_date|date:"d/m/Y"}}</td>
-                                        <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">
-                                            <div class="dropdown d-flex">
-                                                <button class="btn btn-secondary dropdown-toggle-iconless" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: transparent; border: none;">
-                                                    <img src="{% static 'img/threedots.svg' %}" alt="kelola" style="width: 20px; height: 20px;">
-                                                </button>
-                                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="background-color: var(--neutral-3); border-radius: 16px; padding: 4px; width: max-content !important;">
-                                                    <!-- <a class="dropdown-item plus-jakarta-sans-bold m-auto" style="color: var(--neutral-1); font-size: 12px; font-weight: 600;" href="#">Lihat daftar lagu</a> -->
-                                                    <a class="dropdown-item plus-jakarta-sans-bold m-auto" style="color: var(--neutral-1); font-size: 12px; font-weight: 600;" href="#" data-toggle="modal" data-target="#modalHapusEpisodes">Hapus</a>
-
-                                                </div>
-                                                <!-- Modal Hapus -->
-                                                <div class="modal fade" id="modalHapusEpisodes" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                    <div class="modal-dialog" role="document">
-                                                    <div class="modal-content" style="background-color: var(--neutral-4); border-radius: 40px !important; padding: 20px;">
-                                                        <div class="modal-header" style="border-bottom: none;">
-                                                        <h5 class="modal-title plus-jakarta-sans-extrabold" id="exampleModalLabel" style="color: var(--neutral-0);">Konfirmasi Hapus</h5>
-                                                        </div>
-                                                        <div class="modal-body plus-jakarta-sans-medium" style="color: var(--neutral-1);">
-                                                            Apakah Anda yakin ingin menghapus episode ini?
-                                                        </div>
-                                                        <div class="modal-footer" style="border-top: none;">
-                                                            <button type="button" class="button-modal-secondary plus-jakarta-sans-bold secondary-button" style="border: none !important; border-radius: 16px; padding-block: 12px; padding-inline: 24px; text-decoration: 2px solid var(--neutral-1); background-color: var(--neutral-3); color: white;" data-dismiss="modal">Batal</button>
-                                                            <button type="button" class="button-modal-danger plus-jakarta-sans-bold danger-button" style="border: none !important; border-radius: 16px; padding-block: 12px; padding-inline: 24px; background-color: rgb(255, 47, 47); color: var(--neutral-0);">Hapus</button>
-                                                        </div>
-                                                    </div>
-                                                    </div>
-                                                </div>
-  
-                                            </div>
-                                        </td>
-                                    </tr>
-
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
                                 </tbody>
                             </table>
                         </div>

@@ -16,6 +16,8 @@ def loginkonten(request):
             
             # Kirim data ke template tergantung pada apa yang ditemukan
             if akun_exists:
+                request.session['user_email'] = akun_exists[0]
+
                 # Cek apakah verified PUSING BGT YAALLAH
                 cursor.execute("SELECT is_verified FROM akun WHERE email = %s", [user_email])
                 is_verified = cursor.fetchone()[0]
@@ -45,8 +47,7 @@ def loginkonten(request):
                         #     return redirect('dashboardmix:homepagemix')  # Redirect to a common dashboard page for both types
                         # registered as podcaster only
                         elif is_podcaster:
-                            return redirect('dashboardpodcaster:homepagepodcaster')  # Redirect to the podcaster dashboard
-
+                            return redirect('dashboard:podcaster')  # Redirect to the podcaster dashboard
                 
             else:
                 # Jika akun tidak ditemukan, coba cek kali aja akun Label
