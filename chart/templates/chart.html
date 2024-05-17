@@ -89,6 +89,45 @@
     input[type=range]:focus::-webkit-slider-runnable-track {
         background: #ffffff; /* Background warna putih saat di-focus */
     }
+
+.modal-container {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Transparansi untuk latar belakang */
+    z-index: 1000; /* Z-index tinggi agar pop-up muncul di atas elemen lain */
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background: linear-gradient(180deg, #292724, #1B1817); /* Gradient background */
+    color: #fff;
+    padding: 20px;
+    border-radius: 20px;
+    width: auto;
+    height: auto;
+    overflow-y: scroll;
+    align-content: center;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    border: none;
+}
+
+.modal-form label {
+    display: block;
+    margin-bottom: 10px;
+    margin-top: 15px;
+    color: #fff;
+}
+
+.button-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
     /* Untuk scrollbar vertikal */
     ::-webkit-scrollbar {
         width: 10px;
@@ -1330,244 +1369,76 @@
                 <div class="container-fluid"
                     style="background: linear-gradient(180deg, #292724, #1B1817); width: 100%; border-radius: 24px; margin-top: -1.2em; height: 610px; padding-bottom: 25px; padding-top: 20px;
                     margin-top: 10px; white-space: nowrap; overflow-y: scroll; text-overflow: ellipsis;">
-                    <!-- Daftar podcast -->
+                    <!-- Daftar Chart -->
                     <div class="row">
                         <div class="col-12" style="margin-left: 30px">
-                            <h2 class="plus-jakarta-sans-extrabold" style="color: var(--neutral-0); font-size: 40px; margin-top: 20px;">Lihat Chart Lagu</h2>
+                            <h2 class="plus-jakarta-sans-extrabold" style="color: var(--neutral-0); font-size: 40px; margin-top: 20px;">Telusuri Chart</h2>
                             <p class="plus-jakarta-sans-bold" style="color: var(--neutral-1); font-size: 18px; margin-top: 24px;">Your update of the most played tracks</p>
-
-                            <ul class="nav nav-tabs plus-jakarta-sans-bold" id="myTab" role="tablist" style="border-bottom: none; border-radius: 16px; border-bottom-left-radius: 16px;">
-                                <li class="nav-item plus-jakarta-sans-bold" role="presentation">
-                                    <a class="nav-link active" id="daily-tab" data-toggle="tab" href="#daily-top-20" role="tab" aria-controls="daily-top-20" aria-selected="true">Daily Top 20</a>
-                                </li>
-                                <li class="nav-item plus-jakarta-sans-bold" role="presentation">
-                                    <a class="nav-link" id="weekly-tab" data-toggle="tab" href="#weekly-top-20" role="tab" aria-controls="weekly-top-20" aria-selected="false">Weekly Top 20</a>
-                                </li>
-                            </ul>
-                            
-                            <div class="tab-content" id="myTabContent">
-                                <!-- Tab konten untuk Daily Top 20 -->
-                                <div class="tab-pane fade show active" id="daily-top-20" role="tabpanel" aria-labelledby="daily-tab">
-                                    <table class="table-podcast" style="width: 95%; border-collapse: collapse; margin-top: 48px;color: var(--neutral-1); padding: 10px;">
-                                        <!-- Konten tabel untuk Daily Top 20 -->
-                                        <thead>
-                                            <tr style="border-bottom: 1px solid var(--neutral-2);">
-                                                <th style="color: var(--neutral-1); padding: 10px;">#</th>
-                                                <th style="color: var(--neutral-1); padding-left: 100px;">Judul Lagu</th>
-                                                <th style="color: var(--neutral-1); padding-left: 100px;">Artist</th>
-                                                <th style="color: var(--neutral-1); padding-left: 100px;">Tanggal Rilis</th>
-                                                <th style="color: var(--neutral-1); padding-left: 100px;">Total Plays</th>
-                                                <th style="color: var(--neutral-1); padding-left: 100px;">Actions</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <!-- Gunakan loop untuk menampilkan episode -->
-                                            <tr class="plus-jakarta-sans-bold" style="border-bottom: 0px solid var(--neutral-2); font-size:14px; text-align:start;padding:10px; ">
-                                                <td style="padding-top: 30px; padding-bottom: 30px;padding: 10px;color: var(--neutral-1);">1</td>
-                                                <td style="padding-top: 30px; padding-bottom: 30px; padding-left: 100px;color: var(--neutral-1);">King Kong</td>
-                                                <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 100px;color: var(--neutral-1);">Ariana Bonaparte</td>
-                                                <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 100px;color: var(--neutral-1);">12/09/2019</td>
-                                                <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 100px;color: var(--neutral-1);">2908</td>
-                                                <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 100px;color: var(--neutral-1);">
-                                                    <div class="dropdown d-flex">
-                                                        <button class="btn btn-secondary dropdown-toggle-iconless" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: transparent; border: none;">
-                                                            <img src="{% static 'img/threedots.svg' %}" alt="kelola" style="width: 20px; height: 20px;">
-                                                        </button>
-                                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="background-color: var(--neutral-3); border-radius: 16px; padding: 4px; width: max-content !important;">
-                                                            <a class="dropdown-item plus-jakarta-sans-bold m-auto" style="color: var(--neutral-1); font-size: 12px; font-weight: 600;" href="{% url 'dashboardartist:detaillaguartist' %}">Lihat lagu</a>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
-
-                                            <tr class="plus-jakarta-sans-bold" style="border-bottom: 0px solid var(--neutral-2); font-size:14px; text-align:start;padding:10px; ">
-                                                <td style="padding-top: 30px; padding-bottom: 30px;padding: 10px;color: var(--neutral-1);">1</td>
-                                                <td style="padding-top: 30px; padding-bottom: 30px; padding-left: 100px;color: var(--neutral-1);">King Kong</td>
-                                                <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 100px;color: var(--neutral-1);">Ariana Bonaparte</td>
-                                                <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 100px;color: var(--neutral-1);">12/09/2019</td>
-                                                <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 100px;color: var(--neutral-1);">2908</td>
-                                                <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 100px;color: var(--neutral-1);">
-                                                    <div class="dropdown d-flex">
-                                                        <button class="btn btn-secondary dropdown-toggle-iconless" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: transparent; border: none;">
-                                                            <img src="{% static 'img/threedots.svg' %}" alt="kelola" style="width: 20px; height: 20px;">
-                                                        </button>
-                                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="background-color: var(--neutral-3); border-radius: 16px; padding: 4px; width: max-content !important;">
-                                                            <a class="dropdown-item plus-jakarta-sans-bold m-auto" style="color: var(--neutral-1); font-size: 12px; font-weight: 600;" href="{% url 'dashboardartist:detaillaguartist' %}">Lihat lagu</a>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
-
-                                            <tr class="plus-jakarta-sans-bold" style="border-bottom: 0px solid var(--neutral-2); font-size:14px; text-align:start;padding:10px; ">
-                                                <td style="padding-top: 30px; padding-bottom: 30px;padding: 10px;color: var(--neutral-1);">1</td>
-                                                <td style="padding-top: 30px; padding-bottom: 30px; padding-left: 100px;color: var(--neutral-1);">King Kong</td>
-                                                <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 100px;color: var(--neutral-1);">Ariana Bonaparte</td>
-                                                <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 100px;color: var(--neutral-1);">12/09/2019</td>
-                                                <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 100px;color: var(--neutral-1);">2908</td>
-                                                <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 100px;color: var(--neutral-1);">
-                                                    <div class="dropdown d-flex">
-                                                        <button class="btn btn-secondary dropdown-toggle-iconless" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: transparent; border: none;">
-                                                            <img src="{% static 'img/threedots.svg' %}" alt="kelola" style="width: 20px; height: 20px;">
-                                                        </button>
-                                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="background-color: var(--neutral-3); border-radius: 16px; padding: 4px; width: max-content !important;">
-                                                            <a class="dropdown-item plus-jakarta-sans-bold m-auto" style="color: var(--neutral-1); font-size: 12px; font-weight: 600;" href="{% url 'dashboardartist:detaillaguartist' %}">Lihat lagu</a>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
-
-                                            <tr class="plus-jakarta-sans-bold" style="border-bottom: 0px solid var(--neutral-2); font-size:14px; text-align:start;padding:10px; ">
-                                                <td style="padding-top: 30px; padding-bottom: 30px;padding: 10px;color: var(--neutral-1);">1</td>
-                                                <td style="padding-top: 30px; padding-bottom: 30px; padding-left: 100px;color: var(--neutral-1);">King Kong</td>
-                                                <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 100px;color: var(--neutral-1);">Ariana Bonaparte</td>
-                                                <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 100px;color: var(--neutral-1);">12/09/2019</td>
-                                                <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 100px;color: var(--neutral-1);">2908</td>
-                                                <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 100px;color: var(--neutral-1);">
-                                                    <div class="dropdown d-flex">
-                                                        <button class="btn btn-secondary dropdown-toggle-iconless" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: transparent; border: none;">
-                                                            <img src="{% static 'img/threedots.svg' %}" alt="kelola" style="width: 20px; height: 20px;">
-                                                        </button>
-                                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="background-color: var(--neutral-3); border-radius: 16px; padding: 4px; width: max-content !important;">
-                                                            <a class="dropdown-item plus-jakarta-sans-bold m-auto" style="color: var(--neutral-1); font-size: 12px; font-weight: 600;" href="{% url 'dashboardartist:detaillaguartist' %}">Lihat lagu</a>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
-
-                                            <tr class="plus-jakarta-sans-bold" style="border-bottom: 0px solid var(--neutral-2); font-size:14px; text-align:start;padding:10px; ">
-                                                <td style="padding-top: 30px; padding-bottom: 30px;padding: 10px;color: var(--neutral-1);">1</td>
-                                                <td style="padding-top: 30px; padding-bottom: 30px; padding-left: 100px;color: var(--neutral-1);">King Kong</td>
-                                                <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 100px;color: var(--neutral-1);">Ariana Bonaparte</td>
-                                                <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 100px;color: var(--neutral-1);">12/09/2019</td>
-                                                <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 100px;color: var(--neutral-1);">2908</td>
-                                                <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 100px;color: var(--neutral-1);">
-                                                    <div class="dropdown d-flex">
-                                                        <button class="btn btn-secondary dropdown-toggle-iconless" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: transparent; border: none;">
-                                                            <img src="{% static 'img/threedots.svg' %}" alt="kelola" style="width: 20px; height: 20px;">
-                                                        </button>
-                                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="background-color: var(--neutral-3); border-radius: 16px; padding: 4px; width: max-content !important;">
-                                                            <a class="dropdown-item plus-jakarta-sans-bold m-auto" style="color: var(--neutral-1); font-size: 12px; font-weight: 600;" href="{% url 'dashboardartist:detaillaguartist' %}">Lihat lagu</a>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                                
-                                <!-- Tab konten untuk Weekly Top 20 -->
-                                <div class="tab-pane fade" id="weekly-top-20" role="tabpanel" aria-labelledby="weekly-tab">
-                                    <table class="table-podcast" style="width: 95%; border-collapse: collapse; margin-top: 48px;color: var(--neutral-1); padding: 10px;">
-                                        <!-- Konten tabel untuk Weekly Top 20 -->
-                                        <thead>
-                                            <tr style="border-bottom: 1px solid var(--neutral-2);">
-                                                <th style="color: var(--neutral-1); padding: 10px;">#</th>
-                                                <th style="color: var(--neutral-1); padding-left: 100px;">Judul Lagu</th>
-                                                <th style="color: var(--neutral-1); padding-left: 100px;">Artist</th>
-                                                <th style="color: var(--neutral-1); padding-left: 100px;">Tanggal Rilis</th>
-                                                <th style="color: var(--neutral-1); padding-left: 100px;">Total Plays</th>
-                                                <th style="color: var(--neutral-1); padding-left: 100px;">Actions</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <!-- Gunakan loop untuk menampilkan episode -->
-                                            <tr class="plus-jakarta-sans-bold" style="border-bottom: 0px solid var(--neutral-2); font-size:14px; text-align:start;padding:10px; ">
-                                                <td style="padding-top: 30px; padding-bottom: 30px;padding: 10px;color: var(--neutral-1);">1</td>
-                                                <td style="padding-top: 30px; padding-bottom: 30px; padding-left: 100px;color: var(--neutral-1);">King Kong</td>
-                                                <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 100px;color: var(--neutral-1);">Ariana Bonaparte</td>
-                                                <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 100px;color: var(--neutral-1);">12/09/2019</td>
-                                                <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 100px;color: var(--neutral-1);">2908</td>
-                                                <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 100px;color: var(--neutral-1);">
-                                                    <div class="dropdown d-flex">
-                                                        <button class="btn btn-secondary dropdown-toggle-iconless" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: transparent; border: none;">
-                                                            <img src="{% static 'img/threedots.svg' %}" alt="kelola" style="width: 20px; height: 20px;">
-                                                        </button>
-                                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="background-color: var(--neutral-3); border-radius: 16px; padding: 4px; width: max-content !important;">
-                                                            <a class="dropdown-item plus-jakarta-sans-bold m-auto" style="color: var(--neutral-1); font-size: 12px; font-weight: 600;" href="{% url 'dashboardartist:detaillaguartist' %}">Lihat lagu</a>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
-
-                                            <tr class="plus-jakarta-sans-bold" style="border-bottom: 0px solid var(--neutral-2); font-size:14px; text-align:start;padding:10px; ">
-                                                <td style="padding-top: 30px; padding-bottom: 30px;padding: 10px;color: var(--neutral-1);">1</td>
-                                                <td style="padding-top: 30px; padding-bottom: 30px; padding-left: 100px;color: var(--neutral-1);">King Kong</td>
-                                                <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 100px;color: var(--neutral-1);">Ariana Bonaparte</td>
-                                                <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 100px;color: var(--neutral-1);">12/09/2019</td>
-                                                <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 100px;color: var(--neutral-1);">2908</td>
-                                                <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 100px;color: var(--neutral-1);">
-                                                    <div class="dropdown d-flex">
-                                                        <button class="btn btn-secondary dropdown-toggle-iconless" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: transparent; border: none;">
-                                                            <img src="{% static 'img/threedots.svg' %}" alt="kelola" style="width: 20px; height: 20px;">
-                                                        </button>
-                                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="background-color: var(--neutral-3); border-radius: 16px; padding: 4px; width: max-content !important;">
-                                                            <a class="dropdown-item plus-jakarta-sans-bold m-auto" style="color: var(--neutral-1); font-size: 12px; font-weight: 600;" href="{% url 'dashboardartist:detaillaguartist' %}">Lihat lagu</a>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
-
-                                            <tr class="plus-jakarta-sans-bold" style="border-bottom: 0px solid var(--neutral-2); font-size:14px; text-align:start;padding:10px; ">
-                                                <td style="padding-top: 30px; padding-bottom: 30px;padding: 10px;color: var(--neutral-1);">1</td>
-                                                <td style="padding-top: 30px; padding-bottom: 30px; padding-left: 100px;color: var(--neutral-1);">King Kong</td>
-                                                <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 100px;color: var(--neutral-1);">Ariana Bonaparte</td>
-                                                <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 100px;color: var(--neutral-1);">12/09/2019</td>
-                                                <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 100px;color: var(--neutral-1);">2908</td>
-                                                <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 100px;color: var(--neutral-1);">
-                                                    <div class="dropdown d-flex">
-                                                        <button class="btn btn-secondary dropdown-toggle-iconless" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: transparent; border: none;">
-                                                            <img src="{% static 'img/threedots.svg' %}" alt="kelola" style="width: 20px; height: 20px;">
-                                                        </button>
-                                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="background-color: var(--neutral-3); border-radius: 16px; padding: 4px; width: max-content !important;">
-                                                            <a class="dropdown-item plus-jakarta-sans-bold m-auto" style="color: var(--neutral-1); font-size: 12px; font-weight: 600;" href="{% url 'dashboardartist:detaillaguartist' %}">Lihat lagu</a>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
-
-                                            <tr class="plus-jakarta-sans-bold" style="border-bottom: 0px solid var(--neutral-2); font-size:14px; text-align:start;padding:10px; ">
-                                                <td style="padding-top: 30px; padding-bottom: 30px;padding: 10px;color: var(--neutral-1);">1</td>
-                                                <td style="padding-top: 30px; padding-bottom: 30px; padding-left: 100px;color: var(--neutral-1);">King Kong</td>
-                                                <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 100px;color: var(--neutral-1);">Ariana Bonaparte</td>
-                                                <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 100px;color: var(--neutral-1);">12/09/2019</td>
-                                                <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 100px;color: var(--neutral-1);">2908</td>
-                                                <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 100px;color: var(--neutral-1);">
-                                                    <div class="dropdown d-flex">
-                                                        <button class="btn btn-secondary dropdown-toggle-iconless" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: transparent; border: none;">
-                                                            <img src="{% static 'img/threedots.svg' %}" alt="kelola" style="width: 20px; height: 20px;">
-                                                        </button>
-                                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="background-color: var(--neutral-3); border-radius: 16px; padding: 4px; width: max-content !important;">
-                                                            <a class="dropdown-item plus-jakarta-sans-bold m-auto" style="color: var(--neutral-1); font-size: 12px; font-weight: 600;" href="{% url 'dashboardartist:detaillaguartist' %}">Lihat lagu</a>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
-
-                                            <tr class="plus-jakarta-sans-bold" style="border-bottom: 0px solid var(--neutral-2); font-size:14px; text-align:start;padding:10px; ">
-                                                <td style="padding-top: 30px; padding-bottom: 30px;padding: 10px;color: var(--neutral-1);">1</td>
-                                                <td style="padding-top: 30px; padding-bottom: 30px; padding-left: 100px;color: var(--neutral-1);">King Kong</td>
-                                                <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 100px;color: var(--neutral-1);">Ariana Bonaparte</td>
-                                                <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 100px;color: var(--neutral-1);">12/09/2019</td>
-                                                <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 100px;color: var(--neutral-1);">2908</td>
-                                                <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 100px;color: var(--neutral-1);">
-                                                    <div class="dropdown d-flex">
-                                                        <button class="btn btn-secondary dropdown-toggle-iconless" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: transparent; border: none;">
-                                                            <img src="{% static 'img/threedots.svg' %}" alt="kelola" style="width: 20px; height: 20px;">
-                                                        </button>
-                                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="background-color: var(--neutral-3); border-radius: 16px; padding: 4px; width: max-content !important;">
-                                                            <a class="dropdown-item plus-jakarta-sans-bold m-auto" style="color: var(--neutral-1); font-size: 12px; font-weight: 600;" href="{% url 'dashboardartist:detaillaguartist' %}">Lihat lagu</a>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                            
-                            
+                            <table class="table" style="width: 95%; border-collapse: collapse; margin-top: 48px;color: var(--neutral-1); padding: 10px;">
+                                <thead>
+                                <tr style="border-bottom: 1px solid var(--neutral-2);">
+                                    <th style="color: var(--neutral-1); padding: 10px; background: none; font-size: 16px; text-align: center;">Tipe</th>
+                                    <th style="color: var(--neutral-1); padding-left: 120px;background: none; font-size: 16px; text-align: center;">Actions</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for chart_type in chart_types %}
+                                <tr class="plus-jakarta-sans-bold" style="margin-top: 50px; border-bottom: 0px solid var(--neutral-2); font-size:14px; text-align:center;padding-top:30px; background: none;">
+                                    <td style="margin-top: 50px; padding-top: 30px; padding-bottom: 30px;padding: 10px;color: var(--neutral-1); background: none; border-bottom: none;">{{ chart_type }}</td>
+                                    <td style="padding-top: 30px; padding-bottom: 30px;padding: 10px;color: var(--neutral-1); background: none; border-bottom: none;">
+                                        <button type="button" class="button-primary plus-jakarta-sans-bold" data-toggle="modal" style="font-size: 14px; margin-left: 118px; background-color: transparent; border: none;" data-target="#{{ chart_type|slugify }}Modal" >
+                                            Lihat
+                                        </button>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
                         </div>
+                          
+                        {% for chart_type, songs in chart_details.items %}
+                        <div class="modal fade" style="max-width: 100%; max-height: 90vh; align-content: center; justify-content: center; align-items: center;" id="{{ chart_type|slugify }}Modal" tabindex="-1" role="dialog" aria-labelledby="{{ chart_type|slugify }}ModalLabel" aria-hidden="true">
+                          <div class="modal-dialog modal-dialog-centered modal-lg" role="document" style="max-width: 100%; max-height: 90vh; align-content: center;">
+                            <div class="modal-content" style="max-width: 100%; max-height: 90vh; align-content: center;">
+                              <div class="modal-header plus-jakarta-sans-extrabold" style="border-bottom: none; font-size: 16px;text-align: center;">
+                                <h5 class="modal-title plus-jakarta-sans-extrabold" style="border-bottom: none; font-size: 24px; text-align: center;" id="{{ chart_type|slugify }}ModalLabel">{{ chart_type }}</h5>
+                              </div>
+                              <div class="modal-body">
+                                <table class="table" style="width: 100%; border-collapse: collapse; margin-top: 0; color: var(--neutral-1); padding: 10px;">
+                                  <thead>
+                                    <tr style="border-bottom: 1px solid var(--neutral-2); text-align: center;">
+                                      <th style="color: var(--neutral-1); padding: 10px; background-color: transparent; text-overflow: ellipsis;">Judul Lagu</th>
+                                      <th style="color: var(--neutral-1); padding-left: 120px; background-color: transparent;">Oleh</th>
+                                      <th style="color: var(--neutral-1); padding-left: 120px; background-color: transparent;">Tanggal Rilis</th>
+                                      <th style="color: var(--neutral-1); padding-left: 120px; background-color: transparent;">Total Plays</th>
+                                      <th style="color: var(--neutral-1); padding-left: 120px; background-color: transparent;">Actions</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    {% for song in songs %}
+                                    <tr class="plus-jakarta-sans-bold" style="border-bottom: 0px solid var(--neutral-2); font-size:14px; text-align:center;padding:10px; background-color: transparent; align-items: center;">
+                                      <td style="padding-top: 30px; padding-bottom: 30px;padding: 10px;color: var(--neutral-1); background-color: transparent;">{{ song.title }}</td>
+                                      <td style="padding-top: 30px; padding-bottom: 30px; padding-left: 120px;color: var(--neutral-1); word-wrap: break-word; background-color: transparent;">{{ song.artist_name }}</td>
+                                      <td style="padding-top: 30px; margin-left: 120px; padding-bottom: 30px;padding: 10px;color: var(--neutral-1); background-color: transparent;">{{ song.release_date|date:"d/m/Y" }}</td>
+                                      <td style="padding-top: 30px; padding-bottom: 30px;padding: 10px;color: var(--neutral-1);background-color: transparent;">{{ song.plays }}</td>
+                                      <td style="font-size: 14px; margin-left: 118px; background-color: transparent;">
+                                        <button type="button" style="background-color: transparent;" class="button-primary plus-jakarta-sans-bold" data-toggle="modal" data-target="#{{ song.title|slugify }}DetailsModal" href="{% url 'dashboardartist:detaillaguartist' %}">
+                                        Lihat</button></td>
+                                    </tr>
+                                    {% endfor %}
+                                  </tbody>
+                                </table>
+                              </div>
+                              <div class="modal-footer" style="align-content: center; border-top: none;">
+                                <button type="button" class="button-secondary plus-jakarta-sans-bold" style="align-content: center; border-top: none;" data-dismiss="modal">Close</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        {% endfor %}
+                        
                     </div>
+                                                       
                 </div>
             </div>
         </div>

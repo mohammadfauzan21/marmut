@@ -96,7 +96,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'OPTIONS': {
-            'options': '-c search_path=marmut'
+            'options': '-c search_path=public'
         },
         'HOST': "aws-0-ap-southeast-1.pooler.supabase.com",
         'NAME': "postgres",
