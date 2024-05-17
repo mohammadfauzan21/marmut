@@ -48,3 +48,13 @@ def homepagelabel(request):
 
     # Render template dan kirim data ke template
     return render(request, 'homepagelabel.html', {'label_info': label_info})
+
+
+def logout(request):
+    # Hapus semua data sesi terkait dengan login pengguna
+    request.session.pop('user_email', None)
+    request.session.pop('user_type', None)
+    request.session.pop('user_roles', None)
+
+    info_message = "Anda telah logout."
+    return render(request, 'login.html', {'info_message': info_message})

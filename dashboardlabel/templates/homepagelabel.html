@@ -805,10 +805,15 @@
                                 <img src="{% static 'img/search.svg' %}" alt="search"></a>
                         </div>
                     </div>
-                    <a href="" class="row container-fluid d-flex "
+                    <a href="{% url 'dashboardlabel:logout' %}" class="row container-fluid d-flex "
                         style="background-color: var(--neutral-5); border-radius: 24px; width: 80px; margin-left: 36px; margin-block: -1px; height: 60px; justify-content: center; align-items: center;">
                         <img src="{% static 'img/logout.svg' %}" alt="Logout" width="30px" height="30px">
                     </a>
+                    {% if info_message %}
+                    <div class="alert alert-info" role="alert">
+                        {{ info_message }}
+                    </div>
+                    {% endif %}
                 </div>
                 <div class="row container-fluid d-flex justify-content-start align-items-start tertiary-content-1"
                 style="width: 100%; margin-inline: -12px;">
