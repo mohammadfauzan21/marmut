@@ -3,6 +3,25 @@ from django.db import connection
 from django.contrib import messages
 
 def loginkonten(request):
+    # Cek apakah sesi login sudah ada
+    if 'user_email' in request.session:
+        user_email = request.session.get('user_email')
+        user_type = request.session.get('user_type')
+
+        # Redirect ke dashboard sesuai peran pengguna
+        if user_type == 'verified':
+            user_roles = request.session.get('user_roles', [])
+            if 'artist' in user_roles and 'songwriter' in user_roles:
+                return redirect('dashboardartist:homepageartist')
+            elif 'podcaster' in user_roles:
+                return redirect('dashboardpodcaster:homepagepodcaster')
+            else:
+                return redirect('dashboardreguser:dashboarduser')
+        elif user_type == 'label':
+            return redirect('dashboardlabel:homepagelabel')
+        else:
+            return redirect('login')  # Jika sesi login ada tapi tidak valid, arahkan ke halaman login
+
     if request.method == 'POST':
         # Ambil email dan password dari data POST
         user_email = request.POST.get('email')
@@ -63,6 +82,7 @@ def loginkonten(request):
                 label_exist = cursor.fetchone()
                 if label_exist:
                     request.session['user_email'] = user_email
+                    request.session['user_type'] = 'label'
                     return redirect('dashboardlabel:homepagelabel')
                 else:
                 # Jika akun tidak ditemukan, tampilkan pesan kesalahan
