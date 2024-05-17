@@ -2,7 +2,7 @@ import datetime
 import uuid
 from django.shortcuts import render, redirect
 from django.db import OperationalError, ProgrammingError, connection
-from django.http import HttpResponse, HttpResponseNotFound
+from django.http import HttpResponse, HttpResponseNotAllowed, HttpResponseNotFound, JsonResponse
 from django.contrib import messages
 from datetime import datetime
 
@@ -52,48 +52,41 @@ def podcaster(request):
 
 def add_podcast(request):
     if request.method == 'POST':
-        email = request.session['user_email']
         judul = request.POST['judul']
-        # Ambil pilihan genre yang dipilih
         genre = request.POST.getlist('genre')
+        durasi = request.POST['durasi']
 
-        # Buat podcast baru
-        id_podcast = uuid.uuid4()
-        with connection.cursor() as cursor:
-            cursor.execute("INSERT INTO podcast (id) VALUES (%s)", [id_podcast])
+        # Buat UUID baru untuk podcast ini
+        id_konten = uuid.uuid4()
 
-        # Simpan informasi podcast ke dalam database
-        id_user_podcast = uuid.uuid4()
         with connection.cursor() as cursor:
             cursor.execute("""
-                INSERT INTO user_podcast 
-                (email, id_user_podcast, judul, id_podcast) 
-                VALUES (%s, %s, %s, %s, %s)
-            """, [email, id_user_podcast, judul, id_podcast])
+                INSERT INTO KONTEN (id, judul, tanggal_rilis, tahun, durasi)
+                VALUES (%s, %s, CURRENT_DATE, EXTRACT(YEAR FROM CURRENT_DATE), %s)
+                RETURNING id
+            """, [id_konten, judul, durasi])
+            podcast_id = cursor.fetchone()[0]
 
-        # Simpan genre yang dipilih ke dalam database
-        with connection.cursor() as cursor:
-            for genre_id in genre:
+            for g in genre:
                 cursor.execute("""
-                    INSERT INTO konten 
-                    (id_konten, genre) 
+                    INSERT INTO GENRE (id_konten, genre)
                     VALUES (%s, %s)
-                """, [id_podcast, genre_id])
+                """, [podcast_id, g])
 
-        return redirect('podcast')
+        return redirect('dashboard:podcaster')
 
-    return render(request, 'addpodcast.html', {'daftar_genre': genre})
+    return render(request, 'podcaster.html')
 
-    
+
 def delete_podcast(request, id_konten):
     if request.method == 'POST':
         with connection.cursor() as cursor:
-            # Delete the associated records from the akun_play_user_playlist table
-            cursor.execute("DELETE FROM akun_play_user_playlist WHERE id_user_playlist = %s", [id_konten])
-            # Then delete the playlist from the user_playlist table
-            cursor.execute("DELETE FROM user_playlist WHERE id_user_playlist = %s", [id_konten])
+            cursor.execute("""
+                DELETE FROM KONTEN
+                WHERE id = %s
+            """, [id_konten])
 
-        return redirect('podcaster')
+        return redirect('dashboard:podcaster')
     
 def episodes(request, id_konten):
     # Fetch podcast details and its episodes from the database
@@ -149,47 +142,31 @@ def episodes(request, id_konten):
     print(context)
     return render(request, 'episodes.html', context)
 
-def add_episodes(request, id_konten):
+def add_episodes(request,id_konten):
     if request.method == 'POST':
-        id_episode = uuid.uuid4()
-        judul = request.POST.get('judul')
-        deskripsi = request.POST.get('deskripsi')
-        durasi = int(request.POST.get('durasi'))
+        # Buat ID unik untuk konten baru
+        id_konten = uuid.uuid4()
 
-        # Simpan data episode ke dalam database
+        judul = request.POST['judul']
+        deskripsi = request.POST['deskripsi']
+        durasi = request.POST['durasi']
+
         with connection.cursor() as cursor:
             cursor.execute("""
-                INSERT INTO episode (id_episode, judul, deskripsi, durasi, tanggal_rilis)
-                VALUES (%s, %s, %s, %s, CURRENT_DATE)
-            """, [id_episode, judul, deskripsi, durasi])
+                INSERT INTO EPISODE (id_konten_podcast, judul, deskripsi, durasi)
+                VALUES (%s, %s, %s, %s)
+            """, [id_konten, judul, deskripsi, durasi])
 
-        id_konten = request.POST.get('id_konten')
-        # Redirect ke halaman yang sesuai setelah berhasil menambahkan episode
-        return redirect('episodes', id_konten=id_konten)
-    
-    with connection.cursor() as cursor:
-        cursor.execute(""" 
-            SELECT 
-                e.id_konten_podcast, 
-                k.judul AS judul_podcast, 
-                e.judul AS judul_episode, 
-                e.deskripsi AS deskripsi_episode, 
-                e.durasi AS durasi_episode, 
-                e.tanggal_rilis AS tanggal_rilis_episode
-            FROM 
-                episode e 
-            JOIN 
-                konten k ON s.id_konten = k.id 
-            JOIN 
-                podcast p ON e.id_konten_podcast = p.id 
-            JOIN 
-                akun a ON p.email_akun = a.email
-            JOIN 
-                episode e ON e.id_konten = e.id_konten_podcast
-            WHERE 
-                e.tanggal_rilis <= CURRENT_DATE;
+        return redirect('dashboard:episodes', id_konten=id_konten)
 
-                        """)
-        eps = cursor.fetchall()  # Get all songs
+    return render(request, 'episodes.html')
 
-    return render(request, 'addsong.html', {'eps': eps})
+def delete_episode(request, id_konten):
+    if request.method == 'POST':
+        with connection.cursor() as cursor:
+            cursor.execute("""
+                DELETE FROM EPISODE
+                WHERE id = %s
+            """, [id_konten])
+
+        return redirect('episodes')

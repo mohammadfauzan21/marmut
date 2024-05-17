@@ -412,7 +412,7 @@ body {
 }
 
 .popup-container {
-    
+    display: none;
     position: fixed;
     top: 0;
     left: 0;
@@ -1415,8 +1415,8 @@ body {
                         <div class="col-12" style="margin-left: 30px">
                             <h2 class="plus-jakarta-sans-extrabold" style="color: var(--neutral-0); font-size: 40px; margin-top: 20px;">{{ nama_podcaster.1 }}'s Podcast</h2> <!--Nama Podcaster-->
                             <p class="plus-jakarta-sans-bold" style="color: var(--neutral-1); font-size: 18px; margin-top: 24px;">Teruslah menyebarkan kegembiraan melalui podcast!</p>
-                            <a href="#" class="container d-flex align-items-left"
-                                style="text-decoration: none; height: 34px; margin-top: 40px;" onclick="showPopup()">
+                            <a href="#" class="container d-flex flex-column align-items-center"
+                                style="text-decoration: none; height: 34px; margin-top: 40px; margin-left:-30.0em" onclick="showPopup()">
                                 <img src="{% static 'img/add-icon.svg' %}" alt="add" style="width: 45px; height: 45px">
                                 <h6 class="plus-jakarta-sans-extrabold"
                                     style="color: var(--neutral-0); margin-top: 13px; margin-left: 15px; text-align: center">
@@ -1424,28 +1424,29 @@ body {
                                 </h6>
                             </a>
                             <div class="popup-container" id="popupContainer">
-                                <div class="popup-container" id="popupContainer">
-                                    <div class="popup-content" style="margin-top:20px;">
-                                        <h2 style="text-align:center">Tambah Podcast</h2>
-                                        <form class="popup-form plus-jakarta-sans-medium" method="POST" action="{% url 'dashboard:add_podcast' %}">
-                                            {% csrf_token %}
-                                            <label for="podcastTitle">Judul Podcast</label>
-                                            <input type="text" id="podcastTitle" name="judul" value="{{ podcast_detail.0 }}" readonly>
-                                            <label for="episodeTitle">Judul Episode</label>
-                                            <input type="text" id="episodeTitle" name="episode_title" required>
-                                            <label for="episodeDescription">Deskripsi</label>
-                                            <input type="text" id="episodeDescription" name="episode_description" required>
-                                            <label for="episodeDuration">Durasi Podcast (menit)</label>
-                                            <input type="number" id="episodeDuration" name="episode_duration" required>
-                                            <div class="button-container plus-jakarta-sans-bold" style="margin-top:20px; align-content: center;">
-                                                <button class="button-secondary plus-jakarta-sans-bold" style="margin-right: 10px;" type="button" onclick="hidePopup()">Kembali</button>
-                                                <button class="button-primary plus-jakarta-sans-bold" style="margin-right: 10px; align-content: center;" type="submit">Simpan</button>
-                                            </div>
-                                        </form>
-                                                                                
-                                    </div>
+                                <div class="popup-content" style="margin-top:20px;">
+                                    <h2 style="text-align:center">Tambah Podcast</h2>
+                                    <form class="popup-form plus-jakarta-sans-medium" method="POST" action="{% url 'dashboard:add_podcast' %}">
+                                        {% csrf_token %}
+                                        <label for="judul">Judul Podcast</label>
+                                        <input type="text" id="judul" name="judul" required>
+                                        <label for="genre">Genre Podcast</label>
+                                        <select id="podcastGenre" name="genre" multiple class="form-control">
+                                            <option>Fun</option>
+                                            <option>Weird</option>
+                                            <option>Family</option>
+                                            <option>Daily</option>
+                                        </select>
+                                        <label for="podcastDuration">Durasi:</label>
+                                        <input type="text" class="form-control" id="podcastDuration" name="durasi">
+                                        <div class="button-container plus-jakarta-sans-bold" style="margin-top:20px; align-content: center;">
+                                            <button class="button-secondary plus-jakarta-sans-bold" style="margin-right: 10px;" type="button" onclick="hidePopup()">Kembali</button>
+                                            <button class="button-primary plus-jakarta-sans-bold" style="margin-right: 10px; align-content: center;" type="submit">Simpan</button>
+                                        </div>
+                                    </form>                                        
                                 </div>
                             </div>
+                                                        
                             <!-- Tabel untuk podcast -->
                             <table class="table-podcast" style="width: 95%; border-collapse: collapse; margin-top: 48px;color: var(--neutral-1); padding: 10px;">
                                 <thead>
@@ -1491,7 +1492,7 @@ body {
                                                         </div>
                                                         <div class="modal-footer" style="border-top: none;">
                                                             <button type="button" class="button-modal-secondary plus-jakarta-sans-bold secondary-button" style="border: none !important; border-radius: 16px; padding-block: 12px; padding-inline: 24px; text-decoration: 2px solid var(--neutral-1); background-color: var(--neutral-3); color: white;" data-dismiss="modal">Batal</button>
-                                                            <button type="button" class="button-modal-danger plus-jakarta-sans-bold danger-button" style="border: none !important; border-radius: 16px; padding-block: 12px; padding-inline: 24px; background-color: rgb(255, 47, 47); color: var(--neutral-0);">Hapus</button>
+                                                            <button type="submit" class="button-modal-danger plus-jakarta-sans-bold danger-button" form="podcastForm" href="{% url 'dashboard:delete_podcast' podcast.0 %}" style="border: none !important; border-radius: 16px; padding-block: 12px; padding-inline: 24px; background-color: rgb(255, 47, 47); color: var(--neutral-0);">Hapus</button>
                                                         </div>
                                                     </div>
                                                     </div>
@@ -1561,6 +1562,7 @@ body {
     function hidePopup() {
         document.getElementById('popupContainer').style.display = 'none';
     }
+
 </script>
 
 {% endblock %}
