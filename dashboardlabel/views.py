@@ -11,18 +11,18 @@ from django.shortcuts import render
 from django.db import connection
 
 
-def cekroyalti(request):
+def homepagelabel(request):
     # Ambil informasi pengguna dari session
     user_email = request.session.get('user_email')
+    user_type = request.session.get('user_type')
     
     # Pastikan pengguna telah login
-    if not user_email:
+    if not user_email or user_type != 'label':
         error_message = "Anda harus login terlebih dahulu."
         return render(request, 'login.html', {'error_message': error_message})
 
     # Query untuk mengambil data label berdasarkan email pengguna
     label_query = "SELECT id, nama, email, kontak FROM label WHERE email = %s"
-    
     with connection.cursor() as cursor:
         cursor.execute(label_query, [user_email])
         label_data = cursor.fetchone()
@@ -43,9 +43,70 @@ def cekroyalti(request):
         # Query untuk mengambil daftar album label
         # Query untuk mengambil daftar album label beserta total durasi dan jumlah lagunya
         album_query = """
-            SELECT a.id, a.judul, a.jumlah_lagu, a.total_durasi
+            SELECT a.id, a.judul, a.jumlah_lagu, COALESCE(SUM(k.durasi), 0) AS total_durasi
             FROM album a
+            LEFT JOIN song s ON a.id = s.id_album
+            LEFT JOIN konten k ON s.id_konten = k.id
             WHERE a.id_label = %s
+            GROUP BY a.id, a.judul, a.jumlah_lagu
+        """
+
+        cursor.execute(album_query, [label_info['id']])
+        albums_data = cursor.fetchall()  # Ambil semua hasil dari kueri
+
+        # Menyusun data album menjadi list of tuples (id, judul, jumlah_lagu, total_durasi)
+        albums = [(id, judul, jumlah_lagu, total_durasi) for id, judul, jumlah_lagu, total_durasi in albums_data]
+        
+
+    # Render template dan kirim data ke template
+    return render(request, 'homepagelabel.html', {'label_info': label_info, 'albums': albums})
+
+
+def logout(request):
+    # Hapus semua data sesi terkait dengan login pengguna
+    request.session.pop('user_email', None)
+    request.session.pop('user_type', None)
+    request.session.pop('user_roles', None)
+
+    info_message = "Anda telah logout."
+    return render(request, 'login.html', {'info_message': info_message})
+
+def cekroyalti(request):
+    # Ambil informasi pengguna dari session
+    user_email = request.session.get('user_email')
+    user_type = request.session.get('user_type')
+    
+    # Pastikan pengguna telah login
+    if not user_email or user_type != 'label':
+        error_message = "Anda harus login terlebih dahulu."
+        return render(request, 'login.html', {'error_message': error_message})
+
+    # Query untuk mengambil data label berdasarkan email pengguna
+    label_query = "SELECT id, nama, email, kontak, id_pemilik_hak_cipta FROM label WHERE email = %s"
+    
+    with connection.cursor() as cursor:
+        cursor.execute(label_query, [user_email])
+        label_data = cursor.fetchone()
+
+        # Pastikan label_data tidak kosong
+        if not label_data:
+            error_message = "Data label tidak ditemukan."
+            return render(request, 'login.html', {'error_message': error_message})
+
+        # Persiapkan data yang akan ditampilkan di template
+        label_info = {
+            'id': label_data[0],
+            'nama': label_data[1],
+            'email': label_data[2],
+            'kontak': label_data[3],
+            'id_pemilik_hak_cipta': label_data[4],
+        }
+
+        # Query untuk mengambil daftar album label beserta total durasi dan jumlah lagunya
+        album_query = """
+            SELECT id, judul, jumlah_lagu, total_durasi
+            FROM album
+            WHERE id_label = %s
         """
         cursor.execute(album_query, [label_info['id']])
         albums_data = cursor.fetchall()  # Ambil semua hasil dari kueri
@@ -53,7 +114,7 @@ def cekroyalti(request):
         # Menyusun data album menjadi list of tuples (id, judul, jumlah_lagu, total_durasi)
         albums = [(id, judul, jumlah_lagu, total_durasi) for id, judul, jumlah_lagu, total_durasi in albums_data]
         
-        # Mendapatkan cursor
+        # Mendapatkan cursor baru setelah eksekusi query
         cursor = connection.cursor()
 
         # Query untuk mengambil data royalti
@@ -64,22 +125,26 @@ def cekroyalti(request):
         LEFT JOIN album a ON s.id_album = a.id
         INNER JOIN label l ON a.id_label = l.id
         INNER JOIN pemilik_hak_cipta p ON l.id_pemilik_hak_cipta = p.id
+        WHERE l.id_pemilik_hak_cipta = %s
         """
 
-        # Eksekusi query
-        cursor.execute(query)
+        # Eksekusi query royalti
+        cursor.execute(query, [label_info['id_pemilik_hak_cipta']])
 
-        # Mendapatkan hasil query
+        # Mendapatkan hasil query royalti
         royalti_data = cursor.fetchall()
-        # Render template dan kirim data ke template
+
+    # Render template dan kirim data ke template
     return render(request, 'cekroyalti.html', {'label_info': label_info, 'albums': albums, 'royalti_data': royalti_data})
+
 
 def listsong(request, album_id):
     # Ambil informasi pengguna dari session
     user_email = request.session.get('user_email')
+    user_type = request.session.get('user_type')
     
     # Pastikan pengguna telah login
-    if not user_email:
+    if not user_email or user_type != 'label':
         error_message = "Anda harus login terlebih dahulu."
         return render(request, 'login.html', {'error_message': error_message})
 
@@ -149,9 +214,6 @@ def listsong(request, album_id):
     return render(request, 'listsong.html', {'label_info': label_info, 'album_info': album_info, 'songs': songs, 'album_id': album_id})
 
 
-
-from django.shortcuts import render
-from django.shortcuts import redirect
 
 def detaillagu(request, album_id, song_id):
     if request.method == 'POST':
@@ -274,66 +336,4 @@ def delete_song(request, album_id, song_id):
 
 
 
-
-
-def homepagelabel(request):
-    # Ambil informasi pengguna dari session
-    user_email = request.session.get('user_email')
-    
-    # Pastikan pengguna telah login
-    if not user_email:
-        error_message = "Anda harus login terlebih dahulu."
-        return render(request, 'login.html', {'error_message': error_message})
-
-    # Query untuk mengambil data label berdasarkan email pengguna
-    label_query = "SELECT id, nama, email, kontak FROM label WHERE email = %s"
-    with connection.cursor() as cursor:
-        cursor.execute(label_query, [user_email])
-        label_data = cursor.fetchone()
-
-        # Pastikan label_data tidak kosong
-        if not label_data:
-            error_message = "Data label tidak ditemukan."
-            return render(request, 'login.html', {'error_message': error_message})
-
-        # Persiapkan data yang akan ditampilkan di template
-        label_info = {
-            'id': label_data[0],
-            'nama': label_data[1],
-            'email': label_data[2],
-            'kontak': label_data[3],
-        }
-
-        # Query untuk mengambil daftar album label
-        # Query untuk mengambil daftar album label beserta total durasi dan jumlah lagunya
-        album_query = """
-            SELECT a.id, a.judul, a.jumlah_lagu, COALESCE(SUM(k.durasi), 0) AS total_durasi
-            FROM album a
-            LEFT JOIN song s ON a.id = s.id_album
-            LEFT JOIN konten k ON s.id_konten = k.id
-            WHERE a.id_label = %s
-            GROUP BY a.id, a.judul, a.jumlah_lagu
-        """
-
-        cursor.execute(album_query, [label_info['id']])
-        albums_data = cursor.fetchall()  # Ambil semua hasil dari kueri
-
-        # Menyusun data album menjadi list of tuples (id, judul, jumlah_lagu, total_durasi)
-        albums = [(id, judul, jumlah_lagu, total_durasi) for id, judul, jumlah_lagu, total_durasi in albums_data]
-        
-
-    # Render template dan kirim data ke template
-    return render(request, 'homepagelabel.html', {'label_info': label_info, 'albums': albums})
-
-
-
-
-def logout(request):
-    # Hapus semua data sesi terkait dengan login pengguna
-    request.session.pop('user_email', None)
-    request.session.pop('user_type', None)
-    request.session.pop('user_roles', None)
-
-    info_message = "Anda telah logout."
-    return render(request, 'login.html', {'info_message': info_message})
 
