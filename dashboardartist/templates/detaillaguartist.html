@@ -416,6 +416,7 @@
             <div class="row container-fluid d-flex justify-content-start tertiary-content-1"
                 style="margin-inline: -12px;">
 
+                
                 <!-- Atur Height Navbar -->
                 <div class=" container-fluid d-flex"
                     style="width: 100%; height: fit-content; border-radius: 24px;">
@@ -434,7 +435,7 @@
                         </a>
                     </div>
                     <div class="container" style="margin-top: 24px;">
-                        <a href="#" class="container d-flex align-items-center"
+                        <a href="{% url 'dashboardartist:chartartist' %}" class="container d-flex align-items-center"
                             style="text-decoration: none; height: 34px;">
                             <img src="{% static 'img/chart-inactive.svg' %}" alt="search"
                                 style="width: 35px; height: 35px;">
@@ -445,7 +446,7 @@
                         </a>
                     </div>
                     <div class="container" style="margin-top: 24px;">
-                        <a href="#" class="container d-flex align-items-center"
+                        <a href="{% url 'dashboardartist:podcastartist' %}" class="container d-flex align-items-center"
                             style="text-decoration: none; height: 34px;">
                             <img src="{% static 'img/podcast-inactive.svg' %}" alt="search"
                                 style="width: 35px; height: 35px;">
@@ -456,7 +457,7 @@
                         </a>
                     </div>
                     <div class="container" style="margin-top: 24px;">
-                        <a href="#" class="container d-flex align-items-center"
+                        <a href="{% url 'dashboardartist:playlistartist' %}" class="container d-flex align-items-center"
                             style="text-decoration: none; height: 34px;">
                             <img src="{% static 'img/playlist-inactive.svg' %}" alt="search"
                                 style="width: 35px; height: 35px;">
@@ -492,8 +493,8 @@
                                 <img src="{% static 'img/playlist-collection.svg' %}" alt="kelola"
                                     style="width: 35px; height: 35px;">
                                 <p class="plus-jakarta-sans-extrabold align-item-center"
-                                    style="margin-left: 15px; color: var(--neutral-0); margin-top: 5px;">
-                                    Kelola playlist, album, dan song</p>
+                                    style="margin-left: 15px; color: var(--neutral-0); margin-top: 5px; font-size: 12px;">
+                                    Kelola playlist, album & song</p>
                             </a>
                         </div>
 

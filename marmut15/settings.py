@@ -42,11 +42,14 @@ INSTALLED_APPS = [
     'preboarding',
     'login',
     'register',
+    'logout',
     'podcast',
+    'chart',
     'dashboardreguser',
     'dashboardartist',
     'dashboardsongwriter',
     'dashboardlabel',
+    'dashboardpodcaster',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -93,7 +96,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'OPTIONS': {
-        'options': '-c search_path=marmut'
+            'options': '-c search_path=marmut'
         },
         'HOST': "aws-0-ap-southeast-1.pooler.supabase.com",
         'NAME': "postgres",

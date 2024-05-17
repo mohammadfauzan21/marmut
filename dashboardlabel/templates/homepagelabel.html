@@ -805,16 +805,21 @@
                                 <img src="{% static 'img/search.svg' %}" alt="search"></a>
                         </div>
                     </div>
-                    <a href="" class="row container-fluid d-flex "
+                    <a href="{% url 'dashboardlabel:logout' %}" class="row container-fluid d-flex "
                         style="background-color: var(--neutral-5); border-radius: 24px; width: 80px; margin-left: 36px; margin-block: -1px; height: 60px; justify-content: center; align-items: center;">
                         <img src="{% static 'img/logout.svg' %}" alt="Logout" width="30px" height="30px">
                     </a>
+                    {% if info_message %}
+                    <div class="alert alert-info" role="alert">
+                        {{ info_message }}
+                    </div>
+                    {% endif %}
                 </div>
                 <div class="row container-fluid d-flex justify-content-start align-items-start tertiary-content-1"
                 style="width: 100%; margin-inline: -12px;">
 
                 <div class="container-fluid"
-                    style="background: linear-gradient(180deg, #292724, #1B1817); width: 100%; border-radius: 24px; margin-top: -2em; height: 85%; max-height: 800px; padding-bottom: 25px; padding-top: 20px;">
+                    style="background: linear-gradient(180deg, #292724, #1B1817); width: 100%; border-radius: 24px; margin-top: -2em; height: 45em; padding-bottom: 25px; padding-top: 20px;">
                     <h1 class="plus-jakarta-sans-extrabold align-item-center"
                         style="margin-left: 15px; color: var(--neutral-0); margin-top: 10px;">Profil Saya
                     </h1>
@@ -822,17 +827,17 @@
                         <p class="plus-jakarta-sans-extrabold align-item-center"
                             style="margin-left: 15px; color: #504B48;">Nama</p>
                         <p class="plus-jakarta-sans-extrabold align-item-center" style="margin-left: 15px; color: var(--neutral-0); margin-top: -5px;">
-                            Fauzan Nazly Said</p>
+                            {{ label_info.nama }}</p>
                     </div>
                     <div class="nama" style="margin-top: 20px;">
                         <p class="plus-jakarta-sans-extrabold align-item-center" style="margin-left: 15px; color: #504B48;">Email Akun</p>
                         <p class="plus-jakarta-sans-extrabold align-item-center" style="margin-left: 15px; color: var(--neutral-0); margin-top: -5px;">
-                            fauzan.nazly@gmail.com</p>
+                            {{ label_info.email }}</p>
                     </div>
                     <div class="nama" style="margin-top: 20px;">
                         <p class="plus-jakarta-sans-extrabold align-item-center" style="margin-left: 15px; color: #504B48;">Kontak Label</p>
                         <p class="plus-jakarta-sans-extrabold align-item-center" style="margin-left: 15px; color: var(--neutral-0); margin-top: -5px;">
-                            company.nazly@gmail.com</p>
+                            {{ label_info.kontak }}</p>
                     </div>
                 </div>
             </div>
