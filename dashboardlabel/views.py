@@ -1,25 +1,22 @@
 from django.shortcuts import redirect, render
 from django.db import connection
-from django.contrib import messages
 
-
-# def cekroyalti(request):
-#     return render(request, 'cekroyalti.html')
-
-
-from django.shortcuts import render
-from django.db import connection
-
-
-def homepagelabel(request):
+def check_session(request, required_user_type):
     # Ambil informasi pengguna dari session
     user_email = request.session.get('user_email')
     user_type = request.session.get('user_type')
-    
+
     # Pastikan pengguna telah login
-    if not user_email or user_type != 'label':
+    if not user_email or user_type != required_user_type:
         error_message = "Anda harus login terlebih dahulu."
         return render(request, 'login.html', {'error_message': error_message})
+
+    return user_email
+
+def homepagelabel(request):
+    user_email = check_session(request, 'label')
+    if isinstance(user_email, HttpResponse):
+        return user_email  # Jika error message, langsung kembalikan response
 
     # Query untuk mengambil data label berdasarkan email pengguna
     label_query = "SELECT id, nama, email, kontak FROM label WHERE email = %s"
@@ -73,13 +70,9 @@ def logout(request):
 
 def cekroyalti(request):
     # Ambil informasi pengguna dari session
-    user_email = request.session.get('user_email')
-    user_type = request.session.get('user_type')
-    
-    # Pastikan pengguna telah login
-    if not user_email or user_type != 'label':
-        error_message = "Anda harus login terlebih dahulu."
-        return render(request, 'login.html', {'error_message': error_message})
+    user_email = check_session(request, 'label')
+    if isinstance(user_email, HttpResponse):
+        return user_email  # Jika error message, langsung kembalikan response
 
     # Query untuk mengambil data label berdasarkan email pengguna
     label_query = "SELECT id, nama, email, kontak, id_pemilik_hak_cipta FROM label WHERE email = %s"
@@ -139,14 +132,9 @@ def cekroyalti(request):
 
 
 def listsong(request, album_id):
-    # Ambil informasi pengguna dari session
-    user_email = request.session.get('user_email')
-    user_type = request.session.get('user_type')
-    
-    # Pastikan pengguna telah login
-    if not user_email or user_type != 'label':
-        error_message = "Anda harus login terlebih dahulu."
-        return render(request, 'login.html', {'error_message': error_message})
+    user_email = check_session(request, 'label')
+    if isinstance(user_email, HttpResponse):
+        return user_email  # Jika error message, langsung kembalikan response
 
     # Query untuk mengambil data label berdasarkan email pengguna
     label_query = "SELECT id, nama, email, kontak FROM label WHERE email = %s"
