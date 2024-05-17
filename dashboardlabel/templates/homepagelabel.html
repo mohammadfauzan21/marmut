@@ -444,7 +444,7 @@
                                             {% for album in albums %}
                                                 <div class="container d-flex justify-content-center card-playlist" style="height: 68px; border-radius: 16px; margin-top: 4px;">
                                                     
-                                                    <a href="{% url 'dashboardlabel:listalbum' %}" class="d-flex w-100" style="text-decoration: none;">
+                                                    <a href="{% url 'dashboardlabel:listsong' album.0 %}" class="d-flex w-100" style="text-decoration: none;">
                                                     <div class="container col-2" style="align-content: center; margin-inline: -12px;">
                                                         <div class="justify-content-center align-content-center d-flex" style="border-radius: 12px; height: 32px; width: 32px; background-color: var(--neutral-2);">
                                                             <img src="{% static 'img/default.png' %}" alt="kelola" style="width: 24px; height: 24px;">
@@ -467,7 +467,7 @@
                                                             <img src="{% static 'img/threedots.svg' %}" alt="kelola" style="width: 20px; height: 20px;">
                                                         </button>
                                                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="background-color: var(--neutral-3); border-radius: 16px; padding: 4px; width: max-content !important;">
-                                                            <a class="dropdown-item plus-jakarta-sans-bold m-auto" style="color: var(--neutral-1); font-size: 12px; font-weight: 600;" href="{% url 'dashboardlabel:listsong' %}">Lihat daftar lagu</a>
+                                                            <a class="dropdown-item plus-jakarta-sans-bold m-auto" style="color: var(--neutral-1); font-size: 12px; font-weight: 600;" href="{% url 'dashboardlabel:listsong' album.0 %}">Lihat daftar lagu</a>
                                                             <a class="dropdown-item plus-jakarta-sans-bold m-auto" style="color: var(--neutral-1); font-size: 12px; font-weight: 600;" href="#" data-toggle="modal" data-target="#modalHapusSong">Hapus</a>
 
                                                         </div>
@@ -579,7 +579,7 @@
         </div>
     </div>
 </div>
-<footer class="position-fixed d-flex justify-content-between align-items-center" style="bottom: 0vh; width: 100%; height: 70px; background-color: transparent">
+<!-- <footer class="position-fixed d-flex justify-content-between align-items-center" style="bottom: 0vh; width: 100%; height: 70px; background-color: transparent">
     <div class="d-flex align-items-center" style="margin-left: 50px;">
         <img src="{% static 'img/default.png' %}" alt="kelola" style="width: 50px; height: 50px;  border-radius: 20px;">
         <div style="margin: 0 12px; margin-top: 5px;">
@@ -619,5 +619,5 @@
     <div style="">
         <h1></h1>
     </div>
-</footer>
+</footer> -->
 {% endblock %}
