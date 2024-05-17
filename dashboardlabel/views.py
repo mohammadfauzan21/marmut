@@ -10,6 +10,7 @@ from django.contrib import messages
 from django.shortcuts import render
 from django.db import connection
 
+
 def cekroyalti(request):
     # Ambil informasi pengguna dari session
     user_email = request.session.get('user_email')
@@ -21,6 +22,7 @@ def cekroyalti(request):
 
     # Query untuk mengambil data label berdasarkan email pengguna
     label_query = "SELECT id, nama, email, kontak FROM label WHERE email = %s"
+    
     with connection.cursor() as cursor:
         cursor.execute(label_query, [user_email])
         label_data = cursor.fetchone()
@@ -50,9 +52,27 @@ def cekroyalti(request):
 
         # Menyusun data album menjadi list of tuples (id, judul, jumlah_lagu, total_durasi)
         albums = [(id, judul, jumlah_lagu, total_durasi) for id, judul, jumlah_lagu, total_durasi in albums_data]
+        
+        # Mendapatkan cursor
+        cursor = connection.cursor()
 
-    # Render template dan kirim data ke template
-    return render(request, 'cekroyalti.html', {'label_info': label_info, 'albums': albums})
+        # Query untuk mengambil data royalti
+        query = """
+        SELECT k.judul, a.judul AS judul_album, s.total_play, s.total_download, (p.rate_royalti * s.total_play) AS total_royalti
+        FROM song s
+        INNER JOIN konten k ON s.id_konten = k.id
+        LEFT JOIN album a ON s.id_album = a.id
+        INNER JOIN label l ON a.id_label = l.id
+        INNER JOIN pemilik_hak_cipta p ON l.id_pemilik_hak_cipta = p.id
+        """
+
+        # Eksekusi query
+        cursor.execute(query)
+
+        # Mendapatkan hasil query
+        royalti_data = cursor.fetchall()
+        # Render template dan kirim data ke template
+    return render(request, 'cekroyalti.html', {'label_info': label_info, 'albums': albums, 'royalti_data': royalti_data})
 
 def listsong(request, album_id):
     # Ambil informasi pengguna dari session
@@ -130,8 +150,74 @@ def listsong(request, album_id):
 
 
 
-def detaillagu(request):
-    return render(request, 'detaillagu.html')
+from django.shortcuts import render
+from django.shortcuts import redirect
+
+def detaillagu(request, album_id, song_id):
+    if request.method == 'POST':
+        # Query untuk mengambil detail lagu berdasarkan song_id
+        song_query = song_query = """
+    SELECT 
+    k.judul AS judul_lagu,
+    k.tahun,
+    k.durasi,
+    a.judul AS judul,
+    STRING_AGG(DISTINCT ak_artist.nama, ', ') AS artist,
+    STRING_AGG(DISTINCT ak_songwriter.nama, ', ') AS songwriter,
+    k.tanggal_rilis,
+    s.total_play,
+    s.total_download
+FROM 
+    public.konten k
+JOIN 
+    public.song s ON k.id = s.id_konten
+JOIN 
+    public.album a ON s.id_album = a.id
+LEFT JOIN 
+    public.artist art ON s.id_artist = art.id
+LEFT JOIN 
+    public.akun ak_artist ON art.email_akun = ak_artist.email
+LEFT JOIN 
+    public.songwriter_write_song sws ON s.id_konten = sws.id_song
+LEFT JOIN 
+    public.songwriter sw ON sws.id_songwriter = sw.id
+LEFT JOIN 
+    public.akun ak_songwriter ON sw.email_akun = ak_songwriter.email
+WHERE 
+    k.id = %s
+GROUP BY 
+    k.judul, k.tahun, k.durasi, a.judul, k.tanggal_rilis, s.total_play, s.total_download;
+
+"""
+
+
+        with connection.cursor() as cursor:
+            cursor.execute(song_query, [song_id])
+            song_data = cursor.fetchone()
+
+            # Jika lagu tidak ditemukan, kembalikan pesan kesalahan
+            if not song_data:
+                error_message = "Lagu tidak ditemukan."
+                return render(request, 'error.html', {'error_message': error_message})
+
+            # Persiapkan data lagu yang akan ditampilkan di template
+            song_info = {
+                'judul': song_data[0],
+                'tahun': song_data[1],
+                'durasi': song_data[2],
+                'judul_album': song_data[3],
+                'artist': song_data[4],
+                'songwriter': song_data[5],
+                'tanggal': song_data[6],
+                'total_play': song_data[7],
+                'total_download': song_data[8]
+            }
+
+        # Render template dan kirim data ke template
+        return render(request, 'detaillagu.html', {'song_info': song_info})
+    else:
+        # Jika tidak ada metode POST, redirect ke halaman sebelumnya atau halaman lain yang sesuai
+        return redirect('dashboardlabel:listsong', album_id=album_id)
 
 
 from django.shortcuts import render, redirect
@@ -158,7 +244,7 @@ def delete_album(request):
         return HttpResponse("Metode tidak diizinkan", status=405)
     
 from django.shortcuts import redirect
-
+ 
 def delete_song(request, album_id, song_id):
     if request.method == 'POST':
         try:
@@ -221,15 +307,20 @@ def homepagelabel(request):
         # Query untuk mengambil daftar album label
         # Query untuk mengambil daftar album label beserta total durasi dan jumlah lagunya
         album_query = """
-            SELECT a.id, a.judul, a.jumlah_lagu, a.total_durasi
+            SELECT a.id, a.judul, a.jumlah_lagu, COALESCE(SUM(k.durasi), 0) AS total_durasi
             FROM album a
+            LEFT JOIN song s ON a.id = s.id_album
+            LEFT JOIN konten k ON s.id_konten = k.id
             WHERE a.id_label = %s
+            GROUP BY a.id, a.judul, a.jumlah_lagu
         """
+
         cursor.execute(album_query, [label_info['id']])
         albums_data = cursor.fetchall()  # Ambil semua hasil dari kueri
 
         # Menyusun data album menjadi list of tuples (id, judul, jumlah_lagu, total_durasi)
         albums = [(id, judul, jumlah_lagu, total_durasi) for id, judul, jumlah_lagu, total_durasi in albums_data]
+        
 
     # Render template dan kirim data ke template
     return render(request, 'homepagelabel.html', {'label_info': label_info, 'albums': albums})

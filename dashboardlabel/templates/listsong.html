@@ -489,10 +489,15 @@
                                 <img src="{% static 'img/search.svg' %}" alt="search"></a>
                         </div>
                     </div>
-                    <a href="" class="row container-fluid d-flex "
+                    <a href="{% url 'dashboardlabel:logout' %}" class="row container-fluid d-flex "
                         style="background-color: var(--neutral-5); border-radius: 24px; width: 80px; margin-left: 36px; margin-block: -1px; height: 60px; justify-content: center; align-items: center;">
                         <img src="{% static 'img/logout.svg' %}" alt="Logout" width="30px" height="30px">
                     </a>
+                    {% if info_message %}
+                    <div class="alert alert-info" role="alert">
+                        {{ info_message }}
+                    </div>
+                    {% endif %}
                 </div>
                 <div class="container-fluid"
                     style="background: linear-gradient(180deg, #292724, #1B1817); width: 100%; border-radius: 24px; margin-top: -2em; height: 85%; max-height: 800px; padding-bottom: 25px; padding-top: 20px;
@@ -524,6 +529,7 @@
                                 <tbody>
 
                                     <!-- Gunakan loop untuk menampilkan daftar lagu -->
+                                {% if songs %}
                                     {% for song in songs %}
                                     <tr class="plus-jakarta-sans-bold song-inalbum" style="border-bottom: 0px solid var(--neutral-2); font-size:14px; text-align:start;padding:10px;">
                                         <td style="padding-top: 30px; padding-bottom: 30px;padding: 10px;color: var(--neutral-1);">{{ forloop.counter }}</td>
@@ -536,7 +542,10 @@
                                                 <img src="{% static 'img/threedots.svg' %}" alt="kelola" style="width: 20px; height: 20px;">
                                             </button>
                                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="background-color: var(--neutral-3); border-radius: 16px; padding: 4px; width: max-content !important;">
-                                                <a class="dropdown-item plus-jakarta-sans-bold m-auto" style="color: var(--neutral-1); font-size: 12px; font-weight: 600;" href="{% url 'dashboardlabel:detaillagu' %}">Lihat detail</a>
+                                                <form method="post" action="{% url 'dashboardlabel:detaillagu' album_id=album_id song_id=song.4 %}">
+                                                    {% csrf_token %}
+                                                    <button type="submit" class="dropdown-item plus-jakarta-sans-bold m-auto" style="color: var(--neutral-1); font-size: 12px; font-weight: 600; background: none; border: none;">Lihat detail</button>
+                                                </form>
                                                 <a class="dropdown-item plus-jakarta-sans-bold m-auto" style="color: var(--neutral-1); font-size: 12px; font-weight: 600;" href="#" data-toggle="modal" data-target="#modalHapusSong">Hapus</a>
 
                                             </div>
@@ -573,8 +582,13 @@
                                         <td></td>
                                     </tr>
                                     {% endfor %}
-
-
+                                
+                                    {% else %}
+                                    <!-- Jika tidak ada lagu, tampilkan pesan -->
+                                    <tr>
+                                        <td colspan="6" style="text-align: center;" class="plus-jakarta-sans-medium p-4">Belum ada lagu di album ini</td>
+                                    </tr>
+                                {% endif %}
                                 </tbody>
                             </table>
                         </div>
