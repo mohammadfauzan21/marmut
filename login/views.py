@@ -35,7 +35,9 @@ def loginkonten(request):
 
             # Kirim data ke template tergantung pada apa yang ditemukan
             if akun_exists:
-                # Cek apakah verified
+                request.session['user_email'] = akun_exists[0]
+
+                # Cek apakah verified PUSING BGT YAALLA
                 cursor.execute("SELECT is_verified FROM akun WHERE email = %s", [user_email])
                 is_verified = cursor.fetchone()[0]
 
