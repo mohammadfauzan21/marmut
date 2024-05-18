@@ -439,336 +439,76 @@
                                     <div class="container row d-flex" style="margin-inline: 1px; padding: 4px;">
 
                                         <!-- Dari sini -->
-                                        <div class="container d-flex justify-content-center card-playlist" style="height: 68px; border-radius: 16px; margin-top: 4px;">
-                                            
-                                            <a href="{% url 'dashboardlabel:listsong' %}" class="d-flex" style="text-decoration: none;">
-                                            <div class="container col-2" style="align-content: center; margin-inline: -12px;">
-                                                <div class="justify-content-center align-content-center d-flex" style="border-radius: 12px; height: 32px; width: 32px; background-color: var(--neutral-2);">
-                                                    <img src="{% static 'img/default.png' %}" alt="kelola" style="width: 24px; height: 24px;">
-                                                </div>
-                                            </div>
-                                            <div class="container col-7" style="align-content: center;">
-                                                <div class="row d-flex">
-                                                    <div class="plus-jakarta-sans-medium" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
-                                                        <p class="d-inline" style="margin: 0; color: var(--neutral-0); font-size: 12px; font-weight: 900;">Nama Album</p>
+                                        <!-- Jika ada album yang terafiliasi dengan label -->
+                                            <!-- Loop through each album -->
+                                        
+                                        {% if albums %}
+                                            {% for album in albums %}
+                                                <div class="container d-flex justify-content-center card-playlist plus-jakarta-sans-medium" style="height: 68px; border-radius: 16px; margin-top: 4px; color: var(--neutral-0);">
+                                                    
+                                                    <a href="{% url 'dashboardlabel:listsong' album.0 %}" class="d-flex w-100" style="text-decoration: none;">
+                                                    <div class="container col-2" style="align-content: center; margin-inline: -12px;">
+                                                        <div class="justify-content-center align-content-center d-flex" style="border-radius: 12px; height: 32px; width: 32px; background-color: var(--neutral-2);">
+                                                            <img src="{% static 'img/default.png' %}" alt="kelola" style="width: 24px; height: 24px;">
+                                                        </div>
                                                     </div>
-                                                    <div style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
-                                                        <p class="d-inline plus-jakarta-sans-medium" style="margin: 0; color: var(--neutral-1); font-size: 10px;">10 lagu</p>
-                                                        <p class="d-inline plus-jakarta-sans-medium" style="margin: 0; color: var(--neutral-1); font-size: 10px;">6209 menit</p>
+                                                    <div class="container col-7" style="align-content: center;">
+                                                        <div class="row d-flex">
+                                                            <div class="plus-jakarta-sans-medium d-flex" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                                                                <p class="d-inline" style="margin: 0; color: var(--neutral-0); font-size: 12px; font-weight: 900;">{{ album.1 }}</p>
+                                                            </div>
+                                                            <div style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                                                                <p class="d-inline plus-jakarta-sans-medium" style="margin: 0; color: var(--neutral-1); font-size: 10px;">{{ album.2 }} lagu</p>
+                                                                <p class="d-inline plus-jakarta-sans-medium" style="margin: 0; color: var(--neutral-1); font-size: 10px;">{{ album.3 }} menit</p>
+                                                            </div>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            </div>
-                                            </a>
-                                            <div class="dropdown d-flex">
-                                                <button class="btn btn-secondary dropdown-toggle-iconless" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: transparent; border: none;">
-                                                    <img src="{% static 'img/threedots.svg' %}" alt="kelola" style="width: 20px; height: 20px;">
-                                                </button>
-                                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="background-color: var(--neutral-3); border-radius: 16px; padding: 4px; width: max-content !important;">
-                                                    <a class="dropdown-item plus-jakarta-sans-bold m-auto" style="color: var(--neutral-1); font-size: 12px; font-weight: 600;" href="{% url 'dashboardlabel:listsong' %}">Lihat daftar lagu</a>
-                                                    <a class="dropdown-item plus-jakarta-sans-bold m-auto" style="color: var(--neutral-1); font-size: 12px; font-weight: 600;" href="#" data-toggle="modal" data-target="#modalHapusSong">Hapus</a>
+                                                    </a>
+                                                    <div class="dropdown d-flex">
+                                                        <button class="btn btn-secondary dropdown-toggle-iconless" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: transparent; border: none;">
+                                                            <img src="{% static 'img/threedots.svg' %}" alt="kelola" style="width: 20px; height: 20px;">
+                                                        </button>
+                                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="background-color: var(--neutral-3); border-radius: 16px; padding: 4px; width: max-content !important;">
+                                                            <a class="dropdown-item plus-jakarta-sans-bold m-auto" style="color: var(--neutral-1); font-size: 12px; font-weight: 600;" href="{% url 'dashboardlabel:listsong' album.0 %}">Lihat daftar lagu</a>
+                                                            <a class="dropdown-item plus-jakarta-sans-bold m-auto" style="color: var(--neutral-1); font-size: 12px; font-weight: 600;" href="#" data-toggle="modal" data-target="#modalHapusSong">Hapus</a>
 
-                                                </div>
-                                                <!-- Modal Hapus -->
-                                                <div class="modal fade" id="modalHapusSong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                    <div class="modal-dialog" role="document">
-                                                    <div class="modal-content" style="background-color: var(--neutral-4); border-radius: 40px !important; padding: 20px;">
-                                                        <div class="modal-header" style="border-bottom: none;">
-                                                        <h5 class="modal-title plus-jakarta-sans-extrabold" id="exampleModalLabel" style="color: var(--neutral-0);">Konfirmasi Hapus</h5>
-                                                        <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                            <span aria-hidden="true">&times;</span>
-                                                        </button> -->
                                                         </div>
-                                                        <div class="modal-body plus-jakarta-sans-medium" style="color: var(--neutral-1);">
-                                                            Apakah Anda yakin ingin menghapus item ini?
+                                                        <!-- Modal Hapus -->
+                                                        <div class="modal fade" id="modalHapusSong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                            <div class="modal-dialog" role="document">
+                                                            <div class="modal-content" style="background-color: var(--neutral-4); border-radius: 40px !important; padding: 20px;">
+                                                                <div class="modal-header" style="border-bottom: none;">
+                                                                <h5 class="modal-title plus-jakarta-sans-extrabold" id="exampleModalLabel" style="color: var(--neutral-0);">Konfirmasi Hapus</h5>
+                                                                <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                </button> -->
+                                                                </div>
+                                                                <div class="modal-body plus-jakarta-sans-medium" style="color: var(--neutral-1);">
+                                                                    Apakah Anda yakin ingin menghapus item ini?
+                                                                </div>
+                                                                <div class="modal-footer" style="border-top: none;">
+                                                                    <button type="button" class="button-modal-secondary plus-jakarta-sans-bold secondary-button" style="border: none !important; border-radius: 16px; padding-block: 12px; padding-inline: 24px; text-decoration: 2px solid var(--neutral-1); background-color: var(--neutral-3); color: white;" data-dismiss="modal">Batal</button>
+                                                                    <form method="post" action="{% url 'dashboardlabel:delete_album' %}">
+                                                                        {% csrf_token %}
+                                                                        <input type="hidden" name="album_id" value="{{ album.0 }}">
+                                                                        <button type="submit" class="button-modal-danger plus-jakarta-sans-bold danger-button" style="border: none !important; border-radius: 16px; padding-block: 12px; padding-inline: 24px; background-color: rgb(255, 47, 47); color: var(--neutral-0);">Hapus</button>
+                                                                    </form>
+                                                                </div>
+                                                            </div>
+                                                            </div>
                                                         </div>
-                                                        <div class="modal-footer" style="border-top: none;">
-                                                            <button type="button" class="button-modal-secondary plus-jakarta-sans-bold secondary-button" style="border: none !important; border-radius: 16px; padding-block: 12px; padding-inline: 24px; text-decoration: 2px solid var(--neutral-1); background-color: var(--neutral-3); color: white;" data-dismiss="modal">Batal</button>
-                                                            <button type="button" class="button-modal-danger plus-jakarta-sans-bold danger-button" style="border: none !important; border-radius: 16px; padding-block: 12px; padding-inline: 24px; background-color: rgb(255, 47, 47); color: var(--neutral-0);">Hapus</button>
-                                                        </div>
+        
                                                     </div>
-                                                    </div>
                                                 </div>
-  
-                                            </div>
-                                        </div>
+                                            {% endfor %}
+                                        
+                                        {% else %}
+                                        <!-- Jika tidak ada album & song, tampilkan pesan -->
+                                        <tr class="plus-jakarta-sans-medium" style="color: var(--neutral-0);">
+                                            <td colspan="6" style="text-align: center; color: var(--neutral-0);" class="plus-jakarta-sans-medium p-4">Belum ada album & song</td>
+                                        </tr>
+                                    {% endif %}
                                         <!-- Repeat this card as needed -->
-
-                                        <!-- Dari sini -->
-                                        <div class="container d-flex justify-content-center card-playlist" style="height: 68px; border-radius: 16px; margin-top: 4px;">
-                                            
-                                            <a href="{% url 'dashboardlabel:listsong' %}" class="d-flex" style="text-decoration: none;">
-                                            <div class="container col-2" style="align-content: center; margin-inline: -12px;">
-                                                <div class="justify-content-center align-content-center d-flex" style="border-radius: 12px; height: 32px; width: 32px; background-color: var(--neutral-2);">
-                                                    <img src="{% static 'img/default.png' %}" alt="kelola" style="width: 24px; height: 24px;">
-                                                </div>
-                                            </div>
-                                            <div class="container col-7" style="align-content: center;">
-                                                <div class="row d-flex">
-                                                    <div class="plus-jakarta-sans-medium" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
-                                                        <p class="d-inline" style="margin: 0; color: var(--neutral-0); font-size: 12px; font-weight: 900;">Nama Album</p>
-                                                    </div>
-                                                    <div style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
-                                                        <p class="d-inline plus-jakarta-sans-medium" style="margin: 0; color: var(--neutral-1); font-size: 10px;">10 lagu</p>
-                                                        <p class="d-inline plus-jakarta-sans-medium" style="margin: 0; color: var(--neutral-1); font-size: 10px;">6209 menit</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            </a>
-                                            <div class="dropdown d-flex">
-                                                <button class="btn btn-secondary dropdown-toggle-iconless" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: transparent; border: none;">
-                                                    <img src="{% static 'img/threedots.svg' %}" alt="kelola" style="width: 20px; height: 20px;">
-                                                </button>
-                                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="background-color: var(--neutral-3); border-radius: 16px; padding: 4px; width: max-content !important;">
-                                                    <a class="dropdown-item plus-jakarta-sans-bold m-auto" style="color: var(--neutral-1); font-size: 12px; font-weight: 600;" href="{% url 'dashboardlabel:listsong' %}">Lihat daftar lagu</a>
-                                                    <a class="dropdown-item plus-jakarta-sans-bold m-auto" style="color: var(--neutral-1); font-size: 12px; font-weight: 600;" href="#" data-toggle="modal" data-target="#modalHapusSong">Hapus</a>
-
-                                                </div>
-                                                <!-- Modal Hapus -->
-                                                <div class="modal fade" id="modalHapusSong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                    <div class="modal-dialog" role="document">
-                                                    <div class="modal-content" style="background-color: var(--neutral-4); border-radius: 40px !important; padding: 20px;">
-                                                        <div class="modal-header" style="border-bottom: none;">
-                                                        <h5 class="modal-title plus-jakarta-sans-extrabold" id="exampleModalLabel" style="color: var(--neutral-0);">Konfirmasi Hapus</h5>
-                                                        <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                            <span aria-hidden="true">&times;</span>
-                                                        </button> -->
-                                                        </div>
-                                                        <div class="modal-body plus-jakarta-sans-medium" style="color: var(--neutral-1);">
-                                                            Apakah Anda yakin ingin menghapus item ini?
-                                                        </div>
-                                                        <div class="modal-footer" style="border-top: none;">
-                                                            <button type="button" class="button-modal-secondary plus-jakarta-sans-bold secondary-button" style="border: none !important; border-radius: 16px; padding-block: 12px; padding-inline: 24px; text-decoration: 2px solid var(--neutral-1); background-color: var(--neutral-3); color: white;" data-dismiss="modal">Batal</button>
-                                                            <button type="button" class="button-modal-danger plus-jakarta-sans-bold danger-button" style="border: none !important; border-radius: 16px; padding-block: 12px; padding-inline: 24px; background-color: rgb(255, 47, 47); color: var(--neutral-0);">Hapus</button>
-                                                        </div>
-                                                    </div>
-                                                    </div>
-                                                </div>
-  
-                                            </div>
-                                        </div>
-                                        <!-- Repeat this card as needed -->
-
-                                        <!-- Dari sini -->
-                                        <div class="container d-flex justify-content-center card-playlist" style="height: 68px; border-radius: 16px; margin-top: 4px;">
-                                            
-                                            <a href="{% url 'dashboardlabel:listsong' %}" class="d-flex" style="text-decoration: none;">
-                                            <div class="container col-2" style="align-content: center; margin-inline: -12px;">
-                                                <div class="justify-content-center align-content-center d-flex" style="border-radius: 12px; height: 32px; width: 32px; background-color: var(--neutral-2);">
-                                                    <img src="{% static 'img/default.png' %}" alt="kelola" style="width: 24px; height: 24px;">
-                                                </div>
-                                            </div>
-                                            <div class="container col-7" style="align-content: center;">
-                                                <div class="row d-flex">
-                                                    <div class="plus-jakarta-sans-medium" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
-                                                        <p class="d-inline" style="margin: 0; color: var(--neutral-0); font-size: 12px; font-weight: 900;">Nama Album</p>
-                                                    </div>
-                                                    <div style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
-                                                        <p class="d-inline plus-jakarta-sans-medium" style="margin: 0; color: var(--neutral-1); font-size: 10px;">10 lagu</p>
-                                                        <p class="d-inline plus-jakarta-sans-medium" style="margin: 0; color: var(--neutral-1); font-size: 10px;">6209 menit</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            </a>
-                                            <div class="dropdown d-flex">
-                                                <button class="btn btn-secondary dropdown-toggle-iconless" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: transparent; border: none;">
-                                                    <img src="{% static 'img/threedots.svg' %}" alt="kelola" style="width: 20px; height: 20px;">
-                                                </button>
-                                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="background-color: var(--neutral-3); border-radius: 16px; padding: 4px; width: max-content !important;">
-                                                    <a class="dropdown-item plus-jakarta-sans-bold m-auto" style="color: var(--neutral-1); font-size: 12px; font-weight: 600;" href="{% url 'dashboardlabel:listsong' %}">Lihat daftar lagu</a>
-                                                    <a class="dropdown-item plus-jakarta-sans-bold m-auto" style="color: var(--neutral-1); font-size: 12px; font-weight: 600;" href="#" data-toggle="modal" data-target="#modalHapusSong">Hapus</a>
-
-                                                </div>
-                                                <!-- Modal Hapus -->
-                                                <div class="modal fade" id="modalHapusSong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                    <div class="modal-dialog" role="document">
-                                                    <div class="modal-content" style="background-color: var(--neutral-4); border-radius: 40px !important; padding: 20px;">
-                                                        <div class="modal-header" style="border-bottom: none;">
-                                                        <h5 class="modal-title plus-jakarta-sans-extrabold" id="exampleModalLabel" style="color: var(--neutral-0);">Konfirmasi Hapus</h5>
-                                                        <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                            <span aria-hidden="true">&times;</span>
-                                                        </button> -->
-                                                        </div>
-                                                        <div class="modal-body plus-jakarta-sans-medium" style="color: var(--neutral-1);">
-                                                            Apakah Anda yakin ingin menghapus item ini?
-                                                        </div>
-                                                        <div class="modal-footer" style="border-top: none;">
-                                                            <button type="button" class="button-modal-secondary plus-jakarta-sans-bold secondary-button" style="border: none !important; border-radius: 16px; padding-block: 12px; padding-inline: 24px; text-decoration: 2px solid var(--neutral-1); background-color: var(--neutral-3); color: white;" data-dismiss="modal">Batal</button>
-                                                            <button type="button" class="button-modal-danger plus-jakarta-sans-bold danger-button" style="border: none !important; border-radius: 16px; padding-block: 12px; padding-inline: 24px; background-color: rgb(255, 47, 47); color: var(--neutral-0);">Hapus</button>
-                                                        </div>
-                                                    </div>
-                                                    </div>
-                                                </div>
-  
-                                            </div>
-                                        </div>
-                                        <!-- Repeat this card as needed -->
-
-                                        <!-- Dari sini -->
-                                        <div class="container d-flex justify-content-center card-playlist" style="height: 68px; border-radius: 16px; margin-top: 4px;">
-                                            
-                                            <a href="{% url 'dashboardlabel:listsong' %}" class="d-flex" style="text-decoration: none;">
-                                            <div class="container col-2" style="align-content: center; margin-inline: -12px;">
-                                                <div class="justify-content-center align-content-center d-flex" style="border-radius: 12px; height: 32px; width: 32px; background-color: var(--neutral-2);">
-                                                    <img src="{% static 'img/default.png' %}" alt="kelola" style="width: 24px; height: 24px;">
-                                                </div>
-                                            </div>
-                                            <div class="container col-7" style="align-content: center;">
-                                                <div class="row d-flex">
-                                                    <div class="plus-jakarta-sans-medium" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
-                                                        <p class="d-inline" style="margin: 0; color: var(--neutral-0); font-size: 12px; font-weight: 900;">Nama Album</p>
-                                                    </div>
-                                                    <div style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
-                                                        <p class="d-inline plus-jakarta-sans-medium" style="margin: 0; color: var(--neutral-1); font-size: 10px;">10 lagu</p>
-                                                        <p class="d-inline plus-jakarta-sans-medium" style="margin: 0; color: var(--neutral-1); font-size: 10px;">6209 menit</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            </a>
-                                            <div class="dropdown d-flex">
-                                                <button class="btn btn-secondary dropdown-toggle-iconless" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: transparent; border: none;">
-                                                    <img src="{% static 'img/threedots.svg' %}" alt="kelola" style="width: 20px; height: 20px;">
-                                                </button>
-                                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="background-color: var(--neutral-3); border-radius: 16px; padding: 4px; width: max-content !important;">
-                                                    <a class="dropdown-item plus-jakarta-sans-bold m-auto" style="color: var(--neutral-1); font-size: 12px; font-weight: 600;" href="{% url 'dashboardlabel:listsong' %}">Lihat daftar lagu</a>
-                                                    <a class="dropdown-item plus-jakarta-sans-bold m-auto" style="color: var(--neutral-1); font-size: 12px; font-weight: 600;" href="#" data-toggle="modal" data-target="#modalHapusSong">Hapus</a>
-
-                                                </div>
-                                                <!-- Modal Hapus -->
-                                                <div class="modal fade" id="modalHapusSong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                    <div class="modal-dialog" role="document">
-                                                    <div class="modal-content" style="background-color: var(--neutral-4); border-radius: 40px !important; padding: 20px;">
-                                                        <div class="modal-header" style="border-bottom: none;">
-                                                        <h5 class="modal-title plus-jakarta-sans-extrabold" id="exampleModalLabel" style="color: var(--neutral-0);">Konfirmasi Hapus</h5>
-                                                        <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                            <span aria-hidden="true">&times;</span>
-                                                        </button> -->
-                                                        </div>
-                                                        <div class="modal-body plus-jakarta-sans-medium" style="color: var(--neutral-1);">
-                                                            Apakah Anda yakin ingin menghapus item ini?
-                                                        </div>
-                                                        <div class="modal-footer" style="border-top: none;">
-                                                            <button type="button" class="button-modal-secondary plus-jakarta-sans-bold secondary-button" style="border: none !important; border-radius: 16px; padding-block: 12px; padding-inline: 24px; text-decoration: 2px solid var(--neutral-1); background-color: var(--neutral-3); color: white;" data-dismiss="modal">Batal</button>
-                                                            <button type="button" class="button-modal-danger plus-jakarta-sans-bold danger-button" style="border: none !important; border-radius: 16px; padding-block: 12px; padding-inline: 24px; background-color: rgb(255, 47, 47); color: var(--neutral-0);">Hapus</button>
-                                                        </div>
-                                                    </div>
-                                                    </div>
-                                                </div>
-  
-                                            </div>
-                                        </div>
-                                        <!-- Repeat this card as needed -->
-
-                                        <!-- Dari sini -->
-                                        <div class="container d-flex justify-content-center card-playlist" style="height: 68px; border-radius: 16px; margin-top: 4px;">
-                                            
-                                            <a href="{% url 'dashboardlabel:listsong' %}" class="d-flex" style="text-decoration: none;">
-                                            <div class="container col-2" style="align-content: center; margin-inline: -12px;">
-                                                <div class="justify-content-center align-content-center d-flex" style="border-radius: 12px; height: 32px; width: 32px; background-color: var(--neutral-2);">
-                                                    <img src="{% static 'img/default.png' %}" alt="kelola" style="width: 24px; height: 24px;">
-                                                </div>
-                                            </div>
-                                            <div class="container col-7" style="align-content: center;">
-                                                <div class="row d-flex">
-                                                    <div class="plus-jakarta-sans-medium" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
-                                                        <p class="d-inline" style="margin: 0; color: var(--neutral-0); font-size: 12px; font-weight: 900;">Nama Album</p>
-                                                    </div>
-                                                    <div style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
-                                                        <p class="d-inline plus-jakarta-sans-medium" style="margin: 0; color: var(--neutral-1); font-size: 10px;">10 lagu</p>
-                                                        <p class="d-inline plus-jakarta-sans-medium" style="margin: 0; color: var(--neutral-1); font-size: 10px;">6209 menit</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            </a>
-                                            <div class="dropdown d-flex">
-                                                <button class="btn btn-secondary dropdown-toggle-iconless" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: transparent; border: none;">
-                                                    <img src="{% static 'img/threedots.svg' %}" alt="kelola" style="width: 20px; height: 20px;">
-                                                </button>
-                                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="background-color: var(--neutral-3); border-radius: 16px; padding: 4px; width: max-content !important;">
-                                                    <a class="dropdown-item plus-jakarta-sans-bold m-auto" style="color: var(--neutral-1); font-size: 12px; font-weight: 600;" href="{% url 'dashboardlabel:listsong' %}">Lihat daftar lagu</a>
-                                                    <a class="dropdown-item plus-jakarta-sans-bold m-auto" style="color: var(--neutral-1); font-size: 12px; font-weight: 600;" href="#" data-toggle="modal" data-target="#modalHapusSong">Hapus</a>
-
-                                                </div>
-                                                <!-- Modal Hapus -->
-                                                <div class="modal fade" id="modalHapusSong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                    <div class="modal-dialog" role="document">
-                                                    <div class="modal-content" style="background-color: var(--neutral-4); border-radius: 40px !important; padding: 20px;">
-                                                        <div class="modal-header" style="border-bottom: none;">
-                                                        <h5 class="modal-title plus-jakarta-sans-extrabold" id="exampleModalLabel" style="color: var(--neutral-0);">Konfirmasi Hapus</h5>
-                                                        <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                            <span aria-hidden="true">&times;</span>
-                                                        </button> -->
-                                                        </div>
-                                                        <div class="modal-body plus-jakarta-sans-medium" style="color: var(--neutral-1);">
-                                                            Apakah Anda yakin ingin menghapus item ini?
-                                                        </div>
-                                                        <div class="modal-footer" style="border-top: none;">
-                                                            <button type="button" class="button-modal-secondary plus-jakarta-sans-bold secondary-button" style="border: none !important; border-radius: 16px; padding-block: 12px; padding-inline: 24px; text-decoration: 2px solid var(--neutral-1); background-color: var(--neutral-3); color: white;" data-dismiss="modal">Batal</button>
-                                                            <button type="button" class="button-modal-danger plus-jakarta-sans-bold danger-button" style="border: none !important; border-radius: 16px; padding-block: 12px; padding-inline: 24px; background-color: rgb(255, 47, 47); color: var(--neutral-0);">Hapus</button>
-                                                        </div>
-                                                    </div>
-                                                    </div>
-                                                </div>
-  
-                                            </div>
-                                        </div>
-                                        <!-- Repeat this card as needed -->
-
-                                        <!-- Dari sini -->
-                                        <div class="container d-flex justify-content-center card-playlist" style="height: 68px; border-radius: 16px; margin-top: 4px;">
-                                            
-                                            <a href="{% url 'dashboardlabel:listsong' %}" class="d-flex" style="text-decoration: none;">
-                                            <div class="container col-2" style="align-content: center; margin-inline: -12px;">
-                                                <div class="justify-content-center align-content-center d-flex" style="border-radius: 12px; height: 32px; width: 32px; background-color: var(--neutral-2);">
-                                                    <img src="{% static 'img/default.png' %}" alt="kelola" style="width: 24px; height: 24px;">
-                                                </div>
-                                            </div>
-                                            <div class="container col-7" style="align-content: center;">
-                                                <div class="row d-flex">
-                                                    <div class="plus-jakarta-sans-medium" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
-                                                        <p class="d-inline" style="margin: 0; color: var(--neutral-0); font-size: 12px; font-weight: 900;">Nama Album</p>
-                                                    </div>
-                                                    <div style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
-                                                        <p class="d-inline plus-jakarta-sans-medium" style="margin: 0; color: var(--neutral-1); font-size: 10px;">10 lagu</p>
-                                                        <p class="d-inline plus-jakarta-sans-medium" style="margin: 0; color: var(--neutral-1); font-size: 10px;">6209 menit</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            </a>
-                                            <div class="dropdown d-flex">
-                                                <button class="btn btn-secondary dropdown-toggle-iconless" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: transparent; border: none;">
-                                                    <img src="{% static 'img/threedots.svg' %}" alt="kelola" style="width: 20px; height: 20px;">
-                                                </button>
-                                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="background-color: var(--neutral-3); border-radius: 16px; padding: 4px; width: max-content !important;">
-                                                    <a class="dropdown-item plus-jakarta-sans-bold m-auto" style="color: var(--neutral-1); font-size: 12px; font-weight: 600;" href="{% url 'dashboardlabel:listsong' %}">Lihat daftar lagu</a>
-                                                    <a class="dropdown-item plus-jakarta-sans-bold m-auto" style="color: var(--neutral-1); font-size: 12px; font-weight: 600;" href="#" data-toggle="modal" data-target="#modalHapusSong">Hapus</a>
-
-                                                </div>
-                                                <!-- Modal Hapus -->
-                                                <div class="modal fade" id="modalHapusSong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                    <div class="modal-dialog" role="document">
-                                                    <div class="modal-content" style="background-color: var(--neutral-4); border-radius: 40px !important; padding: 20px;">
-                                                        <div class="modal-header" style="border-bottom: none;">
-                                                        <h5 class="modal-title plus-jakarta-sans-extrabold" id="exampleModalLabel" style="color: var(--neutral-0);">Konfirmasi Hapus</h5>
-                                                        <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                            <span aria-hidden="true">&times;</span>
-                                                        </button> -->
-                                                        </div>
-                                                        <div class="modal-body plus-jakarta-sans-medium" style="color: var(--neutral-1);">
-                                                            Apakah Anda yakin ingin menghapus item ini?
-                                                        </div>
-                                                        <div class="modal-footer" style="border-top: none;">
-                                                            <button type="button" class="button-modal-secondary plus-jakarta-sans-bold secondary-button" style="border: none !important; border-radius: 16px; padding-block: 12px; padding-inline: 24px; text-decoration: 2px solid var(--neutral-1); background-color: var(--neutral-3); color: white;" data-dismiss="modal">Batal</button>
-                                                            <button type="button" class="button-modal-danger plus-jakarta-sans-bold danger-button" style="border: none !important; border-radius: 16px; padding-block: 12px; padding-inline: 24px; background-color: rgb(255, 47, 47); color: var(--neutral-0);">Hapus</button>
-                                                        </div>
-                                                    </div>
-                                                    </div>
-                                                </div>
-  
-                                            </div>
-                                        </div>
-                                        <!-- Repeat this card as needed -->
-
-
                                         
                                     </div>
                                 </div>
@@ -815,9 +555,9 @@
                     </div>
                     {% endif %}
                 </div>
-                <div class="row container-fluid d-flex justify-content-start align-items-start tertiary-content-1"
-                style="width: 100%; margin-inline: -12px;">
-
+                <div class="container-fluid"
+                style="background: linear-gradient(180deg, #292724, #1B1817); width: 100%; border-radius: 24px; margin-top: -2em; height: 85%; max-height: 800px; padding-bottom: 25px; padding-top: 20px;
+                 white-space: nowrap; overflow-y: scroll; text-overflow: ellipsis;">
                 <div class="container-fluid"
                     style="background: linear-gradient(180deg, #292724, #1B1817); width: 100%; border-radius: 24px; margin-top: -2em; height: 45em; padding-bottom: 25px; padding-top: 20px;">
                     <h1 class="plus-jakarta-sans-extrabold align-item-center"
@@ -840,6 +580,7 @@
                             {{ label_info.kontak }}</p>
                     </div>
                 </div>
+                
             </div>
             </div>
        </div>
@@ -847,7 +588,7 @@
         </div>
     </div>
 </div>
-<footer class="position-fixed d-flex justify-content-between align-items-center" style="bottom: 0vh; width: 100%; height: 70px; background-color: transparent">
+<!-- <footer class="position-fixed d-flex justify-content-between align-items-center" style="bottom: 0vh; width: 100%; height: 70px; background-color: transparent">
     <div class="d-flex align-items-center" style="margin-left: 50px;">
         <img src="{% static 'img/default.png' %}" alt="kelola" style="width: 50px; height: 50px;  border-radius: 20px;">
         <div style="margin: 0 12px; margin-top: 5px;">
@@ -887,5 +628,5 @@
     <div style="">
         <h1></h1>
     </div>
-</footer>
+</footer> -->
 {% endblock %}
