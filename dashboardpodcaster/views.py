@@ -17,28 +17,32 @@ def format_durasi(menit):
         sisa_menit = menit % 60
         if jam > 0:
             return f'{jam} jam {sisa_menit} menit'
-        elif sisa_menit == 0:
-            return f'{jam} jam'
         else :
             return f'{sisa_menit} menit'
 
 def add_podcast(request):
     if request.method == 'POST':
         email = request.session.get('user_email', None)
-        print(email)
         judul = request.POST['judul']
         genre = request.POST.getlist('genre')
-        durasi = request.POST['durasi']
 
         # Buat UUID baru untuk podcast ini
         id_konten = uuid.uuid4()
 
         with connection.cursor() as cursor:
+            # Hitung durasi total dari semua episode
+            cursor.execute("""
+                SELECT SUM(durasi)
+                FROM EPISODE
+                WHERE id_konten_podcast = %s
+            """, [id_konten])
+            durasi = cursor.fetchone()[0] or 0
+
             cursor.execute("""
                 INSERT INTO KONTEN (id, judul, tanggal_rilis, tahun, durasi)
                 VALUES (%s, %s, CURRENT_DATE, EXTRACT(YEAR FROM CURRENT_DATE), %s)
                 RETURNING id
-            """, [id_konten, judul, durasi])
+            """, [id_konten, judul, format_durasi(durasi)])
             id_konten = cursor.fetchone()[0]
 
             cursor.execute("""
@@ -51,11 +55,10 @@ def add_podcast(request):
                     INSERT INTO GENRE (id_konten, genre)
                     VALUES (%s, %s)
                 """, [id_konten, g])
-        print("MASUK")
-        return redirect('dashboard:podcaster')
-    print("Gamasuk")
-    return render(request, 'podcaster.html')
 
+        return redirect('dashboard:podcaster')
+
+    return render(request, 'podcaster.html')
 
 def delete_podcast(request, id_konten):
     if request.method == 'POST':
@@ -273,7 +276,7 @@ def episodes(request, id_konten):
     # Prepare context data for rendering
     context = {
         'podcast_detail': podcast_detail,
-        'genres' : podcast_detail[1],
+        'genres' : list(set(podcast_detail[1])),  # Convert genres to a set to remove duplicates
         'total_durasi' : total_durasi,
         'episodes': episodes,
         'id_konten' : id_konten,
