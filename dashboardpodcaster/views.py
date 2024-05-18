@@ -14,7 +14,7 @@ from django.urls import reverse
 # @register.filter
 def format_durasi(menit):
     if menit is None:
-        return '0 jam 0 menit'
+        return '0 jam 0'
     else :
         jam = menit // 60
         sisa_menit = menit % 60
