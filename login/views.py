@@ -14,13 +14,13 @@ def loginkonten(request):
             if 'artist' in user_roles and 'songwriter' in user_roles:
                 return redirect('dashboardartist:homepageartist')
             elif 'podcaster' in user_roles:
-                return redirect('dashboardpodcaster:homepagepodcaster')
+                return redirect('dashboard:podcaster')
             else:
                 return redirect('dashboardreguser:dashboarduser')
         elif user_type == 'label':
             return redirect('dashboardlabel:homepagelabel')
-        else:
-            return redirect('login')  # Jika sesi login ada tapi tidak valid, arahkan ke halaman login
+        # else:
+        #     return redirect('login:loginkonten')  # Jika sesi login ada tapi tidak valid, arahkan ke halaman login
 
     if request.method == 'POST':
         # Ambil email dan password dari data POST
@@ -74,7 +74,7 @@ def loginkonten(request):
                     if is_artist and is_songwriter:
                         return redirect('dashboardartist:homepageartist')
                     elif is_podcaster:
-                        return redirect('dashboardpodcaster:homepagepodcaster')
+                        return redirect('dashboard:podcaster')
                     else:
                         return redirect('dashboardreguser:dashboarduser')
 
