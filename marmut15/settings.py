@@ -31,6 +31,10 @@ ALLOWED_HOSTS = ['*']
 # Static Files
 
 STATIC_URL = '/static/'
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+SESSION_ENGINE = 'django.contrib.sessions.backends.db'
+
+
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static')
 ]
@@ -50,6 +54,7 @@ INSTALLED_APPS = [
     'dashboardsongwriter',
     'dashboardlabel',
     'dashboardpodcaster',
+    'dashboarduser',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
