@@ -1438,7 +1438,7 @@ body {
                             </p>
                             <p class="plus-jakarta-sans-bold" style="color: var(--neutral-1); font-size: 13px; margin-top:5px">{{ podcast_detail.3 }} Episodes, {{ total_durasi }}</p> <!-- Total Episode dan Durasi Podcast-->
                             <p class="plus-jakarta-sans-bold" style="color: var(--neutral-1); font-size: 15px; margin-top: 10px;">Genre
-                                {% for genre in podcast_detail.1 %}
+                                {% for genre in genres %}
                                 <p class="plus-jakarta-sans-bold chip-genres" style="color: var(--neutral-0); font-size: 13px; margin-top:0px; width:fit-content;">
                                     {{ genre }}
                                 </p>
@@ -1447,32 +1447,11 @@ body {
                             <p class="plus-jakarta-sans-medium" style="color: var(--neutral-1); font-size: 13px; margin-top:5px;">Released on {{ podcast_detail.5 }}</p>
                             <div class="container d-flex justify-content-between align-items-left" style="text-decoration: none; margin-top: 10px;">
                                 <div class="container align-items-left" style="text-decoration: none; height: 50px; margin-left: -28.0em;">
-                                    <a href="#" class="container d-flex flex-column align-items-center" style="text-decoration: none; margin-top: 5px;" onclick="showPopup()">
+                                    <a href="#" class="container d-flex flex-column align-items-center" style="text-decoration: none; margin-top: 5px;" data-toggle="modal" data-target="#popupContainer">
                                         <img src="{% static 'img/add-icon.svg' %}" alt="add" style="width: 55px; height: 55px;">
                                         <h7 class="plus-jakarta-sans-extrabold" style="color: var(--neutral-0); margin-top: 15px;">Tambah Episode</h7>
-                                    </a>
+                                    </a>                                    
                                 </div>                                                                
-                            </div>
-                            <div class="popup-container" id="popupContainer">
-                                <div class="popup-content" style="margin-top:20px;">
-                                    <h2 style="text-align:center">Tambah Episode</h2>
-                                    <form class="popup-form plus-jakarta-sans-medium" method="POST" action="{% url 'dashboard:add_episodes' %}">
-                                        {% csrf_token %}
-                                        <!-- {{ podcasts.0 }} -->
-                                        <label for="podcastTitle">Judul Podcast</label>
-                                        <input type="text" id="podcastTitle" name="judul_podcast" value="{{ podcast_detail.0 }}" readonly>
-                                        <label for="episodeTitle">Judul Episode</label>
-                                        <input type="text" id="episodeTitle" name="judul" required>
-                                        <label for="episodeDescription">Deskripsi</label>
-                                        <input type="text" id="episodeDescription" name="deskripsi" required>
-                                        <label for="episodeDuration">Durasi Podcast (menit)</label>
-                                        <input type="number" id="episodeDuration" name="durasi" required>
-                                        <div class="button-container plus-jakarta-sans-bold" style="margin-top:20px; align-content: center;">
-                                            <button class="button-secondary plus-jakarta-sans-bold" style="margin-right: 10px;" type="button" onclick="hidePopup()">Kembali</button>
-                                            <button class="button-primary plus-jakarta-sans-bold" style="margin-right: 10px; align-content: center;" type="submit">Simpan</button>
-                                        </div>
-                                    </form>
-                                </div>
                             </div>
                             <!-- Tabel untuk podcast -->
                             <table class="table-podcast" style="width: 95%; border-collapse: collapse; margin-top: 50px;color: var(--neutral-1); padding: 10px; margin-right: 30px;">
@@ -1489,20 +1468,59 @@ body {
                                     <!-- Gunakan loop untuk menampilkan episode -->
                                     {% for episode in episodes %}
                                         <tr class="plus-jakarta-sans-bold" style="border-bottom: 0px solid var(--neutral-2); font-size:14px; text-align:start;padding:10px;">
-                                            <td style="padding-top: 30px; padding-bottom: 30px; padding: 10px; color: var(--neutral-1);">{{ episode.0 }}</td>
-                                            <td style="padding-top: 30px; padding-bottom: 30px; padding-left: 120px; color: var(--neutral-1);">{{ episode.1 }}</td>
+                                            <td style="padding-top: 30px; padding-bottom: 30px; padding: 10px; color: var(--neutral-1);">{{ episode.1 }}</td>
                                             <td style="padding-top: 30px; padding-bottom: 30px; padding-left: 120px; color: var(--neutral-1);">{{ episode.2 }}</td>
-                                            <td style="padding-top: 30px; padding-bottom: 30px; padding-left: 120px; color: var(--neutral-1);">{{ episode.3|date:"d/m/Y" }}</td>
+                                            <td style="padding-top: 30px; padding-bottom: 30px; padding-left: 120px; color: var(--neutral-1);">{{ episode.3 }}</td>
+                                            <td style="padding-top: 30px; padding-bottom: 30px; padding-left: 120px; color: var(--neutral-1);">{{ episode.4|date:"d/m/Y" }}</td>
                                             <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">
                                                 <div class="dropdown d-flex">
                                                     <button class="btn btn-secondary dropdown-toggle-iconless" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: transparent; border: none;">
                                                         <img src="{% static 'img/threedots.svg' %}" alt="kelola" style="width: 20px; height: 20px;">
                                                     </button>
                                                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="background-color: var(--neutral-3); border-radius: 16px; padding: 4px; width: max-content !important;">
-                                                        <!-- <a class="dropdown-item plus-jakarta-sans-bold m-auto" style="color: var(--neutral-1); font-size: 12px; font-weight: 600;" href="#">Lihat daftar lagu</a> -->
+                                                        <a class="dropdown-item plus-jakarta-sans-bold m-auto" style="color: var(--neutral-1); font-size: 12px; font-weight: 600;" href="#" data-toggle="modal" data-target="#updateEpisodeModal">Update Episode</a>
                                                         <a class="dropdown-item plus-jakarta-sans-bold m-auto" style="color: var(--neutral-1); font-size: 12px; font-weight: 600;" href="#" data-toggle="modal" data-target="#modalHapusEpisodes">Hapus</a>
 
                                                     </div>
+
+                                                    <!-- Modal Update Episode -->
+                                                    <div class="modal fade" id="updateEpisodeModal" tabindex="-1" role="dialog" aria-labelledby="updateEpisodeModalLabel" aria-hidden="true">
+                                                        <div class="modal-dialog" role="document">
+                                                            <div class="modal-content" style="background-color: var(--neutral-4); border-radius: 40px !important; padding: 20px;">
+                                                                <div class="modal-header" style="border-bottom: none;">
+                                                                    <h5 class="modal-title plus-jakarta-sans-extrabold" id="updateEpisodeModalLabel" style="color: var(--neutral-0);">Update Episode</h5>
+                                                                </div>
+                                                                <form class="popup-form plus-jakarta-sans-medium" method="POST" action="{% url 'dashboard:update_episode' id_konten=id_konten id_episode=episode.0 %}">
+                                                                    {% csrf_token %}
+                                                                    <div class="modal-body plus-jakarta-sans-medium" style="color: var(--neutral-1);">
+                                                                        <input type="hidden" name="id_konten" value="{{ id_konten }}">
+                                                                        <input type="hidden" name="id_episode" value="{{ id_episode }}">
+                                                                        <div class="form-group">
+                                                                            <label for="updateEpisodeJudul">Judul Podcast</label>
+                                                                            <input type="text" id="updateEpisodeJudul" name="judul" value="{{ podcast_detail.0}}" readonly>
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label for="updateepisodeTitle">Judul Episode</label>
+                                                                            <input type="text" id="updateepisodeTitle" name="judul" required>
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label for="updateepisodeDescription">Deskripsi</label>
+                                                                            <input type="text" id="updateepisodeDescription" name="deskripsi" required>
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label for="updateEpisodeDuration">Durasi Episode (menit)</label>
+                                                                            <input type="number" class="form-control" id="updateEpisodeDuration" name="durasi">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="modal-footer" style="border-top: none;">
+                                                                        <button type="button" class="button-secondary plus-jakarta-sans-bold" style="border: none !important; border-radius: 16px; padding-block: 12px; padding-inline: 24px; text-decoration: 2px solid var(--neutral-1); background-color: var(--neutral-3); color: white;" data-dismiss="modal">Batal</button>
+                                                                        <button type="submit" class="button-primary plus-jakarta-sans-bold" style="border: none !important; border-radius: 16px; padding-block: 12px; padding-inline: 24px; background-color: rgb(255, 47, 47); color: var(--neutral-0);">Simpan</button>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
                                                     <!-- Modal Hapus -->
                                                     <div class="modal fade" id="modalHapusEpisodes" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                         <div class="modal-dialog" role="document">
@@ -1513,10 +1531,14 @@ body {
                                                             <div class="modal-body plus-jakarta-sans-medium" style="color: var(--neutral-1);">
                                                                 Apakah Anda yakin ingin menghapus episode ini?
                                                             </div>
-                                                            <div class="modal-footer" style="border-top: none;">
-                                                                <button type="button" class="button-modal-secondary plus-jakarta-sans-bold secondary-button" style="border: none !important; border-radius: 16px; padding-block: 12px; padding-inline: 24px; text-decoration: 2px solid var(--neutral-1); background-color: var(--neutral-3); color: white;" data-dismiss="modal">Batal</button>
-                                                                <button type="button" class="button-modal-danger plus-jakarta-sans-bold danger-button" style="border: none !important; border-radius: 16px; padding-block: 12px; padding-inline: 24px; background-color: rgb(255, 47, 47); color: var(--neutral-0);">Hapus</button>
-                                                            </div>
+                                                            <form class="popup-form plus-jakarta-sans-medium" method="POST" action="{% url 'dashboard:delete_episode' id_konten=id_konten id_episode=episode.0%}">
+                                                                {% csrf_token %}
+                                                                <input type="hidden" name="id_episode" value="{{ episode.id_episode }}">
+                                                                <div class="modal-footer" style="border-top: none;">
+                                                                    <button type="button" class="button-modal-secondary plus-jakarta-sans-bold secondary-button" style="border: none !important; border-radius: 16px; padding-block: 12px; padding-inline: 24px; text-decoration: 2px solid var(--neutral-1); background-color: var(--neutral-3); color: white;" data-dismiss="modal">Batal</button>
+                                                                    <button type="submit" class="button-modal-danger plus-jakarta-sans-bold danger-button" style="border: none !important; border-radius: 16px; padding-block: 12px; padding-inline: 24px; background-color: rgb(255, 47, 47); color: var(--neutral-0);">Hapus</button>
+                                                                </div>
+                                                            </form>
                                                         </div>
                                                         </div>
                                                     </div>
@@ -1526,6 +1548,42 @@ body {
                                     {% endfor %}
                                 </tbody>
                             </table>
+                            <!-- Modal Add Episode -->
+                            <div class="modal fade" id="popupContainer" tabindex="-1" role="dialog" aria-labelledby="popupContainerLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content" style="background-color: var(--neutral-4); border-radius: 40px !important; padding: 20px;">
+                                        <div class="modal-header" style="border-bottom: none;">
+                                            <h2 class="modal-title plus-jakarta-sans-extrabold" id="popupContainerLabel" style="color: var(--neutral-0); text-align:center">Tambah Episode</h2>
+                                        </div>
+                                        <form class="popup-form plus-jakarta-sans-medium" method="POST" action="{% url 'dashboard:add_episodes' id_konten=id_konten %}">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="id_konten" value="{{ id_konten }}">
+                                            <div class="modal-body plus-jakarta-sans-medium" style="color: var(--neutral-1);">
+                                                <div class="form-group">
+                                                    <label for="podcastJudul">Judul Podcast</label>
+                                                    <input type="text" id="podcastJudul" name="judul_podcast" value="{{ podcast_detail.0 }}" readonly>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="episodeTitle">Judul Episode</label>
+                                                    <input type="text" id="episodeTitle" name="judul" required>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="episodeDescription">Deskripsi</label>
+                                                    <input type="text" id="episodeDescription" name="deskripsi" required>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="episodeDuration">Durasi Episode (menit)</label>
+                                                    <input type="number" id="episodeDuration" name="durasi" required>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer" style="border-top: none;">
+                                                <button type="button" class="button-secondary plus-jakarta-sans-bold" style="margin-right: 10px;" data-dismiss="modal">Kembali</button>
+                                                <button type="submit" class="button-primary plus-jakarta-sans-bold" style="margin-right: 10px;">Simpan</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>                            
                         </div>
                     </div>
                 </div>

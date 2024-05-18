@@ -430,7 +430,7 @@ body {
     padding: 20px;
     border-radius: 20px;
     width: 45%;
-    height: 390px;
+    height: fit-content;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 }
 
@@ -1416,36 +1416,14 @@ body {
                             <h2 class="plus-jakarta-sans-extrabold" style="color: var(--neutral-0); font-size: 40px; margin-top: 20px;">{{ nama_podcaster.1 }}'s Podcast</h2> <!--Nama Podcaster-->
                             <p class="plus-jakarta-sans-bold" style="color: var(--neutral-1); font-size: 18px; margin-top: 24px;">Teruslah menyebarkan kegembiraan melalui podcast!</p>
                             <a href="#" class="container d-flex flex-column align-items-center"
-                                style="text-decoration: none; height: 34px; margin-top: 40px; margin-left:-30.0em" onclick="showPopup()">
+                                style="text-decoration: none; height: 34px; margin-top: 40px; margin-left:-30.0em" 
+                                data-toggle="modal" data-target="#popupContainer">
                                 <img src="{% static 'img/add-icon.svg' %}" alt="add" style="width: 45px; height: 45px">
                                 <h6 class="plus-jakarta-sans-extrabold"
                                     style="color: var(--neutral-0); margin-top: 13px; margin-left: 15px; text-align: center">
                                     Tambah Podcast
                                 </h6>
-                            </a>
-                            <div class="popup-container" id="popupContainer">
-                                <div class="popup-content" style="margin-top:20px;">
-                                    <h2 style="text-align:center">Tambah Podcast</h2>
-                                    <form class="popup-form plus-jakarta-sans-medium" method="POST" action="{% url 'dashboard:add_podcast' %}">
-                                        {% csrf_token %}
-                                        <label for="judul">Judul Podcast</label>
-                                        <input type="text" id="judul" name="judul" required>
-                                        <label for="genre">Genre Podcast</label>
-                                        <select id="podcastGenre" name="genre" multiple class="form-control">
-                                            <option>Fun</option>
-                                            <option>Weird</option>
-                                            <option>Family</option>
-                                            <option>Daily</option>
-                                        </select>
-                                        <label for="podcastDuration">Durasi:</label>
-                                        <input type="text" class="form-control" id="podcastDuration" name="durasi">
-                                        <div class="button-container plus-jakarta-sans-bold" style="margin-top:20px; align-content: center;">
-                                            <button class="button-secondary plus-jakarta-sans-bold" style="margin-right: 10px;" type="button" onclick="hidePopup()">Kembali</button>
-                                            <button class="button-primary plus-jakarta-sans-bold" style="margin-right: 10px; align-content: center;" type="submit">Simpan</button>
-                                        </div>
-                                    </form>                                        
-                                </div>
-                            </div>
+                            </a>                          
                                                         
                             <!-- Tabel untuk podcast -->
                             <table class="table-podcast" style="width: 95%; border-collapse: collapse; margin-top: 48px;color: var(--neutral-1); padding: 10px;">
@@ -1473,10 +1451,50 @@ body {
                                                     <img src="{% static 'img/threedots.svg' %}" alt="kelola" style="width: 20px; height: 20px;">
                                                 </button>
                                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="background-color: var(--neutral-3); border-radius: 16px; padding: 4px; width: max-content !important;">
+                                                    <a class="dropdown-item plus-jakarta-sans-bold m-auto" style="color: var(--neutral-1); font-size: 12px; font-weight: 600;" data-toggle="modal" data-target="#updatePodcastModal">Update Podcast</a>
                                                     <a class="dropdown-item plus-jakarta-sans-bold m-auto" style="color: var(--neutral-1); font-size: 12px; font-weight: 600;" href="{% url 'dashboard:episodes' podcast.0%}">Lihat daftar episode</a><!--Refer Id Podcast-->
                                                     <a class="dropdown-item plus-jakarta-sans-bold m-auto" style="color: var(--neutral-1); font-size: 12px; font-weight: 600;" href="#" data-toggle="modal" data-target="#modalHapusPodcast">Hapus</a>
-
                                                 </div>
+
+                                                <!-- Modal Update Podcast -->
+                                                <div class="modal fade" id="updatePodcastModal" tabindex="-1" role="dialog" aria-labelledby="updatePodcastModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog" role="document">
+                                                        <div class="modal-content" style="background-color: var(--neutral-4); border-radius: 40px !important; padding: 20px;">
+                                                            <div class="modal-header" style="border-bottom: none;">
+                                                                <h5 class="modal-title plus-jakarta-sans-extrabold" id="updatePodcastModalLabel" style="color: var(--neutral-0);">Update Podcast</h5>
+                                                            </div>
+                                                            <form class="popup-form plus-jakarta-sans-medium" method="POST" action="{% url 'dashboard:update_podcast' podcast.0 %}">
+                                                                {% csrf_token %}
+                                                                <div class="modal-body plus-jakarta-sans-medium" style="color: var(--neutral-1);">
+                                                                    <div class="form-group">
+                                                                        <label for="updatePodcastJudul">Judul Podcast</label>
+                                                                        <input type="text" id="updatePodcastJudul" name="judul" value="{{ podcast.judul_podcast}}" required>
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label for="updatePodcastGenre">Pilih Genre:</label>
+                                                                        <select id="updatePodcastGenre" name="genre">
+                                                                            <option value="Family" style="color: var(--primary-2); background-color:#292724;">Family</option>
+                                                                            <option value="Happy" style="color: var(--primary-2); background-color:#292724;">Happy</option>
+                                                                            <option value="Parenting" style="color: var(--primary-2); background-color:#292724;">Parenting</option>
+                                                                            <option value="Comedy" style="color: var(--primary-2); background-color:#292724;">Comedy</option>
+                                                                            <option value="Romance" style="color: var(--primary-2); background-color:#292724;">Romance</option>
+                                                                            <option value="Life" style="color: var(--primary-2); background-color:#292724;">Life</option>>
+                                                                        </select>
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label for="updatePodcastDuration">Durasi:</label>
+                                                                        <input type="number" class="form-control" id="updatePodcastDuration" name="durasi">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="modal-footer" style="border-top: none;">
+                                                                    <button type="button" class="button-secondary plus-jakarta-sans-bold" style="border: none !important; border-radius: 16px; padding-block: 12px; padding-inline: 24px; text-decoration: 2px solid var(--neutral-1); background-color: var(--neutral-3); color: white;" data-dismiss="modal">Batal</button>
+                                                                    <button type="submit" class="button-primary plus-jakarta-sans-bold" style="border: none !important; border-radius: 16px; padding-block: 12px; padding-inline: 24px; background-color: rgb(255, 47, 47); color: var(--neutral-0);">Simpan</button>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>                                                                                                
+
                                                 <!-- Modal Hapus -->
                                                 <div class="modal fade" id="modalHapusPodcast" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                     <div class="modal-dialog" role="document">
@@ -1490,10 +1508,13 @@ body {
                                                         <div class="modal-body plus-jakarta-sans-medium" style="color: var(--neutral-1);">
                                                             Apakah Anda yakin ingin menghapus podcast ini?
                                                         </div>
-                                                        <div class="modal-footer" style="border-top: none;">
-                                                            <button type="button" class="button-modal-secondary plus-jakarta-sans-bold secondary-button" style="border: none !important; border-radius: 16px; padding-block: 12px; padding-inline: 24px; text-decoration: 2px solid var(--neutral-1); background-color: var(--neutral-3); color: white;" data-dismiss="modal">Batal</button>
-                                                            <button type="submit" class="button-modal-danger plus-jakarta-sans-bold danger-button" form="podcastForm" href="{% url 'dashboard:delete_podcast' podcast.0 %}" style="border: none !important; border-radius: 16px; padding-block: 12px; padding-inline: 24px; background-color: rgb(255, 47, 47); color: var(--neutral-0);">Hapus</button>
-                                                        </div>
+                                                        <form class="popup-form plus-jakarta-sans-medium" method="POST" action="{% url 'dashboard:delete_podcast' podcast.0 %}">
+                                                            {% csrf_token %}
+                                                            <div class="modal-footer" style="border-top: none;">
+                                                                <button type="button" class="button-modal-secondary plus-jakarta-sans-bold secondary-button" style="border: none !important; border-radius: 16px; padding-block: 12px; padding-inline: 24px; text-decoration: 2px solid var(--neutral-1); background-color: var(--neutral-3); color: white;" data-dismiss="modal">Batal</button>
+                                                                <button type="submit" class="button-modal-danger plus-jakarta-sans-bold danger-button" style="border: none !important; border-radius: 16px; padding-block: 12px; padding-inline: 24px; background-color: rgb(255, 47, 47); color: var(--neutral-0);">Hapus</button>
+                                                            </div>
+                                                        </form>
                                                     </div>
                                                     </div>
                                                 </div>
@@ -1503,6 +1524,41 @@ body {
                                     {% endfor %}
                                 </tbody>
                             </table>
+                            <!-- Modal Add Podcast -->
+                            <div class="modal fade" id="popupContainer" tabindex="-1" role="dialog" aria-labelledby="popupContainerLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content" style="background-color: var(--neutral-4); border-radius: 40px !important; padding: 20px;">
+                                        <div class="modal-header" style="border-bottom: none;">
+                                            <h5 class="modal-title plus-jakarta-sans-extrabold" id="popupContainerLabel" style="color: var(--neutral-0);">Tambah Podcast</h5>
+                                        </div>
+                                        <form class="popup-form plus-jakarta-sans-medium" method="POST" action="{% url 'dashboard:add_podcast' %}">
+                                            {% csrf_token %}
+                                            <div class="modal-body plus-jakarta-sans-medium" style="color: var(--neutral-1);">
+                                                <div class="modal-body">
+                                                    <div class="form-group">
+                                                        <label for="podcastJudul">Judul Podcast</label>
+                                                        <input type="text" id="podcastJudul" name="judul" required>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="podcastGenre">Pilih Genre:</label>
+                                                        <select id="podcastGenre" name="genre">
+                                                            <option value="Family" style="color: var(--primary-2); background-color:#292724;">Family</option>
+                                                            <option value="Happy" style="color: var(--primary-2); background-color:#292724;">Happy</option>
+                                                            <option value="Parenting" style="color: var(--primary-2); background-color:#292724;">Parenting</option>
+                                                            <option value="Comedy" style="color: var(--primary-2); background-color:#292724;">Comedy</option>
+                                                            <option value="Romance" style="color: var(--primary-2); background-color:#292724;">Romance</option>
+                                                            <option value="Life" style="color: var(--primary-2); background-color:#292724;">Life</option>>
+                                                        </select>
+                                                    </div>
+                                            </div>
+                                            <div class="modal-footer" style="border-top: none;">
+                                                <button type="button" class="button-secondary plus-jakarta-sans-bold" style="border: none !important; border-radius: 16px; padding-block: 12px; padding-inline: 24px; text-decoration: 2px solid var(--neutral-1); background-color: var(--neutral-3); color: var(--neutral-0);" data-dismiss="modal">Kembali</button>
+                                                <button type="submit" class="button-primary plus-jakarta-sans-bold" style="border: none !important; border-radius: 16px; padding-block: 12px; padding-inline: 24px; background-color: var(--primary-2); color: var(--neutral-0);">Simpan</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
