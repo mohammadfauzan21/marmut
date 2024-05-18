@@ -5,10 +5,13 @@ from django.db import OperationalError, ProgrammingError, connection
 from django.http import HttpResponse, HttpResponseNotAllowed, HttpResponseNotFound, JsonResponse
 from django.contrib import messages
 from datetime import datetime
-
+from django import template
 from django.urls import reverse
 
 # Create your views here.
+# register = template.Library()
+
+# @register.filter
 def format_durasi(menit):
     if menit is None:
         return '0 jam 0 menit'
@@ -16,9 +19,9 @@ def format_durasi(menit):
         jam = menit // 60
         sisa_menit = menit % 60
         if jam > 0:
-            return f'{jam} jam {sisa_menit} menit'
+            return f'{jam} jam {sisa_menit}'
         else :
-            return f'{sisa_menit} menit'
+            return sisa_menit
 
 def add_podcast(request):
     if request.method == 'POST':
@@ -97,15 +100,22 @@ def update_podcast(request, id_konten):
     if request.method == 'POST':
         judul = request.POST['judul']
         genre = request.POST.getlist('genre')
-        durasi = request.POST['durasi']
 
         with connection.cursor() as cursor:
+            # Calculate the total duration of all episodes of the podcast
+            cursor.execute("""
+                SELECT SUM(durasi)
+                FROM episode
+                WHERE id_konten_podcast = %s
+            """, [id_konten])
+            durasi = cursor.fetchone()[0] or 0
+
             # Update konten
             cursor.execute("""
                 UPDATE KONTEN
                 SET judul = %s, durasi = %s
                 WHERE id = %s
-            """, [judul, durasi, id_konten])
+            """, [judul, format_durasi(durasi), id_konten])
 
             # Hapus genre lama
             cursor.execute("""
@@ -125,7 +135,6 @@ def update_podcast(request, id_konten):
     else:
         # Render form untuk update podcast
         return render(request, 'podcaster.html')
-
     
 def podcaster(request):
     # Fetch podcaster's podcast details from the database
