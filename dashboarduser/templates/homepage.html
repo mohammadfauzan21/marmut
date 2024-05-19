@@ -844,48 +844,64 @@
                                     
                                 <div class="container d-flex">
                                     <div class="container d-flex">
-                                        <button href="#" data-toggle="modal" data-target="#modalTambahPodcast" type="submit"
+                                        <button href="#" data-toggle="modal" data-target="#popupContainer" type="submit"
                                             class=" container d-flex align-items-center justify-content-center plus-jakarta-sans-extrabold button-primary my-3">Tambah
                                             Podcast
                                         </button>
 
-                                    <!-- Modal Tambah Podcast -->
-                                    <div class="modal fade" id="modalTambahPodcast" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog" role="document">
-                                        <div class="modal-content" style="background-color: var(--neutral-4); border-radius: 40px !important; padding: 20px;">
-                                            <div class="modal-header" style="border-bottom: none;">
-                                            <h5 class="modal-title plus-jakarta-sans-extrabold" id="exampleModalLabel" style="color: var(--neutral-0);">Tambah Podcast</h5>
-                                            </div>
+                                    <!-- Modal Add Podcast -->
+                            <div class="modal fade" id="popupContainer" tabindex="-1" role="dialog" aria-labelledby="popupContainerLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content" style="background-color: var(--neutral-4); border-radius: 40px !important; padding: 20px;">
+                                        <div class="modal-header" style="border-bottom: none;">
+                                            <h5 class="modal-title plus-jakarta-sans-extrabold" id="popupContainerLabel" style="color: var(--neutral-0);">Tambah Podcast</h5>
+                                        </div>
+                                        <form class="popup-form plus-jakarta-sans-medium" method="POST" action="{% url 'dashboard:add_podcast' %}">
+                                            {% csrf_token %}
                                             <div class="modal-body plus-jakarta-sans-medium" style="color: var(--neutral-1);">
-                                                Buat album baru
-                                            </div>
-                                            <div class="container m-1">
-                                                <label for="exampleFormControlInput1"><p class="m-auto plus-jakarta-sans-bold" style="font-size: 12px;">Judul</p></label>
-                                                <input type="text" class="form-control plus-jakarta-sans-regular" id="exampleFormControlInput1" placeholder="">
-                                            </div>
-                                            <div class=" container m-1">
-                                                <label for="exampleFormControlInput1"><p class="m-auto plus-jakarta-sans-bold" style="font-size: 12px;">Genre</p></label>
-                                                <select class="form-select placeholder form-select-lg mb-3 plus-jakarta-sans-semibold"  style="font-size: 12px;"  aria-label=".form-select-lg example">
-                                                    <option selected class="plus-jakarta-sans-semibold" style="background-color: var(--neutral-3);">Label-1</option>
-                                                    <option value="1" class="plus-jakarta-sans-semibold" style="background-color: var(--neutral-3); ">Label-2</option>
-                                                    <option value="2" class="plus-jakarta-sans-semibold" style="background-color: var(--neutral-3);">Label-3</option>
-                                                </select>
-                                            </div>
-                                            <div class="container m-1">
-                                                <label for="exampleFormControlInput1"><p class="m-auto plus-jakarta-sans-bold" style="font-size: 12px;">Durasi</p></label>
-                                                <input type="text" class="form-control plus-jakarta-sans-regular" id="exampleFormControlInput1" placeholder="">
+                                                <div class="modal-body">
+                                                    <div class="form-group" style="margin-top: 20px;">
+                                                        <label for="podcastJudul">Judul Podcast</label>
+                                                        <input type="text" id="podcastJudul" name="judul" required>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>Pilih Genre:</label>
+                                                        <div>
+                                                            <input type="checkbox" id="Family" name="genre" value="Family">
+                                                            <span style="color: var(--primary-2); background-color:transparent; margin-bottom: 20px;"><label for="Family">Family</label></span>
+                                                        </div>
+                                                        <div>
+                                                            <input type="checkbox" id="Happy" name="genre" value="Happy">
+                                                            <span style="color: var(--primary-2); background-color:transparent;"><label for="Happy">Happy</label></span>
+                                                        </div>
+                                                        <div>
+                                                            <input type="checkbox" id="Parenting" name="genre" value="Parenting">
+                                                            <span style="color: var(--primary-2); background-color:transparent;"><label for="Parenting">Parenting</label></span>
+                                                        </div>
+                                                        <div>
+                                                            <input type="checkbox" id="Comedy" name="genre" value="Comedy">
+                                                            <span style="color: var(--primary-2); background-color:transparent;"><label for="Comedy">Comedy</label></span>
+                                                        </div>
+                                                        <div>
+                                                            <input type="checkbox" id="Romance" name="genre" value="Romance">
+                                                            <span style="color: var(--primary-2); background-color:transparent;"><label for="Romance">Romance</label></span>
+                                                        </div>
+                                                        <div>
+                                                            <input type="checkbox" id="Life" name="genre" value="Life">
+                                                            <span style="color: var(--primary-2); background-color:transparent"><label for="Life">Life</label></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                             <div class="modal-footer" style="border-top: none;">
-                                                <button type="button" class="button-modal-secondary plus-jakarta-sans-bold secondary-button" style="border: none !important; border-radius: 16px; padding-block: 12px; padding-inline: 24px; text-decoration: 2px solid var(--neutral-1); background-color: var(--neutral-3); color: white;" data-dismiss="modal">Batal</button>
-                                                <button type="button" class="button-modal-danger plus-jakarta-sans-bold danger-button" style="border: none !important; border-radius: 16px; padding-block: 12px; padding-inline: 24px; background-color: var(--primary); color: var(--neutral-0);">Buat</button>
+                                                <button type="button" class="button-secondary plus-jakarta-sans-bold" style="border: none !important; border-radius: 16px; padding-block: 12px; padding-inline: 24px; text-decoration: 2px solid var(--neutral-1); background-color: var(--neutral-3); color: var(--neutral-0);" data-dismiss="modal">Kembali</button>
+                                                <button type="submit" class="button-primary plus-jakarta-sans-bold" style="border: none !important; border-radius: 16px; padding-block: 12px; padding-inline: 24px; background-color: var(--primary-2); color: var(--neutral-0);">Simpan</button>
                                             </div>
-                                        </div>
-                                        </div>
+                                        </form>
                                     </div>
-  
-
-                                    </div>
-                                    
+                                </div>
+                            </div>
+                        </div>
         
                                 </div>
 
