@@ -1044,7 +1044,7 @@
                 </div>
                 <div class="container-fluid"
                     style="background: linear-gradient(180deg, #292724, #1B1817); width: 100%; border-radius: 24px; height: max-content; padding-bottom: 25px; padding-top: 20px;">
-                    {% if 'podcast' in request.session.user_roles or 'songwriter' in request.session.user_roles or 'artist' in request.session.user_roles%}
+                    {% if 'podcaster' in request.session.user_roles or 'songwriter' in request.session.user_roles or 'artist' in request.session.user_roles%}
                     <span class="plus-jakarta-sans-medium" style="margin-left: 12px; margin-bottom: 12px; font-size: 12px; padding-inline: 8px; padding-block: 6px; color: #ffffff; background-color: #1f66ff; border-radius: 24px;">Verified</span>
                     {% endif %}
                     <h1 class="plus-jakarta-sans-extrabold align-item-center"
