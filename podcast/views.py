@@ -3,6 +3,8 @@ from django.db import OperationalError, ProgrammingError, connection
 from django.http import HttpResponseNotFound
 from uuid import UUID
 
+from dashboardreguser.query import get_playlist_akun
+
 def format_durasi(menit):
     if menit is None:
         return '0 jam 0 menit'
@@ -15,6 +17,9 @@ def format_durasi(menit):
             return f'{sisa_menit} menit'
 
 def podcast_view(request):
+    user_email = request.session.get('user_email')
+    if not user_email:
+        return HttpResponseNotFound("User email not found in session")
     try:
         with connection.cursor() as cursor:
             # Fetch podcast details
@@ -27,13 +32,30 @@ def podcast_view(request):
             """)
 
             podcasts = cursor.fetchall()
+            query = get_playlist_akun(user_email)
+            cursor.execute(query)
+            playlist_akun = cursor.fetchall()
         
         formatted_podcasts = [(id_konten, judul, podcaster, format_durasi(durasi)) for id_konten, judul, podcaster, durasi in podcasts]
-        return render(request, 'podcast.html', {'podcasts': enumerate(formatted_podcasts)})
+        context = {
+            'podcasts': enumerate(formatted_podcasts),
+            'detail_playlist_kelola': [{
+                'namaPlaylist': detail_playlist[2],
+                'jumlahLagu': detail_playlist[4],
+                'durasi': detail_playlist[7],
+                'id_playlist': detail_playlist[6],
+                'deskripsi':detail_playlist[3],
+                'id_user_playlist':detail_playlist[1]
+            } for detail_playlist in playlist_akun]
+        }
+        return render(request, 'podcast.html', context)
     except OperationalError:
         return HttpResponseNotFound("Database connection error")
 
 def detail_podcast(request, id_konten):
+    user_email = request.session.get('user_email')
+    if not user_email:
+        return HttpResponseNotFound("User email not found in session")
     try:
         with connection.cursor() as cursor:
             # Fetch podcast details including the year
@@ -66,6 +88,10 @@ def detail_podcast(request, id_konten):
             """, [id_konten])
 
             episodes = cursor.fetchall()
+            
+            query = get_playlist_akun(user_email)
+            cursor.execute(query)
+            playlist_akun = cursor.fetchall()
 
         # Calculate total episodes and total duration
         total_episodes = len(episodes)
@@ -84,7 +110,15 @@ def detail_podcast(request, id_konten):
                 'deskripsi': episode[1],
                 'durasi': format_durasi(episode[2]),
                 'tanggal_rilis': episode[3]
-            } for episode in episodes]
+            } for episode in episodes],
+            'detail_playlist_kelola': [{
+                'namaPlaylist': detail_playlist[2],
+                'jumlahLagu': detail_playlist[4],
+                'durasi': detail_playlist[7],
+                'id_playlist': detail_playlist[6],
+                'deskripsi':detail_playlist[3],
+                'id_user_playlist':detail_playlist[1]
+            } for detail_playlist in playlist_akun]
         }
         
         return render(request, 'detail_podcast.html', context)

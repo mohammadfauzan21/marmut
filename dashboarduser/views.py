@@ -1,6 +1,8 @@
-from django.db import connection
-from django.http import HttpResponse
+from django.db import OperationalError, connection
+from django.http import HttpResponse, HttpResponseNotFound
 from django.shortcuts import redirect, render
+
+from dashboardreguser.query import get_playlist_akun
 
 
 # Roles session untuk atur hak akses navbar
@@ -37,28 +39,64 @@ def homepage(request):
             WHERE a.email = %s
         """
 
+        try:
+            with connection.cursor() as cursor:
+                cursor.execute(query, [user_email])
+                user_data = cursor.fetchone()
+                if user_data:
+                    roles = []
+                    if user_data[5]:  # artist_id
+                        roles.append("Artist")
+                    if user_data[6]:  # songwriter_id
+                        roles.append("Songwriter")
+                    if user_data[7]:  # podcaster_email
+                        roles.append("Podcaster")
+                        
+                query = get_playlist_akun(user_email)
+                print("Generated query:")
+                print(query)
 
-        with connection.cursor() as cursor:
-            cursor.execute(query, [user_email])
-            user_data = cursor.fetchone()
-            if user_data:
-                roles = []
-                if user_data[5]:  # artist_id
-                    roles.append("Artist")
-                if user_data[6]:  # songwriter_id
-                    roles.append("Songwriter")
-                if user_data[7]:  # podcaster_email
-                    roles.append("Podcaster")
-
-
-
+                if query:
+                    print("masuk if")
+                    cursor.execute(query)
+                    playlist_akun = cursor.fetchall()
+                    print("Result from database:")
+                    print(playlist_akun)
+                    if playlist_akun:
+                        context = {
+                            'detail_playlist_kelola': [{
+                                'namaPlaylist': detail_playlist[2],
+                                'jumlahLagu': detail_playlist[4],
+                                'durasi': detail_playlist[7],
+                                'id_playlist': detail_playlist[6],
+                                'deskripsi':detail_playlist[3],
+                                'id_user_playlist':detail_playlist[1]
+                            } for detail_playlist in playlist_akun],
+                            'user_data': user_data, 
+                            'roles': roles,
+                        }
+                    else:
+                        context = {
+                            'detail_playlist_kelola': [],
+                            'user_data': user_data, 
+                            'roles': roles,
+                        }
+                else:
+                    context = {
+                        'detail_playlist_kelola': [],
+                        'user_data': user_data, 
+                        'roles': roles,
+                    }
+        except OperationalError:
+            return HttpResponseNotFound("Database connection error")
+        
     elif user_type == "unverified":
         # Query untuk pengguna yang belum terverifikasi
         query = """
             SELECT a.nama, a.email, a.kota_asal, 
-                   CASE WHEN a.gender = 0 THEN 'Laki-Laki' ELSE 'Perempuan' END AS gender,
-                   a.tempat_lahir,
-                   ''
+                CASE WHEN a.gender = 0 THEN 'Laki-Laki' ELSE 'Perempuan' END AS gender,
+                a.tempat_lahir,
+                ''
             FROM akun a
             WHERE a.email = %s
         """
@@ -67,8 +105,38 @@ def homepage(request):
             user_data = cursor.fetchone()
             if user_data:
                 roles.append("Tidak ada Role")
-
-    return render(request, 'homepage.html', {'user_data': user_data, 'roles': roles})
+            if query:
+                print("masuk if")
+                cursor.execute(query)
+                playlist_akun = cursor.fetchall()
+                print("Result from database:")
+                print(playlist_akun)
+                if playlist_akun:
+                    context = {
+                        'detail_playlist_kelola': [{
+                            'namaPlaylist': detail_playlist[2],
+                            'jumlahLagu': detail_playlist[4],
+                            'durasi': detail_playlist[7],
+                            'id_playlist': detail_playlist[6],
+                            'deskripsi':detail_playlist[3],
+                            'id_user_playlist':detail_playlist[1]
+                        } for detail_playlist in playlist_akun],
+                        'user_data': user_data, 
+                        'roles': roles,
+                    }
+                else:
+                    context = {
+                        'detail_playlist_kelola': [],
+                        'user_data': user_data, 
+                        'roles': roles,
+                    }
+            else:
+                context = {
+                    'detail_playlist_kelola': [],
+                    'user_data': user_data, 
+                    'roles': roles,
+                }
+    return render(request, 'homepage.html', context)
 
 
 def logout(request):
@@ -190,4 +258,3 @@ def get_labels():
         cursor.execute("SELECT id, nama FROM label")
         labels = cursor.fetchall()
     return labels
-
