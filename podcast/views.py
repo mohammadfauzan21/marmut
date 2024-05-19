@@ -4,9 +4,15 @@ from django.http import HttpResponseNotFound
 from uuid import UUID
 
 def format_durasi(menit):
-    jam = menit // 60
-    sisa_menit = menit % 60
-    return f'{jam} jam {sisa_menit} menit' if jam > 0 else f'{sisa_menit} menit'
+    if menit is None:
+        return '0 jam 0 menit'
+    else :
+        jam = menit // 60
+        sisa_menit = menit % 60
+        if jam > 0:
+            return f'{jam} jam {sisa_menit} menit'
+        else :
+            return f'{sisa_menit} menit'
 
 def podcast_view(request):
     try:

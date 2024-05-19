@@ -46,7 +46,6 @@ INSTALLED_APPS = [
     'preboarding',
     'login',
     'register',
-    'logout',
     'podcast',
     'chart',
     'dashboardreguser',

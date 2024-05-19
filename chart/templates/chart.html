@@ -1397,44 +1397,49 @@
                         </div>
                           
                         {% for chart_type, songs in chart_details.items %}
-                        <div class="modal fade" style="max-width: 100%; max-height: 90vh; align-content: center; justify-content: center; align-items: center;" id="{{ chart_type|slugify }}Modal" tabindex="-1" role="dialog" aria-labelledby="{{ chart_type|slugify }}ModalLabel" aria-hidden="true">
-                          <div class="modal-dialog modal-dialog-centered modal-lg" role="document" style="max-width: 100%; max-height: 90vh; align-content: center;">
-                            <div class="modal-content" style="max-width: 100%; max-height: 90vh; align-content: center;">
-                              <div class="modal-header plus-jakarta-sans-extrabold" style="border-bottom: none; font-size: 16px;text-align: center;">
-                                <h5 class="modal-title plus-jakarta-sans-extrabold" style="border-bottom: none; font-size: 24px; text-align: center;" id="{{ chart_type|slugify }}ModalLabel">{{ chart_type }}</h5>
-                              </div>
-                              <div class="modal-body">
-                                <table class="table" style="width: 100%; border-collapse: collapse; margin-top: 0; color: var(--neutral-1); padding: 10px;">
-                                  <thead>
-                                    <tr style="border-bottom: 1px solid var(--neutral-2); text-align: center;">
-                                      <th style="color: var(--neutral-1); padding: 10px; background-color: transparent; text-overflow: ellipsis;">Judul Lagu</th>
-                                      <th style="color: var(--neutral-1); padding-left: 120px; background-color: transparent;">Oleh</th>
-                                      <th style="color: var(--neutral-1); padding-left: 120px; background-color: transparent;">Tanggal Rilis</th>
-                                      <th style="color: var(--neutral-1); padding-left: 120px; background-color: transparent;">Total Plays</th>
-                                      <th style="color: var(--neutral-1); padding-left: 120px; background-color: transparent;">Actions</th>
-                                    </tr>
-                                  </thead>
-                                  <tbody>
-                                    {% for song in songs %}
-                                    <tr class="plus-jakarta-sans-bold" style="border-bottom: 0px solid var(--neutral-2); font-size:14px; text-align:center;padding:10px; background-color: transparent; align-items: center;">
-                                      <td style="padding-top: 30px; padding-bottom: 30px;padding: 10px;color: var(--neutral-1); background-color: transparent;">{{ song.title }}</td>
-                                      <td style="padding-top: 30px; padding-bottom: 30px; padding-left: 120px;color: var(--neutral-1); word-wrap: break-word; background-color: transparent;">{{ song.artist_name }}</td>
-                                      <td style="padding-top: 30px; margin-left: 120px; padding-bottom: 30px;padding: 10px;color: var(--neutral-1); background-color: transparent;">{{ song.release_date|date:"d/m/Y" }}</td>
-                                      <td style="padding-top: 30px; padding-bottom: 30px;padding: 10px;color: var(--neutral-1);background-color: transparent;">{{ song.plays }}</td>
-                                      <td style="font-size: 14px; margin-left: 118px; background-color: transparent;">
-                                        <button type="button" style="background-color: transparent;" class="button-primary plus-jakarta-sans-bold" data-toggle="modal" data-target="#{{ song.title|slugify }}DetailsModal" href="{% url 'dashboardartist:detaillaguartist' %}">
-                                        Lihat</button></td>
-                                    </tr>
-                                    {% endfor %}
-                                  </tbody>
-                                </table>
-                              </div>
-                              <div class="modal-footer" style="align-content: center; border-top: none;">
-                                <button type="button" class="button-secondary plus-jakarta-sans-bold" style="align-content: center; border-top: none;" data-dismiss="modal">Close</button>
-                              </div>
+                        <div class="modal fade" id="{{ chart_type|slugify }}Modal" tabindex="-1" role="dialog" aria-labelledby="{{ chart_type|slugify }}ModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                                <div class="modal-content" style="background-color: transparent; border-bottom: none;" >
+                                    <div class="modal-header plus-jakarta-sans-extrabold" style="border-bottom: none;">
+                                        <h5 class="modal-title plus-jakarta-sans-extrabold" id="{{ chart_type|slugify }}ModalLabel" style="border-bottom: none;">{{ chart_type }}</h5>
+                                    </div>
+                                    <div class="modal-body">
+                                        <table class="table">
+                                            <thead style="background-color: transparent;">
+                                                <tr>
+                                                    <th style="background-color: transparent; color: var(--neutral-0); border-color: var(--neutral-1);">Judul Lagu</th>
+                                                    <th style="background-color: transparent; color: var(--neutral-0); border-color: var(--neutral-1);">Oleh</th>
+                                                    <th style="background-color: transparent; color: var(--neutral-0); border-color: var(--neutral-1);">Tanggal Rilis</th>
+                                                    <th style="background-color: transparent; color: var(--neutral-0); border-color: var(--neutral-1);">Total Plays</th>
+                                                    <th style="background-color: transparent; color: var(--neutral-0); border-color: var(--neutral-1);">Actions</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody style="background-color: transparent; border-bottom: none;">
+                                                {% for song in songs %}
+                                                    <tr class="plus-jakarta-sans-bold">
+                                                        <td style="background-color: transparent; color: var(--neutral-1); border-bottom: none; padding-top: 30px; padding-bottom: 30px;padding: 10px;">{{ song.title }}</td>
+                                                        <td style="background-color: transparent; color: var(--neutral-1); border-bottom: none; padding-top: 30px; padding-bottom: 30px;padding: 10px;">{{ song.artist_name }}</td>
+                                                        <td style="background-color: transparent; color: var(--neutral-1); border-bottom: none; padding-top: 30px; padding-bottom: 30px;padding: 10px;">{{ song.release_date|date:"d/m/Y" }}</td>
+                                                        <td style="background-color: transparent; color: var(--neutral-1); border-bottom: none; padding-top: 30px; padding-bottom: 30px;padding: 10px;">{{ song.plays }}</td>
+                                                        <td style="background-color: transparent; color: var(--neutral-1); border-bottom: none; padding-top: 30px; padding-bottom: 30px;padding: 10px;">
+                                                            <button type="button" class="button-primary plus-jakarta-sans-bold" data-toggle="modal" data-target="#{{ song.title|slugify }}DetailsModal" href="{% url 'dashboardartist:detaillaguartist' %}">
+                                                            Lihat</button>
+                                                        </td>
+                                                    </tr>
+                                                {% empty %}
+                                                    <tr>
+                                                        <td colspan="5" style="text-align: center;background-color: transparent; color: var(--neutral-1); border-bottom: none; padding-top: 30px; padding-bottom: 30px;padding: 10px;">Belum ada song yang masuk ke dalam playlist!</td>
+                                                    </tr>
+                                                {% endfor %}
+                                            </tbody>                                            
+                                        </table>
+                                    </div>
+                                    <div class="modal-footer" style="border-top: none;">
+                                        <button type="button" class="button-secondary plus-jakarta-sans-bold" data-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
                             </div>
-                          </div>
-                        </div>
+                        </div>                        
                         {% endfor %}
                         
                     </div>
