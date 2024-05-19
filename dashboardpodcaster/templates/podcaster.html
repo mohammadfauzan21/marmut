@@ -514,8 +514,7 @@ body {
                             </a>
                         </div>
                 
-                        {% if 'artist' in request.session.user_roles or 'songwriter' in request.session.user_roles or 'label' in
-                        request.session.user_roles %}
+                        {% if 'artist' in request.session.user_roles or 'songwriter' in request.session.user_roles or 'label' in request.session.user_roles %}
                         <div class="container" style="margin-top: 24px;">
                             <a href="#" class="container d-flex align-items-center" style="text-decoration: none; height: 34px;">
                                 <img src="{% static 'img/royalti-inactive.svg' %}" alt="search" style="width: 35px; height: 35px;">
@@ -1338,13 +1337,12 @@ body {
                                 <!-- Content for the 'Podcast' tab -->
                                 <div class="container d-flex">
                                     <div class="container d-flex">
-                                        <button href="#" data-toggle="modal" data-target="#popupContainer" type="submit"
+                                        <button href="#" data-toggle="modal" data-target="#popupContainer1" type="submit"
                                             class=" container d-flex align-items-center justify-content-center plus-jakarta-sans-extrabold button-primary my-3">Tambah
                                             Podcast
                                         </button>
-                
                                         <!-- Modal Add Podcast -->
-                                        <div class="modal fade" id="popupContainer" tabindex="-1" role="dialog"
+                                        <div class="modal fade" id="popupContainer1" tabindex="-1" role="dialog"
                                             aria-labelledby="popupContainerLabel" aria-hidden="true">
                                             <div class="modal-dialog" role="document">
                                                 <div class="modal-content"
@@ -1418,11 +1416,12 @@ body {
                                             </div>
                                         </div>
                                     </div>
-                
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-
         </div>
 
         <div class="col-sm-7 col-xxl-9 col-xl-9 col-md-8 col-lg-9 transparent-bg tertiary-content-2 d-flex container-fluid"

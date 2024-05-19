@@ -525,8 +525,7 @@ body {
                             </a>
                         </div>
                 
-                        {% if 'artist' in request.session.user_roles or 'songwriter' in request.session.user_roles or 'label' in
-                        request.session.user_roles %}
+                        {% if 'artist' in request.session.user_roles or 'songwriter' in request.session.user_roles or 'label' in request.session.user_roles %}
                         <div class="container" style="margin-top: 24px;">
                             <a href="#" class="container d-flex align-items-center" style="text-decoration: none; height: 34px;">
                                 <img src="{% static 'img/royalti-inactive.svg' %}" alt="search" style="width: 35px; height: 35px;">
@@ -1432,10 +1431,11 @@ body {
                 
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-
         </div>
-
         <div class="col-sm-7 col-xxl-9 col-xl-9 col-md-8 col-lg-9 transparent-bg tertiary-content-2 d-flex container-fluid"
             style="margin-right: -2px; height: 95%; margin-bottom: 10px;">
             <div class="row container-fluid d-flex justify-content-start align-items-start tertiary-content-1"
@@ -1497,7 +1497,7 @@ body {
                             <p class="plus-jakarta-sans-medium" style="color: var(--neutral-1); font-size: 13px; margin-top:5px;">Released on {{ podcast_detail.5 }}</p>
                             <div class="container d-flex justify-content-between align-items-left" style="text-decoration: none; margin-top: 10px;">
                                 <div class="container align-items-left" style="text-decoration: none; height: 50px; margin-left: -28.0em;">
-                                    <a href="#" class="container d-flex flex-column align-items-center" style="text-decoration: none; margin-top: 5px;" data-toggle="modal" data-target="#popupContainer">
+                                    <a href="#" class="container d-flex flex-column align-items-center" style="text-decoration: none; margin-top: 5px;" data-toggle="modal" data-target="#popupContainer2">
                                         <img src="{% static 'img/add-icon.svg' %}" alt="add" style="width: 55px; height: 55px;">
                                         <h7 class="plus-jakarta-sans-extrabold" style="color: var(--neutral-0); margin-top: 15px;">Tambah Episode</h7>
                                     </a>                                    
@@ -1602,7 +1602,6 @@ body {
                                                                 </div>
                                                             </form>
                                                         </div>
-                                                        </div>
                                                     </div>
                                                 </div>
                                             </td>
@@ -1611,7 +1610,7 @@ body {
                                 </tbody>
                             </table>
                             <!-- Modal Add Episode -->
-                            <div class="modal fade" id="popupContainer" tabindex="-1" role="dialog" aria-labelledby="popupContainerLabel" aria-hidden="true">
+                            <div class="modal fade" id="popupContainer2" tabindex="-1" role="dialog" aria-labelledby="popupContainerLabel" aria-hidden="true">
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content" style="background-color: var(--neutral-4); border-radius: 40px !important; padding: 20px;">
                                         <div class="modal-header" style="border-bottom: none;">
