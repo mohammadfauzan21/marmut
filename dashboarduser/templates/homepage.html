@@ -511,7 +511,7 @@
                                     aria-controls="pills-playlist" aria-selected="true"
                                     style="font-size: 16; border-radius: 12px; font-weight: 900; font-size: 12px;">Playlist</button>
                             </li>
-                            {% if 'artist' in request.session.user_roles or 'songwriter' in request.session.user_roles %}
+                            {% if 'artist' in request.session.user_roles or 'songwriter' in request.session.user_roles or 'unverified' in request.session.user_type %}
                             <li class="nav-item p-1" style="background-color: var(--neutral-5); border-radius: 16px;" role="presentation">
                                 <button class="nav-link plus-jakarta-sans-extrabold" id="pills-album-tab" data-bs-toggle="pill"
                                     data-bs-target="#pills-album" type="button" role="tab" aria-controls="pills-album" aria-selected="false"
