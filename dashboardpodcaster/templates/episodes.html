@@ -1436,7 +1436,13 @@ body {
                                 <span style="color: var(--neutral-1); font-size: 13px; margin-right: 8px;">by</span>
                                 <span>{{ podcast_detail.2 }}</span> <!-- Nama Podcaster-->
                             </p>
-                            <p class="plus-jakarta-sans-bold" style="color: var(--neutral-1); font-size: 13px; margin-top:5px">{{ podcast_detail.3 }} Episodes, {{ total_durasi }}</p> <!-- Total Episode dan Durasi Podcast-->
+                            <p class="plus-jakarta-sans-bold" style="color: var(--neutral-1); font-size: 13px; margin-top:5px">
+                                {% if total_minutes > 60 %}
+                                    {{ podcast_detail.3 }} Episodes, {{ total_durasi }}
+                                {% else %}
+                                    {{ podcast_detail.3 }} Episodes, {{ total_durasi }} menit
+                                {% endif %}
+                            </p>
                             <p class="plus-jakarta-sans-bold" style="color: var(--neutral-1); font-size: 15px; margin-top: 10px;">Genre
                                 {% for genre in genres %}
                                 <p class="plus-jakarta-sans-bold chip-genres" style="color: var(--neutral-0); font-size: 13px; margin-top:0px; width:fit-content;">
@@ -1470,7 +1476,19 @@ body {
                                         <tr class="plus-jakarta-sans-bold" style="border-bottom: 0px solid var(--neutral-2); font-size:14px; text-align:start;padding:10px;">
                                             <td style="padding-top: 30px; padding-bottom: 30px; padding: 10px; color: var(--neutral-1);">{{ episode.1 }}</td>
                                             <td style="padding-top: 30px; padding-bottom: 30px; padding-left: 120px; color: var(--neutral-1);">{{ episode.2 }}</td>
-                                            <td style="padding-top: 30px; padding-bottom: 30px; padding-left: 120px; color: var(--neutral-1);">{{ episode.3 }}</td>
+                                            <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">
+                                                {% if episode.3 %}
+                                                    {% with total_minutes=episode.3 %}
+                                                        {% if total_minutes > 60 %}
+                                                            {{ episode.3 }}
+                                                        {% else %}
+                                                            {{ episode.3 }} menit
+                                                        {% endif %}
+                                                    {% endwith %}
+                                                {% else %}
+                                                    {{ episode.3 }} menit
+                                                {% endif %}
+                                            </td>
                                             <td style="padding-top: 30px; padding-bottom: 30px; padding-left: 120px; color: var(--neutral-1);">{{ episode.4|date:"d/m/Y" }}</td>
                                             <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">
                                                 <div class="dropdown d-flex">

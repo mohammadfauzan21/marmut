@@ -14,7 +14,7 @@ from django.urls import reverse
 # @register.filter
 def format_durasi(menit):
     if menit is None:
-        return '0 jam 0 menit'
+        return '0 jam 0'
     else :
         jam = menit // 60
         sisa_menit = menit % 60
@@ -66,6 +66,18 @@ def add_podcast(request):
 def delete_podcast(request, id_konten):
     if request.method == 'POST':
         with connection.cursor() as cursor:
+            # Cek apakah podcast ada
+            cursor.execute("""
+                SELECT id FROM KONTEN
+                WHERE id = %s
+            """, [id_konten])
+            podcast = cursor.fetchone()
+            
+            # Jika podcast tidak ada, arahkan ke halaman podcaster.html
+            if podcast is None:
+                return redirect('dashboard:podcaster')
+
+            # Jika podcast ada, lanjutkan dengan penghapusan
             # Pertama, hapus semua genre yang terkait dengan podcast ini
             cursor.execute("""
                 DELETE FROM GENRE
@@ -95,6 +107,7 @@ def delete_podcast(request, id_konten):
     else:
         # Handle non-POST requests here
         return render(request, 'podcaster.html', {'message': 'Invalid request method'})
+
 
 def update_podcast(request, id_konten):
     if request.method == 'POST':
@@ -137,13 +150,23 @@ def update_podcast(request, id_konten):
         return render(request, 'podcaster.html')
     
 def podcaster(request):
-    # Fetch podcaster's podcast details from the database
+    # Fetch podcaster's email from the session
     email = request.session.get('user_email', None)
+
     with connection.cursor() as cursor:
+        # Get the podcaster's name
+        # Get the podcaster's name
+        cursor.execute("""
+            SELECT nama FROM akun
+            WHERE email = %s
+        """, [email])
+        result = cursor.fetchone()
+        nama_podcaster = result[0] if result else "Tidak ada nama"
+
+        # Fetch podcaster's podcast details from the database
         cursor.execute("""
             SELECT 
                 k.id AS id_konten,
-                a.nama AS nama_podcaster,
                 k.judul AS judul_podcast, 
                 COUNT(e.id_episode) AS jumlah_episode, 
                 SUM(k.durasi) AS total_durasi 
@@ -153,20 +176,18 @@ def podcaster(request):
                 episode e ON p.id_konten = e.id_konten_podcast 
             LEFT JOIN 
                 konten k ON p.id_konten = k.id
-            LEFT JOIN 
-                akun a ON p.email_podcaster = a.email
             WHERE 
                 p.email_podcaster = %s 
             GROUP BY 
-                k.id, a.nama, k.judul, p.id_konten
+                k.id, k.judul, p.id_konten
         """, [email])
         podcasts = cursor.fetchall()
     
-    podcasts = [(id_konten, nama_podcaster, judul_podcast, jumlah_episode, format_durasi(total_durasi)) for id_konten, nama_podcaster, judul_podcast, jumlah_episode, total_durasi in podcasts]
-
+    podcasts = [(id_konten, judul_podcast, jumlah_episode, format_durasi(total_durasi)) for id_konten, judul_podcast, jumlah_episode, total_durasi in podcasts]
+    print(podcasts)
     # Prepare context data for rendering
     context = {
-        'nama_podcaster' : podcasts[0],
+        'nama_podcaster' : nama_podcaster,
         'podcasts': podcasts,
     }
 
@@ -174,6 +195,7 @@ def podcaster(request):
         context['message'] = 'Kamu belum memiliki podcast, ayo buat podcastmu sekarang!'
 
     return render(request, 'podcaster.html', context)
+
 
 def add_episodes(request, id_konten):
     if request.method == 'POST':
