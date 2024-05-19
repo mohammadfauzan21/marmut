@@ -1,8 +1,8 @@
 from django.db import connection
 from django.http import HttpResponseNotFound
 from django.shortcuts import render
-
 from dashboardreguser.query import get_playlist_akun
+
 
 def chart(request):
     user_email = request.session.get('user_email')

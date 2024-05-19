@@ -7,6 +7,7 @@ from django.contrib import messages
 from datetime import datetime
 from django import template
 from django.urls import reverse
+from django.views.decorators.csrf import csrf_exempt
 
 # Create your views here.
 # register = template.Library()
@@ -63,6 +64,7 @@ def add_podcast(request):
 
     return render(request, 'podcaster.html')
 
+@csrf_exempt
 def delete_podcast(request, id_konten):
     if request.method == 'POST':
         with connection.cursor() as cursor:

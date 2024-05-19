@@ -3,6 +3,9 @@ from django.http import HttpResponse, HttpResponseNotFound
 from django.shortcuts import redirect, render
 
 from dashboardreguser.query import get_playlist_akun
+from django.shortcuts import render, redirect
+from django.views.decorators.csrf import csrf_exempt
+from django.http import HttpResponse
 
 
 # Roles session untuk atur hak akses navbar
@@ -225,10 +228,7 @@ def add_album(judul, jumlah_lagu, total_durasi, id_label, email):
         else:
             raise ValueError("User is neither an artist nor a songwriter.")
 
-
-from django.shortcuts import render, redirect
-from django.http import HttpResponse
-
+@csrf_exempt
 def add_album_view(request):
     if 'user_email' in request.session:
         user_email = request.session.get('user_email')

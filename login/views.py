@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect
 from django.db import connection
+from django.views.decorators.csrf import csrf_exempt
 
+@csrf_exempt
 def loginkonten(request):
     if 'user_email' in request.session:
         user_email = request.session.get('user_email')

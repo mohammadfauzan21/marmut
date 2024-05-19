@@ -1,5 +1,6 @@
 from django.shortcuts import redirect, render
 from django.db import connection
+from django.views.decorators.csrf import csrf_exempt
 
 def check_session(request, required_user_type):
     # Ambil informasi pengguna dari session
@@ -201,8 +202,7 @@ def listsong(request, album_id):
     # Render template dan kirim data ke template
     return render(request, 'listsong.html', {'label_info': label_info, 'album_info': album_info, 'songs': songs, 'album_id': album_id})
 
-
-
+@csrf_exempt
 def detaillagu(request, album_id, song_id):
     if request.method == 'POST':
         # Query untuk mengambil detail lagu berdasarkan song_id
@@ -274,6 +274,7 @@ from django.shortcuts import render, redirect
 from django.db import connection
 from django.http import HttpResponse
 
+@csrf_exempt
 def delete_album(request):
     if request.method == 'POST':
         album_id = request.POST.get('album_id')  # Mendapatkan ID album dari permintaan POST
@@ -294,7 +295,8 @@ def delete_album(request):
         return HttpResponse("Metode tidak diizinkan", status=405)
     
 from django.shortcuts import redirect
- 
+
+@csrf_exempt
 def delete_song(request, album_id, song_id):
     if request.method == 'POST':
         try:

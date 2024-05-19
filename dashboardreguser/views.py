@@ -6,6 +6,8 @@ from django.urls import reverse
 from dashboardreguser.query import *
 from django.db import OperationalError, connection
 from django.views.decorators.http import require_POST
+from django.views.decorators.csrf import csrf_exempt
+
 
 # Create your views here.
 def dashboarduser(request):
@@ -304,7 +306,7 @@ def chart(request):
     print("Session = " + request.session.get('prev_url', ''))
     return render(request, 'chart.html')
 
-
+@csrf_exempt
 def delete_playlist(request, id_user_playlist):
     if request.method == 'POST':
         try:
@@ -322,7 +324,8 @@ def delete_playlist(request, id_user_playlist):
             return redirect(reverse('dashboarduser:homepage' ))
         except OperationalError:
             return HttpResponseNotFound("Database connection error")
-        
+
+@csrf_exempt
 def add_playlist(request):
     if request.method == 'POST':
         user_email = request.session.get('user_email')
@@ -361,7 +364,8 @@ def add_playlist(request):
             return redirect(f"{reverse('dashboarduser:homepage' )}")
         except OperationalError:
             return HttpResponseNotFound("Database connection error")
-        
+
+@csrf_exempt
 def ubah_playlist(request, id_playlist):
     print("masuk ke ubah_playlist")
     print(id_playlist)
@@ -379,6 +383,7 @@ def ubah_playlist(request, id_playlist):
         except OperationalError:
             return HttpResponseNotFound("Database connection error")
 
+@csrf_exempt
 @require_POST
 def add_song_to_playlist(request, id_playlist):
     if request.method == 'POST':
@@ -394,7 +399,8 @@ def add_song_to_playlist(request, id_playlist):
                     return redirect(f"{reverse('dashboardreguser:kelolaplaylist', args=[id_playlist])}")
             except OperationalError:
                 return HttpResponseNotFound("Database connection error")
-            
+
+@csrf_exempt
 @require_POST
 def add_song_playlist(request, id_song):
     if request.method == 'POST':
