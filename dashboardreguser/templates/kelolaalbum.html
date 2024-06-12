@@ -153,6 +153,18 @@
         $('#modalAddSongSukses').modal('show');
     }
 </script>
+<script>
+    function goBack() {
+        window.history.back();
+    }
+</script>
+{% if error_message %}
+<script>
+    $(document).ready(function () {
+        $('#errorModal').modal('show');
+    });
+</script>
+{% endif %}
 
 <style>
     input[type=range] {
@@ -502,9 +514,9 @@
             <div class="container" style="margin-top: 24px;">
                 <a href="{% url 'podcast:podcast' %}" class="container d-flex align-items-center"
                     style="text-decoration: none; height: 34px;">
-                    <img src="{% static 'img/podcast-active.svg' %}" alt="search" style="width: 35px; height: 35px;">
+                    <img src="{% static 'img/podcast-inactive.svg' %}" alt="search" style="width: 35px; height: 35px;">
                     <h6 class="plus-jakarta-sans-extrabold"
-                        style="color: var(--neutral-0); margin-top: 8px; margin-left: 15px">
+                        style="color: var(--neutral-2); margin-top: 8px; margin-left: 15px">
                         Podcast
                     </h6>
                 </a>
@@ -512,9 +524,9 @@
             <div class="container" style="margin-top: 24px;">
                 <a href="{% url 'dashboardreguser:userplaylist' %}" class="container d-flex align-items-center"
                     style="text-decoration: none; height: 34px;">
-                    <img src="{% static 'img/playlist-inactive.svg' %}" alt="search" style="width: 35px; height: 35px;">
+                    <img src="{% static 'img/playlist-active.svg' %}" alt="search" style="width: 35px; height: 35px;">
                     <h6 class="plus-jakarta-sans-extrabold"
-                        style="color: var(--neutral-2); margin-top: 8px; margin-left: 15px">
+                        style="color: var(--neutral-0); margin-top: 8px; margin-left: 15px">
                         Playlist
                     </h6>
                 </a>
@@ -628,7 +640,7 @@
                     </div>
                     <!-- isinya seperti playlist, album, atau podcast-->
                     <div class="container" style="height: 200px; overflow-y: auto; width: 100%;">
-                        {% if detail_playlist_kelola %}
+                        {% if detail_playlist_kelola|length > 2 %}
                         {% for detail in detail_playlist_kelola %}
                         <div class="container d-flex card-playlist"
                             style="height: 68px; border-radius: 16px; margin-top: 4px;">
@@ -676,7 +688,6 @@
                                         style="color: var(--neutral-1); font-size: 12px; font-weight: 600;" href="#"
                                         data-toggle="modal"
                                         data-target="#modalHapusPlaylist{{detail.id_playlist}}">Hapus</a>
-
                                 </div>
                                 <!-- Modal Hapus -->
                                 <div class="modal fade" id="modalHapusPlaylist{{detail.id_playlist}}" tabindex="-1"
@@ -1187,15 +1198,15 @@
                                             style="margin: 0; color: var(--neutral-1); font-size: 10px;">
                                             |
                                             {% if podcast.3 %}
-                                                {% with total_minutes=podcast.3 %}
-                                                    {% if total_minutes > 60 %}
-                                                        {{ podcast.3 }}
-                                                    {% else %}
-                                                        {{ podcast.3 }} menit
-                                                    {% endif %}
-                                                {% endwith %}
+                                            {% with total_minutes=podcast.3 %}
+                                            {% if total_minutes > 60 %}
+                                            {{ podcast.3 }}
                                             {% else %}
-                                                {{ podcast.3 }} menit
+                                            {{ podcast.3 }} menit
+                                            {% endif %}
+                                            {% endwith %}
+                                            {% else %}
+                                            {{ podcast.3 }} menit
                                             {% endif %}</p>
                                     </div>
                                 </div>
@@ -1330,8 +1341,8 @@
                 </div>
             </div>
             <!-- logout -->
-            <a href="{% url 'dashboarduser:logout' %}" class="d-flex"
-                style="background-color: var(--neutral-5); border-radius: 24px; width: 80px; margin-left: 36px; margin-block: -1px; height: 100%;; justify-content: center; align-items: center;">
+            <a href="{% url 'dashboarduser:logout' %}" class="row container-fluid d-flex "
+                style="background-color: var(--neutral-5); border-radius: 24px; width: 80px; margin-left: 36px; margin-block: -1px; height: 60px; justify-content: center; align-items: center;">
                 <img src="{% static 'img/logout.svg' %}" alt="Logout" width="30px" height="30px">
             </a>
             {% if info_message %}
@@ -1340,44 +1351,77 @@
             </div>
             {% endif %}
         </div>
-        <!-- Bagian konten podcastnya -->
-        <div class="" style="background: linear-gradient(180deg, #292724, #1B1817); border-radius: 24px; max-height: 82%; padding-bottom: 25px; padding-top: 20px; white-space: nowrap; overflow-y: auto; text-overflow: ellipsis; margin-top: 1em; width: 97%;">
-            <!-- Daftar podcast -->
+        <!-- Bagian konten kelola albumnya -->
+        <div class=""
+            style="background: linear-gradient(180deg, #292724, #1B1817); border-radius: 24px; height: 80%; max-height: 82%; padding-bottom: 25px; padding-top: 20px; white-space: nowrap; overflow-y: auto; text-overflow: ellipsis; margin-top: 1em; width: 97%;">
+            <!-- Detail album -->
             <div class="row">
                 <div class="col-12" style="margin-left: 30px">
-                    <h2 class="plus-jakarta-sans-extrabold" style="color: var(--neutral-0); font-size: 40px; margin-top: 20px;">
-                        Telusuri Podcast
-                    </h2>
-                    <p class="plus-jakarta-sans-bold" style="color: var(--neutral-1); font-size: 18px; margin-top: 24px;">Podcast hadir untuk menemani harimu
-                    </p>
-                    <!-- Tabel untuk podcast -->
-                    <table class="table-podcast" style="width: 95%; border-collapse: collapse; margin-top: 48px;color: var(--neutral-1); padding: 10px;">
+                    <div style="height: 40px;">
+                        <button class="btn btn-secondary dropdown-toggle-iconless" type="button" id="dropdownMenuButton"
+                            data-toggle="" aria-haspopup="true" aria-expanded="false"
+                            style="background-color: transparent; border: none;" onclick="goBack()">
+                            <div class="d-flex" style="">
+                                <img src="{% static 'img/back-icon.svg' %}" alt="search"
+                                    style="width: 20px; height: 20px; margin-left: 5px;">
+                                <p class="plus-jakarta-sans-extrabold"
+                                    style="margin-left: 10px; color: var(--neutral-0); margin-top: -2px;">
+                                    Back
+                                </p>
+                            </div>
+                        </button>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center" style="">
+                        <div style="">
+                            <p class="plus-jakarta-sans-bold"
+                                style="color: var(--neutral-1); font-size: 13px; margin-top:30px">
+                                {{label}} | {{durasi}} menit | {{jumlah_lagu}} lagu </p>
+                            <h1 class="plus-jakarta-sans-extrabold align-item-center"
+                                style="color: var(--neutral-0); font-size: 40px; margin-top: 10px;">
+                                {{judul_album}}
+                            </h1>
+                        </div>
+                    </div>
+
+                    <!-- Tabel untuk lagu -->
+                    <table class="table-podcast"
+                        style="width: 95%; border-collapse: collapse; margin-top: 48px;color: var(--neutral-1); padding: 10px;">
                         <thead>
                             <tr style="border-bottom: 1px solid var(--neutral-2);">
                                 <th style="color: var(--neutral-1); padding: 10px;">#</th>
-                                <th style="color: var(--neutral-1); padding-left: 120px;">Judul</th>
-                                <th style="color: var(--neutral-1); padding-left: 120px;">Podcaster</th>
+                                <th style="color: var(--neutral-1); padding-left: 120px;">Judul Lagu</th>
                                 <th style="color: var(--neutral-1); padding-left: 120px;">Durasi</th>
+                                <th style="color: var(--neutral-1); padding-left: 120px;">Total Plays</th>
+                                <th style="color: var(--neutral-1); padding-left: 120px;">Total Download</th>
                                 <th style="color: var(--neutral-1); padding-left: 120px;">Action</th>
+                                <th style="color: var(--neutral-1); padding-left: 120px;"></th>
                             </tr>
                         </thead>
                         <tbody>
-                            {% for index, podcast_data in all_podcasts %}
-                            <!-- {{ podcast_data.0 }} -->
+                            <!-- Gunakan loop untuk menampilkan lagu -->
+                            {% for detail in detail_album %}
                             <tr class="plus-jakarta-sans-bold"
                                 style="border-bottom: 0px solid var(--neutral-2); font-size:14px; text-align:start;padding:10px; ">
-                                <td style="padding-top: 30px; padding-bottom: 30px;padding: 10px;color: var(--neutral-1); ">
-                                    {{ index|add:1 }}</td>
                                 <td
-                                    style="padding-top: 30px; padding-bottom: 30px; padding-left: 120px;color: var(--neutral-1); word-wrap: break-word;">
-                                    {{ podcast_data.1 }}</td>
+                                    style="padding-top: 30px; padding-bottom: 30px;padding: 10px;color: var(--neutral-1);">
+                                    {{ detail.no }}
+                                </td>
                                 <td
-                                    style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1); word-wrap: break-word;">
-                                    {{ podcast_data.2 }}</td>
-                                <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">
-                                    {{ podcast_data.3 }} menit</td>
-                                <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">
-                                    <div class="dropdown d-flex">
+                                    style="padding-top: 30px; padding-bottom: 30px; padding-left: 120px;color: var(--neutral-1);">
+                                    {{ detail.judul }}
+                                </td>
+                                <td
+                                    style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">
+                                    {{ detail.durasi }}</td>
+                                <td
+                                    style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">
+                                    {{ detail.total_play }}</td>
+                                <td 
+                                    style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">
+                                    {{ detail.total_download }}</td>
+                                <td
+                                    style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">
+                                    <div>
                                         <button class="btn btn-secondary dropdown-toggle-iconless" type="button"
                                             id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
                                             aria-expanded="false" style="background-color: transparent; border: none;">
@@ -1388,8 +1432,7 @@
                                             style="background-color: var(--neutral-3); border-radius: 16px; padding: 4px; width: max-content !important;">
                                             <a class="dropdown-item plus-jakarta-sans-bold m-auto"
                                                 style="color: var(--neutral-1); font-size: 12px; font-weight: 600;"
-                                                href="{% url 'podcast:detail_podcast' podcast_data.0%}">Lihat
-                                                daftar episode</a>
+                                                href="{% url 'dashboardreguser:playsong' detail.konten_id %}">Detail</a>
                                         </div>
                                     </div>
                                 </td>
@@ -1489,9 +1532,11 @@
     <div class="d-flex align-items-center" style="margin-left: 50px;">
         <img src="{% static 'img/default.png' %}" alt="kelola"
             style="width: 50px; height: 50px; background-color: #292724; border-radius: 20px;">
+        {% if footer and footer|length > 0 %}
+        {% for song in footer %}
         <div style="margin: 0 12px; margin-top: 5px;">
-            <h3 class="plus-jakarta-sans-extrabold" style="font-size: 17px; color: #ffffff;">buat judul</h3>
-            <h3 class="plus-jakarta-sans-medium" style="font-size: 13px; color: var(--neutral-1)">buat nama penyanyi
+            <h3 class="plus-jakarta-sans-extrabold" style="font-size: 17px; color: #ffffff;">{{ song.judul_lagu }}</h3>
+            <h3 class="plus-jakarta-sans-medium" style="font-size: 13px; color: var(--neutral-1)">{{ song.artist }}
             </h3>
         </div>
         <div class="d-flex">
@@ -1510,6 +1555,8 @@
                 </button>
             </a>
         </div>
+        {% endfor %}
+        {% endif %}
     </div>
     <div style="margin-left: -150px; width: 500px;">
         <div class="d-flex align-items-center" style="">

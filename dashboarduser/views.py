@@ -2,10 +2,13 @@ from django.db import OperationalError, connection
 from django.http import HttpResponse, HttpResponseNotFound
 from django.shortcuts import redirect, render
 
-from dashboardreguser.query import get_playlist_akun
+from dashboardpodcaster.views import format_durasi
+from dashboardreguser.query import get_playlist_akun, show_album
 from django.shortcuts import render, redirect
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
+
+from dashboarduser.query import *
 
 
 # Roles session untuk atur hak akses navbar
@@ -58,87 +61,171 @@ def homepage(request):
                 query = get_playlist_akun(user_email)
                 print("Generated query:")
                 print(query)
+                cursor.execute(query)
+                playlist_akun = cursor.fetchall()
+                print("Result from database:")
+                print(playlist_akun)
 
-                if query:
-                    print("masuk if")
-                    cursor.execute(query)
-                    playlist_akun = cursor.fetchall()
-                    print("Result from database:")
-                    print(playlist_akun)
-                    if playlist_akun:
-                        context = {
-                            'detail_playlist_kelola': [{
-                                'namaPlaylist': detail_playlist[2],
-                                'jumlahLagu': detail_playlist[4],
-                                'durasi': detail_playlist[7],
-                                'id_playlist': detail_playlist[6],
-                                'deskripsi':detail_playlist[3],
-                                'id_user_playlist':detail_playlist[1]
-                            } for detail_playlist in playlist_akun],
-                            'user_data': user_data, 
-                            'roles': roles,
-                        }
-                    else:
-                        context = {
-                            'detail_playlist_kelola': [],
-                            'user_data': user_data, 
-                            'roles': roles,
-                        }
-                else:
-                    context = {
-                        'detail_playlist_kelola': [],
-                        'user_data': user_data, 
-                        'roles': roles,
-                    }
+                # Fetch podcaster's podcast details from the database
+                cursor.execute("""
+                    SELECT 
+                        k.id AS id_konten,
+                        k.judul AS judul_podcast, 
+                        COUNT(e.id_episode) AS jumlah_episode, 
+                        SUM(k.durasi) AS total_durasi 
+                    FROM 
+                        podcast p 
+                    LEFT JOIN 
+                        episode e ON p.id_konten = e.id_konten_podcast 
+                    LEFT JOIN 
+                        konten k ON p.id_konten = k.id
+                    WHERE 
+                        p.email_podcaster = %s 
+                    GROUP BY 
+                        k.id, k.judul, p.id_konten
+                """, [user_email])
+                podcasts = cursor.fetchall()
+                podcasts = [(id_konten, judul_podcast, jumlah_episode, format_durasi(total_durasi)) for id_konten, judul_podcast, jumlah_episode, total_durasi in podcasts]
+
+                query_label = show_label()
+                cursor.execute(query_label)
+                labels = cursor.fetchall()
+                print(labels)
+
+                query_artist = show_artist()
+                cursor.execute(query_artist)
+                artists = cursor.fetchall()
+                print(artists)
+
+                query_songwriter = show_songwriter()
+                cursor.execute(query_songwriter)
+                songwriters = cursor.fetchall()
+                print(songwriters)
+
+                query_genre = show_genre()
+                cursor.execute(query_genre)
+                genres = cursor.fetchall()
+                print(genres)
+
+                query_album = show_album(user_email)
+                cursor.execute(query_album)
+                albums = cursor.fetchall()
+                print("albums:")
+                print(albums)
+
+                context = {
+                    'detail_playlist_kelola':[{
+                        'namaPlaylist': detail_playlist[2],
+                        'jumlahLagu': detail_playlist[4],
+                        'durasi': detail_playlist[7],
+                        'id_playlist': detail_playlist[6],
+                        'deskripsi': detail_playlist[3],
+                        'id_user_playlist': detail_playlist[1]
+                    } for detail_playlist in playlist_akun],
+                    'albums':[{
+                        'id': album[0],
+                        'judul': album[1],
+                        'jumlah_lagu': album[2],
+                        'total_durasi': album[3]
+                    } for album in albums],
+                    'user_data': user_data, 
+                    'roles': roles,
+                    'labels': [{
+                        'id': label[0],
+                        'nama':label[1],
+                        'id_pemilik_hc':label[5],
+                    } for label in labels],
+                    'artists': [{
+                        'id': artist[0],
+                        'nama':artist[1],
+                    } for artist in artists],
+                    'songwriters':[{
+                        'id':songwriter[0],
+                        'nama':songwriter[1],
+                    } for songwriter in songwriters],
+                    'genres':[{
+                        'id':genre[0],
+                        'genre':genre[1],
+                    } for genre in genres],
+                    'podcasts': podcasts,
+                }
         except OperationalError:
             return HttpResponseNotFound("Database connection error")
         
     elif user_type == "unverified":
         # Query untuk pengguna yang belum terverifikasi
-        query = """
-            SELECT a.nama, a.email, a.kota_asal, 
-                CASE WHEN a.gender = 0 THEN 'Laki-Laki' ELSE 'Perempuan' END AS gender,
-                a.tempat_lahir,
-                ''
-            FROM akun a
-            WHERE a.email = %s
-        """
         with connection.cursor() as cursor:
-            cursor.execute(query, [user_email])
+            query = user_info(user_email)
+            cursor.execute(query)
             user_data = cursor.fetchone()
             if user_data:
                 roles.append("Tidak ada Role")
-            if query:
-                print("masuk if")
-                cursor.execute(query)
-                playlist_akun = cursor.fetchall()
-                print("Result from database:")
-                print(playlist_akun)
-                if playlist_akun:
-                    context = {
-                        'detail_playlist_kelola': [{
-                            'namaPlaylist': detail_playlist[2],
-                            'jumlahLagu': detail_playlist[4],
-                            'durasi': detail_playlist[7],
-                            'id_playlist': detail_playlist[6],
-                            'deskripsi':detail_playlist[3],
-                            'id_user_playlist':detail_playlist[1]
-                        } for detail_playlist in playlist_akun],
-                        'user_data': user_data, 
-                        'roles': roles,
-                    }
-                else:
-                    context = {
-                        'detail_playlist_kelola': [],
-                        'user_data': user_data, 
-                        'roles': roles,
-                    }
-            else:
-                context = {
-                    'detail_playlist_kelola': [],
-                    'user_data': user_data, 
-                    'roles': roles,
-                }
+                
+            cursor.execute(get_playlist_akun(user_email))
+            playlist_akun = cursor.fetchall()
+            print("playlist_akun:")
+            print(playlist_akun)
+
+            query_label = show_label()
+            cursor.execute(query_label)
+            labels = cursor.fetchall()
+            print(labels)
+
+            query_artist = show_artist()
+            cursor.execute(query_artist)
+            artists = cursor.fetchall()
+            print(artists)
+
+            query_songwriter = show_songwriter()
+            cursor.execute(query_songwriter)
+            songwriters = cursor.fetchall()
+            print(songwriters)
+
+            query_genre = show_genre()
+            cursor.execute(query_genre)
+            genres = cursor.fetchall()
+            print(genres)
+
+            query_album = show_album(user_email)
+            cursor.execute(query_album)
+            albums = cursor.fetchall()
+            print(albums)
+
+            context = {
+                'detail_playlist_kelola': [{
+                    'namaPlaylist': detail_playlist[2],
+                    'jumlahLagu': detail_playlist[4],
+                    'durasi': detail_playlist[7],   
+                    'id_playlist': detail_playlist[6],
+                    'deskripsi':detail_playlist[3],
+                    'id_user_playlist':detail_playlist[1]
+                } for detail_playlist in playlist_akun],
+                'albums':[{
+                    'id': album[0],
+                    'judul': album[1],
+                    'jumlah_lagu': album[2],
+                    'total_durasi': album[3]
+                } for album in albums],
+                'user_data': user_data, 
+                'roles': roles,
+                'labels': [{
+                    'id': label[0],
+                    'nama':label[1],
+                    'id_pemilik_hc':label[5],
+                } for label in labels],
+                'artists': [{
+                    'id': artist[0],
+                    'nama':artist[1],
+                } for artist in artists],
+                'songwriters':[{
+                    'id':songwriter[0],
+                    'nama':songwriter[1],
+                } for songwriter in songwriters],
+                'genres':[{
+                    'id':genre[0],
+                    'genre':genre[1],
+                } for genre in genres],
+            }
     return render(request, 'homepage.html', context)
 
 

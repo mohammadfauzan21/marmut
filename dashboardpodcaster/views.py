@@ -9,6 +9,10 @@ from django import template
 from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
 
+from dashboardpodcaster.query import *
+from dashboardreguser.query import *
+from dashboarduser.query import *
+
 # Create your views here.
 # register = template.Library()
 
@@ -28,7 +32,7 @@ def add_podcast(request):
     if request.method == 'POST':
         email = request.session.get('user_email', None)
         judul = request.POST['judul']
-        genre = request.POST.getlist('genre')
+        genre = request.POST.getlist('genreSelect')
 
         # Buat UUID baru untuk podcast ini
         id_konten = uuid.uuid4()
@@ -48,6 +52,8 @@ def add_podcast(request):
                 RETURNING id
             """, [id_konten, judul, format_durasi(durasi)])
             id_konten = cursor.fetchone()[0]
+            print("id konten podcast")
+            print(id_konten)
 
             cursor.execute("""
                 INSERT INTO PODCAST (id_konten, email_podcaster)
@@ -60,9 +66,7 @@ def add_podcast(request):
                     VALUES (%s, %s)
                 """, [id_konten, g])
 
-        return redirect('dashboard:podcaster')
-
-    return render(request, 'podcaster.html')
+        return redirect('dashboarduser:homepage')
 
 @csrf_exempt
 def delete_podcast(request, id_konten):
@@ -74,10 +78,6 @@ def delete_podcast(request, id_konten):
                 WHERE id = %s
             """, [id_konten])
             podcast = cursor.fetchone()
-            
-            # Jika podcast tidak ada, arahkan ke halaman podcaster.html
-            if podcast is None:
-                return redirect('dashboard:podcaster')
 
             # Jika podcast ada, lanjutkan dengan penghapusan
             # Pertama, hapus semua genre yang terkait dengan podcast ini
@@ -104,25 +104,20 @@ def delete_podcast(request, id_konten):
                 WHERE id = %s
             """, [id_konten])
 
-        return redirect('dashboard:podcaster')
-
-    else:
-        # Handle non-POST requests here
-        return render(request, 'podcaster.html', {'message': 'Invalid request method'})
+        return redirect('dashboarduser:homepage')
 
 
 def update_podcast(request, id_konten):
     if request.method == 'POST':
+        print("masuk ke update_podcast")
+        print("id_konten")
+        print(id_konten)
         judul = request.POST['judul']
-        genre = request.POST.getlist('genre')
+        genre = request.POST.getlist('genreSelect')
 
         with connection.cursor() as cursor:
             # Calculate the total duration of all episodes of the podcast
-            cursor.execute("""
-                SELECT SUM(durasi)
-                FROM episode
-                WHERE id_konten_podcast = %s
-            """, [id_konten])
+            cursor.execute(durasi_podcast(id_konten))
             durasi = cursor.fetchone()[0] or 0
 
             # Update konten
@@ -133,71 +128,13 @@ def update_podcast(request, id_konten):
             """, [judul, format_durasi(durasi), id_konten])
 
             # Hapus genre lama
-            cursor.execute("""
-                DELETE FROM GENRE
-                WHERE id_konten = %s
-            """, [id_konten])
+            cursor.execute(delete_genre(id_konten))
 
             # Tambahkan genre baru
             for g in genre:
-                cursor.execute("""
-                    INSERT INTO GENRE (id_konten, genre)
-                    VALUES (%s, %s)
-                """, [id_konten, g])
+                cursor.execute(add_genre(id_konten, g))
 
-        return redirect('dashboard:podcaster')
-
-    else:
-        # Render form untuk update podcast
-        return render(request, 'podcaster.html')
-    
-def podcaster(request):
-    # Fetch podcaster's email from the session
-    email = request.session.get('user_email', None)
-
-    with connection.cursor() as cursor:
-        # Get the podcaster's name
-        # Get the podcaster's name
-        cursor.execute("""
-            SELECT nama FROM akun
-            WHERE email = %s
-        """, [email])
-        result = cursor.fetchone()
-        nama_podcaster = result[0] if result else "Tidak ada nama"
-
-        # Fetch podcaster's podcast details from the database
-        cursor.execute("""
-            SELECT 
-                k.id AS id_konten,
-                k.judul AS judul_podcast, 
-                COUNT(e.id_episode) AS jumlah_episode, 
-                SUM(k.durasi) AS total_durasi 
-            FROM 
-                podcast p 
-            LEFT JOIN 
-                episode e ON p.id_konten = e.id_konten_podcast 
-            LEFT JOIN 
-                konten k ON p.id_konten = k.id
-            WHERE 
-                p.email_podcaster = %s 
-            GROUP BY 
-                k.id, k.judul, p.id_konten
-        """, [email])
-        podcasts = cursor.fetchall()
-    
-    podcasts = [(id_konten, judul_podcast, jumlah_episode, format_durasi(total_durasi)) for id_konten, judul_podcast, jumlah_episode, total_durasi in podcasts]
-    print(podcasts)
-    # Prepare context data for rendering
-    context = {
-        'nama_podcaster' : nama_podcaster,
-        'podcasts': podcasts,
-    }
-
-    if not podcasts:
-        context['message'] = 'Kamu belum memiliki podcast, ayo buat podcastmu sekarang!'
-
-    return render(request, 'podcaster.html', context)
-
+        return redirect('dashboarduser:homepage')
 
 def add_episodes(request, id_konten):
     if request.method == 'POST':
@@ -264,59 +201,157 @@ def update_episode(request, id_konten, id_episode):
         return render(request, 'episodes.html')
     
 def episodes(request, id_konten):
-    # Fetch podcast details and its episodes from the database
-    with connection.cursor() as cursor:
-        cursor.execute("""
-            SELECT 
-                k.judul AS judul_podcast, 
-                array_agg(g.genre) AS genre_podcast,
-                a.nama AS nama_podcaster,
-                COUNT(e.id_episode) AS total_episode,
-                SUM(e.durasi) AS total_durasi,
-                k.tanggal_rilis AS tanggal_rilis_podcast,
-                EXTRACT(YEAR FROM k.tanggal_rilis) AS tahun_podcast
-            FROM 
-                konten k
-            LEFT JOIN 
-                podcast p ON k.id = p.id_konten
-            LEFT JOIN 
-                episode e ON p.id_konten = e.id_konten_podcast
-            LEFT JOIN 
-                akun a ON p.email_podcaster = a.email
-            JOIN 
-                genre g ON k.id = g.id_konten
-            WHERE 
-                k.id = %s
-            GROUP BY 
-                k.judul, a.nama, k.tanggal_rilis
-        """, [id_konten])
-        podcast_detail = cursor.fetchone()
+    if 'user_email' in request.session:
+        user_email = request.session.get('user_email')
 
-        total_durasi = format_durasi(podcast_detail[4])
+    else:
+        return render(request, 'login.html')
+    print("masuk ke episode")
+    print("id_konten")
+    print(id_konten)
+    try:
+        # Fetch podcast details and its episodes from the database
+        with connection.cursor() as cursor:
+            query = user_info(user_email)
+            cursor.execute(query)
+            user_data = cursor.fetchone()
+            cursor.execute("""
+                SELECT 
+                    k.judul AS judul_podcast, 
+                    array_agg(g.genre) AS genre_podcast,
+                    a.nama AS nama_podcaster,
+                    COUNT(e.id_episode) AS total_episode,
+                    SUM(e.durasi) AS total_durasi,
+                    k.tanggal_rilis AS tanggal_rilis_podcast,
+                    EXTRACT(YEAR FROM k.tanggal_rilis) AS tahun_podcast
+                FROM 
+                    konten k
+                LEFT JOIN 
+                    podcast p ON k.id = p.id_konten
+                LEFT JOIN 
+                    episode e ON p.id_konten = e.id_konten_podcast
+                LEFT JOIN 
+                    akun a ON p.email_podcaster = a.email
+                JOIN 
+                    genre g ON k.id = g.id_konten
+                WHERE 
+                    k.id = %s
+                GROUP BY 
+                    k.judul, a.nama, k.tanggal_rilis
+            """, [id_konten])
+            podcast_detail = cursor.fetchone()
+            print("podcast detail")
+            print(podcast_detail)
+            print(podcast_detail[4])
 
-        cursor.execute("""
-            SELECT 
-                id_episode, judul, deskripsi, durasi, tanggal_rilis
-            FROM 
-                episode
-            WHERE 
-                id_konten_podcast = %s
-        """, [id_konten])
-        episodes = cursor.fetchall()
+            total_durasi = format_durasi(podcast_detail[4])
 
-        episodes = [(id_episode, judul, deskripsi, format_durasi(durasi), tanggal_rilis) for id_episode, judul, deskripsi, durasi, tanggal_rilis in episodes]
+            cursor.execute(detail_episode(id_konten))
+            episodes = cursor.fetchall()
+            episodes = [(id_episode, judul, deskripsi, format_durasi(durasi), tanggal_rilis) for id_episode, judul, deskripsi, durasi, tanggal_rilis in episodes]
+            print("len episode")
+            print(len(episodes))
 
-    # Prepare context data for rendering
-    context = {
-        'podcast_detail': podcast_detail,
-        'genres' : list(set(podcast_detail[1])),  # Convert genres to a set to remove duplicates
-        'total_durasi' : total_durasi,
-        'episodes': episodes,
-        'id_konten' : id_konten,
-        'id_episode' : episodes,
-    }
+            query = get_playlist_akun(user_email)
+            print("Generated query:")
+            print(query)
+            cursor.execute(query)
+            playlist_akun = cursor.fetchall()
+            print("Result from database:")
+            print(playlist_akun)
+            try:
+                detail_playlist_kelola = [{
+                    'namaPlaylist': detail_playlist[2],
+                    'jumlahLagu': detail_playlist[4],
+                    'durasi': detail_playlist[7],
+                    'id_playlist': detail_playlist[6],
+                    'deskripsi': detail_playlist[3],
+                    'id_user_playlist': detail_playlist[1]
+                } for detail_playlist in playlist_akun]
+            except IndexError:
+                detail_playlist_kelola = []
 
-    if not episodes:
-        context['message'] = 'Kamu belum memiliki episode, ayo buat episode terbaru dari podcastmu!'
+            # Fetch podcaster's podcast details from the database
+            cursor.execute("""
+                SELECT 
+                    k.id AS id_konten,
+                    k.judul AS judul_podcast, 
+                    COUNT(e.id_episode) AS jumlah_episode, 
+                    SUM(k.durasi) AS total_durasi 
+                FROM 
+                    podcast p 
+                LEFT JOIN 
+                    episode e ON p.id_konten = e.id_konten_podcast 
+                LEFT JOIN 
+                    konten k ON p.id_konten = k.id
+                WHERE 
+                    p.email_podcaster = %s 
+                GROUP BY 
+                    k.id, k.judul, p.id_konten
+            """, [user_email])
+            podcasts = cursor.fetchall()
+            podcasts = [(id_konten, judul_podcast, jumlah_episode, format_durasi(total_durasi)) for id_konten, judul_podcast, jumlah_episode, total_durasi in podcasts]
 
-    return render(request, 'episodes.html', context)
+            query_label = show_label()
+            cursor.execute(query_label)
+            labels = cursor.fetchall()
+            print(labels)
+
+            query_artist = show_artist()
+            cursor.execute(query_artist)
+            artists = cursor.fetchall()
+            print(artists)
+
+            query_songwriter = show_songwriter()
+            cursor.execute(query_songwriter)
+            songwriters = cursor.fetchall()
+            print(songwriters)
+
+            query_genre = show_genre()
+            cursor.execute(query_genre)
+            genres = cursor.fetchall()
+            print(genres)
+
+            query_album = show_album(user_email)
+            cursor.execute(query_album)
+            albums = cursor.fetchall()
+            print("albums:")
+            print(albums)
+
+            # Prepare context data for rendering
+            context = {
+                'podcast_detail': podcast_detail,
+                'genres_podcast' : list(set(podcast_detail[1])),  # Convert genres to a set to remove duplicates
+                'total_durasi' : total_durasi,
+                'episodes': episodes,
+                'id_konten' : id_konten,
+                'user_data': user_data,
+                'detail_playlist_kelola':detail_playlist_kelola,
+                'albums':[{
+                    'id': album[0],
+                    'judul': album[1],
+                    'jumlah_lagu': album[2],
+                    'total_durasi': album[3]
+                } for album in albums],
+                'labels': [{
+                    'id': label[0],
+                    'nama':label[1],
+                    'id_pemilik_hc':label[5],
+                } for label in labels],
+                'artists': [{
+                    'id': artist[0],
+                    'nama':artist[1],
+                } for artist in artists],
+                'songwriters':[{
+                    'id':songwriter[0],
+                    'nama':songwriter[1],
+                } for songwriter in songwriters],
+                'genres':[{
+                    'id':genre[0],
+                    'genre':genre[1],
+                } for genre in genres],
+                'podcasts': podcasts,
+            }
+        return render(request, 'episodes.html', context)
+    except OperationalError:
+        return HttpResponseNotFound("Database connection error")

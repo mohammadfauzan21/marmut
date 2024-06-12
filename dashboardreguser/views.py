@@ -1,58 +1,27 @@
 from datetime import datetime
+import logging
 import uuid
 from django.http import HttpResponseBadRequest, HttpResponseNotFound, HttpResponseRedirect
 from django.shortcuts import redirect, render
 from django.urls import reverse
+from dashboardpodcaster.views import format_durasi
 from dashboardreguser.query import *
 from django.db import OperationalError, connection
 from django.views.decorators.http import require_POST
 from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.cache import never_cache
 
+from dashboarduser.query import *
 
-# Create your views here.
-def dashboarduser(request):
-    user_email = request.session.get('user_email')
-    if not user_email:
-        return HttpResponseNotFound("User email not found in session")
-    print("ngeprint email")
-    print(user_email)
-    try:
-        with connection.cursor() as cursor:
-            query = get_playlist_akun(user_email)
-            print("Generated query:")
-            print(query)
-
-            if query:
-                print("masuk if")
-                cursor.execute(query)
-                playlist_akun = cursor.fetchall()
-                print("Result from database:")
-                print(playlist_akun)
-                if playlist_akun:
-                    context = {
-                        'detail_playlist_kelola': [{
-                            'namaPlaylist': detail_playlist[2],
-                            'jumlahLagu': detail_playlist[4],
-                            'durasi': detail_playlist[7],
-                            'id_playlist': detail_playlist[6],
-                            'deskripsi':detail_playlist[3],
-                            'id_user_playlist':detail_playlist[1]
-                        } for detail_playlist in playlist_akun]
-                    }
-                else:
-                    context = {
-                        'detail_playlist_kelola': []
-                    }
-            else:
-                context = {
-                    'detail_playlist_kelola': []
-                }
-            return render(request, 'dashboard.html', context)
-    except OperationalError:
-        return HttpResponseNotFound("Database connection error")
-
-
+@never_cache
 def kelolaplaylist(request, id_playlist):
+    # Mendapatkan URL yang akan disimpan ke dalam sesi
+    url_to_save = request.build_absolute_uri()
+
+    # Menyimpan URL ke dalam sesi
+    request.session['urlKelolaPlaylist'] = url_to_save
+
+    list_lagu = request.session.get('list_lagu')
     user_email = request.session.get('user_email')
     if not user_email:
         return HttpResponseNotFound("User email not found in session")
@@ -66,6 +35,39 @@ def kelolaplaylist(request, id_playlist):
         # request.session['prev_url'] = current_url
         # print("Session = " + request.session.get('prev_url', ''))
         with connection.cursor() as cursor:
+            query = user_info(user_email)
+            cursor.execute(query)
+            user_data = cursor.fetchone()
+
+            # Fetch podcaster's podcast details from the database
+            cursor.execute("""
+                SELECT 
+                    k.id AS id_konten,
+                    k.judul AS judul_podcast, 
+                    COUNT(e.id_episode) AS jumlah_episode, 
+                    SUM(k.durasi) AS total_durasi 
+                FROM 
+                    podcast p 
+                LEFT JOIN 
+                    episode e ON p.id_konten = e.id_konten_podcast 
+                LEFT JOIN 
+                    konten k ON p.id_konten = k.id
+                WHERE 
+                    p.email_podcaster = %s 
+                GROUP BY 
+                    k.id, k.judul, p.id_konten
+            """, [user_email])
+            podcasts = cursor.fetchall()
+            podcasts = [(id_konten, judul_podcast, jumlah_episode, format_durasi(total_durasi)) for id_konten, judul_podcast, jumlah_episode, total_durasi in podcasts]
+
+            try:
+                footer = [{
+                    'judul_lagu': list_lagu[0],
+                    'artist':list_lagu[1],
+                }],
+            except TypeError or IndexError:
+                footer = []
+
             query_header = get_detail_playlist_header(id_playlist)
             cursor.execute(query_header)
             playlist_header = cursor.fetchone()
@@ -89,77 +91,137 @@ def kelolaplaylist(request, id_playlist):
             query = get_playlist_akun(user_email)
             cursor.execute(query)
             playlist_akun = cursor.fetchall()
-            if playlist_akun:
-                context = {
-                    'pembuat' : playlist_header[0],
-                    'jumlah_lagu': playlist_header[1],
-                    'durasi':playlist_header[2],
-                    'tanggal_buat':playlist_header[3],
-                    'judul_playlist':playlist_header[4],
-                    'deskripsi_playlist':playlist_header[5], 
-                    'id_playlist':id_playlist,
-                    'detail_playlist': [{
-                        "no":i+1,
-                        "judulLagu":detail[0],
-                        "artist":detail[1],
-                        "durasi":detail[2],
-                        "id_konten":detail[3]
-                    } for i, detail in enumerate(detail_playlist)],
-                    'list_song':[{
-                        'id':song[0],
-                        'judul':song[1],
-                        'pembuat':song[2]
-                    }for song in list_song],
-                    'detail_playlist_kelola': [{
-                        'namaPlaylist': detail_playlist[2],
-                        'jumlahLagu': detail_playlist[4],
-                        'durasi': detail_playlist[7],
-                        'id_playlist': detail_playlist[6],
-                        'deskripsi':detail_playlist[3],
-                        'id_user_playlist':detail_playlist[1]
-                    } for detail_playlist in playlist_akun],
-                    'error_message': error_message
-                }
-            else:
-                context = {
-                    "pembuat" : playlist_header[0],
-                    "jumlah_lagu": playlist_header[1],
-                    "durasi":playlist_header[2],
-                    "tanggal_buat":playlist_header[3],
-                    "judul_playlist":playlist_header[4],
-                    "deskripsi_playlist":playlist_header[5], 
-                    'id_playlist':id_playlist,
-                    'detail_playlist': [{
-                        "no":i+1,
-                        "judulLagu":detail[0],
-                        "artist":detail[1],
-                        "durasi":detail[2],
-                        "id_konten":detail[3]
-                    } for i, detail in enumerate(detail_playlist)],
-                    'detail_playlist_kelola': {},
-                    'error_message': error_message
-                }
+
+            query_label = show_label()
+            cursor.execute(query_label)
+            labels = cursor.fetchall()
+            print(labels)
+
+            query_artist = show_artist()
+            cursor.execute(query_artist)
+            artists = cursor.fetchall()
+            print(artists)
+
+            query_songwriter = show_songwriter()
+            cursor.execute(query_songwriter)
+            songwriters = cursor.fetchall()
+            print(songwriters)
+
+            query_genre = show_genre()
+            cursor.execute(query_genre)
+            genres = cursor.fetchall()
+            print(genres)
+
+            query_album = show_album(user_email)
+            cursor.execute(query_album)
+            albums = cursor.fetchall()
+            print(albums)
+
+            context = {
+                'pembuat' : playlist_header[0],
+                'jumlah_lagu': playlist_header[1],
+                'durasi':playlist_header[2],
+                'tanggal_buat':playlist_header[3],
+                'judul_playlist':playlist_header[4],
+                'deskripsi_playlist':playlist_header[5], 
+                'id_playlist':id_playlist,
+                'detail_playlist': [{
+                    "no":i+1,
+                    "judulLagu":detail[0],
+                    "artist":detail[1],
+                    "durasi":detail[2],
+                    "id_konten":detail[3]
+                } for i, detail in enumerate(detail_playlist)],
+                'list_song':[{
+                    'id':song[0],
+                    'judul':song[1],
+                    'pembuat':song[2]
+                }for song in list_song],
+                'footer':footer,
+                'detail_playlist_kelola': [{
+                    'namaPlaylist': detail_playlist[2],
+                    'jumlahLagu': detail_playlist[4],
+                    'durasi': detail_playlist[7],
+                    'id_playlist': detail_playlist[6],
+                    'deskripsi':detail_playlist[3],
+                    'id_user_playlist':detail_playlist[1]
+                } for detail_playlist in playlist_akun],
+                'albums':[{
+                    'id': album[0],
+                    'judul': album[1],
+                    'jumlah_lagu': album[2],
+                    'total_durasi': album[3]
+                } for album in albums],
+                'user_data': user_data, 
+                'labels': [{
+                    'id': label[0],
+                    'nama':label[1],
+                    'id_pemilik_hc':label[5],
+                } for label in labels],
+                'artists': [{
+                    'id': artist[0],
+                    'nama':artist[1],
+                } for artist in artists],
+                'songwriters':[{
+                    'id':songwriter[0],
+                    'nama':songwriter[1],
+                } for songwriter in songwriters],
+                'genres':[{
+                    'id':genre[0],
+                    'genre':genre[1],
+                } for genre in genres],
+                'podcasts': podcasts,
+                'error_message': error_message
+            }
             print(context)
             return render(request, 'kelolaplaylist.html', context)
     except OperationalError:
         return HttpResponseNotFound("Database connection error")
 
+@never_cache
 def playsong(request, id_konten):
     print("Masuk")
-    # Mendapatkan bagian terakhir dari URL yang dikunjungi pengguna
-    # prev_url = request.session.get('prev_url', '')
-    # print("prev_url = " + prev_url)
-    # prev_path = prev_url.split('/')
-    # print("halo")
-    # kata_kunci = prev_path[-2] if prev_path[-1] == '' else prev_path[-1]  # Mengambil kata terakhir dari URL
-    # print(kata_kunci)
-    # return render(request, 'playsong.html', {'kata_kunci': kata_kunci})
-
+    list_lagu = request.session.get('list_lagu')
     user_email = request.session.get('user_email')
     if not user_email:
         return HttpResponseNotFound("User email not found in session")
+    
+    error_message = request.GET.get('error', None)
     try:
         with connection.cursor() as cursor:
+            query = user_info(user_email)
+            cursor.execute(query)
+            user_data = cursor.fetchone()
+
+            # Fetch podcaster's podcast details from the database
+            cursor.execute("""
+                SELECT 
+                    k.id AS id_konten,
+                    k.judul AS judul_podcast, 
+                    COUNT(e.id_episode) AS jumlah_episode, 
+                    SUM(k.durasi) AS total_durasi 
+                FROM 
+                    podcast p 
+                LEFT JOIN 
+                    episode e ON p.id_konten = e.id_konten_podcast 
+                LEFT JOIN 
+                    konten k ON p.id_konten = k.id
+                WHERE 
+                    p.email_podcaster = %s 
+                GROUP BY 
+                    k.id, k.judul, p.id_konten
+            """, [user_email])
+            podcasts = cursor.fetchall()
+            podcasts = [(id_konten, judul_podcast, jumlah_episode, format_durasi(total_durasi)) for id_konten, judul_podcast, jumlah_episode, total_durasi in podcasts]
+
+            try:
+                footer = [{
+                    'judul_lagu': list_lagu[0],
+                    'artist':list_lagu[1],
+                }],
+            except TypeError or IndexError:
+                footer = []
+
             query_detail = get_detail_song(id_konten)
             cursor.execute(query_detail)
             song_detail = cursor.fetchone()
@@ -177,59 +239,124 @@ def playsong(request, id_konten):
             query = get_playlist_akun(user_email)
             cursor.execute(query)
             playlist_akun = cursor.fetchall()
+
+            query_label = show_label()
+            cursor.execute(query_label)
+            labels = cursor.fetchall()
+            print(labels)
+
+            query_artist = show_artist()
+            cursor.execute(query_artist)
+            artists = cursor.fetchall()
+            print(artists)
+
+            query_songwriter = show_songwriter()
+            cursor.execute(query_songwriter)
+            songwriters = cursor.fetchall()
+            print(songwriters)
+
+            query_genre = show_genre()
+            cursor.execute(query_genre)
+            genres = cursor.fetchall()
+            print(genres)
+
+            query_album = show_album(user_email)
+            cursor.execute(query_album)
+            albums = cursor.fetchall()
+            print(albums)
             
-            if playlist_akun:
-                context = {
-                    "judul_lagu" : song_detail[0],
-                    "artist":song_detail[1],
-                    "genres":song_detail[2],
-                    "durasi":song_detail[3],
-                    "tanggal_rilis":song_detail[4],
-                    "tahun":song_detail[5],
-                    "total_play":song_detail[6], 
-                    "total_download":song_detail[7], 
-                    "nama_album":song_detail[8],
-                    'id_song':song_detail[9],
-                    'songwriter': [{
-                        "name":name[0]
-                    } for name in writersong],
-                    'detail_playlist_kelola': [{
-                                'namaPlaylist': detail_playlist[2],
-                                'jumlahLagu': detail_playlist[4],
-                                'durasi': detail_playlist[7],
-                                'id_playlist': detail_playlist[6],
-                                'deskripsi':detail_playlist[3],
-                                'id_user_playlist':detail_playlist[1]
-                    } for detail_playlist in playlist_akun]
-                }
-            else:
-                context = {
-                    "judul_lagu" : song_detail[0],
-                    "artist":song_detail[1],
-                    "genres":song_detail[2],
-                    "durasi":song_detail[3],
-                    "tanggal_rilis":song_detail[4],
-                    "tahun":song_detail[5],
-                    "total_play":song_detail[6], 
-                    "total_download":song_detail[7], 
-                    "nama_album":song_detail[8],
-                    'id_song':song_detail[9],
-                    'songwriter': [{
-                        "name":name[0]
-                    } for name in writersong],
-                    'detail_playlist_kelola': {}
-                }
+            context = {
+                "judul_lagu" : song_detail[0],
+                "artist":song_detail[1],
+                "genres_song":song_detail[2],
+                "durasi":song_detail[3],
+                "tanggal_rilis":song_detail[4],
+                "tahun":song_detail[5],
+                "total_play":song_detail[6], 
+                "total_download":song_detail[7], 
+                "nama_album":song_detail[8],
+                'id_song':song_detail[9],
+                'songwriter': [{
+                    "name":name[0]
+                } for name in writersong],
+                'footer':footer,
+                'detail_playlist_kelola': [{
+                    'namaPlaylist': detail_playlist[2],
+                    'jumlahLagu': detail_playlist[4],
+                    'durasi': detail_playlist[7],
+                    'id_playlist': detail_playlist[6],
+                    'deskripsi':detail_playlist[3],
+                    'id_user_playlist':detail_playlist[1]
+                } for detail_playlist in playlist_akun],
+                'albums':[{
+                    'id': album[0],
+                    'judul': album[1],
+                    'jumlah_lagu': album[2],
+                    'total_durasi': album[3]
+                } for album in albums],
+                'user_data': user_data, 
+                'labels': [{
+                    'id': label[0],
+                    'nama':label[1],
+                    'id_pemilik_hc':label[5],
+                } for label in labels],
+                'artists': [{
+                    'id': artist[0],
+                    'nama':artist[1],
+                } for artist in artists],
+                'songwriters':[{
+                    'id':songwriter[0],
+                    'nama':songwriter[1],
+                } for songwriter in songwriters],
+                'genres':[{
+                    'id':genre[0],
+                    'genre':genre[1],
+                } for genre in genres],
+                'podcasts': podcasts,
+                'error_message': error_message,
+            }
             return render(request, 'playsong.html', context)
     except OperationalError:
         return HttpResponseNotFound("Database connection error")
 
+@never_cache
 def userplaylist(request):
+    # Mendapatkan URL yang akan disimpan ke dalam sesi
+    url_to_save = request.build_absolute_uri()
+
+    # Menyimpan URL ke dalam sesi
+    request.session['urlUserPlaylist'] = url_to_save
+
     user_email = request.session.get('user_email')
     if not user_email:
         return HttpResponseNotFound("User email not found in session")
     try:
         with connection.cursor() as cursor:
-            i = 1;
+            query = user_info(user_email)
+            cursor.execute(query)
+            user_data = cursor.fetchone()
+
+            # Fetch podcaster's podcast details from the database
+            cursor.execute("""
+                SELECT 
+                    k.id AS id_konten,
+                    k.judul AS judul_podcast, 
+                    COUNT(e.id_episode) AS jumlah_episode, 
+                    SUM(k.durasi) AS total_durasi 
+                FROM 
+                    podcast p 
+                LEFT JOIN 
+                    episode e ON p.id_konten = e.id_konten_podcast 
+                LEFT JOIN 
+                    konten k ON p.id_konten = k.id
+                WHERE 
+                    p.email_podcaster = %s 
+                GROUP BY 
+                    k.id, k.judul, p.id_konten
+            """, [user_email])
+            podcasts = cursor.fetchall()
+            podcasts = [(id_konten, judul_podcast, jumlah_episode, format_durasi(total_durasi)) for id_konten, judul_podcast, jumlah_episode, total_durasi in podcasts]
+
             query = get_user_playlist()
             cursor.execute(query)
             playlist_all_user = cursor.fetchall()
@@ -237,15 +364,180 @@ def userplaylist(request):
             query = get_playlist_akun(user_email)
             cursor.execute(query)
             playlist_akun = cursor.fetchall()
-            if playlist_akun:
+
+            query_label = show_label()
+            cursor.execute(query_label)
+            labels = cursor.fetchall()
+            print(labels)
+
+            query_artist = show_artist()
+            cursor.execute(query_artist)
+            artists = cursor.fetchall()
+            print(artists)
+
+            query_songwriter = show_songwriter()
+            cursor.execute(query_songwriter)
+            songwriters = cursor.fetchall()
+            print(songwriters)
+
+            query_genre = show_genre()
+            cursor.execute(query_genre)
+            genres = cursor.fetchall()
+            print(genres)
+
+            query_album = show_album(user_email)
+            cursor.execute(query_album)
+            albums = cursor.fetchall()
+            print(albums)
+
+            context = {
+                'list_all_playlist': [{
+                    "no":i+1,
+                    "judulPlaylist":playlist[0],
+                    "pembuat":playlist[1],
+                    "durasi":playlist[2],
+                    "id_playlist":playlist[3]
+                }for i, playlist in enumerate(playlist_all_user)],
+                'detail_playlist_kelola': [{
+                    'namaPlaylist': detail_playlist[2],
+                    'jumlahLagu': detail_playlist[4],
+                    'durasi': detail_playlist[7],
+                    'id_playlist': detail_playlist[6],
+                    'deskripsi':detail_playlist[3],
+                    'id_user_playlist':detail_playlist[1]
+                } for detail_playlist in playlist_akun],
+                'albums':[{
+                    'id': album[0],
+                    'judul': album[1],
+                    'jumlah_lagu': album[2],
+                    'total_durasi': album[3]
+                } for album in albums],
+                'user_data': user_data, 
+                'labels': [{
+                    'id': label[0],
+                    'nama':label[1],
+                    'id_pemilik_hc':label[5],
+                } for label in labels],
+                'artists': [{
+                    'id': artist[0],
+                    'nama':artist[1],
+                } for artist in artists],
+                'songwriters':[{
+                    'id':songwriter[0],
+                    'nama':songwriter[1],
+                } for songwriter in songwriters],
+                'genres':[{
+                    'id':genre[0],
+                    'genre':genre[1],
+                } for genre in genres],
+                'podcasts': podcasts,
+            }
+            return render(request, 'userplaylist.html', context)
+    except OperationalError:
+        return HttpResponseNotFound("Database connection error")
+
+def kelolaalbum(request, id_album):
+    print("masuk kelola album")
+    # Mendapatkan URL yang akan disimpan ke dalam sesi
+    url_to_save = request.build_absolute_uri()
+
+    # Menyimpan URL ke dalam sesi
+    request.session['urlKelolaPlaylist'] = url_to_save
+    list_lagu = request.session.get('list_lagu')
+    user_email = request.session.get('user_email')
+    if not user_email:
+        return HttpResponseNotFound("User email not found in session")
+    print("ngeprint email")
+    print(user_email)
+    print("id_laylist = ")
+    print(id_album)
+    error_message = request.GET.get('error', None)
+    try:
+        # current_url = request.build_absolute_uri()
+        # request.session['prev_url'] = current_url
+        # print("Session = " + request.session.get('prev_url', ''))
+        with connection.cursor() as cursor:
+            query_header = get_detail_album_header(id_album)
+            cursor.execute(query_header)
+            album_header = cursor.fetchone()
+            print(album_header)
+
+            if album_header is None:
+                return HttpResponseNotFound("Album not found")
+            
+            # Fetch podcaster's podcast details from the database
+            cursor.execute("""
+                SELECT 
+                    k.id AS id_konten,
+                    k.judul AS judul_podcast, 
+                    COUNT(e.id_episode) AS jumlah_episode, 
+                    SUM(k.durasi) AS total_durasi 
+                FROM 
+                    podcast p 
+                LEFT JOIN 
+                    episode e ON p.id_konten = e.id_konten_podcast 
+                LEFT JOIN 
+                    konten k ON p.id_konten = k.id
+                WHERE 
+                    p.email_podcaster = %s 
+                GROUP BY 
+                    k.id, k.judul, p.id_konten
+            """, [user_email])
+            podcasts = cursor.fetchall()
+            podcasts = [(id_konten, judul_podcast, jumlah_episode, format_durasi(total_durasi)) for id_konten, judul_podcast, jumlah_episode, total_durasi in podcasts]
+            
+            query = get_detail_album(id_album)
+            cursor.execute(query)
+            detail_album = cursor.fetchall()
+            print("ini detail")
+            print(detail_album)
+
+            query = get_playlist_akun(user_email)
+            cursor.execute(query)
+            playlist_akun = cursor.fetchall()
+            print("playlist_akun")
+            
+            query_label = show_label()
+            cursor.execute(query_label)
+            labels = cursor.fetchall()
+            print(labels)
+
+            query_artist = show_artist()
+            cursor.execute(query_artist)
+            artists = cursor.fetchall()
+            print(artists)
+
+            query_songwriter = show_songwriter()
+            cursor.execute(query_songwriter)
+            songwriters = cursor.fetchall()
+            print(songwriters)
+
+            query_genre = show_genre()
+            cursor.execute(query_genre)
+            genres = cursor.fetchall()
+            print(genres)
+
+            query_album = show_album(user_email)
+            cursor.execute(query_album)
+            albums = cursor.fetchall()
+            print(albums)
+
+            print("masuk if else")
+            print(list_lagu)
+            if list_lagu:
                 context = {
-                    'list_all_playlist': [{
+                    'label' : album_header[0],
+                    'durasi':album_header[1],
+                    'jumlah_lagu': album_header[2],
+                    'judul_album':album_header[3],
+                    'detail_album': [{
                         "no":i+1,
-                        "judulPlaylist":playlist[0],
-                        "pembuat":playlist[1],
-                        "durasi":playlist[2],
-                        "id_playlist":playlist[3]
-                    }for i, playlist in enumerate(playlist_all_user)],
+                        "konten_id":detail[0],
+                        "judul":detail[1],
+                        "durasi":detail[2],
+                        "total_play":detail[3],
+                        "total_download":detail[4],
+                    } for i, detail in enumerate(detail_album)],
                     'detail_playlist_kelola': [{
                         'namaPlaylist': detail_playlist[2],
                         'jumlahLagu': detail_playlist[4],
@@ -253,58 +545,89 @@ def userplaylist(request):
                         'id_playlist': detail_playlist[6],
                         'deskripsi':detail_playlist[3],
                         'id_user_playlist':detail_playlist[1]
-                    } for detail_playlist in playlist_akun]
+                    } for detail_playlist in playlist_akun],
+                    'albums':[{
+                        'id': album[0],
+                        'judul': album[1],
+                        'jumlah_lagu': album[2],
+                        'total_durasi': album[3]
+                    } for album in albums],
+                    'footer': [{
+                        'judul_lagu': list_lagu[0],
+                        'artist':list_lagu[1],
+                    }],
+                    'labels': [{
+                        'id': label[0],
+                        'nama':label[1],
+                        'id_pemilik_hc':label[5],
+                    } for label in labels],
+                    'artists': [{
+                        'id': artist[0],
+                        'nama':artist[1],
+                    } for artist in artists],
+                    'songwriters':[{
+                        'id':songwriter[0],
+                        'nama':songwriter[1],
+                    } for songwriter in songwriters],
+                    'genres':[{
+                        'id':genre[0],
+                        'genre':genre[1],
+                    } for genre in genres],
+                    'podcasts': podcasts,
                 }
+                print(context)
             else:
                 context = {
-                    'list_all_playlist': [{
+                    'label' : album_header[0],
+                    'durasi':album_header[1],
+                    'jumlah_lagu': album_header[2],
+                    'judul_album':album_header[3],
+                    'detail_album': [{
                         "no":i+1,
-                        "judulPlaylist":playlist[0],
-                        "pembuat":playlist[1],
-                        "durasi":playlist[2],
-                        "id_playlist":playlist[3]
-                    }for i, playlist in enumerate(playlist_all_user)],
-                    'detail_playlist_kelola': {}
+                        "konten_id":detail[0],
+                        "judul":detail[1],
+                        "durasi":detail[2],
+                        "total_play":detail[3],
+                        "total_download":detail[4],
+                    } for i, detail in enumerate(detail_album)],
+                    'detail_playlist_kelola': [{
+                        'namaPlaylist': detail_playlist[2],
+                        'jumlahLagu': detail_playlist[4],
+                        'durasi': detail_playlist[7],
+                        'id_playlist': detail_playlist[6],
+                        'deskripsi':detail_playlist[3],
+                        'id_user_playlist':detail_playlist[1]
+                    } for detail_playlist in playlist_akun],
+                    'albums':[{
+                        'id': album[0],
+                        'judul': album[1],
+                        'jumlah_lagu': album[2],
+                        'total_durasi': album[3],
+                    } for album in albums],
+                    'footer': [],
+                    'labels': [{
+                        'id': label[0],
+                        'nama':label[1],
+                        'id_pemilik_hc':label[5],
+                    } for label in labels],
+                    'artists': [{
+                        'id': artist[0],
+                        'nama':artist[1],
+                    } for artist in artists],
+                    'songwriters':[{
+                        'id':songwriter[0],
+                        'nama':songwriter[1],
+                    } for songwriter in songwriters],
+                    'genres':[{
+                        'id':genre[0],
+                        'genre':genre[1],
+                    } for genre in genres],
+                    'podcasts': podcasts,
                 }
-
-            # list_all_playlist = []
-            # for playlist in playlist_all_user:
-            #     # print(playlist[0])
-            #     list_all_playlist.append(
-            #         {"no":i,
-            #         "judulPlaylist":playlist[0],
-            #         "pembuat":playlist[1],
-            #         "durasi":playlist[2],
-            #         "id_playlist":playlist[3]
-            #         }
-            #     )
-            #     i = i + 1
-            # print(list_all_playlist)
-            # context = {'list_all_playlist' : list_all_playlist}
-            return render(request, 'userplaylist.html', context)
+            print("mau return kelolaalbum.html")
+            return render(request, 'kelolaalbum.html', context)
     except OperationalError:
         return HttpResponseNotFound("Database connection error")
-    # for playlist in playlist_all_user:
-    #     print(playlist[0])
-        # list_all_playlist.append(
-        #     {"no":1,
-        #     "judulPlaylist":playlist[0],
-        #     "pembuat":playlist[1],
-        #     "durasi":playlist[2]}
-        # )
-
-    # print(list_all_playlist)
-
-#     # print(playlist_all_user[0])
-#     # print(playlist_all_user[0][0])
-#     # context = {'list_user_playlist':playlist_all_user}
-
-
-def chart(request):
-    current_url = request.build_absolute_uri()
-    request.session['prev_url'] = current_url
-    print("Session = " + request.session.get('prev_url', ''))
-    return render(request, 'chart.html')
 
 @csrf_exempt
 def delete_playlist(request, id_user_playlist):
@@ -324,8 +647,25 @@ def delete_playlist(request, id_user_playlist):
             return redirect(reverse('dashboarduser:homepage' ))
         except OperationalError:
             return HttpResponseNotFound("Database connection error")
+        
+@never_cache
+def putar_lagu(request, id_konten):
+    if request.method == 'POST':
+        try:
+            with connection.cursor() as cursor:
+                query_detail = get_detail_song(id_konten)
+                cursor.execute(query_detail)
+                song_detail = cursor.fetchone()
+                print("masuk post")
+                # Simpan detail lagu ke dalam sesi
+                request.session['list_lagu'] = [song_detail[0], song_detail[1]]
+            return redirect(f"{reverse('dashboardreguser:playsong', args=[id_konten])}")
+        except OperationalError:
+            return HttpResponseNotFound("Database connection error")
+    print(list_lagu)
 
 @csrf_exempt
+@never_cache
 def add_playlist(request):
     if request.method == 'POST':
         user_email = request.session.get('user_email')
@@ -366,6 +706,7 @@ def add_playlist(request):
             return HttpResponseNotFound("Database connection error")
 
 @csrf_exempt
+@never_cache
 def ubah_playlist(request, id_playlist):
     print("masuk ke ubah_playlist")
     print(id_playlist)
@@ -384,7 +725,7 @@ def ubah_playlist(request, id_playlist):
             return HttpResponseNotFound("Database connection error")
 
 @csrf_exempt
-@require_POST
+@never_cache
 def add_song_to_playlist(request, id_playlist):
     if request.method == 'POST':
         song_id = request.POST.get('song_id')
@@ -395,13 +736,13 @@ def add_song_to_playlist(request, id_playlist):
                     if cursor.fetchone() is not None:
                         # If the song is already in the playlist, return an error message
                         return redirect(f"{reverse('dashboardreguser:kelolaplaylist', args=[id_playlist])}?error=This+song+is+already+in+the+playlist.")
-                    cursor.execute(add_song(song_id, id_playlist))
+                    cursor.execute(add_song_to_playlist(song_id, id_playlist))
                     return redirect(f"{reverse('dashboardreguser:kelolaplaylist', args=[id_playlist])}")
             except OperationalError:
                 return HttpResponseNotFound("Database connection error")
 
 @csrf_exempt
-@require_POST
+@never_cache
 def add_song_playlist(request, id_song):
     if request.method == 'POST':
         id_playlist = request.POST.get('id_playlist')
@@ -411,8 +752,136 @@ def add_song_playlist(request, id_song):
                     cursor.execute(check_song(id_song, id_playlist))
                     if cursor.fetchone() is not None:
                         # If the song is already in the playlist, return an error message
-                        return redirect(f"{reverse('dashboardreguser:kelolaplaylist', args=[id_playlist])}?error=This+song+is+already+in+the+playlist.")
-                    cursor.execute(add_song(id_song, id_playlist))
-                    return redirect(f"{reverse('dashboardreguser:kelolaplaylist', args=[id_playlist])}")
+                        return redirect(f"{reverse('dashboardreguser:playsong', args=[id_song])}?error=This+song+is+already+in+the+playlist.")
+                    cursor.execute(add_song_to_playlist(id_song, id_playlist))
+                    return redirect(f"{reverse('dashboardreguser:playsong', args=[id_song])}")
             except OperationalError:
                 return HttpResponseNotFound("Database connection error")
+            
+def create_album(request):
+    if request.method == 'POST':
+        id_album = uuid.uuid4()
+        print("id_album:")
+        print(id_album)
+        judul_album = request.POST.get('judulAlbum')
+        # check_jumlah_lagu = ('buat def ke basis data')
+        # if check_jumlah_lagu:
+        #     jumlah_lagu = check_jumlah_lagu + 1
+        # else:
+        #     jumlah_lagu = 1
+        id_label = request.POST.get('label')
+        # check_total_durasi = ('buat def ke basis data')
+        # if check_total_durasi:
+        #     total_durasi = check_total_durasi + request.POST.get('durasiLagu')
+        # else:
+        #     total_durasi = request.POST.get('durasiLagu')
+        try:
+            with connection.cursor() as cursor:
+                print("id_label:")
+                print(id_label)
+                print("judul_album:")
+                print(judul_album)
+                cursor.execute(create_new_album(id_album, judul_album, id_label))
+                create_song(request, id_album)
+                return redirect(f"{reverse('dashboarduser:homepage')}")
+        except OperationalError:
+            return HttpResponseNotFound("Database connection error")
+
+def create_song(request, id_album):
+    if request.method == 'POST' or request.method != 'POST':
+        print('apa')
+        print("id album:")
+        print(id_album)
+        #song
+        id_konten = uuid.uuid4()
+        print("id_konten:")
+        print(id_konten)
+        id_artist = request.POST.get('artist')
+        user_email = request.session.get('user_email')
+        print(user_email)
+        print("id_artist:")
+        print(id_artist)
+
+        #konten
+        judul_lagu = request.POST.get('judulLagu')
+        tanggal_dibuat = datetime.now()
+        durasi_menit = request.POST.get('durasiMenit')
+        print(durasi_menit)
+        durasi_detik = request.POST.get('durasiDetik')
+        print(durasi_detik)
+        durasi_fix = (int(durasi_menit)*60)+int(durasi_detik)
+        print(durasi_fix)
+
+        #genre and songwriter
+        songwriters = request.POST.getlist('songwriter')
+        genres = request.POST.getlist('genreSelect')
+        print("songwriter:")
+        print(songwriters)
+        print(len(songwriters))
+        print("genre:")
+        print(genres)
+
+        try:
+            with connection.cursor() as cursor:
+                cursor.execute(add_konten(id_konten, judul_lagu, tanggal_dibuat, durasi_fix))
+                if id_artist == None:
+                    cursor.execute(user_id_artist(user_email))
+                    id_artist = cursor.fetchone()
+                    print("id_artist:")
+                    print(id_artist)
+                for x in id_artist:
+                    print(x)
+                    cursor.execute(add_song_to_album(id_konten, x, id_album))
+                if len(songwriters) < 1 :
+                    cursor.execute(user_id_songwriter(user_email))
+                    id_songwriter = cursor.fetchone()
+                    print("id_songwriter:")
+                    print(id_songwriter)
+                for songwriter in id_songwriter:
+                    cursor.execute(add_songwriter(songwriter, id_konten))
+                for genre in genres:
+                    cursor.execute(add_genre(id_konten, genre))
+
+                #royalti
+                print("royalti")
+                query = get_artist_id_pemilik_hak_cipta(user_email)
+                cursor.execute(query)
+                artist_id_pemilik_hak_cipta = cursor.fetchone()
+                query = get_songwriter_id_pemilik_hak_cipta(user_email)
+                cursor.execute(query)
+                songwriter_id_pemilik_hak_cipta = cursor.fetchone()
+                if artist_id_pemilik_hak_cipta != None:
+                    cursor.execute(add_royalti(artist_id_pemilik_hak_cipta[0], id_konten))
+                if songwriter_id_pemilik_hak_cipta != None:
+                    cursor.execute(add_royalti(songwriter_id_pemilik_hak_cipta[0], id_konten))
+
+            if request.method == 'POST':
+                return redirect(f"{reverse('dashboarduser:homepage')}")
+        except OperationalError:
+            return HttpResponseNotFound("Database connection error")
+
+def delete_album(request, id_album):
+    print("id di delete_album:")
+    print(id_album)
+    if request.method == 'POST':
+        try:
+            with connection.cursor() as cursor:
+                print("delete_album_royalti")
+                cursor.execute(delete_album_royalti(id_album))
+                print("delete_album_downloaded_song")
+                cursor.execute(delete_album_downloaded_song(id_album))
+                print("delete_album_akun_play_song")
+                cursor.execute(delete_album_akun_play_song(id_album))
+                print("delete_album_playlist_song")
+                cursor.execute(delete_album_playlist_song(id_album))
+                print("delete_album_songwriter_write_song")
+                cursor.execute(delete_album_songwriter_write_song(id_album))
+                print("delete_song")
+                cursor.execute(delete_song(id_album))
+                print("operasi sudah selesai")
+
+            print("diatas redirect")
+            return redirect(reverse('dashboarduser:homepage'))
+        except OperationalError:
+            return HttpResponseNotFound("Database connection error")
+    return HttpResponseNotFound("Invalid request method")

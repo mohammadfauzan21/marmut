@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     'dashboardlabel',
     'dashboardpodcaster',
     'dashboarduser',
+    'royalti',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

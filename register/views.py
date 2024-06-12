@@ -18,10 +18,12 @@ def registerlabel(request):
         kontak = request.POST.get('kontak')
 
         # Generate UUID for the id column
-        id = uuid.uuid4()
+        id_label = uuid.uuid4()
+        id_pemilik_hak_cipta = uuid.uuid4()
 
         with connection.cursor() as cursor:
-            cursor.execute("INSERT INTO label (id, email, password, nama, kontak) VALUES (%s, %s, %s, %s, %s)", [id, email, password, nama, kontak])
+            cursor.execute("INSERT INTO pemilik_hak_cipta (id, rate_royalti) VALUES (%s, %s)", [id_pemilik_hak_cipta, 0])
+            cursor.execute("INSERT INTO label (id, email, password, nama, kontak, id_pemilik_hak_cipta) VALUES (%s, %s, %s, %s, %s, %s)", [id_label, email, password, nama, kontak, id_pemilik_hak_cipta])
 
         success_message = "Berhasil mendaftar sebagai Label."
         return render(request, 'login.html', {'success_message': success_message})
@@ -44,20 +46,23 @@ def registeruser(request):
         
         # Initialize is_verified as False
         is_verified = False  
-# Ambil role dari multicheckbox
+        # Ambil role dari multicheckbox
         roles = request.POST.getlist('role')
         print("Selected Roles:", roles) 
 
         with connection.cursor() as cursor:
-            cursor.execute("INSERT INTO akun (email, password, nama, tempat_lahir, kota_asal, tanggal_lahir, gender, is_verified) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)",
-                           [email, password, nama, tempat_lahir, kota_asal, tanggal_lahir, gender, is_verified])
+            cursor.execute("INSERT INTO akun (email, password, nama, tempat_lahir, kota_asal, tanggal_lahir, gender, is_verified) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)", [email, password, nama, tempat_lahir, kota_asal, tanggal_lahir, gender, is_verified])
 
             # Insert roles into respective tables (e.g., artist, songwriter, podcaster)
             for role in roles:
                 if role == 'artist':
-                    cursor.execute("INSERT INTO artist (id, email_akun) VALUES (%s, %s)", [uuid.uuid4(), email])
+                    id_pemilik_hak_cipta = uuid.uuid4()
+                    cursor.execute("INSERT INTO pemilik_hak_cipta (id, rate_royalti) VALUES (%s, %s)", [id_pemilik_hak_cipta, 0])
+                    cursor.execute("INSERT INTO artist (id, email_akun, id_pemilik_hak_cipta) VALUES (%s, %s, %s)", [uuid.uuid4(), email, id_pemilik_hak_cipta])
                 elif role == 'songwriter':
-                    cursor.execute("INSERT INTO songwriter (id, email_akun) VALUES (%s, %s)", [uuid.uuid4(), email])
+                    id_pemilik_hak_cipta = uuid.uuid4()
+                    cursor.execute("INSERT INTO pemilik_hak_cipta (id, rate_royalti) VALUES (%s, %s)", [id_pemilik_hak_cipta, 0])
+                    cursor.execute("INSERT INTO songwriter (id, email_akun, id_pemilik_hak_cipta) VALUES (%s, %s, %s)", [uuid.uuid4(), email, id_pemilik_hak_cipta])
                 elif role == 'podcaster':
                     cursor.execute("INSERT INTO podcaster (email) VALUES (%s)", [email])
 

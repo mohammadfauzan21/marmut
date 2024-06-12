@@ -24,6 +24,7 @@ urlpatterns = [
     path('register/', include('register.urls')),
     path('podcast/', include('podcast.urls')),
     path('chart/', include('chart.urls')),
+    path('royalti/', include('royalti.urls')),
     path('dashboard/podcaster/', include('dashboardpodcaster.urls', namespace='dashboard')),  
     path('dashboard/user/', include('dashboardreguser.urls')),
     path('dashboard', include('dashboarduser.urls')),

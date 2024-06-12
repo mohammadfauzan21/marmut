@@ -153,8 +153,64 @@
         $('#modalAddSongSukses').modal('show');
     }
 </script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const artistBtn = document.getElementById('artist-btn');
+        const songwriterBtn = document.getElementById('songwriter-btn');
+        const tbodyArtist = document.getElementById('tbody-artist');
+        const tbodySongwriter = document.getElementById('tbody-songwriter');
+        const troyaltiArtist = document.getElementById('troyalti-artist');
+        const troyaltiSongwriter = document.getElementById('troyalti-songwriter');
+
+        // Initialize button states based on presence of buttons
+        if (artistBtn && !songwriterBtn) {
+            artistBtn.classList.remove('btn-inactive');
+            artistBtn.classList.add('btn-active');
+        } else if (songwriterBtn && !artistBtn) {
+            songwriterBtn.classList.remove('btn-inactive');
+            songwriterBtn.classList.add('btn-active');
+        }
+
+        const toggleButtonStates = function (clickedBtn, otherBtn) {
+            if (otherBtn) {
+                clickedBtn.classList.toggle('btn-inactive');
+                clickedBtn.classList.toggle('btn-active');
+                otherBtn.classList.remove('btn-active');
+                otherBtn.classList.add('btn-inactive');
+            }
+        }
+
+        artistBtn?.addEventListener('click', function () {
+            toggleButtonStates(artistBtn, songwriterBtn);
+            tbodySongwriter.classList.add('hidden');
+            tbodyArtist.classList.remove('hidden');
+            troyaltiSongwriter.classList.add('hidden');
+            troyaltiArtist.classList.remove('hidden');
+        });
+
+        songwriterBtn?.addEventListener('click', function () {
+            toggleButtonStates(songwriterBtn, artistBtn);
+            tbodyArtist.classList.add('hidden');
+            tbodySongwriter.classList.remove('hidden');
+            troyaltiArtist.classList.add('hidden');
+            troyaltiSongwriter.classList.remove('hidden');
+        });
+    });
+</script>
 
 <style>
+    .hidden {
+        display: none;
+    }
+
+    .btn-inactive {
+        background-color: transparent !important;
+    }
+    
+    .btn-active {
+        background-color: var(--neutral-2) !important;
+    }
+    
     input[type=range] {
         -webkit-appearance: none;
         width: 100%;
@@ -502,9 +558,9 @@
             <div class="container" style="margin-top: 24px;">
                 <a href="{% url 'podcast:podcast' %}" class="container d-flex align-items-center"
                     style="text-decoration: none; height: 34px;">
-                    <img src="{% static 'img/podcast-active.svg' %}" alt="search" style="width: 35px; height: 35px;">
+                    <img src="{% static 'img/podcast-inactive.svg' %}" alt="search" style="width: 35px; height: 35px;">
                     <h6 class="plus-jakarta-sans-extrabold"
-                        style="color: var(--neutral-0); margin-top: 8px; margin-left: 15px">
+                        style="color: var(--neutral-2); margin-top: 8px; margin-left: 15px">
                         Podcast
                     </h6>
                 </a>
@@ -521,10 +577,10 @@
             </div>
             {% if 'podcaster' in request.session.user_roles or 'label' in request.session.user_roles or 'artist' in request.session.user_roles or 'songwriter' in request.session.user_roles %}
             <div class="container" style="margin-top: 24px;">
-                <a href="{% url 'royalti:royalti' %}" class="container d-flex align-items-center" style="text-decoration: none; height: 34px;">
-                    <img src="{% static 'img/royalti-inactive.svg' %}" alt="search" style="width: 35px; height: 35px;">
+                <a href="#" class="container d-flex align-items-center" style="text-decoration: none; height: 34px;">
+                    <img src="{% static 'img/royalti-active.svg' %}" alt="search" style="width: 35px; height: 35px;">
                     <h6 class="plus-jakarta-sans-extrabold"
-                        style="color: var(--neutral-2); margin-top: 8px; margin-left: 15px">
+                        style="color: var(--neutral-0); margin-top: 8px; margin-left: 15px">
                         Cek Royalti
                     </h6>
                 </a>
@@ -767,10 +823,12 @@
                     </div>
                 </div>
                 <!-- Album -->
-                <div class="tab-pane fade" id="pills-album" role="tabpanel" aria-labelledby="pills-album-tab" style="height: 272px;">
+                <div class="tab-pane fade" id="pills-album" role="tabpanel" aria-labelledby="pills-album-tab"
+                    style="height: 272px;">
                     <!-- Tambah Button -->
                     <div class="container d-flex justify-content-center" style="">
-                        <a href="#" class="mx-1" style="text-decoration: none;" data-toggle="modal" data-target="#tambahAlbum">
+                        <a href="#" class="mx-1" style="text-decoration: none;" data-toggle="modal"
+                            data-target="#tambahAlbum">
                             <button type="button"
                                 class=" container d-flex align-items-center justify-content-center plus-jakarta-sans-extrabold button-primary my-3"
                                 style="width: 297px;">
@@ -778,8 +836,8 @@
                             </button>
                         </a>
                         <!-- modal -->
-                        <div class="modal fade" id="tambahAlbum" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-                            aria-hidden="true">
+                        <div class="modal fade" id="tambahAlbum" tabindex="-1" role="dialog"
+                            aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content"
                                     style="background-color: var(--neutral-4); border-radius: 40px !important; padding: 20px;">
@@ -788,8 +846,8 @@
                                         {% csrf_token %}
                                         <div>
                                             <div class="modal-header" style="border-bottom: none;">
-                                                <h5 class="modal-title plus-jakarta-sans-extrabold" id="exampleModalLabel"
-                                                    style="color: var(--neutral-0);">
+                                                <h5 class="modal-title plus-jakarta-sans-extrabold"
+                                                    id="exampleModalLabel" style="color: var(--neutral-0);">
                                                     Create Album
                                                 </h5>
                                             </div>
@@ -797,13 +855,14 @@
                                                 style="color: var(--neutral-1); margin-top: -1em;">
                                                 <div class="form-group">
                                                     <label for="judulAlbum" style="color: #ffffff;">Judul Album:</label>
-                                                    <input name="judulAlbum" type="text" class="form-control" id="judulAlbum"
-                                                        placeholder="Masukkan judul album">
+                                                    <input name="judulAlbum" type="text" class="form-control"
+                                                        id="judulAlbum" placeholder="Masukkan judul album">
                                                 </div>
                                                 <div class="form-group" style="margin-top: 10px;">
                                                     <!-- Dropdown untuk Label -->
                                                     <div class="form-group">
-                                                        <label for="labelDropdown" style="color: #ffffff;">Label:</label>
+                                                        <label for="labelDropdown"
+                                                            style="color: #ffffff;">Label:</label>
                                                         <select class="form-control" id="labelDropdown" name="label"
                                                             style="margin-top: 5px;">
                                                             {% for label in labels %}
@@ -816,8 +875,8 @@
                                         </div>
                                         <div>
                                             <div class="modal-header" style="border-bottom: none;">
-                                                <h5 class="modal-title plus-jakarta-sans-extrabold" id="exampleModalLabel"
-                                                    style="color: var(--neutral-0);">
+                                                <h5 class="modal-title plus-jakarta-sans-extrabold"
+                                                    id="exampleModalLabel" style="color: var(--neutral-0);">
                                                     Lagu Pertama
                                                 </h5>
                                             </div>
@@ -825,8 +884,8 @@
                                                 style="color: var(--neutral-1); margin-top: -1em;">
                                                 <div class="form-group">
                                                     <label for="judulLagu" style="color: #ffffff;">Judul Lagu:</label>
-                                                    <input name="judulLagu" type="text" class="form-control" id="judulLagu"
-                                                        placeholder="Masukkan judul lagu">
+                                                    <input name="judulLagu" type="text" class="form-control"
+                                                        id="judulLagu" placeholder="Masukkan judul lagu">
                                                 </div>
                                                 <div class="form-group" style="margin-top: 10px;">
                                                     {% if 'artist' in request.session.user_roles %}
@@ -836,7 +895,8 @@
                                                     {% elif 'songwriter' in request.session.user_roles %}
                                                     <!-- Dropdown untuk Artist or Songwriter -->
                                                     <div class="form-group">
-                                                        <label for="labelDropdown" style="color: #ffffff;">Artist:</label>
+                                                        <label for="labelDropdown"
+                                                            style="color: #ffffff;">Artist:</label>
                                                         <select class="form-control" id="artistDropdown" name="artist"
                                                             style="margin-top: 5px;">
                                                             {% for artist in artists %}
@@ -848,17 +908,21 @@
                                                 </div>
                                                 <div class="form-group" style="margin-top: 10px;">
                                                     {% if 'songwriter' in request.session.user_roles %}
-                                                    <label for="songwriterSelect" style="color: #ffffff;">Songwriter:</label>
-                                                    <input name="songwriter" type="text" class="form-control" id="songwriter"
-                                                        value="{{ user_data.0 }}" disabled>
+                                                    <label for="songwriterSelect"
+                                                        style="color: #ffffff;">Songwriter:</label>
+                                                    <input name="songwriter" type="text" class="form-control"
+                                                        id="songwriter" value="{{ user_data.0 }}" disabled>
                                                     {% else %}
                                                     <!-- Dropdown untuk Songwriter -->
                                                     <div class="form-group">
-                                                        <label for="songwriterSelect" style="color: #ffffff;">Songwriter:</label>
-                                                        <select data-mdb-select-init multiple data-mdb-clear-button="true"
-                                                            id="songwriterSelect" name="songwriter">
+                                                        <label for="songwriterSelect"
+                                                            style="color: #ffffff;">Songwriter:</label>
+                                                        <select data-mdb-select-init multiple
+                                                            data-mdb-clear-button="true" id="songwriterSelect"
+                                                            name="songwriter">
                                                             {% for songwriter in songwriters %}
-                                                            <option value="{{songwriter.id}}">{{songwriter.nama}}</option>
+                                                            <option value="{{songwriter.id}}">{{songwriter.nama}}
+                                                            </option>
                                                             {% endfor %}
                                                         </select>
                                                     </div>
@@ -868,8 +932,9 @@
                                                     <!-- Dropdown untuk Genre -->
                                                     <div class="form-group">
                                                         <label for="genreSelect" style="color: #ffffff;">Genre:</label>
-                                                        <select data-mdb-select-init multiple data-mdb-clear-button="true"
-                                                            id="genreSelect" name="genreSelect">
+                                                        <select data-mdb-select-init multiple
+                                                            data-mdb-clear-button="true" id="genreSelect"
+                                                            name="genreSelect">
                                                             {% for genre in genres %}
                                                             <option value="{{genre.genre}}">{{genre.genre}}</option>
                                                             {% endfor %}
@@ -882,22 +947,26 @@
                                                         <div>
                                                             <label for="">Menit</label>
                                                             <input name="durasiMenit" type="number" id="durasiMenit"
-                                                                class="form-control" min="0" max="60" step="1" value="3">
+                                                                class="form-control" min="0" max="60" step="1"
+                                                                value="3">
                                                         </div>
                                                         <div>
                                                             <label for="">Detik</label>
                                                             <input name="durasiDetik" type="number" id="durasiDetik"
-                                                                class="form-control" min="0" max="60" step="1" value="15">
+                                                                class="form-control" min="0" max="60" step="1"
+                                                                value="15">
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="modal-footer" style="border-top: none;">
-                                            <button type="button" class="button-modal-secondary plus-jakarta-sans-bold secondary-button"
+                                            <button type="button"
+                                                class="button-modal-secondary plus-jakarta-sans-bold secondary-button"
                                                 style="border: none !important; border-radius: 16px; padding-block: 12px; padding-inline: 24px; text-decoration: 2px solid var(--neutral-1); background-color: var(--neutral-3); color: white;"
                                                 data-dismiss="modal">Batal</button>
-                                            <button type="submit" class="button-modal-danger plus-jakarta-sans-bold button-primary"
+                                            <button type="submit"
+                                                class="button-modal-danger plus-jakarta-sans-bold button-primary"
                                                 style="border: none !important; border-radius: 16px; padding-block: 12px; padding-inline: 24px; color: var(--neutral-0);">Submit</button>
                                         </div>
                                     </form>
@@ -909,11 +978,13 @@
                     <div class="container" style="height: 200px; overflow-y: auto; width: 100%;">
                         {% if albums %}
                         {% for detail in albums %}
-                        <div class="container d-flex card-album" style="height: 68px; border-radius: 16px; margin-top: 4px;">
+                        <div class="container d-flex card-album"
+                            style="height: 68px; border-radius: 16px; margin-top: 4px;">
                             <div class="container col-1" style="align-content: center; margin-inline: -12px;">
                                 <div class="justify-content-center align-content-center d-flex"
                                     style="border-radius: 12px; height: 32px; width: 32px; background-color: var(--neutral-2);">
-                                    <img src="{% static 'img/default.png' %}" alt="kelola" style="width: 24px; height: 24px;">
+                                    <img src="{% static 'img/default.png' %}" alt="kelola"
+                                        style="width: 24px; height: 24px;">
                                 </div>
                             </div>
                             <div class="container col-7" style="align-content: center;">
@@ -935,10 +1006,11 @@
                                 </div>
                             </div>
                             <div class="dropdown d-flex">
-                                <button class="btn btn-secondary dropdown-toggle-iconless" type="button" id="dropdownMenuButton"
-                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-                                    style="background-color: transparent; border: none;">
-                                    <img src="{% static 'img/threedots.svg' %}" alt="kelola" style="width: 20px; height: 20px;">
+                                <button class="btn btn-secondary dropdown-toggle-iconless" type="button"
+                                    id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                                    aria-expanded="false" style="background-color: transparent; border: none;">
+                                    <img src="{% static 'img/threedots.svg' %}" alt="kelola"
+                                        style="width: 20px; height: 20px;">
                                 </button>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton"
                                     style="background-color: var(--neutral-3); border-radius: 16px; padding: 4px; width: max-content !important;">
@@ -947,11 +1019,11 @@
                                         style="color: var(--neutral-1); font-size: 12px; font-weight: 600;"
                                         href="{% url 'dashboardreguser:kelolaalbum' detail.id %}">Detail</a>
                                     <a class="dropdown-item plus-jakarta-sans-bold m-auto"
-                                        style="color: var(--neutral-1); font-size: 12px; font-weight: 600;" href="#" data-toggle="modal"
-                                        data-target="#tambahLagu{{detail.id}}">Tambah Lagu</a>
+                                        style="color: var(--neutral-1); font-size: 12px; font-weight: 600;" href="#"
+                                        data-toggle="modal" data-target="#tambahLagu{{detail.id}}">Tambah Lagu</a>
                                     <a class="dropdown-item plus-jakarta-sans-bold m-auto"
-                                        style="color: var(--neutral-1); font-size: 12px; font-weight: 600;" href="#" data-toggle="modal"
-                                        data-target="#modalHapusAlbum{{detail.id}}">Hapus</a>
+                                        style="color: var(--neutral-1); font-size: 12px; font-weight: 600;" href="#"
+                                        data-toggle="modal" data-target="#modalHapusAlbum{{detail.id}}">Hapus</a>
                                 </div>
                                 <!-- Modal Hapus -->
                                 <!-- Harus diganti karena masih playlist harusnya album -->
@@ -961,12 +1033,13 @@
                                         <div class="modal-content"
                                             style="background-color: var(--neutral-4); border-radius: 40px !important; padding: 20px;">
                                             <div class="modal-header" style="border-bottom: none;">
-                                                <h5 class="modal-title plus-jakarta-sans-extrabold" id="exampleModalLabel"
-                                                    style="color: var(--neutral-0);">Konfirmasi
+                                                <h5 class="modal-title plus-jakarta-sans-extrabold"
+                                                    id="exampleModalLabel" style="color: var(--neutral-0);">Konfirmasi
                                                     Hapus
                                                 </h5>
                                             </div>
-                                            <div class="modal-body plus-jakarta-sans-medium" style="color: var(--neutral-1);">
+                                            <div class="modal-body plus-jakarta-sans-medium"
+                                                style="color: var(--neutral-1);">
                                                 Apakah Anda yakin ingin menghapus item ini?
                                             </div>
                                             <div class="modal-footer" style="border-top: none;">
@@ -975,7 +1048,8 @@
                                                     style="border: none !important; border-radius: 16px; padding-block: 12px; padding-inline: 24px; text-decoration: 2px solid var(--neutral-1); background-color: var(--neutral-3); color: white;"
                                                     data-dismiss="modal">Batal</button>
                                                 <!-- Harus diganti karena masih playlist harusnya album -->
-                                                <form method="POST" action="{% url 'dashboardreguser:delete_album' detail.id %}">
+                                                <form method="POST"
+                                                    action="{% url 'dashboardreguser:delete_album' detail.id %}">
                                                     {% csrf_token %}
                                                     <button type="submit"
                                                         class="button-modal-danger plus-jakarta-sans-bold danger-button"
@@ -995,36 +1069,41 @@
                                         <div class="modal-content"
                                             style="background-color: var(--neutral-4); border-radius: 40px !important; padding: 20px;">
                                             <!-- Harus diganti karena masih playlist harusnya album -->
-                                            <form method="POST" action="{% url 'dashboardreguser:create_song' detail.id %}">
+                                            <form method="POST"
+                                                action="{% url 'dashboardreguser:create_song' detail.id %}">
                                                 {% csrf_token %}
                                                 <div class="modal-header" style="border-bottom: none;">
-                                                    <h5 class="modal-title plus-jakarta-sans-extrabold" id="exampleModalLabel"
-                                                        style="color: var(--neutral-0);">
+                                                    <h5 class="modal-title plus-jakarta-sans-extrabold"
+                                                        id="exampleModalLabel" style="color: var(--neutral-0);">
                                                         Create Lagu
                                                     </h5>
                                                 </div>
                                                 <div class="modal-body plus-jakarta-sans-medium"
                                                     style="color: var(--neutral-1); margin-top: -1em;">
                                                     <div class="form-group" style="margin-bottom: 1em;">
-                                                        <label for="albumLagunya" style="color: var(--neutral-0);">Album:
+                                                        <label for="albumLagunya"
+                                                            style="color: var(--neutral-0);">Album:
                                                             {{detail.judul}}</label>
                                                     </div>
                                                     <div class="form-group">
-                                                        <label for="judulLagu" style="color: #ffffff;">Judul Lagu:</label>
-                                                        <input name="judulLagu" type="text" class="form-control" id="judulLagu"
-                                                            placeholder="Masukkan judul lagu">
+                                                        <label for="judulLagu" style="color: #ffffff;">Judul
+                                                            Lagu:</label>
+                                                        <input name="judulLagu" type="text" class="form-control"
+                                                            id="judulLagu" placeholder="Masukkan judul lagu">
                                                     </div>
                                                     <div class="form-group" style="margin-top: 10px;">
                                                         {% if 'artist' in request.session.user_roles %}
-                                                        <label for="labelDropdown" style="color: #ffffff;">Artist:</label>
-                                                        <input name="artist" type="text" class="form-control" id="artist"
-                                                            value="{{ user_data.0 }}" disabled>
+                                                        <label for="labelDropdown"
+                                                            style="color: #ffffff;">Artist:</label>
+                                                        <input name="artist" type="text" class="form-control"
+                                                            id="artist" value="{{ user_data.0 }}" disabled>
                                                         {% elif 'songwriter' in request.session.user_roles %}
                                                         <!-- Dropdown untuk Artist or Songwriter -->
                                                         <div class="form-group">
-                                                            <label for="labelDropdown" style="color: #ffffff;">Artist:</label>
-                                                            <select class="form-control" id="artistDropdown" name="artist"
-                                                                style="margin-top: 5px;">
+                                                            <label for="labelDropdown"
+                                                                style="color: #ffffff;">Artist:</label>
+                                                            <select class="form-control" id="artistDropdown"
+                                                                name="artist" style="margin-top: 5px;">
                                                                 {% for artist in artists %}
                                                                 <option value="{{artist.id}}">{{artist.nama}}</option>
                                                                 {% endfor %}
@@ -1034,17 +1113,21 @@
                                                     </div>
                                                     <div class="form-group" style="margin-top: 10px;">
                                                         {% if 'songwriter' in request.session.user_roles %}
-                                                        <label for="songwriterSelect" style="color: #ffffff;">Songwriter:</label>
-                                                        <input name="songwriter" type="text" class="form-control" id="songwriter"
-                                                            value="{{ user_data.0 }}" disabled>
+                                                        <label for="songwriterSelect"
+                                                            style="color: #ffffff;">Songwriter:</label>
+                                                        <input name="songwriter" type="text" class="form-control"
+                                                            id="songwriter" value="{{ user_data.0 }}" disabled>
                                                         {% else %}
                                                         <!-- Dropdown untuk Songwriter -->
                                                         <div class="form-group">
-                                                            <label for="songwriterSelect" style="color: #ffffff;">Songwriter:</label>
-                                                            <select data-mdb-select-init multiple data-mdb-clear-button="true"
-                                                                id="songwriterSelect2" name="songwriter">
+                                                            <label for="songwriterSelect"
+                                                                style="color: #ffffff;">Songwriter:</label>
+                                                            <select data-mdb-select-init multiple
+                                                                data-mdb-clear-button="true" id="songwriterSelect2"
+                                                                name="songwriter">
                                                                 {% for songwriter in songwriters %}
-                                                                <option value="{{songwriter.id}}">{{songwriter.nama}}</option>
+                                                                <option value="{{songwriter.id}}">{{songwriter.nama}}
+                                                                </option>
                                                                 {% endfor %}
                                                             </select>
                                                         </div>
@@ -1053,9 +1136,11 @@
                                                     <div class="form-group" style="margin-top: 10px;">
                                                         <!-- Dropdown untuk Genre -->
                                                         <div class="form-group">
-                                                            <label for="genreSelect" style="color: #ffffff;">Genre:</label>
-                                                            <select data-mdb-select-init multiple data-mdb-clear-button="true"
-                                                                id="genreSelect2" name="genreSelect">
+                                                            <label for="genreSelect"
+                                                                style="color: #ffffff;">Genre:</label>
+                                                            <select data-mdb-select-init multiple
+                                                                data-mdb-clear-button="true" id="genreSelect2"
+                                                                name="genreSelect">
                                                                 {% for genre in genres %}
                                                                 <option value="{{genre.genre}}">{{genre.genre}}</option>
                                                                 {% endfor %}
@@ -1063,17 +1148,20 @@
                                                         </div>
                                                     </div>
                                                     <div class="form-group" style="margin-top: 10px;">
-                                                        <label for="durasiLagu" style="color: #ffffff;">Durasi Lagu:</label>
+                                                        <label for="durasiLagu" style="color: #ffffff;">Durasi
+                                                            Lagu:</label>
                                                         <div style="display: flex;">
                                                             <div>
                                                                 <label for="">Menit</label>
                                                                 <input name="durasiMenit" type="number" id="durasiMenit"
-                                                                    class="form-control" min="0" max="60" step="1" value="3">
+                                                                    class="form-control" min="0" max="60" step="1"
+                                                                    value="3">
                                                             </div>
                                                             <div>
                                                                 <label for="">Detik</label>
                                                                 <input name="durasiDetik" type="number" id="durasiDetik"
-                                                                    class="form-control" min="0" max="60" step="1" value="15">
+                                                                    class="form-control" min="0" max="60" step="1"
+                                                                    value="15">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -1097,7 +1185,8 @@
                         {% else %}
                         <div class="container d-flex justify-content-center card-playlist"
                             style="height: 68px; border-radius: 16px; margin-top: 4px;">
-                            <h1 class="d-inline" style="margin: 0; color: var(--neutral-0); font-size: 12px; font-weight: 900;">
+                            <h1 class="d-inline"
+                                style="margin: 0; color: var(--neutral-0); font-size: 12px; font-weight: 900;">
                                 Belum memiliki album</h1>
                         </div>
                         {% endif %}
@@ -1108,7 +1197,8 @@
                     style="height: 272px;">
                     <!-- Tambah Button -->
                     <div class="container d-flex justify-content-center" style="">
-                        <a href="#" class="mx-1" style="text-decoration: none;" data-toggle="modal" data-target="#tambahPodcast">
+                        <a href="#" class="mx-1" style="text-decoration: none;" data-toggle="modal"
+                            data-target="#tambahPodcast">
                             <button type="button"
                                 class=" container d-flex align-items-center justify-content-center plus-jakarta-sans-extrabold button-primary my-3"
                                 style="width: 297px;">
@@ -1116,8 +1206,8 @@
                             </button>
                         </a>
                         <!-- modal -->
-                        <div class="modal fade" id="tambahPodcast" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-                            aria-hidden="true">
+                        <div class="modal fade" id="tambahPodcast" tabindex="-1" role="dialog"
+                            aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content"
                                     style="background-color: var(--neutral-4); border-radius: 40px !important; padding: 20px;">
@@ -1129,7 +1219,8 @@
                                                 Tambah Podcast
                                             </h5>
                                         </div>
-                                        <div class="modal-body plus-jakarta-sans-medium" style="color: var(--neutral-1);">
+                                        <div class="modal-body plus-jakarta-sans-medium"
+                                            style="color: var(--neutral-1);">
                                             <div class="form-group">
                                                 <label for="judulPodcast">Judul:</label>
                                                 <input name="judul" type="text" class="form-control" id="judulPodcast"
@@ -1137,8 +1228,8 @@
                                             </div>
                                             <div class="form-group" style="margin-top: 20px;">
                                                 <label for="deskripsiPodcast">Genre:</label>
-                                                <select data-mdb-select-init multiple data-mdb-clear-button="true" id="genreSelect2"
-                                                    name="genreSelect">
+                                                <select data-mdb-select-init multiple data-mdb-clear-button="true"
+                                                    id="genreSelect2" name="genreSelect">
                                                     {% for genre in genres %}
                                                     <option value="{{genre.genre}}">{{genre.genre}}</option>
                                                     {% endfor %}
@@ -1146,10 +1237,12 @@
                                             </div>
                                         </div>
                                         <div class="modal-footer" style="border-top: none;">
-                                            <button type="button" class="button-modal-secondary plus-jakarta-sans-bold secondary-button"
+                                            <button type="button"
+                                                class="button-modal-secondary plus-jakarta-sans-bold secondary-button"
                                                 style="border: none !important; border-radius: 16px; padding-block: 12px; padding-inline: 24px; text-decoration: 2px solid var(--neutral-1); background-color: var(--neutral-3); color: white;"
                                                 data-dismiss="modal">Batal</button>
-                                            <button type="submit" class="button-modal-danger plus-jakarta-sans-bold button-primary"
+                                            <button type="submit"
+                                                class="button-modal-danger plus-jakarta-sans-bold button-primary"
                                                 style="border: none !important; border-radius: 16px; padding-block: 12px; padding-inline: 24px; color: var(--neutral-0);">Submit</button>
                                         </div>
                                     </form>
@@ -1161,11 +1254,13 @@
                     <div class="container" style="height: 200px;overflow-y: auto; width: 100%;">
                         {% if podcasts %}
                         {% for podcast in podcasts %}
-                        <div class="container d-flex card-album" style="height: 68px; border-radius: 16px; margin-top: 4px;">
+                        <div class="container d-flex card-album"
+                            style="height: 68px; border-radius: 16px; margin-top: 4px;">
                             <div class="container col-1" style="align-content: center; margin-inline: -12px;">
                                 <div class="justify-content-center align-content-center d-flex"
                                     style="border-radius: 12px; height: 32px; width: 32px; background-color: var(--neutral-2);">
-                                    <img src="{% static 'img/default.png' %}" alt="kelola" style="width: 24px; height: 24px;">
+                                    <img src="{% static 'img/default.png' %}" alt="kelola"
+                                        style="width: 24px; height: 24px;">
                                 </div>
                             </div>
                             <div class="container col-7" style="align-content: center;">
@@ -1187,24 +1282,25 @@
                                             style="margin: 0; color: var(--neutral-1); font-size: 10px;">
                                             |
                                             {% if podcast.3 %}
-                                                {% with total_minutes=podcast.3 %}
-                                                    {% if total_minutes > 60 %}
-                                                        {{ podcast.3 }}
-                                                    {% else %}
-                                                        {{ podcast.3 }} menit
-                                                    {% endif %}
-                                                {% endwith %}
+                                            {% with total_minutes=podcast.3 %}
+                                            {% if total_minutes > 60 %}
+                                            {{ podcast.3 }}
                                             {% else %}
-                                                {{ podcast.3 }} menit
+                                            {{ podcast.3 }} menit
+                                            {% endif %}
+                                            {% endwith %}
+                                            {% else %}
+                                            {{ podcast.3 }} menit
                                             {% endif %}</p>
                                     </div>
                                 </div>
                             </div>
                             <div class="dropdown d-flex">
-                                <button class="btn btn-secondary dropdown-toggle-iconless" type="button" id="dropdownMenuButton"
-                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-                                    style="background-color: transparent; border: none;">
-                                    <img src="{% static 'img/threedots.svg' %}" alt="kelola" style="width: 20px; height: 20px;">
+                                <button class="btn btn-secondary dropdown-toggle-iconless" type="button"
+                                    id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                                    aria-expanded="false" style="background-color: transparent; border: none;">
+                                    <img src="{% static 'img/threedots.svg' %}" alt="kelola"
+                                        style="width: 20px; height: 20px;">
                                 </button>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton"
                                     style="background-color: var(--neutral-3); border-radius: 16px; padding: 4px; width: max-content !important;">
@@ -1212,11 +1308,11 @@
                                         style="color: var(--neutral-1); font-size: 12px; font-weight: 600;"
                                         href="{% url 'dashboard:episodes' podcast.0 %}">Detail</a>
                                     <a class="dropdown-item plus-jakarta-sans-bold m-auto"
-                                        style="color: var(--neutral-1); font-size: 12px; font-weight: 600;" href="#" data-toggle="modal"
-                                        data-target="#ubahPodcast{{podcast.0}}">Ubah</a>
+                                        style="color: var(--neutral-1); font-size: 12px; font-weight: 600;" href="#"
+                                        data-toggle="modal" data-target="#ubahPodcast{{podcast.0}}">Ubah</a>
                                     <a class="dropdown-item plus-jakarta-sans-bold m-auto"
-                                        style="color: var(--neutral-1); font-size: 12px; font-weight: 600;" href="#" data-toggle="modal"
-                                        data-target="#modalHapusPodcast{{podcast.0}}">Hapus</a>
+                                        style="color: var(--neutral-1); font-size: 12px; font-weight: 600;" href="#"
+                                        data-toggle="modal" data-target="#modalHapusPodcast{{podcast.0}}">Hapus</a>
                                 </div>
                                 <!-- Modal Hapus -->
                                 <!-- Harus diganti karena masih playlist harusnya podcast -->
@@ -1226,12 +1322,13 @@
                                         <div class="modal-content"
                                             style="background-color: var(--neutral-4); border-radius: 40px !important; padding: 20px;">
                                             <div class="modal-header" style="border-bottom: none;">
-                                                <h5 class="modal-title plus-jakarta-sans-extrabold" id="exampleModalLabel"
-                                                    style="color: var(--neutral-0);">Konfirmasi
+                                                <h5 class="modal-title plus-jakarta-sans-extrabold"
+                                                    id="exampleModalLabel" style="color: var(--neutral-0);">Konfirmasi
                                                     Hapus
                                                 </h5>
                                             </div>
-                                            <div class="modal-body plus-jakarta-sans-medium" style="color: var(--neutral-1);">
+                                            <div class="modal-body plus-jakarta-sans-medium"
+                                                style="color: var(--neutral-1);">
                                                 Apakah Anda yakin ingin menghapus item ini?
                                             </div>
                                             <div class="modal-footer" style="border-top: none;">
@@ -1240,7 +1337,8 @@
                                                     style="border: none !important; border-radius: 16px; padding-block: 12px; padding-inline: 24px; text-decoration: 2px solid var(--neutral-1); background-color: var(--neutral-3); color: white;"
                                                     data-dismiss="modal">Batal</button>
                                                 <!-- Harus diganti karena masih playlist harusnya podcast -->
-                                                <form method="POST" action="{% url 'dashboard:delete_podcast' podcast.0 %}">
+                                                <form method="POST"
+                                                    action="{% url 'dashboard:delete_podcast' podcast.0 %}">
                                                     {% csrf_token %}
                                                     <button type="submit"
                                                         class="button-modal-danger plus-jakarta-sans-bold danger-button"
@@ -1261,22 +1359,24 @@
                                             <form method="POST" action="{% url 'dashboard:update_podcast' podcast.0 %}">
                                                 {% csrf_token %}
                                                 <div class="modal-header" style="border-bottom: none;">
-                                                    <h5 class="modal-title plus-jakarta-sans-extrabold" id="exampleModalLabel"
-                                                        style="color: var(--neutral-0);">
+                                                    <h5 class="modal-title plus-jakarta-sans-extrabold"
+                                                        id="exampleModalLabel" style="color: var(--neutral-0);">
                                                         Ubah podcast
                                                     </h5>
                                                 </div>
-                                                <div class="modal-body plus-jakarta-sans-medium" style="color: var(--neutral-1);">
+                                                <div class="modal-body plus-jakarta-sans-medium"
+                                                    style="color: var(--neutral-1);">
                                                     <div class="form-group">
                                                         <label for="judulPodcast">Judul:</label>
                                                         <!-- Harus diganti karena masih playlist harusnya album -->
-                                                        <input name="judul" type="text" class="form-control" id="judulPodcast"
-                                                            placeholder={{podcast.1}}>
+                                                        <input name="judul" type="text" class="form-control"
+                                                            id="judulPodcast" placeholder={{podcast.1}}>
                                                     </div>
                                                     <div class="form-group" style="margin-top: 20px;">
                                                         <label for="deskripsiPlaylist">Genre:</label>
-                                                        <select data-mdb-select-init multiple data-mdb-clear-button="true"
-                                                            id="genreSelect3" name="genreSelect">
+                                                        <select data-mdb-select-init multiple
+                                                            data-mdb-clear-button="true" id="genreSelect3"
+                                                            name="genreSelect">
                                                             {% for genre in genres %}
                                                             <option value="{{genre.genre}}">{{genre.genre}}</option>
                                                             {% endfor %}
@@ -1302,7 +1402,8 @@
                         {% else %}
                         <div class="container d-flex justify-content-center card-playlist"
                             style="height: 68px; border-radius: 16px; margin-top: 4px;">
-                            <h1 class="d-inline" style="margin: 0; color: var(--neutral-0); font-size: 12px; font-weight: 900;">
+                            <h1 class="d-inline"
+                                style="margin: 0; color: var(--neutral-0); font-size: 12px; font-weight: 900;">
                                 Belum memiliki Podcast</h1>
                         </div>
                         {% endif %}
@@ -1340,61 +1441,114 @@
             </div>
             {% endif %}
         </div>
-        <!-- Bagian konten podcastnya -->
-        <div class="" style="background: linear-gradient(180deg, #292724, #1B1817); border-radius: 24px; max-height: 82%; padding-bottom: 25px; padding-top: 20px; white-space: nowrap; overflow-y: auto; text-overflow: ellipsis; margin-top: 1em; width: 97%;">
-            <!-- Daftar podcast -->
+        <!-- Bagian konten dashboardnya -->
+        <div class="" style="background: linear-gradient(180deg, #292724, #1B1817); border-radius: 24px; height: 80%; max-height: 82%; padding-bottom: 25px; padding-top: 20px; white-space: nowrap; overflow-y: auto; text-overflow: ellipsis; margin-top: 1em; width: 97%;">
             <div class="row">
                 <div class="col-12" style="margin-left: 30px">
-                    <h2 class="plus-jakarta-sans-extrabold" style="color: var(--neutral-0); font-size: 40px; margin-top: 20px;">
-                        Telusuri Podcast
-                    </h2>
-                    <p class="plus-jakarta-sans-bold" style="color: var(--neutral-1); font-size: 18px; margin-top: 24px;">Podcast hadir untuk menemani harimu
-                    </p>
-                    <!-- Tabel untuk podcast -->
-                    <table class="table-podcast" style="width: 95%; border-collapse: collapse; margin-top: 48px;color: var(--neutral-1); padding: 10px;">
+                    <h2 class="plus-jakarta-sans-extrabold" style="color: var(--neutral-0); font-size: 40px; margin-top: 20px;">Cek Royalti</h2>
+                    <div style="padding: 2px; border-radius: 15px; width: min-content; border: 1px solid var(--neutral-2); margin-top: 25px;">
+                        {% if 'artist' in request.session.user_roles %}
+                        <button id="artist-btn" type="button" class="button-primary plus-jakarta-sans-bold btn-active" data-toggle="modal" style="font-size: 14px; border: none;">
+                            Artist
+                        </button>
+                        {% endif %}
+                        {% if 'songwriter' in request.session.user_roles %}
+                        <button id="songwriter-btn" type="button" class="button-primary plus-jakarta-sans-bold btn-inactive" data-toggle="modal" style="font-size: 14px; border: none;">
+                            Songwriter
+                        </button>
+                        {% endif %}
+                    </div>
+
+                    <p class="plus-jakarta-sans-bold" style="color: var(--neutral-1); font-size: 18px; margin-top: 15px;">Daftar royalti yang diperoleh</p>
+
+                    <div style="margin-top: 3em;">
+                        <p id="troyalti-artist" class="plus-jakarta-sans-bold" style="color: var(--neutral-1); font-size: 18px; margin-top: 15px; color: white;">
+                            Total royalti = <span>Rp 0</span>
+                        </p>
+                        <p id="troyalti-songwriter" class="plus-jakarta-sans-bold hidden" style="color: var(--neutral-1); font-size: 18px; margin-top: 15px; color: white;">
+                            Total royalti = <span>Rp 1</span>
+                        </p>
+                    </div>
+                    <!-- Tabel untuk Royalti -->
+                    <table class="table-royalti" style="width: 95%; border-collapse: collapse;color: var(--neutral-1); padding: 10px;">
                         <thead>
                             <tr style="border-bottom: 1px solid var(--neutral-2);">
                                 <th style="color: var(--neutral-1); padding: 10px;">#</th>
-                                <th style="color: var(--neutral-1); padding-left: 120px;">Judul</th>
-                                <th style="color: var(--neutral-1); padding-left: 120px;">Podcaster</th>
-                                <th style="color: var(--neutral-1); padding-left: 120px;">Durasi</th>
-                                <th style="color: var(--neutral-1); padding-left: 120px;">Action</th>
+                                <th style="color: var(--neutral-1); padding-left: 120px;">Judul Lagu</th>
+                                <th style="color: var(--neutral-1); padding-left: 120px;">Judul Album</th>
+                                <th style="color: var(--neutral-1); padding-left: 120px;">Total Play</th>
+                                <th style="color: var(--neutral-1); padding-left: 120px;">Total Download</th>
+                                <th style="color: var(--neutral-1); padding-left: 120px;">Total Royalti yang Didapat</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            {% for index, podcast_data in all_podcasts %}
-                            <!-- {{ podcast_data.0 }} -->
-                            <tr class="plus-jakarta-sans-bold"
-                                style="border-bottom: 0px solid var(--neutral-2); font-size:14px; text-align:start;padding:10px; ">
-                                <td style="padding-top: 30px; padding-bottom: 30px;padding: 10px;color: var(--neutral-1); ">
-                                    {{ index|add:1 }}</td>
-                                <td
-                                    style="padding-top: 30px; padding-bottom: 30px; padding-left: 120px;color: var(--neutral-1); word-wrap: break-word;">
-                                    {{ podcast_data.1 }}</td>
-                                <td
-                                    style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1); word-wrap: break-word;">
-                                    {{ podcast_data.2 }}</td>
+                        <!-- Artist -->
+                        <tbody id="tbody-artist" class="plus-jakarta-sans-bold">
+                            {% if royalti_artist %}
+                            <!-- Gunakan loop untuk menampilkan royalti -->
+                            {% for royalti in royalti_artist %}
+                            <tr class="plus-jakarta-sans-bold" style="border-bottom: 0px solid var(--neutral-2); font-size:14px; text-align:start;padding:10px; ">
+                                <td style="padding-top: 30px; padding-bottom: 30px;padding: 10px;color: var(--neutral-1);">
+                                    {{royalti.no}}
+                                </td>
+                                <td style="padding-top: 30px; padding-bottom: 30px; padding-left: 120px;color: var(--neutral-1);">
+                                    {{royalti.judul_song}}
+                                </td>
                                 <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">
-                                    {{ podcast_data.3 }} menit</td>
+                                    {{royalti.judul_album}}
+                                </td>
                                 <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">
-                                    <div class="dropdown d-flex">
-                                        <button class="btn btn-secondary dropdown-toggle-iconless" type="button"
-                                            id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
-                                            aria-expanded="false" style="background-color: transparent; border: none;">
-                                            <img src="{% static 'img/threedots.svg' %}" alt="kelola"
-                                                style="width: 20px; height: 20px;">
-                                        </button>
-                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton"
-                                            style="background-color: var(--neutral-3); border-radius: 16px; padding: 4px; width: max-content !important;">
-                                            <a class="dropdown-item plus-jakarta-sans-bold m-auto"
-                                                style="color: var(--neutral-1); font-size: 12px; font-weight: 600;"
-                                                href="{% url 'podcast:detail_podcast' podcast_data.0%}">Lihat
-                                                daftar episode</a>
-                                        </div>
-                                    </div>
+                                    {{royalti.total_play}}
+                                </td>
+                                <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">
+                                    {{royalti.total_download}}
+                                </td>
+                                <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">
+                                    Rp {{royalti.jumlah_royalti}}
                                 </td>
                             </tr>
                             {% endfor %}
+                            {% else %}
+                            <!-- Jika tidak ada royalti, tampilkan pesan -->
+                            <tr>
+                                <td colspan="6" style="text-align: center;" class="plus-jakarta-sans-medium p-4">
+                                    Belum ada karya
+                                </td>
+                            </tr>
+                            {% endif %}
+                        </tbody>
+                        <!-- Songwriter -->
+                        <tbody id="tbody-songwriter" class="plus-jakarta-sans-bold hidden">
+                            {% if royalti_songwriter %}
+                            {% for royalti in royalti_songwriter %}
+                            <tr class="plus-jakarta-sans-bold"
+                                style="border-bottom: 0px solid var(--neutral-2); font-size:14px; text-align:start;padding:10px; ">
+                                <td style="padding-top: 30px; padding-bottom: 30px;padding: 10px;color: var(--neutral-1);">
+                                    {{royalti.no}}
+                                </td>
+                                <td style="padding-top: 30px; padding-bottom: 30px; padding-left: 120px;color: var(--neutral-1);">
+                                    {{royalti.judul_song}}
+                                </td>
+                                <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">
+                                    {{royalti.judul_album}}
+                                </td>
+                                <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">
+                                    {{royalti.total_play}}
+                                </td>
+                                <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">
+                                    {{royalti.total_download}}
+                                </td>
+                                <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">
+                                    Rp {{royalti.jumlah_royalti}}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                            {% else %}
+                            <tr>
+                                <td colspan="6" style="text-align: center;" class="plus-jakarta-sans-medium p-4">
+                                    Belum ada karya
+                                </td>
+                            </tr>
+                            {% endif %}
                         </tbody>
                     </table>
                 </div>

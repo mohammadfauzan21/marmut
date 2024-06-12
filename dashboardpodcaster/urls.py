@@ -1,9 +1,8 @@
 from django.urls import path
-from dashboardpodcaster.views import add_episodes, add_podcast, delete_episode, delete_podcast, episodes, podcaster, update_episode, update_podcast
+from dashboardpodcaster.views import add_episodes, add_podcast, delete_episode, delete_podcast, episodes, update_episode, update_podcast
 
 app_name = 'dashboard'
 urlpatterns = [
-    path('', podcaster, name='podcaster'),
     path('add_podcast/', add_podcast, name='add_podcast'),
     path('delete_podcast/<uuid:id_konten>', delete_podcast, name='delete_podcast'),
     path('episodes/<uuid:id_konten>', episodes, name='episodes'),
