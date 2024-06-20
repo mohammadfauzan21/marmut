@@ -4,5 +4,6 @@ def podcast():
         FROM podcast P
         JOIN konten K ON P.id_konten = K.id
         JOIN podcaster Po ON P.email_podcaster = Po.email
-        JOIN akun A ON Po.email = A.email;
+        JOIN akun A ON Po.email = A.email
+        ORDER BY K.durasi DESC;
     """

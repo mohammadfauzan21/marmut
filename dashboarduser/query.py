@@ -7,9 +7,8 @@ def show_label():
 
 def show_artist():
     return f"""
-        SELECT a.id, nama
+        SELECT a.id, n.nama
         FROM artist a
-        JOIN pemilik_hak_cipta p ON a.id_pemilik_hak_cipta=p.id
         JOIN akun n ON a.email_akun=n.email
     """
 

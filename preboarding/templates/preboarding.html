@@ -1,36 +1,59 @@
-{% extends 'base.html' %} 
 {% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>
+                {% block title %}
+                Documentr
+                {% endblock %}
+        </title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap"
+                rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+        <link rel="stylesheet" href="{% static 'css/bootstrap/bootstrap.min.css' %}">
+        <!-- Bootstrap Multiselect CSS -->
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.15/css/bootstrap-multiselect.css"
+                rel="stylesheet">
+        <script src="{% static 'js/bootstrap/bootstrap.min.js' %}"></script>
+</head>
 
-{% block content %}
-
-<style>
-.container-parent{
-        background-color: var(--neutral-8);
-        min-height: 100vh;
-        background-image: url('{% static "img/background.svg" %}');
-        background-size: cover;
-        background-position: center;
-    }
-    </style>
+<body>
+        <style>
+                .container-parent {
+                        background-color: var(--neutral-8);
+                        min-height: 100vh;
+                        background-image: url('{% static "img/background.svg" %}');
+                        background-size: cover;
+                        background-position: center;
+                }
+        </style>
         <div class="container-fluid container-parent" style="background-color: var(--neutral-8); ">
-        
                 <div class="row">
                         <div class="col-2"></div>
                         <div class="col-8 d-flex justify-content-center align-items-center" style="height: 100vh;">
-                               <div class="column">
-                                <div class="row d-flex justify-content-center m-4">
-                                        <img src="{% static 'img/logo.svg' %}" alt="Logo Mrmut-15"></div>
-                                <div class="row d-flex justify-content-center m-4"><p class="plus-jakarta-sans-extrabold d-flex justify-content-center" style="font-size: 44px; color: var(--neutral-0);">Marmut-15</p></div>
-                                <div class="row">
-                                        <div class="column d-flex justify-content-center">
-                                                <a href="{% url 'login:loginkonten' %}" class="button-primary plus-jakarta-sans-extrabold m-2">Masuk</a>
-                                                <a href="{% url 'register:registerkonten' %}" class="button-secondary plus-jakarta-sans-extrabold m-2">Daftar</a>
-                                        </div></div>
-                               </div>
-                               
+                                <div class="column">
+                                        <div class="row d-flex justify-content-center m-4">
+                                                <img src="{% static 'img/logo.svg' %}" alt="Logo Mrmut-15">
+                                        </div>
+                                        <div class="row d-flex justify-content-center m-4">
+                                                <p class="plus-jakarta-sans-extrabold d-flex justify-content-center"
+                                                        style="font-size: 44px; color: var(--neutral-0);">Marmut</p>
+                                        </div>
+                                        <div class="row">
+                                                <div class="column d-flex justify-content-center">
+                                                        <a href="{% url 'login:loginkonten' %}" class="button-primary plus-jakarta-sans-extrabold m-2" style="text-decoration: none;">Masuk</a>
+                                                        <a href="{% url 'register:registerkonten' %}" style="text-decoration: none;" class="button-secondary plus-jakarta-sans-extrabold m-2">Daftar</a>
+                                                </div>
+                                        </div>
+                                </div>
                         </div>
                         <div class="col-2"></div>
                 </div>
-                
         </div>
-{% endblock %}
+</body>
+
+</html>

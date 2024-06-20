@@ -45,6 +45,7 @@ def loginkonten(request):
                     if is_artist:
                         user_roles.append('artist')
                     if is_songwriter:
+                        print("masuk loginkonten")
                         user_roles.append('songwriter')
                     if is_podcaster:
                         user_roles.append('podcaster')
@@ -52,9 +53,10 @@ def loginkonten(request):
                     request.session['user_email'] = user_email
                     request.session['user_type'] = 'verified'
                     request.session['user_roles'] = user_roles
+                    print("user_roles")
+                    print(user_roles)
 
                     return redirect('dashboarduser:homepage')  # Sesuaikan URL dengan yang ada di app dashboarduser
-
             else:
                 cursor.execute("SELECT * FROM label WHERE email = %s AND password = %s", [user_email, user_password])
                 label_exist = cursor.fetchone()
@@ -63,8 +65,9 @@ def loginkonten(request):
                     request.session['user_type'] = 'label'
                     return redirect('dashboardlabel:homepagelabel')
                 else:
-                    error_message = "Username atau password belum terdaftar."
-                    return render(request, 'login.html', {'error_message': error_message})
-
+                    context = {
+                        'error_message':"Username atau password belum terdaftar"
+                    }
+                    return render(request, 'login.html', context)
     else:
         return render(request, 'login.html')

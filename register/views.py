@@ -5,6 +5,8 @@ from datetime import datetime
 import uuid
 from django.views.decorators.csrf import csrf_exempt
 
+from register.query import *
+
 
 def registerkonten(request):
     return render(request, 'register.html')
@@ -22,11 +24,19 @@ def registerlabel(request):
         id_pemilik_hak_cipta = uuid.uuid4()
 
         with connection.cursor() as cursor:
-            cursor.execute("INSERT INTO pemilik_hak_cipta (id, rate_royalti) VALUES (%s, %s)", [id_pemilik_hak_cipta, 0])
-            cursor.execute("INSERT INTO label (id, email, password, nama, kontak, id_pemilik_hak_cipta) VALUES (%s, %s, %s, %s, %s, %s)", [id_label, email, password, nama, kontak, id_pemilik_hak_cipta])
-
-        success_message = "Berhasil mendaftar sebagai Label."
-        return render(request, 'login.html', {'success_message': success_message})
+            query = check_email_label(email)
+            cursor.execute(query)
+            femail = cursor.fetchall()
+            if len(femail) > 0 :
+                context = {
+                    'errorLabel':"Email telah digunakan"
+                }
+                return render(request, 'register.html', context)
+            else:
+                cursor.execute("INSERT INTO pemilik_hak_cipta (id, rate_royalti) VALUES (%s, %s)", [id_pemilik_hak_cipta, 0])
+                cursor.execute("INSERT INTO label (id, email, password, nama, kontak, id_pemilik_hak_cipta) VALUES (%s, %s, %s, %s, %s, %s)", [id_label, email, password, nama, kontak, id_pemilik_hak_cipta])
+                
+                return redirect('login:loginkonten')
     else:
         # Jika bukan metode POST, kembalikan halaman register kosong
         return render(request, 'register.html')
@@ -51,30 +61,38 @@ def registeruser(request):
         print("Selected Roles:", roles) 
 
         with connection.cursor() as cursor:
-            cursor.execute("INSERT INTO akun (email, password, nama, tempat_lahir, kota_asal, tanggal_lahir, gender, is_verified) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)", [email, password, nama, tempat_lahir, kota_asal, tanggal_lahir, gender, is_verified])
+            # Check email double
+            query = check_email_pengguna(email)
+            cursor.execute(query)
+            femail = cursor.fetchall()
+            if len(femail) > 0 :
+                context = {
+                    'errorPengguna':"Email telah digunakan"
+                }
+                return render(request, 'register.html', context)
+            else:
+                cursor.execute("INSERT INTO akun (email, password, nama, tempat_lahir, kota_asal, tanggal_lahir, gender, is_verified) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)", [email, password, nama, tempat_lahir, kota_asal, tanggal_lahir, gender, is_verified])
 
-            # Insert roles into respective tables (e.g., artist, songwriter, podcaster)
-            for role in roles:
-                if role == 'artist':
-                    id_pemilik_hak_cipta = uuid.uuid4()
-                    cursor.execute("INSERT INTO pemilik_hak_cipta (id, rate_royalti) VALUES (%s, %s)", [id_pemilik_hak_cipta, 0])
-                    cursor.execute("INSERT INTO artist (id, email_akun, id_pemilik_hak_cipta) VALUES (%s, %s, %s)", [uuid.uuid4(), email, id_pemilik_hak_cipta])
-                elif role == 'songwriter':
-                    id_pemilik_hak_cipta = uuid.uuid4()
-                    cursor.execute("INSERT INTO pemilik_hak_cipta (id, rate_royalti) VALUES (%s, %s)", [id_pemilik_hak_cipta, 0])
-                    cursor.execute("INSERT INTO songwriter (id, email_akun, id_pemilik_hak_cipta) VALUES (%s, %s, %s)", [uuid.uuid4(), email, id_pemilik_hak_cipta])
-                elif role == 'podcaster':
-                    cursor.execute("INSERT INTO podcaster (email) VALUES (%s)", [email])
+                # Insert roles into respective tables (e.g., artist, songwriter, podcaster)
+                for role in roles:
+                    if role == 'artist':
+                        id_pemilik_hak_cipta = uuid.uuid4()
+                        cursor.execute("INSERT INTO pemilik_hak_cipta (id, rate_royalti) VALUES (%s, %s)", [id_pemilik_hak_cipta, 0])
+                        cursor.execute("INSERT INTO artist (id, email_akun, id_pemilik_hak_cipta) VALUES (%s, %s, %s)", [uuid.uuid4(), email, id_pemilik_hak_cipta])
+                    elif role == 'songwriter':
+                        id_pemilik_hak_cipta = uuid.uuid4()
+                        cursor.execute("INSERT INTO pemilik_hak_cipta (id, rate_royalti) VALUES (%s, %s)", [id_pemilik_hak_cipta, 0])
+                        cursor.execute("INSERT INTO songwriter (id, email_akun, id_pemilik_hak_cipta) VALUES (%s, %s, %s)", [uuid.uuid4(), email, id_pemilik_hak_cipta])
+                    elif role == 'podcaster':
+                        cursor.execute("INSERT INTO podcaster (email) VALUES (%s)", [email])
 
-            # If any role is selected, set is_verified to True
-            if roles:
-                is_verified = True
+                # If any role is selected, set is_verified to True
+                if roles:
+                    is_verified = True
 
-            # Update is_verified in akun table
-            cursor.execute("UPDATE akun SET is_verified = %s WHERE email = %s", [is_verified, email])
-
-        success_message = "Berhasil mendaftar sebagai Pengguna."
-        return render(request, 'login.html', {'success_message': success_message})
+                # Update is_verified in akun table
+                cursor.execute("UPDATE akun SET is_verified = %s WHERE email = %s", [is_verified, email])
+                return redirect('login:loginkonten')
     else:
         # Jika bukan metode POST, kembalikan halaman register kosong
         return render(request, 'register.html')

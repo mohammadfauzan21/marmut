@@ -2,43 +2,48 @@
 {% load static %}
 
 {% block content %}
-<!-- Bagian konten podcastnya -->
+<!-- Bagian konten playlistnya -->
 <div class="" style="background: linear-gradient(180deg, #292724, #1B1817); border-radius: 24px; max-height: 82%; padding-bottom: 25px; padding-top: 20px; white-space: nowrap; overflow-y: auto; text-overflow: ellipsis; margin-top: 1em; width: 97%;">
-    <!-- Daftar podcast -->
+    <!-- Daftar Playlist -->
     <div class="row">
         <div class="col-12" style="margin-left: 30px">
-            <h2 class="plus-jakarta-sans-extrabold" style="color: var(--neutral-0); font-size: 40px; margin-top: 20px;">
-                Telusuri Podcast
-            </h2>
-            <p class="plus-jakarta-sans-bold" style="color: var(--neutral-1); font-size: 18px; margin-top: 24px;">Podcast hadir untuk menemani harimu
-            </p>
-            <!-- Tabel untuk podcast -->
-            <table class="table-podcast" style="width: 95%; border-collapse: collapse; margin-top: 48px;color: var(--neutral-1); padding: 10px;">
+            <h1 class="plus-jakarta-sans-extrabold"
+                style="color: var(--neutral-0); font-size: 40px; margin-top: 20px;">Telusuri Playlist
+            </h1>
+            <h6 class="plus-jakarta-sans-extrabold align-item-center"
+                style="color: var(--neutral-1); font-size: 18px; margin-top: 24px;">Playlist dari pengguna lain yang kami rekomendasikan
+            </h6>
+    
+            <!-- Tabel untuk playlist -->
+            <table class="table-playlist" style="width: 95%; border-collapse: collapse; margin-top: 48px;color: var(--neutral-1); padding: 10px;">
                 <thead>
                     <tr style="border-bottom: 1px solid var(--neutral-2);">
                         <th style="color: var(--neutral-1); padding: 10px;">#</th>
-                        <th style="color: var(--neutral-1); padding-left: 120px;">Judul</th>
-                        <th style="color: var(--neutral-1); padding-left: 120px;">Podcaster</th>
+                        <th style="color: var(--neutral-1); padding-left: 120px;">Judul Playlist</th>
+                        <th style="color: var(--neutral-1); padding-left: 120px;">Pembuat</th>
                         <th style="color: var(--neutral-1); padding-left: 120px;">Durasi</th>
                         <th style="color: var(--neutral-1); padding-left: 120px;">Action</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {% for index, podcast_data in all_podcasts %}
-                    <!-- {{ podcast_data.0 }} -->
-                    <tr class="plus-jakarta-sans-bold body-tr" style="border-bottom: 0px solid var(--neutral-2); font-size:14px; text-align:start;padding:10px; ">
-                        <td style="padding-top: 30px; padding-bottom: 30px;padding: 10px;color: var(--neutral-1); ">
-                            {{ index|add:1 }}</td>
-                        <td
-                            style="padding-top: 30px; padding-bottom: 30px; padding-left: 120px;color: var(--neutral-1); word-wrap: break-word;">
-                            {{ podcast_data.1 }}</td>
-                        <td
-                            style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1); word-wrap: break-word;">
-                            {{ podcast_data.2 }}</td>
+                    <!-- Gunakan loop untuk menampilkan playlist -->
+                    {% for playlist in list_all_playlist %}
+                    <tr class="plus-jakarta-sans-bold body-tr"
+                        style="border-bottom: 0px solid var(--neutral-2); font-size:14px; text-align:start;padding:10px; ">
+                        <td style="padding-top: 30px; padding-bottom: 30px;padding: 10px;color: var(--neutral-1);">
+                            {{ playlist.no }}
+                        </td>
+                        <td style="padding-top: 30px; padding-bottom: 30px; padding-left: 120px;color: var(--neutral-1);">
+                            {{ playlist.judulPlaylist }}</td>
                         <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">
-                            {{ podcast_data.3 }}</td>
+                            {{ playlist.pembuat }}</td>
                         <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">
-                            <div class="dropdown d-flex">
+                            {{ playlist.durasi }}</td>
+                        <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 100px;color: var(--neutral-1);">
+                            <div>
+                                <a href="#" data-toggle="modal" data-target="#modalInform" style="text-decoration: none;">
+                                    <img src="{% static 'img/PlayCircleFill.svg' %}" alt="kelola" style="width: 20px; height: 20px;">
+                                </a>
                                 <button class="btn btn-secondary dropdown-toggle-iconless" type="button"
                                     id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
                                     aria-expanded="false" style="background-color: transparent; border: none;">
@@ -49,17 +54,15 @@
                                     style="background-color: var(--neutral-3); border-radius: 16px; padding: 4px; width: max-content !important;">
                                     <a class="dropdown-item plus-jakarta-sans-bold m-auto"
                                         style="color: var(--neutral-1); font-size: 12px; font-weight: 600;"
-                                        href="{% url 'podcast:detail_podcast' podcast_data.0%}">Lihat
-                                        daftar episode</a>
+                                        href="{% url 'playlist:kelolaplaylist' playlist.id_playlist %}">Lihat</a>
                                 </div>
                             </div>
                         </td>
+                        {% endfor %}
                     </tr>
-                    {% endfor %}
                 </tbody>
             </table>
         </div>
     </div>
 </div>
-
 {% endblock %}

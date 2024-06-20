@@ -1,55 +1,39 @@
-from django.shortcuts import redirect, render
 from django.db import OperationalError, connection
-from django.views.decorators.csrf import csrf_exempt
+from django.http import HttpResponseNotFound
+from django.shortcuts import render
 
-from dashboardlabel.query import *
-from dashboarduser.query import *
-from kelola.views import *
-from playlist.query import *
+from kelola.views import format_durasi, format_durasi_kelola
+from playlist.query import get_playlist_akun, show_album
+from dashboarduser.query import show_artist, show_genre, show_label, show_songwriter, user_info
+from royalti.query import *
+from search.query import *
 
-def check_session(request, required_user_type):
-    # Ambil informasi pengguna dari session
+# Create your views here.
+def search(request):
     user_email = request.session.get('user_email')
-    user_type = request.session.get('user_type')
-
-    # Pastikan pengguna telah login
-    if not user_email or user_type != required_user_type:
-        error_message = "Anda harus login terlebih dahulu."
-        return render(request, 'login.html', {'error_message': error_message})
-
-    return user_email
-
-def homepagelabel(request):
-    #Mengambil url dari page yang sedang ditampilkan
-    url_now = request.build_absolute_uri()
-    request.session['url_now'] = url_now
-    # Mengambil kata "dashboard" dari URL
-    url_path = request.path
-    # Menggunakan split untuk memisahkan segmen URL
-    url_segments = url_path.split('/')
-    print("url_segments")
-    print(url_segments[1])
-    # Menyimpan URL ke dalam sesi
-    request.session['url'] = url_segments[1]
-
-    user_email = check_session(request, 'label')
-    if isinstance(user_email, HttpResponse):
-        return user_email  # Jika error message, langsung kembalikan response
-
+    query_search = request.GET.get('query')
+    print("query_serach")
+    print(query_search)
     try:
         with connection.cursor() as cursor:
-            query = get_info_label(user_email)
+            query = user_info(user_email)
             cursor.execute(query)
-            info_label = cursor.fetchone()
-            print(info_label)
+            user_data = cursor.fetchone()
 
-            query = get_playlist_akun(user_email)
-            print("Generated query:")
-            print(query)
-            cursor.execute(query)
-            playlist_akun = cursor.fetchall()
-            print("Result from database:")
-            print(playlist_akun)
+            query_song = search_query_song(query_search)
+            cursor.execute(query_song)
+            search_song = cursor.fetchall()
+            print("song")
+            for i in search_song:
+                print(i[3])
+
+            query_album = search_query_album(query_search)
+            cursor.execute(query_album)
+            search_album = cursor.fetchall()
+
+            query_playlist = search_query_playlist(query_search)
+            cursor.execute(query_playlist)
+            search_playlist = cursor.fetchall()
 
             # Fetch podcaster's podcast details from the database
             cursor.execute("""
@@ -72,6 +56,11 @@ def homepagelabel(request):
             podcasts = cursor.fetchall()
             podcasts = [(id_konten, judul_podcast, jumlah_episode, format_durasi_kelola(total_durasi)) for id_konten, judul_podcast, jumlah_episode, total_durasi in podcasts]
 
+            query = get_playlist_akun(user_email)
+            cursor.execute(query)
+            playlist_akun = cursor.fetchall()
+            print("playlist_akun")
+            
             query_label = show_label()
             cursor.execute(query_label)
             labels = cursor.fetchall()
@@ -95,14 +84,32 @@ def homepagelabel(request):
             query_album = show_album(user_email)
             cursor.execute(query_album)
             albums = cursor.fetchall()
-            print("albums:")
             print(albums)
-
             context = {
-                'idlabel': info_label[0],
-                'namalabel': info_label[1],
-                'emaillabel': info_label[2],
-                'kontaklabel': info_label[3],
+                'search_song':[{
+                    'no':i+1,
+                    'judulLagu': result[0],
+                    'artist': result[1],
+                    'tanggalRilis': result[2],
+                    'totalPlay': result[3],
+                    'idSong': result[4]
+                } for i, result in enumerate(search_song)],
+                'search_album':[{
+                    'no':i+1,
+                    'judulAlbum': result[0],
+                    'label': result[1],
+                    'jumlahLagu': result[2],
+                    'durasi': format_durasi(result[3]),
+                    'idAlbum': result[4]
+                } for i, result in enumerate(search_album)],
+                'search_playlist':[{
+                    'no':i+1,
+                    'judulPlaylist': result[0],
+                    'pembuat': result[1],
+                    'durasi': format_durasi(result[2]),
+                    'tanggalBuat': result[3],
+                    'idPlaylist': result[4]
+                } for i, result in enumerate(search_playlist)],
                 'detail_playlist_kelola':[{
                     'namaPlaylist': detail_playlist[2],
                     'jumlahLagu': detail_playlist[4],
@@ -118,6 +125,7 @@ def homepagelabel(request):
                     'total_durasi': format_durasi_kelola(album[3]),
                     'id_pemilik_hak_cipta':album[4],
                 } for album in albums],
+                'user_data': user_data,
                 'labels': [{
                     'id': label[0],
                     'nama':label[1],
@@ -137,6 +145,7 @@ def homepagelabel(request):
                 } for genre in genres],
                 'podcasts': podcasts,
             }
-            return render(request, 'homepagelabel.html', context)
+            print(context)
+        return render(request, 'search.html', context)
     except OperationalError:
         return HttpResponseNotFound("Database connection error")

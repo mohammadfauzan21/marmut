@@ -1,0 +1,264 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<script>
+    function goBack() {
+        window.history.back();
+    }
+</script>
+
+<style>
+    .chip-genres {
+        display: inline-block;
+        background-color: var(--neutral-2);
+        border-radius: 15px;
+        padding-inline: 10px;
+        padding-block: 5px;
+        color: var(--neutral-0);
+        width: 64px;
+        text-align: center;
+    }
+</style>
+<!-- Bagian konten detail songnya -->
+<div class=""
+    style="background: linear-gradient(180deg, #292724, #1B1817); border-radius: 24px; max-height: 82%; padding-bottom: 25px; padding-top: 20px; white-space: nowrap; overflow-y: auto; text-overflow: ellipsis; margin-top: 1em; width: 97%;">
+    <div class="col-12" style="margin-left: 30px">
+        <div style="height: 40px;">
+            <button class="btn btn-secondary dropdown-toggle-iconless" type="button" id="dropdownMenuButton"
+                data-toggle="" aria-haspopup="true" aria-expanded="false"
+                style="background-color: transparent; border: none;" onclick="goBack()">
+                <div class="d-flex" style="">
+                    <img src="{% static 'img/back-icon.svg' %}" alt="search"
+                        style="width: 20px; height: 20px; margin-left: 5px;">
+                    <p class="plus-jakarta-sans-extrabold"
+                        style="margin-left: 10px; color: var(--neutral-0); margin-top: -2px;">
+                        Back
+                    </p>
+                </div>
+            </button>
+        </div>
+        <div class="d-flex justify-content-between align-items-center" style="">
+            <div style="">
+                <h1 class="plus-jakarta-sans-extrabold align-item-center"
+                    style="margin-left: 15px; color: var(--neutral-0); margin-top: 10px;">
+                    {{judul_lagu}}
+                </h1>
+            </div>
+            <div class="my-2 d-flex justify-content-between" style="height: 100px;width: 30%;">
+                <div>
+                    <a href="" class="mx-1" style="text-decoration: none;" data-target="#modalInform"
+                        data-toggle="modal">
+                        <img src="{% static 'img/PlayCircleFill.svg' %}" alt="kelola"
+                            style="width: 70px; height: 70px;">
+                        <p class="plus-jakarta-sans-extrabold"
+                            style="color: var(--neutral-1); text-decoration: none; margin-left: 1.2em; margin-top: 0.5em;">
+                            Putar
+                        </p>
+                    </a>
+                </div>
+                <div>
+                    <a href="#" class="mx-1" style="text-decoration: none;" data-toggle="modal"
+                        data-target="#modalAddSong">
+                        <img src="{% static 'img/PlusCircleAdd.svg' %}" alt="kelola"
+                            style="width: 70px; height: 70px; margin-left: 13px">
+                        <p class="plus-jakarta-sans-extrabold" style="color: var(--neutral-1); margin-left: -1.2em; margin-top: 0.5em;">
+                            Tambah ke Playlist
+                        </p>
+                    </a>
+                </div>
+                <div>
+                    <a href="" style="text-decoration: none;" data-target="#modalInform" data-toggle="modal">
+                        <img src="{% static 'img/PlusCircleAdd.svg' %}" alt="kelola" style="width: 70px; height: 70px;">
+                        <p class="plus-jakarta-sans-extrabold"
+                            style="color: var(--neutral-1); text-decoration: none; margin-left: -0.2em; margin-top: 0.5em;">
+                            Download
+                        </p>
+                    </a>
+                </div>
+                <form id="tambahLaguForm" method="POST" action="{% url 'song:add_song_playlist' id_song %}">
+                    {% csrf_token %}
+                    <!-- modal buat add lagu ke playlist -->
+                    <div class="modal fade" id="modalAddSong" tabindex="-1" role="dialog"
+                        aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content"
+                                style="background-color: var(--neutral-4); border-radius: 40px !important; padding: 20px;">
+                                <div class="modal-header" style="border-bottom: none;">
+                                    <h5 class="modal-title plus-jakarta-sans-extrabold" id="exampleModalLabel"
+                                        style="color: var(--neutral-0);">
+                                        Tambah Lagu ke Playlist</h5>
+                                </div>
+                                <div class="d-flex align-items-center justify-content-center" style="margin-top: 1em;">
+                                    <img src="{% static 'img/default.png' %}" alt="kelola"
+                                        style="width: 50px; height: 50px; background-color: #292724; border-radius: 20px;">
+                                    <div style="margin: 0 12px; margin-top: 5px;">
+                                        <h3 class="plus-jakarta-sans-extrabold"
+                                            style="font-size: 17px; color: #ffffff;">
+                                            {{judul_lagu}}</h3>
+                                        <h3 class="plus-jakarta-sans-medium"
+                                            style="font-size: 13px; color: var(--neutral-1)">
+                                            {{artist}}
+                                        </h3>
+                                    </div>
+                                </div>
+                                {% if detail_playlist_kelola %}
+                                <div class="modal-body plus-jakarta-sans-medium" style="color: var(--neutral-1);">
+                                    <!-- Dropdown untuk judul -->
+                                    <div class="form-group">
+                                        <label for="judulDropdown" style="color: #ffffff;">Playlist</label>
+                                        <select name="id_playlist" class="form-control" id="judulDropdown"
+                                            style="margin-top: 5px;">
+                                            {% for detail in detail_playlist_kelola %}
+                                            <option value="{{ detail.id_playlist }}">{{detail.namaPlaylist}}
+                                            </option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                                {% else %}
+                                <div class="modal-body plus-jakarta-sans-medium" style="color: var(--neutral-1);">
+                                    <!-- Dropdown untuk judul -->
+                                    <div class="form-group">
+                                        <label for="judulDropdown" style="color: #ffffff;">Playlist</label>
+                                        <p>Anda belum punya Playlist. Silahkan Tambah Playlist</p>
+                                    </div>
+                                </div>
+                                {% endif %}
+                                {% if detail_playlist_kelola %}
+                                <div class="modal-footer" style="border-top: none;">
+                                    <button type="button"
+                                        class="button-modal-secondary plus-jakarta-sans-bold secondary-button"
+                                        style="border: none !important; border-radius: 16px; padding-block: 12px; padding-inline: 24px; text-decoration: 2px solid var(--neutral-1); background-color: var(--neutral-3); color: white;"
+                                        data-dismiss="modal">Kembali</button>
+                                    <button type="submit"
+                                        class="button-modal-danger plus-jakarta-sans-bold danger-button button-primary"
+                                        style="border: none !important; border-radius: 16px; padding-block: 12px; padding-inline: 24px;">Tambah
+                                        ke Playlist</button>
+                                </div>
+                                {% else %}
+                                <div class="modal-footer" style="border-top: none;">
+                                    <button type="button"
+                                        class="button-modal-secondary plus-jakarta-sans-bold secondary-button"
+                                        style="border: none !important; border-radius: 16px; padding-block: 12px; padding-inline: 24px; text-decoration: 2px solid var(--neutral-1); background-color: var(--neutral-3); color: white;"
+                                        data-dismiss="modal">Kembali</button>
+                                </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        {% if request.GET.success %}
+        <!-- Berhasil Ditambahkan -->
+        <div class="d-flex justify-content-center alert alert-primary alert-dismissible fade show" role="alert"
+            style="background-color: #281E14; border: none; width: 35%; margin: auto; margin-top: 1.5em;">
+            <p class="plus-jakarta-sans-medium" style="color:var(--neutral-0); margin: auto;">Lagu telah berhasil ditambahkan ke playlist</p>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+            </button>
+        </div>
+        {% endif %}
+        {% if error_message %}
+        <div class="d-flex justify-content-center alert alert-primary alert-dismissible fade show" role="alert"
+            style="background-color: #281E14; border: none; width: 30%; margin: auto; margin-top: 1.5em;">
+            <img src="{% static 'img/ExclamationCircleFill.svg' %}" alt="alert-info">
+            <p class="plus-jakarta-sans-medium" style="color:var(--neutral-0); margin: auto;">{{error_message}}</p>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+            </button>
+        </div>
+        {% endif %}
+        <div class="nama" style="margin-top: 20px;">
+            <p class="plus-jakarta-sans-extrabold align-item-center" style="margin-left: 15px; color: #504B48;">
+                Artist</p>
+            <p class="plus-jakarta-sans-extrabold align-item-center"
+                style="margin-left: 15px; color: var(--neutral-0); margin-top: -5px;">
+                {{artist}}</p>
+        </div>
+        <div class="nama" style="margin-top: 20px;">
+            <!-- Genre song-->
+            <p class="plus-jakarta-sans-bold" style="margin-left: 15px; color: #504B48;">
+                Genre
+            </p>
+            {% for genre in genres_song %}
+            {% if genre %}
+            <p class="plus-jakarta-sans-bold chip-genres"
+                style="color: var(--neutral-0); font-size: 13px; margin: 0 1em; width:fit-content;">
+                {{ genre }}
+            </p>
+            {% else %}
+            <p class="plus-jakarta-sans-bold chip-genres"
+                style="color: var(--neutral-0); font-size: 13px; margin-top:0px; width:fit-content;">
+                -
+            </p>
+            {% endif %}
+            {% endfor %}
+        </div>
+        <div class="nama" style="margin-top: 20px;">
+            <!-- Songwriter song-->
+            <p class="plus-jakarta-sans-bold" style="margin-left: 15px; color: #504B48;">
+                Songwriter
+            </p>
+            {% for name in songwriter %}
+            {% if name %}
+            <p class="plus-jakarta-sans-bold chip-genres"
+                style="color: var(--neutral-0); font-size: 13px; margin: 0 1em; width:fit-content;">
+                {{name.name}}
+            </p>
+            {% else %}
+            <p class="plus-jakarta-sans-bold chip-genres"
+                style="color: var(--neutral-0); font-size: 13px; margin-top:0px; width:fit-content;">
+                -
+            </p>
+            {% endif %}
+            {% endfor %}
+        </div>
+        <div class="nama" style="margin-top: 20px;">
+            <p class="plus-jakarta-sans-extrabold align-item-center" style="margin-left: 15px; color: #504B48;">
+                Durasi</p>
+            <p class="plus-jakarta-sans-extrabold align-item-center"
+                style="margin-left: 15px; color: var(--neutral-0); margin-top: -5px;">
+                {{durasi}}</p>
+        </div>
+        <div class="nama" style="margin-top: 20px;">
+            <p class="plus-jakarta-sans-extrabold align-item-center" style="margin-left: 15px; color: #504B48;">
+                Tanggal Rilis
+            </p>
+            <p class="plus-jakarta-sans-extrabold align-item-center"
+                style="margin-left: 15px; color: var(--neutral-0); margin-top: -5px;">
+                {{tanggal_rilis|date:"d/m/Y"}}</p>
+        </div>
+        <div class="nama" style="margin-top: 20px;">
+            <p class="plus-jakarta-sans-extrabold align-item-center" style="margin-left: 15px; color: #504B48;">
+                Tahun</p>
+            <p class="plus-jakarta-sans-extrabold align-item-center"
+                style="margin-left: 15px; color: var(--neutral-0); margin-top: -5px;">
+                {{tahun}}</p>
+        </div>
+        <div class="nama d-flex" style="margin-top: 20px;">
+            <div>
+                <p class="plus-jakarta-sans-extrabold align-item-center" style="margin-left: 15px; color: #504B48;">
+                    Total Play
+                </p>
+                <p class="plus-jakarta-sans-extrabold align-item-center"
+                    style="margin-left: 15px; color: var(--neutral-0); margin-top: -5px;">
+                    {{total_play}}</p>
+            </div>
+            <div>
+                <p class="plus-jakarta-sans-extrabold align-item-center" style="margin-left: 15px; color: #504B48;">
+                    Total Download</p>
+                <p class="plus-jakarta-sans-extrabold align-item-center"
+                    style="margin-left: 15px; color: var(--neutral-0); margin-top: -5px;">
+                    {{total_download}}</p>
+            </div>
+        </div>
+        <div class="nama" style="margin-top: 20px;">
+            <p class="plus-jakarta-sans-extrabold align-item-center" style="margin-left: 15px; color: #504B48;">
+                Album</p>
+            <p class="plus-jakarta-sans-extrabold align-item-center"
+                style="margin-left: 15px; color: var(--neutral-0); margin-top: -5px;">
+                {{nama_album}}</p>
+        </div>
+    </div>
+</div>
+{% endblock %}

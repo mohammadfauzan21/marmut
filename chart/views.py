@@ -1,19 +1,25 @@
 from django.db import connection
 from django.http import HttpResponseNotFound
 from django.shortcuts import render
-from dashboardpodcaster.views import format_durasi
-from dashboardreguser.query import get_playlist_akun, show_album
+from kelola.views import format_durasi, format_durasi_kelola
+from playlist.query import get_playlist_akun, show_album
 from django.views.decorators.cache import never_cache
 
 from dashboarduser.query import *
 
-@never_cache
 def chart(request):
-    # Mendapatkan URL yang akan disimpan ke dalam sesi
-    url_to_save = request.build_absolute_uri()
+    #Mengambil url dari page yang sedang ditampilkan
+    url_now = request.build_absolute_uri()
+    request.session['url_now'] = url_now
+    # Mengambil kata "chart" dari URL
+    url_path = request.path
+    # Menggunakan split untuk memisahkan segmen URL
+    url_segments = url_path.split('/')
+    print("url_segments")
+    print(url_segments[1])
 
     # Menyimpan URL ke dalam sesi
-    request.session['url'] = url_to_save
+    request.session['url'] = url_segments[1]
 
     user_email = request.session.get('user_email')
     if not user_email:
@@ -91,20 +97,20 @@ def chart(request):
                 k.id AS id_konten,
                 k.judul AS judul_podcast, 
                 COUNT(e.id_episode) AS jumlah_episode, 
-                SUM(k.durasi) AS total_durasi 
+                k.durasi AS total_durasi 
             FROM 
                 podcast p 
             LEFT JOIN 
-                episode e ON p.id_konten = e.id_konten_podcast 
-            LEFT JOIN 
                 konten k ON p.id_konten = k.id
+            LEFT JOIN 
+                episode e ON p.id_konten = e.id_konten_podcast 
             WHERE 
                 p.email_podcaster = %s 
             GROUP BY 
-                k.id, k.judul, p.id_konten
+                k.id, k.judul, k.durasi
         """, [user_email])
         podcasts = cursor.fetchall()
-        podcasts = [(id_konten, judul_podcast, jumlah_episode, format_durasi(total_durasi)) for id_konten, judul_podcast, jumlah_episode, total_durasi in podcasts]
+        podcasts = [(id_konten, judul_podcast, jumlah_episode, format_durasi_kelola(total_durasi)) for id_konten, judul_podcast, jumlah_episode, total_durasi in podcasts]
 
         context = {
             'user_data': user_data, 
@@ -113,7 +119,7 @@ def chart(request):
             'detail_playlist_kelola': [{
                 'namaPlaylist': detail_playlist[2],
                 'jumlahLagu': detail_playlist[4],
-                'durasi': detail_playlist[7],   
+                'durasi': format_durasi_kelola(detail_playlist[7]),   
                 'id_playlist': detail_playlist[6],
                 'deskripsi':detail_playlist[3],
                 'id_user_playlist':detail_playlist[1]
@@ -122,7 +128,8 @@ def chart(request):
                 'id': album[0],
                 'judul': album[1],
                 'jumlah_lagu': album[2],
-                'total_durasi': album[3]
+                'total_durasi': format_durasi_kelola(album[3]),
+                'id_pemilik_hak_cipta':album[4],
             } for album in albums],
             'labels': [{
                 'id': label[0],

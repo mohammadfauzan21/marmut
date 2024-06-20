@@ -2,15 +2,28 @@ from django.db import OperationalError, connection
 from django.http import HttpResponseNotFound
 from django.shortcuts import render
 
-from dashboardpodcaster.views import format_durasi
-from dashboardreguser.query import get_playlist_akun, show_album
+from kelola.views import format_durasi, format_durasi_kelola
+from playlist.query import get_playlist_akun, show_album
 from dashboarduser.query import show_artist, show_genre, show_label, show_songwriter, user_info
 from royalti.query import *
 
 # Create your views here.
 def royalti(request):
+    #Mengambil url dari page yang sedang ditampilkan
+    url_now = request.build_absolute_uri()
+    request.session['url_now'] = url_now
+    # Mengambil kata "royalti" dari URL
+    url_path = request.path
+    # Menggunakan split untuk memisahkan segmen URL
+    url_segments = url_path.split('/')
+    print("url_segments")
+    print(url_segments[1])
+
+    # Menyimpan URL ke dalam sesi
+    request.session['url'] = url_segments[1]
+    
     user_email = request.session.get('user_email')
-    list_lagu = request.session.get('list_lagu')
+    print(user_email)
     try:
         # current_url = request.build_absolute_uri()
         # request.session['prev_url'] = current_url
@@ -23,11 +36,35 @@ def royalti(request):
             print("royalti artist")
             print(royalti_artist)
 
+            query = total_royalti_artist(user_email)
+            cursor.execute(query)
+            total_royalti_art = cursor.fetchall()
+            print("total_royalti_artist")
+            print(total_royalti_art)
+
             query = show_royalti_songwriter(user_email)
             cursor.execute(query)
             royalti_songwriter = cursor.fetchall()
             print("royalti songwriter")
             print(royalti_songwriter)
+
+            query = total_royalti_songwriter(user_email)
+            cursor.execute(query)
+            total_royalti_swrt = cursor.fetchall()
+            print("total_royalti_songwriter")
+            print(total_royalti_swrt)
+
+            query = show_royalti_label(user_email)
+            cursor.execute(query)
+            royalti_label = cursor.fetchall()
+            print("royalti label")
+            print(royalti_label)
+
+            query = total_royalti_label(user_email)
+            cursor.execute(query)
+            total_royalti_lab = cursor.fetchall()
+            print("total_royalti_label")
+            print(total_royalti_lab)
 
             query = user_info(user_email)
             cursor.execute(query)
@@ -38,20 +75,20 @@ def royalti(request):
                     k.id AS id_konten,
                     k.judul AS judul_podcast, 
                     COUNT(e.id_episode) AS jumlah_episode, 
-                    SUM(k.durasi) AS total_durasi 
+                    k.durasi AS total_durasi 
                 FROM 
                     podcast p 
                 LEFT JOIN 
-                    episode e ON p.id_konten = e.id_konten_podcast 
-                LEFT JOIN 
                     konten k ON p.id_konten = k.id
+                LEFT JOIN 
+                    episode e ON p.id_konten = e.id_konten_podcast 
                 WHERE 
                     p.email_podcaster = %s 
                 GROUP BY 
-                    k.id, k.judul, p.id_konten
+                    k.id, k.judul, k.durasi
             """, [user_email])
             podcasts = cursor.fetchall()
-            podcasts = [(id_konten, judul_podcast, jumlah_episode, format_durasi(total_durasi)) for id_konten, judul_podcast, jumlah_episode, total_durasi in podcasts]
+            podcasts = [(id_konten, judul_podcast, jumlah_episode, format_durasi_kelola(total_durasi)) for id_konten, judul_podcast, jumlah_episode, total_durasi in podcasts]
 
             query = get_playlist_akun(user_email)
             cursor.execute(query)
@@ -82,119 +119,79 @@ def royalti(request):
             cursor.execute(query_album)
             albums = cursor.fetchall()
             print(albums)
-
-            print("masuk if else")
-            print(list_lagu)
-            if list_lagu:
-                context = {
-                    'royalti_artist':[{
-                        "no":i+1,
-                        'judul_song':royalti[0],
-                        'judul_album':royalti[1],
-                        'total_play':royalti[2],
-                        'total_download':royalti[3],
-                        'jumlah_royalti':royalti[4],
-                    }for i, royalti in enumerate(royalti_artist)],
-                    'royalti_songwriter':[{
-                        "no":i+1,
-                        'judul_song':royalti[0],
-                        'judul_album':royalti[1],
-                        'total_play':royalti[2],
-                        'total_download':royalti[3],
-                        'jumlah_royalti':royalti[4],
-                    }for i, royalti in enumerate(royalti_songwriter)],
-                    'detail_playlist_kelola':[{
-                        'namaPlaylist': detail_playlist[2],
-                        'jumlahLagu': detail_playlist[4],
-                        'durasi': detail_playlist[7],
-                        'id_playlist': detail_playlist[6],
-                        'deskripsi': detail_playlist[3],
-                        'id_user_playlist': detail_playlist[1]
-                    } for detail_playlist in playlist_akun],
-                    'albums':[{
-                        'id': album[0],
-                        'judul': album[1],
-                        'jumlah_lagu': album[2],
-                        'total_durasi': album[3]
-                    } for album in albums],
-                    'user_data': user_data,
-                    'labels': [{
-                        'id': label[0],
-                        'nama':label[1],
-                        'id_pemilik_hc':label[5],
-                    } for label in labels],
-                    'artists': [{
-                        'id': artist[0],
-                        'nama':artist[1],
-                    } for artist in artists],
-                    'songwriters':[{
-                        'id':songwriter[0],
-                        'nama':songwriter[1],
-                    } for songwriter in songwriters],
-                    'genres':[{
-                        'id':genre[0],
-                        'genre':genre[1],
-                    } for genre in genres],
-                    'podcasts': podcasts,
-                    'footer': [{
-                        'judul_lagu': list_lagu[0],
-                        'artist':list_lagu[1],
-                    }],
-                }
-                print(context)
-            else:
-                context = {
-                    'royalti_artist':[{
-                        "no":i+1,
-                        'judul_song':royalti[0],
-                        'judul_album':royalti[1],
-                        'total_play':royalti[2],
-                        'total_download':royalti[3],
-                        'jumlah_royalti':royalti[4],
-                    }for i, royalti in enumerate(royalti_artist)],
-                    'royalti_songwriter':[{
-                        "no":i+1,
-                        'judul_song':royalti[0],
-                        'judul_album':royalti[1],
-                        'total_play':royalti[2],
-                        'total_download':royalti[3],
-                        'jumlah_royalti':royalti[4],
-                    }for i, royalti in enumerate(royalti_songwriter)],
-                    'detail_playlist_kelola':[{
-                        'namaPlaylist': detail_playlist[2],
-                        'jumlahLagu': detail_playlist[4],
-                        'durasi': detail_playlist[7],
-                        'id_playlist': detail_playlist[6],
-                        'deskripsi': detail_playlist[3],
-                        'id_user_playlist': detail_playlist[1]
-                    } for detail_playlist in playlist_akun],
-                    'albums':[{
-                        'id': album[0],
-                        'judul': album[1],
-                        'jumlah_lagu': album[2],
-                        'total_durasi': album[3]
-                    } for album in albums],
-                    'user_data': user_data,
-                    'labels': [{
-                        'id': label[0],
-                        'nama':label[1],
-                        'id_pemilik_hc':label[5],
-                    } for label in labels],
-                    'artists': [{
-                        'id': artist[0],
-                        'nama':artist[1],
-                    } for artist in artists],
-                    'songwriters':[{
-                        'id':songwriter[0],
-                        'nama':songwriter[1],
-                    } for songwriter in songwriters],
-                    'genres':[{
-                        'id':genre[0],
-                        'genre':genre[1],
-                    } for genre in genres],
-                    'podcasts': podcasts,
-                    'footer': [],
-                }
+            context = {
+                'royalti_artist':[{
+                    "no":i+1,
+                    'judul_song':royalti[0],
+                    'judul_album':royalti[1],
+                    'total_play':royalti[2],
+                    'total_download':royalti[3],
+                    'jumlah_royalti':royalti[4],
+                }for i, royalti in enumerate(royalti_artist)],
+                'total_royalti_artist':[{
+                    'id_pemiliki_hak_cipta':total[0],
+                    'total_royalti':total[1],
+                }for total in total_royalti_art],
+                'royalti_songwriter':[{
+                    "no":i+1,
+                    'judul_song':royalti[0],
+                    'judul_album':royalti[1],
+                    'total_play':royalti[2],
+                    'total_download':royalti[3],
+                    'jumlah_royalti':royalti[4],
+                }for i, royalti in enumerate(royalti_songwriter)],
+                'total_royalti_songwriter':[{
+                    'id_pemiliki_hak_cipta':total[0],
+                    'total_royalti':total[1],
+                }for total in total_royalti_swrt],
+                'royalti_label':[{
+                    "no":i+1,
+                    'judul_song':royalti[0],
+                    'judul_album':royalti[1],
+                    'total_play':royalti[2],
+                    'total_download':royalti[3],
+                    'jumlah_royalti':royalti[4],
+                }for i, royalti in enumerate(royalti_label)],
+                'total_royalti_label':[{
+                    'id_pemiliki_hak_cipta':total[0],
+                    'total_royalti':total[1],
+                }for total in total_royalti_lab],
+                'detail_playlist_kelola':[{
+                    'namaPlaylist': detail_playlist[2],
+                    'jumlahLagu': detail_playlist[4],
+                    'durasi': format_durasi_kelola(detail_playlist[7]),
+                    'id_playlist': detail_playlist[6],
+                    'deskripsi': detail_playlist[3],
+                    'id_user_playlist': detail_playlist[1]
+                } for detail_playlist in playlist_akun],
+                'albums':[{
+                    'id': album[0],
+                    'judul': album[1],
+                    'jumlah_lagu': album[2],
+                    'total_durasi': format_durasi_kelola(album[3]),
+                    'id_pemilik_hak_cipta':album[4],
+                } for album in albums],
+                'user_data': user_data,
+                'labels': [{
+                    'id': label[0],
+                    'nama':label[1],
+                    'id_pemilik_hc':label[5],
+                } for label in labels],
+                'artists': [{
+                    'id': artist[0],
+                    'nama':artist[1],
+                } for artist in artists],
+                'songwriters':[{
+                    'id':songwriter[0],
+                    'nama':songwriter[1],
+                } for songwriter in songwriters],
+                'genres':[{
+                    'id':genre[0],
+                    'genre':genre[1],
+                } for genre in genres],
+                'podcasts': podcasts,
+            }
+            print(context)
         return render(request, 'royalti.html', context)
     except OperationalError:
         return HttpResponseNotFound("Database connection error")

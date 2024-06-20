@@ -2,8 +2,8 @@ from django.db import OperationalError, connection
 from django.http import HttpResponse, HttpResponseNotFound
 from django.shortcuts import redirect, render
 
-from dashboardpodcaster.views import format_durasi
-from dashboardreguser.query import get_playlist_akun, show_album
+from kelola.views import format_durasi, format_durasi_kelola
+from playlist.query import get_playlist_akun, show_album
 from django.shortcuts import render, redirect
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
@@ -18,6 +18,18 @@ def roles_session(request):
 
 
 def homepage(request):
+    #Mengambil url dari page yang sedang ditampilkan
+    url_now = request.build_absolute_uri()
+    request.session['url_now'] = url_now
+    # Mengambil kata "dashboard" dari URL
+    url_path = request.path
+    # Menggunakan split untuk memisahkan segmen URL
+    url_segments = url_path.split('/')
+    print("url_segments")
+    print(url_segments[1])
+    # Menyimpan URL ke dalam sesi
+    request.session['url'] = url_segments[1]
+
     if 'user_email' in request.session:
         user_email = request.session.get('user_email')
         user_type = request.session.get('user_type')
@@ -25,7 +37,7 @@ def homepage(request):
     else:
         return render(request, 'login.html')
 
-
+    print(request.session.get('user_roles'))
     user_data = None
     roles = []
 
@@ -59,8 +71,6 @@ def homepage(request):
                         roles.append("Podcaster")
                         
                 query = get_playlist_akun(user_email)
-                print("Generated query:")
-                print(query)
                 cursor.execute(query)
                 playlist_akun = cursor.fetchall()
                 print("Result from database:")
@@ -72,20 +82,20 @@ def homepage(request):
                         k.id AS id_konten,
                         k.judul AS judul_podcast, 
                         COUNT(e.id_episode) AS jumlah_episode, 
-                        SUM(k.durasi) AS total_durasi 
+                        k.durasi AS total_durasi 
                     FROM 
                         podcast p 
                     LEFT JOIN 
-                        episode e ON p.id_konten = e.id_konten_podcast 
-                    LEFT JOIN 
                         konten k ON p.id_konten = k.id
+                    LEFT JOIN 
+                        episode e ON p.id_konten = e.id_konten_podcast 
                     WHERE 
                         p.email_podcaster = %s 
                     GROUP BY 
-                        k.id, k.judul, p.id_konten
+                        k.id, k.judul, k.durasi
                 """, [user_email])
                 podcasts = cursor.fetchall()
-                podcasts = [(id_konten, judul_podcast, jumlah_episode, format_durasi(total_durasi)) for id_konten, judul_podcast, jumlah_episode, total_durasi in podcasts]
+                podcasts = [(id_konten, judul_podcast, jumlah_episode, format_durasi_kelola(total_durasi)) for id_konten, judul_podcast, jumlah_episode, total_durasi in podcasts]
 
                 query_label = show_label()
                 cursor.execute(query_label)
@@ -117,7 +127,7 @@ def homepage(request):
                     'detail_playlist_kelola':[{
                         'namaPlaylist': detail_playlist[2],
                         'jumlahLagu': detail_playlist[4],
-                        'durasi': detail_playlist[7],
+                        'durasi': format_durasi_kelola(detail_playlist[7]),
                         'id_playlist': detail_playlist[6],
                         'deskripsi': detail_playlist[3],
                         'id_user_playlist': detail_playlist[1]
@@ -126,7 +136,8 @@ def homepage(request):
                         'id': album[0],
                         'judul': album[1],
                         'jumlah_lagu': album[2],
-                        'total_durasi': album[3]
+                        'total_durasi': format_durasi_kelola(album[3]),
+                        'id_pemilik_hak_cipta':album[4],
                     } for album in albums],
                     'user_data': user_data, 
                     'roles': roles,
@@ -195,7 +206,7 @@ def homepage(request):
                 'detail_playlist_kelola': [{
                     'namaPlaylist': detail_playlist[2],
                     'jumlahLagu': detail_playlist[4],
-                    'durasi': detail_playlist[7],   
+                    'durasi': format_durasi_kelola(detail_playlist[7]),   
                     'id_playlist': detail_playlist[6],
                     'deskripsi':detail_playlist[3],
                     'id_user_playlist':detail_playlist[1]
@@ -204,7 +215,7 @@ def homepage(request):
                     'id': album[0],
                     'judul': album[1],
                     'jumlah_lagu': album[2],
-                    'total_durasi': album[3]
+                    'total_durasi': format_durasi_kelola(album[3])
                 } for album in albums],
                 'user_data': user_data, 
                 'roles': roles,
@@ -237,111 +248,3 @@ def logout(request):
 
     info_message = "Anda telah logout."
     return render(request, 'login.html', {'info_message': info_message})
-
-from django.shortcuts import render
-
-def album_list_view(request):
-    user_email = request.session.get('user_email')
-    user_type = request.session.get('user_type')
-
-    if user_type == "verified":
-        albums = get_albums_by_artist_or_songwriter(user_email)
-        return render(request, 'homepage.html', {'albums': albums})
-    else:
-        return render(request, 'login.html')
-    
-def get_albums_by_artist_or_songwriter(email):
-    with connection.cursor() as cursor:
-        query = """
-        SELECT DISTINCT a.judul, l.nama, a.jumlah_lagu, a.total_durasi
-        FROM album a
-        LEFT JOIN label l ON a.id_label = l.id
-        LEFT JOIN song s ON s.id_album = a.id
-        LEFT JOIN artist ar ON ar.id = s.id_artist
-        LEFT JOIN songwriter_write_song sws ON sws.id_song = s.id_konten
-        LEFT JOIN songwriter sw ON sw.id = sws.id_songwriter
-        WHERE ar.email_akun = %s OR sw.email_akun = %s
-        """
-        cursor.execute(query, [email, email])
-        albums = cursor.fetchall()
-    return albums
-
-from django.db import connection
-
-def add_album(judul, jumlah_lagu, total_durasi, id_label, email):
-    with connection.cursor() as cursor:
-        # Insert new album
-        insert_album_query = """
-        INSERT INTO album (id, judul, jumlah_lagu, id_label, total_durasi)
-        VALUES (gen_random_uuid(), %s, %s, %s, %s)
-        RETURNING id
-        """
-        cursor.execute(insert_album_query, [judul, jumlah_lagu, id_label, total_durasi])
-        album_id = cursor.fetchone()[0]
-
-        # Check if the user is an artist or songwriter
-        check_artist_query = "SELECT id FROM artist WHERE email_akun = %s"
-        cursor.execute(check_artist_query, [email])
-        artist = cursor.fetchone()
-
-        check_songwriter_query = "SELECT id FROM songwriter WHERE email_akun = %s"
-        cursor.execute(check_songwriter_query, [email])
-        songwriter = cursor.fetchone()
-
-        if artist:
-            artist_id = artist[0]
-            # Link artist to the album by creating a song entry
-            link_artist_query = """
-            INSERT INTO song (id_konten, id_artist, id_album)
-            VALUES (gen_random_uuid(), %s, %s)
-            """
-            cursor.execute(link_artist_query, [artist_id, album_id])
-        elif songwriter:
-            songwriter_id = songwriter[0]
-            # Link songwriter to the album by creating a song entry through songwriter_write_song
-            link_songwriter_query = """
-            INSERT INTO song (id_konten, id_album)
-            VALUES (gen_random_uuid(), %s)
-            RETURNING id_konten
-            """
-            cursor.execute(link_songwriter_query, [album_id])
-            song_id = cursor.fetchone()[0]
-            
-            link_songwriter_song_query = """
-            INSERT INTO songwriter_write_song (id_songwriter, id_song)
-            VALUES (%s, %s)
-            """
-            cursor.execute(link_songwriter_song_query, [songwriter_id, song_id])
-        else:
-            raise ValueError("User is neither an artist nor a songwriter.")
-
-@csrf_exempt
-def add_album_view(request):
-    if 'user_email' in request.session:
-        user_email = request.session.get('user_email')
-        user_type = request.session.get('user_type')
-
-        if user_type == "verified":
-            if request.method == "POST":
-                judul = request.POST.get('judul')
-                jumlah_lagu = request.POST.get('jumlah_lagu')
-                total_durasi = request.POST.get('total_durasi')
-                id_label = request.POST.get('id_label')
-
-                try:
-                    add_album(judul, int(jumlah_lagu), int(total_durasi), id_label, user_email)
-                    return redirect('success_page')  # Ganti dengan halaman sukses yang sesuai
-                except Exception as e:
-                    return HttpResponse(f"Error: {e}")
-
-            # Ambil daftar label untuk dropdown
-            labels = get_labels()  # Fungsi ini harus mengambil semua label dari database
-            return render(request, 'add_album.html', {'labels': labels})
-    else:
-        return render(request, 'login.html')
-
-def get_labels():
-    with connection.cursor() as cursor:
-        cursor.execute("SELECT id, nama FROM label")
-        labels = cursor.fetchall()
-    return labels

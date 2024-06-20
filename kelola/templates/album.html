@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<script>
+    function goBack() {
+        window.history.back();
+    }
+</script>
+{% if error_message %}
+<script>
+    $(document).ready(function () {
+        $('#errorModal').modal('show');
+    });
+</script>
+{% endif %}
+
+<!-- Bagian konten kelola albumnya -->
+<div class=""
+    style="background: linear-gradient(180deg, #292724, #1B1817); border-radius: 24px; height: 80%; max-height: 82%; padding-bottom: 25px; padding-top: 20px; white-space: nowrap; overflow-y: auto; text-overflow: ellipsis; margin-top: 1em; width: 97%;">
+    <!-- Detail album -->
+    <div class="row">
+        <div class="col-12" style="margin-left: 30px">
+            <div style="height: 40px;">
+                <button class="btn btn-secondary dropdown-toggle-iconless" type="button" id="dropdownMenuButton"
+                    data-toggle="" aria-haspopup="true" aria-expanded="false"
+                    style="background-color: transparent; border: none;" onclick="goBack()">
+                    <div class="d-flex" style="">
+                        <img src="{% static 'img/back-icon.svg' %}" alt="search"
+                            style="width: 20px; height: 20px; margin-left: 5px;">
+                        <p class="plus-jakarta-sans-extrabold"
+                            style="margin-left: 10px; color: var(--neutral-0); margin-top: -2px;">
+                            Back
+                        </p>
+                    </div>
+                </button>
+            </div>
+            <div class="d-flex justify-content-between align-items-center" style="">
+                <div style="">
+                    <p class="plus-jakarta-sans-bold" style="color: var(--neutral-1); font-size: 13px; margin-top:30px">
+                        {{label}} | {{durasi}} | {{jumlah_lagu}} lagu </p>
+                    <h1 class="plus-jakarta-sans-extrabold align-item-center"
+                        style="color: var(--neutral-0); font-size: 40px; margin-top: 10px;">
+                        {{judul_album}}
+                    </h1>
+                </div>
+            </div>
+
+            <!-- Tabel untuk lagu -->
+            <table class="table-podcast"
+                style="width: 95%; border-collapse: collapse; margin-top: 48px;color: var(--neutral-1); padding: 10px;">
+                <thead>
+                    <tr style="border-bottom: 1px solid var(--neutral-2);">
+                        <th style="color: var(--neutral-1); padding: 10px;">#</th>
+                        <th style="color: var(--neutral-1); padding-left: 120px;">Judul Lagu</th>
+                        <th style="color: var(--neutral-1); padding-left: 120px;">Durasi</th>
+                        <th style="color: var(--neutral-1); padding-left: 120px;">Total Plays</th>
+                        <th style="color: var(--neutral-1); padding-left: 120px;">Total Download</th>
+                        <th style="color: var(--neutral-1); padding-left: 120px;">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Gunakan loop untuk menampilkan lagu -->
+                    {% for detail in detail_album %}
+                    <tr class="plus-jakarta-sans-bold body-tr"
+                        style="border-bottom: 0px solid var(--neutral-2); font-size:14px; text-align:start;padding:10px; ">
+                        <td style="padding-top: 30px; padding-bottom: 30px;padding: 10px;color: var(--neutral-1);">
+                            {{ detail.no }}
+                        </td>
+                        <td
+                            style="padding-top: 30px; padding-bottom: 30px; padding-left: 120px;color: var(--neutral-1);">
+                            {{ detail.judul }}
+                        </td>
+                        <td
+                            style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">
+                            {{ detail.durasi }}</td>
+                        <td
+                            style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">
+                            {{ detail.total_play }}</td>
+                        <td
+                            style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">
+                            {{ detail.total_download }}</td>
+                        <td
+                            style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">
+                            <div>
+                                <button class="btn btn-secondary dropdown-toggle-iconless" type="button"
+                                    id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                                    aria-expanded="false" style="background-color: transparent; border: none;">
+                                    <img src="{% static 'img/threedots.svg' %}" alt="kelola"
+                                        style="width: 20px; height: 20px;">
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton"
+                                    style="background-color: var(--neutral-3); border-radius: 16px; padding: 4px; width: max-content !important;">
+                                    <a class="dropdown-item plus-jakarta-sans-bold m-auto"
+                                        style="color: var(--neutral-1); font-size: 12px; font-weight: 600;"
+                                        href="{% url 'song:song' detail.konten_id %}">Detail</a>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

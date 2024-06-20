@@ -48,11 +48,11 @@ INSTALLED_APPS = [
     'register',
     'podcast',
     'chart',
-    'dashboardreguser',
-    'dashboardartist',
-    'dashboardsongwriter',
+    'playlist',
     'dashboardlabel',
-    'dashboardpodcaster',
+    'kelola',
+    'song',
+    'search',
     'dashboarduser',
     'royalti',
     'django.contrib.admin',
@@ -78,7 +78,7 @@ ROOT_URLCONF = 'marmut15.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

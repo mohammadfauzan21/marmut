@@ -1,228 +1,326 @@
-{% extends 'base.html' %} 
 {% load static %}
+<!DOCTYPE html>
+<html lang="en">
 
-{% block content %}
-<style>
-    
-/* Style untuk tab aktif */
-.nav-link.active {
-    color: var(--neutral-0) !important; /* Warna teks saat aktif */
-    background-color: var(--neutral-4) !important; /* Warna latar belakang saat aktif */
-}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        Document
+    </title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap/bootstrap.min.css' %}">
+    <!-- Bootstrap Multiselect CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.15/css/bootstrap-multiselect.css"
+        rel="stylesheet">
+    <script src="{% static 'js/bootstrap/bootstrap.min.js' %}"></script>
+</head>
 
-/* Style untuk tab nonaktif */
-.nav-link:not(.active) {
-    color: var(--neutral-1) !important; /* Warna teks saat nonaktif */
-    background-color: transparent !important; /* Latar belakang transparan saat nonaktif */
-}
+<body style="background-color: var(--neutral-6);">
+    <script>
+        $(document).ready(function () {
+            $('.datepicker').datepicker({
+                format: 'dd/mm/yyyy',
+                autoclose: true,
+                todayHighlight: true
+            });
+        });
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const penggunabtn = document.getElementById('penggunabtn');
+            const labelbtn = document.getElementById('labelbtn');
+            const penggunadiv = document.getElementById('penggunadiv');
+            const labeldiv = document.getElementById('labeldiv');
 
-/* Style untuk label input */
-label {
-    color: var(--neutral-0); /* Misalnya, warna teks biru */
-}
+            penggunabtn.addEventListener('click', function () {
+                penggunabtn.classList.toggle('btn-inactive');
+                penggunabtn.classList.toggle('btn-active');
+                labelbtn.classList.remove('btn-active');
+                labelbtn.classList.add('btn-inactive');
+                labeldiv.classList.add('hidden');
+                penggunadiv.classList.remove('hidden');
+            });
 
-/* Warna untuk input */
-input, select {
-    color: var(--neutral-0) !important; /* Misalnya, warna teks merah */
-    background-color: transparent !important;
-}
+            labelbtn.addEventListener('click', function () {
+                labelbtn.classList.toggle('btn-inactive');
+                labelbtn.classList.toggle('btn-active');
+                penggunabtn.classList.remove('btn-active');
+                penggunabtn.classList.add('btn-inactive');
+                penggunadiv.classList.add('hidden');
+                labeldiv.classList.remove('hidden');
+            });
+        });
+    </script>
+    <style>
+        .hidden {
+            display: none;
+        }
 
-input.form-control:focus {
-    background-color: var(--neutral-2) !important; 
-    border: 2px solid var(--neutral-2) !important;
-}
+        .btn-inactive {
+            background-color: transparent !important;
+            color: var(--neutral-2) !important;
+        }
+        
+        .btn-active {
+            background-color: var(--neutral-2) !important;
+            color: var(--neutral-0) !important;
+        }
 
+        /* Style untuk label input */
+        label {
+            color: var(--neutral-0);
+            /* Misalnya, warna teks biru */
+        }
 
-::placeholder{
-    color: var(--neutral-2) !important;
-    font-size: small;
-}
+        /* Warna untuk input */
+        input,
+        select {
+            color: var(--neutral-0) !important;
+            /* Misalnya, warna teks merah */
+            background-color: transparent !important;
+        }
 
-.form-control{
-    border: 2px solid var(--neutral-3);
-    padding-block: 12px;
-    border-radius: 16px;
-    margin-bottom: 12px;
-}
+        input.form-control:focus {
+            background-color: var(--neutral-2) !important;
+            border: 2px solid var(--neutral-2) !important;
+        }
 
-.form-select {
-    border: 2px solid var(--neutral-2) !important;
-    padding-block: 16px;
-    border-radius: 16px;
-    margin-bottom: 12px;
-}
+        ::placeholder {
+            color: var(--neutral-2) !important;
+            font-size: small;
+        }
 
-.container-parent{
-    background-color: var(--neutral-8);
-    min-height: 100vh;
-    background-image: url('{% static "img/background.svg" %}');
-    background-size: cover;
-    background-position: center;
-}
+        .form-control {
+            border: 2px solid var(--neutral-3);
+            padding-block: 12px;
+            border-radius: 16px;
+            margin-bottom: 12px;
+        }
 
-.form-check-input[type=checkbox]{
-    border-color: var(--neutral-3);
-    border-radius: 0.4em;
-}
+        .form-select {
+            border: 2px solid var(--neutral-4) !important;
+            padding-block: 16px;
+            border-radius: 16px;
+            margin-bottom: 12px;
+        }
 
-/* Media query untuk layar besar ke atas */
-@media (min-width: 992px) {
-    .margin-konten-screen-lg {
-        margin-inline: 256px;
-    }
-}
+        .daftar:hover,
+        .daftar:focus{
+            color: #FF7816 !important;
+        }
 
-</style>
+        .btn-close{
+            color: white !important;
+        }
+    </style>
 
-<div class="container-fluid container-parent">
-    <div class="row">
-        <div class="col p-3 w-100 d-flex align-items-end" style="background-color: var(--neutral-6);">
-            <img src="{% static 'img/logo-sm.svg' %}" alt="Logo Marmut-15" >
-            <p class="plus-jakarta-sans-extrabold mx-2" style="font-size: 36; color: var(--neutral-0);">Marmut-15</p>
+    <header style="background-color: var(--neutral-5); padding: 1em 1em;">
+        <div style="width: max-content;">
+            <a class="d-flex" href="{% url 'preboarding:konten' %}" style="text-decoration: none;">
+                <img src="{% static 'img/logo-sm.svg' %}" alt="Logo Marmut-15" style="width: 40%; height: 40%;">
+                <p class="plus-jakarta-sans-extrabold mx-2" style="font-size: 36px; color: var(--neutral-0); margin: auto;">
+                    Marmut
+                </p>
+            </a>
         </div>
-        <div class="col-8 container-fluid d-flex justify-content-center align-items-center w-100 my-5">
-            <div class="row d-flex container-fluid justify-content-center align-items-center">
-                <p class="plus-jakarta-sans-extrabold my-4 d-flex justify-content-center" style="font-size: 24px; color: var(--neutral-0);">Daftar Marmut-15</p>
-                <ul class="nav nav-pills mb-3 d-flex justify-content-center align-items-center" id="pills-tab" role="tablist">
-                    <li class="nav-item p-1" style="background-color: var(--neutral-5); border-top-left-radius: 16px; border-bottom-left-radius: 16px;" role="presentation">
-                        <button class="nav-link active plus-jakarta-sans-extrabold" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true" style="font-size: 16; border-radius: 12px; font-weight: 900;">Pengguna</button>
-                    </li>
-                    <li class="nav-item p-1" style="background-color: var(--neutral-5); border-top-right-radius: 16px; border-bottom-right-radius: 16px;" role="presentation">
-                        <button class="nav-link plus-jakarta-sans-extrabold" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false"  style="font-size: 16; border-radius: 12px; font-weight: 900;">Label</button>
-                    </li>
-                </ul>
-                <div class="tab-content d-flex justify-content-center" id="pills-tabContent">
-                    <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
-                        
-                        {% if success_message %}
-                        <script>
-                            alert("{{ success_message }}");
-                            window.location.href = "{% url 'register:registerkonten' %}";
-                        </script>
-                        {% endif %}
-                        <form class="d-flex justify-content-center align-items-center" method="POST" action="{% url 'register:registeruser' %}">
-                            <div class="margin-konten-screen-lg row container-fluid d-flex justify-content-center align-items-center">
-                                <div class="col-md-6 row-sm-6 container">
-                                    <label for="exampleFormControlInput1"><p class="m-auto plus-jakarta-sans-bold" style="font-size: 12px; color:var(--neutral-0)">Email address</p></label>
-                                    <input type="email" class="form-control plus-jakarta-sans-regular" id="exampleFormControlInput1" placeholder="" name="email">
-                                </div>
-                                <div class="col-md-6 row-sm-6 container">
-                                    <label for="exampleFormControlInput1"><p class="m-auto plus-jakarta-sans-bold" style="font-size: 12px;">Tempat Lahir</p></label>
-                                    <input type="text" class="form-control plus-jakarta-sans-regular" id="exampleFormControlInput1" placeholder="" name="tempat_lahir">
-                                </div>
-                                <div class="col-md-6 row-sm-6 container">
-                                    <label for="exampleFormControlInput1"><p class="m-auto plus-jakarta-sans-bold" style="font-size: 12px;">Password</p></label>
-                                    <input type="password" class="form-control plus-jakarta-sans-regular" id="exampleFormControlInput1" placeholder="" name="password">
-                                </div>
-                                <div class="col-md-6 row-sm-6 container">
-                                    <label for="exampleFormControlInput1"><p class="m-auto plus-jakarta-sans-bold" style="font-size: 12px;">Tanggal Lahir</p></label>
-                                    <input type="date" class="form-control datepicker plus-jakarta-sans-regular" id="datepicker" placeholder="mm/dd/yy" name="tanggal_lahir">
-                                </div>
-                                <div class="col-md-6 row-sm-6 container">
-                                    <label for="exampleFormControlInput1"><p class="m-auto plus-jakarta-sans-bold" style="font-size: 12px;">Nama</p></label>
-                                    <input type="text" class="form-control plus-jakarta-sans-regular" id="exampleFormControlInput1" placeholder="" name="nama">
-                                </div>
-                                <div class="col-md-6 row-sm-6 container">
-                                    <label for="exampleFormControlInput1"><p class="m-auto plus-jakarta-sans-bold" style="font-size: 12px; color:var(--neutral-0)">Kota Asal</p></label>
-                                    <input type="text" class="form-control plus-jakarta-sans-regular" id="exampleFormControlInput1" placeholder="" name="kota_asal">
-                                </div>
-                                <div class="col-md-6 row-sm-6 container">
-                                    <label for="exampleFormControlInput1"><p class="m-auto plus-jakarta-sans-bold" style="font-size: 12px;">Gender</p></label>
-                                    <select class="form-select placeholder form-select-lg mb-3 plus-jakarta-sans-semibold"  style="font-size: 12px;"  aria-label=".form-select-lg example" name="gender">
-                                        <option value="" selected disabled hidden class="plus-jakarta-sans-semibold" style="background-color: var(--neutral-3);">Gender</option>
-                                        <option value="0" class="plus-jakarta-sans-semibold" style="background-color: var(--neutral-3); ">Laki-Laki</option>
-                                        <option value="1" class="plus-jakarta-sans-semibold" style="background-color: var(--neutral-3);">Perempuan</option>
-                                    </select>
-                                </div>
-                                <div class="col-md-6 row-sm-6">
-                                    <label for="exampleFormControlInput1">
-                                        <p class="m-auto plus-jakarta-sans-bold" style="font-size: 12px;">Role</p>
-                                    </label>   
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="artist" id="artist" name="role">
-                                        <label class="form-check-label plus-jakarta-sans-medium" style="font-size: 12px; color: var(--neutral-1);" for="artist" cla>
-                                            Artist
-                                        </label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="songwriter" id="songwriter" name="role">
-                                        <label class="form-check-label plus-jakarta-sans-medium" style="font-size: 12px; color: var(--neutral-1);" for="songwriter" cla>
-                                            Songwriter
-                                        </label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="podcaster" id="podcaster" name="role">
-                                        <label class="form-check-label plus-jakarta-sans-medium" style="font-size: 12px; color: var(--neutral-1);" for="podcaster" cla>
-                                            Podcaster
-                                        </label>
-                                    </div>
-                                </div>
-                                
-                                <div class="container-fluid d-flex justify-content-center">
-                                    <form action="{% url 'register:registeruser' %}" method="POST">
-                                        {% csrf_token %}
-                                        <button type="submit" class="row container d-flex align-items-center justify-content-center plus-jakarta-sans-extrabold button-primary my-4">Submit</button>
-                                    </form>
-                                </div>
-                                <div class="container d-flex align-items-center justify-content-center">
-                                    <p class="plus-jakarta-sans-regular" style="color: var(--neutral-1); font-size: 12px;">Sudah punya akun? <span class="plus-jakarta-sans-bold" style="color: var(--neutral-0);">Login</span></p>
-                                    
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab" style="color: aliceblue;">
-                        {% if success_message %}
-                        <script>
-                            alert("{{ success_message }}");
-                            window.location.href = "{% url 'register:registerkonten' %}";
-                        </script>
-                        {% endif %}
-                        <form class="d-flex justify-content-center align-items-center" method="POST" action="{% url 'register:registerlabel' %}">
-                            <div class="margin-konten-screen-lg row container-fluid d-flex justify-content-center align-items-center">
-                                <div class=" row-sm-6 container">
-                                    <label for="exampleFormControlInput1"><p class="m-auto plus-jakarta-sans-bold" style="font-size: 12px;">Email address</p></label>
-                                    <input type="email" class="form-control plus-jakarta-sans-regular" id="email" placeholder="" name="email">
-                                </div>
-                                <div class="row-sm-6 container">
-                                    <label for="exampleFormControlInput1"><p class="m-auto plus-jakarta-sans-bold" style="font-size: 12px;">Password</p></label>
-                                    <input type="password" class="form-control plus-jakarta-sans-regular" id="password" placeholder="" name="password">
-                                </div>
-                                <div class="row-sm-6 container">
-                                    <label for="exampleFormControlInput1"><p class="m-auto plus-jakarta-sans-bold" style="font-size: 12px;">Nama</p></label>
-                                    <input type="Nama" class="form-control plus-jakarta-sans-regular" id="Nama" placeholder="" name="nama">
-                                </div>
-                                <div class="row-sm-6 container">
-                                    <label for="exampleFormControlInput1"><p class="m-auto plus-jakarta-sans-bold" style="font-size: 12px;">Kontak</p></label>
-                                    <input type="Kontak" class="form-control plus-jakarta-sans-regular" id="Kontak" placeholder="" name="kontak">
-                                </div>
-                                <div class="container-fluid d-flex justify-content-center">
-                                    <form action="{% url 'register:registerlabel' %}" method="POST">
-                                        {% csrf_token %}
-                                        <button type="submit" class="row container d-flex align-items-center justify-content-center plus-jakarta-sans-extrabold button-primary my-4">Submit</button>
-                                    </form>
-                                </div>
-                                <div class="container d-flex align-items-center justify-content-center">
-                                    <div class="plus-jakarta-sans-regular" style="color: var(--neutral-1); font-size: 12px;">Sudah punya akun? <a class="plus-jakarta-sans-bold" style="color: var(--neutral-0); text-decoration: underline;" href="{% url 'register:registerkonten' %}">Login</a></div>
-                                    
-                                </div>
-                            </div>
-                        </form>
-                    </div>
+    </header>
+    <div style="margin: auto; width: 65%; margin-top: 2em;">
+        <h1 class="plus-jakarta-sans-extrabold" style="font-size: 24px; color: var(--neutral-0); text-align: center; margin-bottom: 0.5em;">
+            Daftar Marmut
+        </h1>
+        <div class="d-flex" style="padding: 2px; border-radius: 15px; width: min-content; border: 1px solid var(--neutral-2);  margin: auto;">
+            <button id="penggunabtn" type="button" class="button-primary plus-jakarta-sans-bold btn-active" data-toggle="modal" style="font-size: 14px; border: none;">
+                Pengguna
+            </button>
+            <button id="labelbtn" type="button" class="button-primary plus-jakarta-sans-bold btn-inactive" data-toggle="modal" style="font-size: 14px; border: none;">
+                Label
+            </button>
+        </div>
+        <div style="margin-top: 2em; overflow-y: auto;">
+            <div id="penggunadiv" class="">
+                {% if errorPengguna %}
+                <div class="d-flex justify-content-center alert alert-primary alert-dismissible fade show" role="alert" style="background-color: #281E14; border: none; width: 25%; margin: auto; margin-bottom: 1em;">
+                    <img src="{% static 'img/ExclamationCircleFill.svg' %}" alt="alert-info">
+                    <p  class="plus-jakarta-sans-medium" style="color:var(--neutral-0); margin: auto;">{{errorPengguna}}</p>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                    </button>
                 </div>
+                {% endif %}
+                <form action="{% url 'register:registeruser' %}" method="POST">
+                    {% csrf_token %}
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div style="width: 49%;">
+                            <div>
+                                <label for="emailAddress">
+                                    <p class="m-auto plus-jakarta-sans-bold" style="font-size: 15px; color:var(--neutral-0)">Email
+                                        address
+                                    </p>
+                                </label>
+                                <input type="email" class="form-control plus-jakarta-sans-regular" id="emailAddress"
+                                    placeholder="Masukkan email Anda" name="email" style="margin-top: 0.5em;" required>
+                            </div>
+                            <div>
+                                <label for="password">
+                                    <p class="m-auto plus-jakarta-sans-bold" style="font-size: 15px;">Password</p>
+                                </label>
+                                <input type="password" class="form-control plus-jakarta-sans-regular" id="password"
+                                    placeholder="Masukkan password Anda" name="password" style="margin-top: 0.5em;" required>
+                            </div>
+                            <div>
+                                <label for="nama">
+                                    <p class="m-auto plus-jakarta-sans-bold" style="font-size: 15px;">Nama</p>
+                                </label>
+                                <input type="text" class="form-control plus-jakarta-sans-regular" id="nama"
+                                    placeholder="Masukkan nama Anda" name="nama" style="margin-top: 0.5em;" required>
+                            </div>
+                            <div>
+                                <label for="gender">
+                                    <p class="m-auto plus-jakarta-sans-bold" style="font-size: 15px;">Gender</p>
+                                </label>
+                                <select class="form-select placeholder form-select-lg mb-3 plus-jakarta-sans-semibold"
+                                    style="font-size: 12px; margin-top: 0.5em" aria-label=".form-select-lg example" name="gender" required>
+                                    <option value="" selected disabled hidden class="plus-jakarta-sans-semibold"
+                                        style="background-color: var(--neutral-3);">Gender</option>
+                                    <option value="0" class="plus-jakarta-sans-semibold" style="background-color: var(--neutral-3); ">
+                                        Laki-Laki
+                                    </option>
+                                    <option value="1" class="plus-jakarta-sans-semibold" style="background-color: var(--neutral-3);">
+                                        Perempuan
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div style="width: 49%;">
+                            <div>
+                                <label for="tempat_lahir">
+                                    <p class="m-auto plus-jakarta-sans-bold" style="font-size: 15px;">Tempat
+                                        Lahir
+                                    </p>
+                                </label>
+                                <input type="text" class="form-control plus-jakarta-sans-regular" id="tempat_lahir"
+                                    placeholder="Masukkan tempat lahir Anda" name="tempat_lahir" style="margin-top: 0.5em;" required>
+                            </div>
+                            <div>
+                                <label for="tanggal_lahir">
+                                    <p class="m-auto plus-jakarta-sans-bold" style="font-size: 15px;">Tanggal
+                                        Lahir
+                                    </p>
+                                </label>
+                                <input type="date" class="form-control datepicker plus-jakarta-sans-regular" id="datepicker"
+                                    placeholder="mm/dd/yy" name="tanggal_lahir" style="margin-top: 0.5em;" required>
+                            </div>
+                            <div>
+                                <label for="kota_asal">
+                                    <p class="m-auto plus-jakarta-sans-bold" style="font-size: 15px; color:var(--neutral-0)">Kota Asal
+                                    </p>
+                                </label>
+                                <input type="text" class="form-control plus-jakarta-sans-regular" id="kota_asal"
+                                    placeholder="Masukkan kota asal Anda" name="kota_asal" style="margin-top: 0.5em;" required>
+                            </div>
+                            <div>
+                                <label for="role">
+                                    <p class="m-auto plus-jakarta-sans-bold" style="font-size: 15px;">Role</p>
+                                </label>
+                                <div class="form-check" style="margin-top: 0.2em;">
+                                    <input class="form-check-input" type="checkbox" value="artist" id="artist" name="role">
+                                    <label class="form-check-label plus-jakarta-sans-medium"
+                                        style="font-size: 12px; color: var(--neutral-1);" for="artist" cla>
+                                        Artist
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="songwriter" id="songwriter" name="role">
+                                    <label class="form-check-label plus-jakarta-sans-medium"
+                                        style="font-size: 12px; color: var(--neutral-1);" for="songwriter" cla>
+                                        Songwriter
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="podcaster" id="podcaster" name="role">
+                                    <label class="form-check-label plus-jakarta-sans-medium"
+                                        style="font-size: 12px; color: var(--neutral-1);" for="podcaster" cla>
+                                        Podcaster
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container-fluid d-flex justify-content-center">
+                        <button type="submit"
+                            class="container d-flex align-items-center justify-content-center plus-jakarta-sans-extrabold button-primary my-4">Submit</button>
+                    </div>
+                    <div class="container d-flex align-items-center justify-content-center">
+                        <p class="plus-jakarta-sans-bold" style="color: var(--neutral-1); font-size: 12px;">
+                            Sudah punya akun?
+                            <a class="plus-jakarta-sans-bold daftar" style="color: var(--neutral-0); text-decoration: none;"
+                                href="{% url 'login:loginkonten' %}">
+                                <h7>Login</h7>
+                            </a>
+                        </p>
+                    </div>
+                </form>
+            </div>
+            <div id="labeldiv" class="hidden">
+                {% if errorLabel %}
+                <div class="d-flex justify-content-center alert alert-primary alert-dismissible fade show" role="alert"
+                    style="background-color: #281E14; border: none; width: 25%; margin: auto; margin-bottom: 1em;">
+                    <img src="{% static 'img/ExclamationCircleFill.svg' %}" alt="alert-info">
+                    <p class="plus-jakarta-sans-medium" style="color:var(--neutral-0); margin: auto;">{{errorLabel}}</p>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                    </button>
+                </div>
+                {% endif %}
+                <form action="{% url 'register:registerlabel' %}" method="POST">
+                    {% csrf_token %}
+                    <div>
+                        <label for="email">
+                            <p class="m-auto plus-jakarta-sans-bold" style="font-size: 15px;">
+                                Email address
+                            </p>
+                        </label>
+                        <input type="email" class="form-control plus-jakarta-sans-regular" id="email" placeholder="Masukkan email Anda" name="email" style="margin-top: 0.5em;" required>
+                    </div>
+                    <div>
+                        <label for="password">
+                            <p class="m-auto plus-jakarta-sans-bold" style="font-size: 15px;">Password
+                            </p>
+                        </label>
+                        <input type="password" class="form-control plus-jakarta-sans-regular" id="password" placeholder="Masukkan password Anda" name="password" style="margin-top: 0.5em;" required>
+                    </div>
+                    <div>
+                        <label for="nama">
+                            <p class="m-auto plus-jakarta-sans-bold" style="font-size: 15px;">Nama</p>
+                        </label>
+                        <input type="text" class="form-control plus-jakarta-sans-regular" id="nama" placeholder="Masukkan nama Anda" name="nama" style="margin-top: 0.5em;" required>
+                    </div>
+                    <div>
+                        <label for="kontak">
+                            <p class="m-auto plus-jakarta-sans-bold" style="font-size: 15px;">Kontak</p>
+                        </label>
+                        <input type="text" class="form-control plus-jakarta-sans-regular" id="kontak" placeholder="Masukkan kontak Anda" name="kontak" style="margin-top: 0.5em;" required>
+                    </div>
+                    <div class="container-fluid d-flex justify-content-center">
+                        <button type="submit"
+                            class="container d-flex align-items-center justify-content-center plus-jakarta-sans-extrabold button-primary my-4">Submit</button>
+                    </div>
+                    <div class="container d-flex align-items-center justify-content-center">
+                        <p class="plus-jakarta-sans-bold" style="color: var(--neutral-1); font-size: 12px;">
+                            Sudah punya akun?
+                            <a class="plus-jakarta-sans-bold daftar" style="color: var(--neutral-0); text-decoration: none;"
+                                href="{% url 'login:loginkonten' %}">
+                                <h7>Login</h7>
+                            </a>
+                        </p>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
-</div>
+</body>
 
-<script>
-    $(document).ready(function(){
-        $('.datepicker').datepicker({
-            format: 'dd/mm/yyyy',
-            autoclose: true,
-            todayHighlight: true
-        });
-    });
-</script>
-
-{% endblock %}
+</html>

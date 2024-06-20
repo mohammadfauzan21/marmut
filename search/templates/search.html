@@ -1,0 +1,280 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const songbtn = document.getElementById('songbtn');
+        const albumbtn = document.getElementById('albumbtn');
+        const playlistbtn = document.getElementById('playlistbtn');
+        const songToptbody = document.getElementById('songToptbody');
+        const albumToptbody = document.getElementById('albumToptbody');
+        const playlistToptbody = document.getElementById('playlistToptbody');
+
+        songbtn.addEventListener('click', function () {
+            songbtn.classList.toggle('btn-inactive');
+            songbtn.classList.toggle('btn-active');
+            albumbtn.classList.remove('btn-active');
+            albumbtn.classList.add('btn-inactive');
+            playlistbtn.classList.remove('btn-active');
+            playlistbtn.classList.add('btn-inactive');
+            albumToptbody.classList.add('hidden');
+            playlistToptbody.classList.add('hidden');
+            songToptbody.classList.remove('hidden');
+        });
+
+        albumbtn.addEventListener('click', function () {
+            albumbtn.classList.toggle('btn-inactive');
+            albumbtn.classList.toggle('btn-active');
+            songbtn.classList.remove('btn-active');
+            songbtn.classList.add('btn-inactive');
+            playlistbtn.classList.remove('btn-active');
+            playlistbtn.classList.add('btn-inactive');
+            songToptbody.classList.add('hidden');
+            playlistToptbody.classList.add('hidden');
+            albumToptbody.classList.remove('hidden');
+        });
+
+        playlistbtn.addEventListener('click', function () {
+            playlistbtn.classList.toggle('btn-inactive');
+            playlistbtn.classList.toggle('btn-active');
+            songbtn.classList.remove('btn-active');
+            songbtn.classList.add('btn-inactive');
+            albumbtn.classList.remove('btn-active');
+            albumbtn.classList.add('btn-inactive');
+            songToptbody.classList.add('hidden');
+            albumToptbody.classList.add('hidden');
+            playlistToptbody.classList.remove('hidden');
+        });
+    });
+</script>
+
+<style>
+    .hidden {
+        display: none;
+    }
+
+    .btn-inactive {
+        background-color: transparent !important;
+    }
+
+    .btn-active {
+        background-color: var(--neutral-2) !important;
+    }
+</style>
+<!-- Bagian konten chartnya -->
+<div class=""
+    style="background: linear-gradient(180deg, #292724, #1B1817); border-radius: 24px; height: 80%; padding-bottom: 25px; padding-top: 20px; white-space: nowrap; overflow-y: auto; text-overflow: ellipsis; margin-top: 1em; width: 97%;">
+    <!-- Daftar Chart -->
+    <div class="row">
+        <div class="col-12" style="margin-left: 30px">
+            <h2 class="plus-jakarta-sans-extrabold" style="color: var(--neutral-0); font-size: 40px; margin-top: 20px;">
+                Your Result
+            </h2>
+            <p class="plus-jakarta-sans-bold" style="color: var(--neutral-1); font-size: 18px; margin-top: 24px;">
+                Your search results in Marmut
+            </p>
+            <div
+                style="padding: 2px; border-radius: 15px; width: min-content; border: 1px solid var(--neutral-2); margin-top: 25px;">
+                <button id="songbtn" type="button" class="button-primary plus-jakarta-sans-bold btn-active"
+                    data-toggle="modal" style="font-size: 14px; border: none;">
+                    Song
+                </button>
+                <button id="albumbtn" type="button" class="button-primary plus-jakarta-sans-bold btn-inactive"
+                    data-toggle="modal" style="font-size: 14px; border: none;">
+                    Album
+                </button>
+                <button id="playlistbtn" type="button" class="button-primary plus-jakarta-sans-bold btn-inactive"
+                    data-toggle="modal" style="font-size: 14px; border: none;">
+                    Playlist
+                </button>
+            </div>
+            <!-- Tabel untuk Result song -->
+            <table class="table-song" id="songToptbody" style="width: 95%; border-collapse: collapse;color: var(--neutral-1); padding: 10px; margin-top: 20px;">
+                <thead>
+                    <tr style="border-bottom: 1px solid var(--neutral-2);">
+                        <th style="color: var(--neutral-1); padding: 10px;">#</th>
+                        <th style="color: var(--neutral-1); padding-left: 120px;">Judul Lagu</th>
+                        <th style="color: var(--neutral-1); padding-left: 120px;">Artist</th>
+                        <th style="color: var(--neutral-1); padding-left: 120px;">Tanggal Rilis</th>
+                        <th style="color: var(--neutral-1); padding-left: 120px;">Total Plays</th>
+                        <th style="color: var(--neutral-1); padding-left: 120px;">Actions</th>
+                    </tr>
+                </thead>
+                <tbody class="plus-jakarta-sans-bold">
+                    {% if search_song %}
+                    <!-- Gunakan loop untuk menampilkan song -->
+                    {% for result in search_song %}
+                    <tr class="plus-jakarta-sans-bold" style="border-bottom: 0px solid var(--neutral-2); font-size:14px; text-align:start;padding:10px;">
+                        <td style="padding-top: 30px; padding-bottom: 30px;padding: 10px;color: var(--neutral-1);">
+                            {{result.no}}
+                        </td>
+                        <td
+                            style="padding-top: 30px; padding-bottom: 30px; padding-left: 120px;color: var(--neutral-1);">
+                            {{result.judulLagu}}
+                        </td>
+                        <td
+                            style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">
+                            {{result.artist}}
+                        </td>
+                        <td
+                            style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">
+                            {{result.tanggalRilis}}
+                        </td>
+                        <td
+                            style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">
+                            {{result.totalPlay}}
+                        </td>
+                        <td
+                            style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">
+                            <div>
+                                <button class="btn btn-secondary dropdown-toggle-iconless" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                                    aria-haspopup="true" aria-expanded="false" style="background-color: transparent; border: none;">
+                                    <img src="{% static 'img/threedots.svg' %}" alt="kelola" style="width: 20px; height: 20px;">
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton"
+                                    style="background-color: var(--neutral-3); border-radius: 16px; padding: 4px; width: max-content !important;">
+                                    <a class="dropdown-item plus-jakarta-sans-bold m-auto"
+                                        style="color: var(--neutral-1); font-size: 12px; font-weight: 600;"
+                                        href="{% url 'song:song' result.idSong %}">Lihat</a>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    {% else %}
+                    <!-- Jika tidak ada song, tampilkan pesan -->
+                    <tr>
+                        <td colspan="6" style="text-align: center;" class="plus-jakarta-sans-medium p-4">
+                            Belum ada song
+                        </td>
+                    </tr>
+                    {% endif %}
+                </tbody>
+            </table>
+
+            <!-- Tabel untuk Result album -->
+            <table class="table-album hidden" id="albumToptbody" style="width: 95%; border-collapse: collapse;color: var(--neutral-1); padding: 10px; margin-top: 20px;">
+                <thead>
+                    <tr style="border-bottom: 1px solid var(--neutral-2);">
+                        <th style="color: var(--neutral-1); padding: 10px;">#</th>
+                        <th style="color: var(--neutral-1); padding-left: 120px;">Judul Album</th>
+                        <th style="color: var(--neutral-1); padding-left: 120px;">Label</th>
+                        <th style="color: var(--neutral-1); padding-left: 120px;">Jumlah Lagu</th>
+                        <th style="color: var(--neutral-1); padding-left: 120px;">Durasi</th>
+                        <th style="color: var(--neutral-1); padding-left: 120px;">Actions</th>
+                    </tr>
+                </thead>
+                <tbody class="plus-jakarta-sans-bold">
+                    {% if search_album %}
+                    <!-- Gunakan loop untuk menampilkan album -->
+                    {% for result in search_album %}
+                    <tr class="plus-jakarta-sans-bold"
+                        style="border-bottom: 0px solid var(--neutral-2); font-size:14px; text-align:start;padding:10px;">
+                        <td style="padding-top: 30px; padding-bottom: 30px;padding: 10px;color: var(--neutral-1);">
+                            {{result.no}}
+                        </td>
+                        <td style="padding-top: 30px; padding-bottom: 30px; padding-left: 120px;color: var(--neutral-1);">
+                            {{result.judulAlbum}}
+                        </td>
+                        <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">
+                            {{result.label}}
+                        </td>
+                        <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">
+                            {{result.jumlahLagu}}
+                        </td>
+                        <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">
+                            {{result.durasi}}
+                        </td>
+                        <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">
+                            <div>
+                                <button class="btn btn-secondary dropdown-toggle-iconless" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                                    aria-haspopup="true" aria-expanded="false" style="background-color: transparent; border: none;">
+                                    <img src="{% static 'img/threedots.svg' %}" alt="kelola" style="width: 20px; height: 20px;">
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton"
+                                    style="background-color: var(--neutral-3); border-radius: 16px; padding: 4px; width: max-content !important;">
+                                    <a class="dropdown-item plus-jakarta-sans-bold m-auto"
+                                        style="color: var(--neutral-1); font-size: 12px; font-weight: 600;"
+                                        href="{% url 'kelola:album' result.idAlbum %}">Lihat</a>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    {% else %}
+                    <!-- Jika tidak ada album, tampilkan pesan -->
+                    <tr>
+                        <td colspan="6" style="text-align: center;" class="plus-jakarta-sans-medium p-4">
+                            Belum ada album
+                        </td>
+                    </tr>
+                    {% endif %}
+                </tbody>
+            </table>
+
+            <!-- Tabel untuk Result playlist -->
+            <table class="table-playlist hidden" id="playlistToptbody"
+                style="width: 95%; border-collapse: collapse;color: var(--neutral-1); padding: 10px; margin-top: 20px;">
+                <thead>
+                    <tr style="border-bottom: 1px solid var(--neutral-2);">
+                        <th style="color: var(--neutral-1); padding: 10px;">#</th>
+                        <th style="color: var(--neutral-1); padding-left: 120px;">Judul Playlist</th>
+                        <th style="color: var(--neutral-1); padding-left: 120px;">Pembuat</th>
+                        <th style="color: var(--neutral-1); padding-left: 120px;">Durasi</th>
+                        <th style="color: var(--neutral-1); padding-left: 120px;">Tanggal Buat</th>
+                        <th style="color: var(--neutral-1); padding-left: 120px;">Actions</th>
+                    </tr>
+                </thead>
+                <tbody class="plus-jakarta-sans-bold">
+                    {% if search_playlist %}
+                    <!-- Gunakan loop untuk menampilkan playlist -->
+                    {% for result in search_playlist %}
+                    <tr class="plus-jakarta-sans-bold"
+                        style="border-bottom: 0px solid var(--neutral-2); font-size:14px; text-align:start;padding:10px;">
+                        <td style="padding-top: 30px; padding-bottom: 30px;padding: 10px;color: var(--neutral-1);">
+                            {{result.no}}
+                        </td>
+                        <td style="padding-top: 30px; padding-bottom: 30px; padding-left: 120px;color: var(--neutral-1);">
+                            {{result.judulPlaylist}}
+                        </td>
+                        <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">
+                            {{result.pembuat}}
+                        </td>
+                        <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">
+                            {{result.durasi}}
+                        </td>
+                        <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">
+                            {{result.tanggalBuat}}
+                        </td>
+                        <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">
+                            <div>
+                                <button class="btn btn-secondary dropdown-toggle-iconless" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                                    aria-haspopup="true" aria-expanded="false" style="background-color: transparent; border: none;">
+                                    <img src="{% static 'img/threedots.svg' %}" alt="kelola" style="width: 20px; height: 20px;">
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton"
+                                    style="background-color: var(--neutral-3); border-radius: 16px; padding: 4px; width: max-content !important;">
+                                    <a class="dropdown-item plus-jakarta-sans-bold m-auto"
+                                        style="color: var(--neutral-1); font-size: 12px; font-weight: 600;"
+                                        href="{% url 'kelola:playlist' result.idPlaylist %}">Lihat</a>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    {% else %}
+                    <!-- Jika tidak ada playlist, tampilkan pesan -->
+                    <tr>
+                        <td colspan="6" style="text-align: center;" class="plus-jakarta-sans-medium p-4">
+                            Belum ada Playlist
+                        </td>
+                    </tr>
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
