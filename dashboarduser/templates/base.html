@@ -168,9 +168,16 @@
     </script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
+            sessionStorage.clear();
             // Check sessionStorage for saved tab
             var activeTab = sessionStorage.getItem('activeTab');
-            var defaultTabId = 'pills-playlist-tab'; 
+            var playlistTabId = 'pills-playlist-tab';
+            var albumTabId = 'pills-album-tab';
+            var podcastTabId = 'pills-podcast-tab';
+
+            var playlistTabElement = document.getElementById(playlistTabId);
+            var albumTabElement = document.getElementById(albumTabId);
+
             if (activeTab) {
                 var activeTabElement = document.getElementById(activeTab);
                 if (activeTabElement) {
@@ -179,10 +186,12 @@
                 }
             } else {
                 // Set default tab as active if no activeTab in sessionStorage
-                var defaultTabElement = document.getElementById(defaultTabId);
-                if (defaultTabElement) {
-                    defaultTabElement.classList.add('active');
-                    document.getElementById(defaultTabElement.getAttribute('aria-controls')).classList.add('show', 'active');
+                if (playlistTabElement) {
+                    playlistTabElement.classList.add('active');
+                    document.getElementById(playlistTabElement.getAttribute('aria-controls')).classList.add('show', 'active');
+                } else if (albumTabElement) {
+                    albumTabElement.classList.add('active');
+                    document.getElementById(albumTabElement.getAttribute('aria-controls')).classList.add('show', 'active');
                 }
             }
 

@@ -1,10 +1,11 @@
 from django.db import OperationalError, connection
 from django.http import HttpResponseNotFound
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 
-from kelola.views import format_durasi, format_durasi_kelola
-from playlist.query import get_playlist_akun, show_album
-from dashboarduser.query import show_artist, show_genre, show_label, show_songwriter, user_info
+from kelola.views import format_durasi_kelola
+from playlist.query import *
+from dashboarduser.query import *
+from django.contrib.auth.decorators import login_required
 from royalti.query import *
 
 # Create your views here.
@@ -23,6 +24,8 @@ def royalti(request):
     request.session['url'] = url_segments[1]
     
     user_email = request.session.get('user_email')
+    if not user_email:
+        return redirect('login:loginkonten')
     print(user_email)
     try:
         # current_url = request.build_absolute_uri()

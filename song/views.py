@@ -8,6 +8,7 @@ from django.db import OperationalError, connection
 from django.views.decorators.cache import never_cache
 from dashboarduser.query import *
 from django.urls import reverse
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 @never_cache
@@ -18,7 +19,7 @@ def song(request, id_konten):
     print("Masuk")
     user_email = request.session.get('user_email')
     if not user_email:
-        return HttpResponseNotFound("User email not found in session")
+        return redirect('login:loginkonten')
     
     error_message = request.GET.get('error', None)
     try:
@@ -147,6 +148,9 @@ def song(request, id_konten):
 
 @never_cache
 def add_song_playlist(request, id_song):
+    user_email = request.session.get('user_email')
+    if not user_email:
+        return redirect('login:loginkonten')
     if request.method == 'POST':
         id_playlist = request.POST.get('id_playlist')
         if id_playlist:

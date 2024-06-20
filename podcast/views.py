@@ -1,7 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.db import OperationalError, ProgrammingError, connection
 from django.http import HttpResponseNotFound
 from uuid import UUID
+from django.contrib.auth.decorators import login_required
 
 from kelola.views import format_durasi, format_durasi_kelola
 from playlist.query import *
@@ -24,7 +25,7 @@ def podcast_view(request):
 
     user_email = request.session.get('user_email')
     if not user_email:
-        return HttpResponseNotFound("User email not found in session")
+        return redirect('login:loginkonten')
     try:
         with connection.cursor() as cursor:
             query = user_info(user_email)
@@ -136,7 +137,7 @@ def detail_podcast(request, id_konten):
     request.session['url_now'] = url_now
     user_email = request.session.get('user_email')
     if not user_email:
-        return HttpResponseNotFound("User email not found in session")
+        return redirect('login:loginkonten')
     try:
         with connection.cursor() as cursor:
             query = user_info(user_email)

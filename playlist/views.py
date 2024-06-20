@@ -10,6 +10,7 @@ from django.db import OperationalError, connection
 from django.views.decorators.http import require_POST
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.cache import never_cache
+from django.contrib.auth.decorators import login_required
 
 # @never_cache
 def kelolaplaylist(request, id_playlist):
@@ -17,10 +18,9 @@ def kelolaplaylist(request, id_playlist):
     url_now = request.build_absolute_uri()
     request.session['url_now'] = url_now
 
-    list_lagu = request.session.get('list_lagu')
     user_email = request.session.get('user_email')
     if not user_email:
-        return HttpResponseNotFound("User email not found in session")
+        return redirect('login:loginkonten')
     print("ngeprint email")
     print(user_email)
     print("id_laylist = ")
@@ -193,7 +193,7 @@ def userplaylist(request):
 
     user_email = request.session.get('user_email')
     if not user_email:
-        return HttpResponseNotFound("User email not found in session")
+        return redirect('login:loginkonten')
     try:
         with connection.cursor() as cursor:
             query = user_info(user_email)
@@ -303,6 +303,9 @@ def userplaylist(request):
         
 @never_cache
 def putar_lagu(request, id_konten):
+    user_email = request.session.get('user_email')
+    if not user_email:
+        return redirect('login:loginkonten')
     if request.method == 'POST':
         try:
             with connection.cursor() as cursor:

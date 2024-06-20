@@ -1,9 +1,10 @@
 from django.db import connection
 from django.http import HttpResponseNotFound
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from kelola.views import format_durasi, format_durasi_kelola
 from playlist.query import get_playlist_akun, show_album
 from django.views.decorators.cache import never_cache
+from django.contrib.auth.decorators import login_required
 
 from dashboarduser.query import *
 
@@ -23,7 +24,7 @@ def chart(request):
 
     user_email = request.session.get('user_email')
     if not user_email:
-        return HttpResponseNotFound("User email not found in session")
+        return redirect('login:loginkonten')
     chart_types = []
     chart_details = {}
 

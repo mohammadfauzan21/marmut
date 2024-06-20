@@ -9,6 +9,7 @@ from django import template
 from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.cache import never_cache
+from django.contrib.auth.decorators import login_required
 
 from kelola.query import *
 from playlist.query import *
@@ -73,9 +74,11 @@ def format_durasi_kelola(detik):
 
 @never_cache
 def add_podcast(request):
+    email = request.session.get('user_email')
+    if not email:
+        return redirect('login:loginkonten')
     if request.method == 'POST':
         url_now = request.session.get('url_now')
-        email = request.session.get('user_email', None)
         judul = request.POST['judul']
         genre = request.POST.getlist('genreSelect')
 
@@ -116,6 +119,9 @@ def add_podcast(request):
 # @csrf_exempt
 @never_cache
 def delete_podcast(request, id_konten):
+    email = request.session.get('user_email')
+    if not email:
+        return redirect('login:loginkonten')
     if request.method == 'POST':
         url_now = request.session.get('url_now')
         with connection.cursor() as cursor:
@@ -155,6 +161,9 @@ def delete_podcast(request, id_konten):
 
 @never_cache
 def update_podcast(request, id_konten):
+    email = request.session.get('user_email')
+    if not email:
+        return redirect('login:loginkonten')
     if request.method == 'POST':
         print("masuk ke update_podcast")
         url_now = request.session.get('url_now')
@@ -186,6 +195,9 @@ def update_podcast(request, id_konten):
 
 @never_cache
 def add_episodes(request, id_konten):
+    email = request.session.get('user_email')
+    if not email:
+        return redirect('login:loginkonten')
     if request.method == 'POST':
         print("add_episode")
         print(id_konten)
@@ -214,6 +226,9 @@ def add_episodes(request, id_konten):
 
 @never_cache
 def delete_episode(request, id_konten, id_episode):
+    email = request.session.get('user_email')
+    if not email:
+        return redirect('login:loginkonten')
     if request.method == 'POST':
         if id_episode:  # Check if id_episode is not an empty string
             with connection.cursor() as cursor:
@@ -239,6 +254,9 @@ def delete_episode(request, id_konten, id_episode):
 
 @never_cache
 def update_episode(request, id_konten, id_episode):
+    email = request.session.get('user_email')
+    if not email:
+        return redirect('login:loginkonten')
     if request.method == 'POST':
         judul = request.POST['judulEpisode']
         deskripsi = request.POST['deskripsi']
@@ -268,11 +286,10 @@ def podcast(request, id_konten):
     #Mengambil url dari page yang sedang ditampilkan
     url_now = request.build_absolute_uri()
     request.session['url_now'] = url_now
-    if 'user_email' in request.session:
-        user_email = request.session.get('user_email')
-
-    else:
-        return render(request, 'login.html')
+    user_email = request.session.get('user_email')
+    if not user_email:
+        return redirect('login:loginkonten')
+    
     print("masuk ke episode")
     print("id_konten")
     print(id_konten)
@@ -436,7 +453,7 @@ def album(request, id_album):
     print("masuk kelola album")
     user_email = request.session.get('user_email')
     if not user_email:
-        return HttpResponseNotFound("User email not found in session")
+        return redirect('login:loginkonten')
     print("ngeprint email")
     print(user_email)
     print("id_laylist = ")
@@ -573,6 +590,9 @@ def album(request, id_album):
 
 @never_cache
 def create_album(request):
+    email = request.session.get('user_email')
+    if not email:
+        return redirect('login:loginkonten')
     if request.method == 'POST':
         url_now = request.session.get('url_now')
         id_album = uuid.uuid4()
@@ -596,6 +616,9 @@ def create_album(request):
 
 @never_cache
 def create_song(request, id_album, id_pemilik_hak_cipta_label):
+    user_email = request.session.get('user_email')
+    if not user_email:
+        return redirect('login:loginkonten')
     if request.method == 'POST' or request.method != 'POST':
         print(id_pemilik_hak_cipta_label)
         url_now = request.session.get('url_now')
@@ -607,7 +630,6 @@ def create_song(request, id_album, id_pemilik_hak_cipta_label):
         print("id_konten:")
         print(id_konten)
         id_artist = request.POST.get('artist')
-        user_email = request.session.get('user_email')
         print(user_email)
         print("id_artist:")
         print(id_artist)
@@ -698,6 +720,9 @@ def create_song(request, id_album, id_pemilik_hak_cipta_label):
 
 @never_cache
 def delete_album(request, id_album):
+    user_email = request.session.get('user_email')
+    if not user_email:
+        return redirect('login:loginkonten')
     url_now = request.session.get('url_now')
     print(url_now)
     print("id di delete_album:")
@@ -734,7 +759,7 @@ def playlist(request, id_playlist):
     request.session['url_now'] = url_now
     user_email = request.session.get('user_email')
     if not user_email:
-        return HttpResponseNotFound("User email not found in session")
+        return redirect('login:loginkonten')
     print("ngeprint email")
     print(user_email)
     print("id_laylist = ")
@@ -886,6 +911,9 @@ def playlist(request, id_playlist):
 @csrf_exempt
 @never_cache
 def delete_playlist(request, id_user_playlist):
+    user_email = request.session.get('user_email')
+    if not user_email:
+        return redirect('login:loginkonten')
     if request.method == 'POST':
         url_now = request.session.get('url_now')
         try:
@@ -908,14 +936,13 @@ def delete_playlist(request, id_user_playlist):
         except OperationalError:
             return HttpResponseNotFound("Database connection error")
 
-@csrf_exempt
 @never_cache
 def add_playlist(request):
+    user_email = request.session.get('user_email')
+    if not user_email:
+        return redirect('login:loginkonten')
     if request.method == 'POST':
         url_now = request.session.get('url_now')
-        user_email = request.session.get('user_email')
-        if not user_email:
-            return HttpResponseNotFound("User email not found in session")
         id_user_playlist = uuid.uuid4()
         print(id_user_playlist)
         # Mendapatkan nilai judul dan deskripsi dari permintaan POST
@@ -943,11 +970,13 @@ def add_playlist(request):
         except OperationalError:
             return HttpResponseNotFound("Database connection error")
 
-@csrf_exempt
 @never_cache
 def ubah_playlist(request, id_playlist):
     print("masuk ke ubah_playlist")
     print(id_playlist)
+    user_email = request.session.get('user_email')
+    if not user_email:
+        return redirect('login:loginkonten')
     if request.method == 'POST':
         url_now = request.session.get('url_now')
         judul = request.POST.get('judul')
@@ -963,9 +992,11 @@ def ubah_playlist(request, id_playlist):
         except OperationalError:
             return HttpResponseNotFound("Database connection error")
         
-@csrf_exempt
 @never_cache
 def add_song_to_playlist(request, id_playlist):
+    user_email = request.session.get('user_email')
+    if not user_email:
+        return redirect('login:loginkonten')
     if request.method == 'POST':
         song_id = request.POST.get('song_id')
         print("song_id")
@@ -985,9 +1016,11 @@ def add_song_to_playlist(request, id_playlist):
             except OperationalError:
                 return HttpResponseNotFound("Database connection error")
             
-@csrf_exempt
 @never_cache
 def delete_song_plylist(request, id_konten, id_playlist):
+    user_email = request.session.get('user_email')
+    if not user_email:
+        return redirect('login:loginkonten')
     if request.method == 'POST':
         try:
             with connection.cursor() as cursor:

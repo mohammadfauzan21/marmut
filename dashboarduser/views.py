@@ -6,16 +6,11 @@ from kelola.views import format_durasi, format_durasi_kelola
 from playlist.query import get_playlist_akun, show_album
 from django.shortcuts import render, redirect
 from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
+from django.contrib.auth import logout as auth_logout
 
 from dashboarduser.query import *
-
-
-# Roles session untuk atur hak akses navbar
-def roles_session(request):
-    user_roles = request.session.get('user_roles')
-    return render(request, 'roles_session.html', {'user_roles': user_roles})
-
 
 def homepage(request):
     #Mengambil url dari page yang sedang ditampilkan
@@ -30,12 +25,15 @@ def homepage(request):
     # Menyimpan URL ke dalam sesi
     request.session['url'] = url_segments[1]
 
-    if 'user_email' in request.session:
-        user_email = request.session.get('user_email')
-        user_type = request.session.get('user_type')
-
+    user_email = request.session.get('user_email')
+    if not user_email:
+        return redirect('login:loginkonten')
     else:
-        return render(request, 'login.html')
+        user_type = request.session.get('user_type')
+    # if 'user_email' in request.session:
+    #     user_type = request.session.get('user_type')
+    # else:
+    #     return redirect('login:loginkonten')
 
     print(request.session.get('user_roles'))
     user_data = None

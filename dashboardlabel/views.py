@@ -1,12 +1,14 @@
 from django.shortcuts import redirect, render
 from django.db import OperationalError, connection
 from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth.decorators import login_required
 
 from dashboardlabel.query import *
 from dashboarduser.query import *
 from kelola.views import *
 from playlist.query import *
 
+# @login_required(login_url='/login')
 def check_session(request, required_user_type):
     # Ambil informasi pengguna dari session
     user_email = request.session.get('user_email')
@@ -14,11 +16,13 @@ def check_session(request, required_user_type):
 
     # Pastikan pengguna telah login
     if not user_email or user_type != required_user_type:
-        error_message = "Anda harus login terlebih dahulu."
-        return render(request, 'login.html', {'error_message': error_message})
+        # error_message = "Anda harus login terlebih dahulu."
+        # return render(request, 'login.html', {'error_message': error_message})
+        return redirect('login:loginkonten')
 
     return user_email
 
+@login_required(login_url='/login')
 def homepagelabel(request):
     #Mengambil url dari page yang sedang ditampilkan
     url_now = request.build_absolute_uri()
@@ -34,7 +38,7 @@ def homepagelabel(request):
 
     user_email = check_session(request, 'label')
     if isinstance(user_email, HttpResponse):
-        return user_email  # Jika error message, langsung kembalikan response
+        return redirect('login:loginkonten')
 
     try:
         with connection.cursor() as cursor:
