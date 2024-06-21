@@ -1,5 +1,5 @@
 # create a virtual environment named 'venv' if it doesn't already exist
-python3.9 -m venv eenv
+python3.9 -m venv env
 
 # activate the virtual environment
 env/Scripts/activate
