@@ -1,9 +1,7 @@
-from django.contrib import messages
 from django.db import connection
 from django.shortcuts import redirect, render
 from datetime import datetime
 import uuid
-from django.views.decorators.csrf import csrf_exempt
 
 from register.query import *
 
@@ -11,7 +9,6 @@ from register.query import *
 def registerkonten(request):
     return render(request, 'register.html')
 
-@csrf_exempt
 def registerlabel(request):
     if request.method == 'POST':
         email = request.POST.get('email')
@@ -41,7 +38,6 @@ def registerlabel(request):
         # Jika bukan metode POST, kembalikan halaman register kosong
         return render(request, 'register.html')
 
-@csrf_exempt
 def registeruser(request):
     if request.method == 'POST':
         email = request.POST.get('email')

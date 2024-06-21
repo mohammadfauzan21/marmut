@@ -2,7 +2,6 @@ from django.shortcuts import redirect, render
 from django.db import OperationalError, ProgrammingError, connection
 from django.http import HttpResponseNotFound
 from uuid import UUID
-from django.contrib.auth.decorators import login_required
 
 from kelola.views import format_durasi, format_durasi_kelola
 from playlist.query import *

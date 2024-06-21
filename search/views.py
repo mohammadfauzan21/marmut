@@ -7,7 +7,6 @@ from playlist.query import get_playlist_akun, show_album
 from dashboarduser.query import show_artist, show_genre, show_label, show_songwriter, user_info
 from royalti.query import *
 from search.query import *
-from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def search(request):

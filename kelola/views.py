@@ -1,24 +1,17 @@
 import datetime
 import uuid
 from django.shortcuts import render, redirect
-from django.db import OperationalError, ProgrammingError, connection
-from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseNotAllowed, HttpResponseNotFound, JsonResponse
+from django.db import OperationalError, connection
+from django.http import HttpResponseBadRequest, HttpResponseNotFound
 from django.contrib import messages
 from datetime import datetime
-from django import template
 from django.urls import reverse
-from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.cache import never_cache
-from django.contrib.auth.decorators import login_required
 
 from kelola.query import *
 from playlist.query import *
 from dashboarduser.query import *
 
-# Create your views here.
-# register = template.Library()
-
-# @register.filter
 def format_durasi(detik):
     if detik is None:
         return '0 jam 0 menit 0 detik'
@@ -446,6 +439,7 @@ def podcast(request, id_konten):
     except OperationalError:
         return HttpResponseNotFound("Database connection error")
 
+@never_cache
 def album(request, id_album):
     #Mengambil url dari page yang sedang ditampilkan
     url_now = request.build_absolute_uri()
@@ -908,7 +902,6 @@ def playlist(request, id_playlist):
     except OperationalError:
         return HttpResponseNotFound("Database connection error")
     
-@csrf_exempt
 @never_cache
 def delete_playlist(request, id_user_playlist):
     user_email = request.session.get('user_email')

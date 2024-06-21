@@ -1,14 +1,11 @@
 from django.shortcuts import redirect, render
 from django.db import OperationalError, connection
-from django.views.decorators.csrf import csrf_exempt
-from django.contrib.auth.decorators import login_required
 
 from dashboardlabel.query import *
 from dashboarduser.query import *
 from kelola.views import *
 from playlist.query import *
 
-# @login_required(login_url='/login')
 def check_session(request, required_user_type):
     # Ambil informasi pengguna dari session
     user_email = request.session.get('user_email')
@@ -22,7 +19,6 @@ def check_session(request, required_user_type):
 
     return user_email
 
-@login_required(login_url='/login')
 def homepagelabel(request):
     #Mengambil url dari page yang sedang ditampilkan
     url_now = request.build_absolute_uri()

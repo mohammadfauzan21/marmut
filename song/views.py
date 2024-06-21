@@ -1,6 +1,5 @@
 from django.shortcuts import render
-from datetime import datetime
-from django.http import HttpResponseBadRequest, HttpResponseNotFound, HttpResponseRedirect
+from django.http import HttpResponseNotFound
 from django.shortcuts import redirect, render
 from kelola.views import format_durasi, format_durasi_kelola
 from playlist.query import *
@@ -8,7 +7,6 @@ from django.db import OperationalError, connection
 from django.views.decorators.cache import never_cache
 from dashboarduser.query import *
 from django.urls import reverse
-from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 @never_cache

@@ -5,7 +5,6 @@ from django.shortcuts import redirect, render
 from kelola.views import format_durasi_kelola
 from playlist.query import *
 from dashboarduser.query import *
-from django.contrib.auth.decorators import login_required
 from royalti.query import *
 
 # Create your views here.
