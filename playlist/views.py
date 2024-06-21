@@ -1,18 +1,12 @@
-from datetime import datetime
-import uuid
-from django.http import HttpResponseBadRequest, HttpResponseNotFound, HttpResponseRedirect
+from django.http import HttpResponseNotFound
 from django.shortcuts import redirect, render
 from django.urls import reverse
 from dashboarduser.query import *
 from kelola.views import format_durasi, format_durasi_kelola
 from playlist.query import *
 from django.db import OperationalError, connection
-from django.views.decorators.http import require_POST
-from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.cache import never_cache
-from django.contrib.auth.decorators import login_required
 
-# @never_cache
 def kelolaplaylist(request, id_playlist):
     #Mengambil url dari page yang sedang ditampilkan
     url_now = request.build_absolute_uri()
@@ -56,22 +50,17 @@ def kelolaplaylist(request, id_playlist):
             podcasts = cursor.fetchall()
             podcasts = [(id_konten, judul_podcast, jumlah_episode, format_durasi_kelola(total_durasi)) for id_konten, judul_podcast, jumlah_episode, total_durasi in podcasts]
 
-            try:
-                footer = [{
-                    'judul_lagu': list_lagu[0],
-                    'artist':list_lagu[1],
-                }],
-            except TypeError or IndexError:
-                footer = []
-
             query_header = get_detail_playlist_header(id_playlist)
             cursor.execute(query_header)
             playlist_header = cursor.fetchone()
             print(playlist_header)
 
-            # Check if podcast is None
+            # Check if playlist is None
             if playlist_header is None:
-                return HttpResponseNotFound("Playlist not found")
+                if 'label' not in request.session.get('user_type'):
+                    return redirect('dashboarduser:homepage')
+                else:
+                    return redirect('dashboardlabel:homepagelabel')
             
             query = get_detail_playlist(id_playlist)
             cursor.execute(query)
@@ -133,7 +122,6 @@ def kelolaplaylist(request, id_playlist):
                     'judul':song[1],
                     'pembuat':song[2]
                 }for song in list_song],
-                'footer':footer,
                 'detail_playlist_kelola': [{
                     'namaPlaylist': detail_playlist[2],
                     'jumlahLagu': detail_playlist[4],
@@ -175,7 +163,6 @@ def kelolaplaylist(request, id_playlist):
     except OperationalError:
         return HttpResponseNotFound("Database connection error")
 
-# @never_cache
 def userplaylist(request):
     #Mengambil url dari page yang sedang ditampilkan
     url_now = request.build_absolute_uri()
