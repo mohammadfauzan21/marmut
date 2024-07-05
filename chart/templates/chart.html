@@ -91,40 +91,42 @@
     }
 </style>
 <!-- Bagian konten chartnya -->
-<div class="" style="background: linear-gradient(180deg, #292724, #1B1817); border-radius: 24px; height: 80%; padding-bottom: 25px; padding-top: 20px; white-space: nowrap; overflow-y: auto; text-overflow: ellipsis; margin-top: 1em; width: 97%;">
+<div class="konten" style="background: linear-gradient(180deg, #292724, #1B1817); border-radius: 24px; height: 81vh; padding-bottom: 2vh; padding-top: 2vh; white-space: nowrap; overflow-y: auto; text-overflow: ellipsis; margin-top: 2vh; width: 97%;">
     <!-- Daftar Chart -->
     <div class="row">
-        <div class="col-12" style="margin-left: 30px">
-            <h2 class="plus-jakarta-sans-extrabold" style="color: var(--neutral-0); font-size: 40px; margin-top: 20px;">
+        <div class="col-12" style="margin-left: 4vw">
+            <h2 class="profilsaya plus-jakarta-sans-extrabold" style="color: var(--neutral-0); font-size: 2vw; margin-top: 2vh;">
                 Telusuri Chart
             </h2>
-            <p class="plus-jakarta-sans-bold" style="color: var(--neutral-1); font-size: 18px; margin-top: 24px;">
+            <p class="p plus-jakarta-sans-bold" style="color: var(--neutral-1); font-size: 1.2vw; margin-top: 2vh;">
                 Your update of the most played tracks
             </p>
-            <div style="padding: 2px; border-radius: 15px; width: min-content; border: 1px solid var(--neutral-2); margin-top: 25px;">
-                <button id="dailyTopbtn" type="button" class="button-primary plus-jakarta-sans-bold btn-active" data-toggle="modal" style="font-size: 14px; border: none;">
+            <div class="d-flex justify-content-center" style="padding: 0.5vh; border-radius: 15px; border: 1px solid var(--neutral-2); margin-top: 2vh; width: min-content;">
+                <button id="dailyTopbtn" type="button" class="button button-primary plus-jakarta-sans-bold btn-active" style="font-size: 1vw; border: none; text-align: center; display: flex; align-items: center; justify-content: center; width: 8vw;">
                     Daily Top 20
                 </button>
-                <button id="weeklyTopbtn" type="button" class="button-primary plus-jakarta-sans-bold btn-inactive" data-toggle="modal" style="font-size: 14px; border: none;">
+                <button id="weeklyTopbtn" type="button" class="button button-primary plus-jakarta-sans-bold btn-inactive"  style="font-size: 1vw; border: none; text-align: center; display: flex; align-items: center; justify-content: center; width: 8vw; margin-left: 0.5vw;">
                     Weekly Top 20
                 </button>
-                <button id="monthlyTopbtn" type="button" class="button-primary plus-jakarta-sans-bold btn-inactive" data-toggle="modal" style="font-size: 14px; border: none;">
+                <button id="monthlyTopbtn" type="button" class="button button-primary plus-jakarta-sans-bold btn-inactive" style="font-size: 1vw; border: none; text-align: center; display: flex; align-items: center; justify-content: center; width: 8vw; margin-left: 0.5vw;">
                     Monthly Top 20
                 </button>
-                <button id="yearlyTopbtn" type="button" class="button-primary plus-jakarta-sans-bold btn-inactive" data-toggle="modal" style="font-size: 14px; border: none;">
+                <button id="yearlyTopbtn" type="button" class="button button-primary plus-jakarta-sans-bold btn-inactive" style="font-size: 1vw; border: none; text-align: center; display: flex; align-items: center; justify-content: center; width: 8vw; margin-left: 0.5vw;">
                     Yearly Top 20
                 </button>
             </div>
-            <!-- Tabel untuk Royalti -->
-            <table class="table-royalti" style="width: 95%; border-collapse: collapse;color: var(--neutral-1); padding: 10px; margin-top: 20px;">
+            <!-- Tabel untuk chart -->
+            <table class="table-chart" style="width: 100%; border-collapse: collapse;color: var(--neutral-1); padding: 10px; margin-top: 20px;">
                 <thead>
                     <tr style="border-bottom: 1px solid var(--neutral-2);">
-                        <th style="color: var(--neutral-1); padding: 10px;">#</th>
-                        <th style="color: var(--neutral-1); padding-left: 120px;">Judul Lagu</th>
-                        <th style="color: var(--neutral-1); padding-left: 120px;">Artist</th>
-                        <th style="color: var(--neutral-1); padding-left: 120px;">Tanggal Rilis</th>
-                        <th style="color: var(--neutral-1); padding-left: 120px;">Total Plays</th>
-                        <th style="color: var(--neutral-1); padding-left: 120px;">Actions</th>
+                        <th class="table" style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; background-color: blue; width: 5%;">#</th>
+                        <th class="table" style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; background-color: purple; width: 25%;">Judul Lagu
+                        </th>
+                        <th class="table" style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; width: 22%;">Artist</th>
+                        <th class="table" style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; width: 23%;">Tanggal Rilis</th>
+                        <th class="table" style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; width: 15%;">Total Plays</th>
+                        <th class="table" style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; width: 14%; background-color: aquamarine;">Actions
+                        </th>
                     </tr>
                 </thead>
                 <!-- Daily Top 20 -->
@@ -132,24 +134,23 @@
                     <!-- {% if royalti_artist %} -->
                     <!-- Gunakan loop untuk menampilkan royalti -->
                     <!-- {% for royalti in royalti_artist %} -->
-                    <tr class="plus-jakarta-sans-bold"
-                        style="border-bottom: 0px solid var(--neutral-2); font-size:14px; text-align:start;padding:10px;">
-                        <td style="padding-top: 30px; padding-bottom: 30px;padding: 10px;color: var(--neutral-1);">
+                    <tr class="table plus-jakarta-sans-bold" style="border-bottom: 0px solid var(--neutral-2); font-size: 1vw; text-align:start; padding:1vh;">
+                        <td style="padding-top: 1vh; padding-bottom: 2vw; padding: 1vh; color: var(--neutral-1);">
                             <!-- {{royalti.no}} -->dailyTop
                         </td>
-                        <td style="padding-top: 30px; padding-bottom: 30px; padding-left: 120px;color: var(--neutral-1);">
+                        <td style="padding-top: 30px; padding-bottom: 30px; padding-left: 4vw; color: var(--neutral-1);">
                             <!-- {{royalti.judul_song}} -->dailyTop
                         </td>
-                        <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">
+                        <td style="padding-top: 30px; padding-bottom: 30px; padding-left: 4vw; color: var(--neutral-1);">
                             <!-- {{royalti.judul_album}} -->dailyTop
                         </td>
-                        <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">
+                        <td style="padding-top: 30px; padding-bottom: 30px; padding-left: 120px; color: var(--neutral-1);">
                             <!-- {{royalti.total_play}} -->dailyTop
                         </td>
-                        <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">
+                        <td style="padding-top: 30px; padding-bottom: 30px; padding-left: 120px; color: var(--neutral-1);">
                             <!-- {{royalti.total_download}} -->dailyTop
                         </td>
-                        <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">
+                        <td style="padding-top: 30px; padding-bottom: 30px; padding-left: 120px; color: var(--neutral-1);">
                             <!-- Rp {{royalti.jumlah_royalti}} -->dailyTop
                         </td>
                     </tr>
@@ -157,7 +158,7 @@
                     {% else %}
                     <!-- Jika tidak ada dailyTop, tampilkan pesan -->
                     <tr>
-                        <td colspan="6" style="text-align: center;" class="plus-jakarta-sans-medium p-4">
+                        <td colspan="6" style="text-align: center; font-size: 1vw;" class="table plus-jakarta-sans-medium p-4">
                             Belum ada Daily Top
                         </td>
                     </tr>
@@ -169,7 +170,7 @@
                     <!-- {% if royalti_artist %} -->
                     <!-- Gunakan loop untuk menampilkan royalti -->
                     <!-- {% for royalti in royalti_artist %} -->
-                    <tr class="plus-jakarta-sans-bold"
+                    <tr class="table plus-jakarta-sans-bold"
                         style="border-bottom: 0px solid var(--neutral-2); font-size:14px; text-align:start;padding:10px;">
                         <td style="padding-top: 30px; padding-bottom: 30px;padding: 10px;color: var(--neutral-1);">
                             <!-- {{royalti.no}} -->weeklyTop
@@ -194,7 +195,7 @@
                     {% else %}
                     <!-- Jika tidak ada weeklyTop, tampilkan pesan -->
                     <tr>
-                        <td colspan="6" style="text-align: center;" class="plus-jakarta-sans-medium p-4">
+                        <td colspan="6" style="text-align: center; font-size: 1vw;" class="table plus-jakarta-sans-medium p-4">
                             Belum ada Weekly Top
                         </td>
                     </tr>
@@ -202,11 +203,11 @@
                 </tbody>
             
                 <!-- monthlyTop -->
-                <tbody id="monthlyToptbody" class="plus-jakarta-sans-bold hidden">
+                <tbody id="monthlyToptbody" class="p plus-jakarta-sans-bold hidden">
                     <!-- {% if royalti_artist %} -->
                     <!-- Gunakan loop untuk menampilkan royalti -->
                     <!-- {% for royalti in royalti_artist %} -->
-                    <tr class="plus-jakarta-sans-bold"
+                    <tr class="table plus-jakarta-sans-bold"
                         style="border-bottom: 0px solid var(--neutral-2); font-size:14px; text-align:start;padding:10px;">
                         <td style="padding-top: 30px; padding-bottom: 30px;padding: 10px;color: var(--neutral-1);">
                             <!-- {{royalti.no}} -->monthlyTop
@@ -231,7 +232,7 @@
                     {% else %}
                     <!-- Jika tidak ada monthlyTop, tampilkan pesan -->
                     <tr>
-                        <td colspan="6" style="text-align: center;" class="plus-jakarta-sans-medium p-4">
+                        <td colspan="6" style="text-align: center; font-size: 1vw;" class="table plus-jakarta-sans-medium p-4">
                             Belum ada Monthly Top
                         </td>
                     </tr>
@@ -243,7 +244,7 @@
                     <!-- {% if royalti_artist %} -->
                     <!-- Gunakan loop untuk menampilkan royalti -->
                     <!-- {% for royalti in royalti_artist %} -->
-                    <tr class="plus-jakarta-sans-bold"
+                    <tr class="table plus-jakarta-sans-bold"
                         style="border-bottom: 0px solid var(--neutral-2); font-size:14px; text-align:start;padding:10px;">
                         <td style="padding-top: 30px; padding-bottom: 30px;padding: 10px;color: var(--neutral-1);">
                             <!-- {{royalti.no}} -->yearlyTop
@@ -268,7 +269,7 @@
                     {% else %}
                     <!-- Jika tidak ada yearlyTop, tampilkan pesan -->
                     <tr>
-                        <td colspan="6" style="text-align: center;" class="plus-jakarta-sans-medium p-4">
+                        <td colspan="6" style="text-align: center; font-size: 1vw;" class="table plus-jakarta-sans-medium p-4">
                             Belum ada Yearly Top
                         </td>
                     </tr>

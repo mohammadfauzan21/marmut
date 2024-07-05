@@ -27,15 +27,11 @@
             });
         });
     </script>
-    <!-- <script type="text/javascript" src="{% static 'js/bootstrap/bootstrap.bundle.js' %}"></script>
     <script>
-        var toastElList = [].slice.call
-            (document.querySelectorAll('.toast'))
-        var toastList = toastElList.map(function (toastEl) {
-            return new bootsrap.Toast(toastEl)
+        document.addEventListener('DOMContentLoaded', function () {
+            sessionStorage.clear();
         })
-        toastList.forEach(toast => toast.show());
-    </script> -->
+    </script>
     <style>
         /* Style untuk label input */
         label {
@@ -72,13 +68,106 @@
         .daftar:focus{
             color: #FF7816 !important;
         }
+
+        /* mobile */
+        /* iphone se (375)
+        iphone xr (414)
+        iphone 12 pro (390)
+        iphone 14 pro max (430)
+        pixel 7 (412)
+        samsung galaxy s8+ (360)
+        samsung galaxy s20 ultra (412)
+        samsung galaxy a51/71 (412) */
+
+        @media screen and (max-width:540px) {
+            .logoheader{
+                width: 9vw !important;
+                height: 9vh !important;
+            }
+            .header{
+                font-size: 5vw !important;
+            }
+            .judul{
+                font-size: 4vw !important;
+            }
+            .p, ::placeholder{
+                font-size: 2.6vw !important;
+            }
+            .button{
+                font-size: 2.5vw !important;
+            }
+            .wrapper{
+                width: 80% !important;
+            }
+            header{
+                padding: 1.5vh 2.5vw !important;
+            }
+            .alert{
+                width: 100% !important;
+            }
+        }
+
+        /* iphone se (375)
+        iphone xr (414)
+        iphone 12 pro (390)
+        iphone 14 pro max (430)
+        pixel 7 (412)
+        samsung galaxy s8+ (360)
+        samsung galaxy s20 ultra (412)
+        samsung galaxy a51/71 (412) */
+        @media screen and (max-width:390px) {
+            header{
+                padding: 0vh 2.5vw !important;
+            }
+        }
+
+        /* tablets */
+        /* asus zenbook fold (853) - 
+            surface duo (540)
+            surface pro7 (912) -
+            ipad air (820) - 
+            ipad mini (768) - */ 
+        /* +0.5 */
+        @media screen and (min-width: 541px) and (max-width: 916px) { 
+            .logoheader{
+                width: 8vw !important;
+                height: 8vh !important;
+            }
+            .header{
+                font-size: 4vw !important;
+            }
+            .judul{
+                font-size: 2.8vw !important;
+            }
+            .p, ::placeholder{
+                font-size: 1.6vw !important;
+            }
+            .button{
+                font-size: 1.7vw !important;
+            }
+            .alert{
+                width: 100% !important;
+            }
+        }
+
+        /* +0.6 */
+        @media screen and (min-width: 541px) and (max-width: 791px) {
+            .logoheader{
+                width: 7vw !important;
+                height: 7vh !important;
+            }
+        }
+
+        @media screen and (min-width: 541px) and (max-width: 666px) {
+            
+        }
     </style>
 
-    <header style="background-color: var(--neutral-5); padding: 1em 1em;">
+    <header style="background-color: var(--neutral-5); padding: 2vh 2vw; height: max-content;">
         <div style="width: max-content;">
-            <a class="d-flex" href="{% url 'preboarding:konten' %}" style="text-decoration: none;">
-                <img src="{% static 'img/logo-sm.svg' %}" alt="Logo Marmut-15" style="width: 40%; height: 40%;">
-                <p class="plus-jakarta-sans-extrabold mx-2" style="font-size: 36px; color: var(--neutral-0); margin: auto;">
+            <a class="d-flex align-items-center" href="{% url 'preboarding:konten' %}" style="text-decoration: none;">
+                <img class="logoheader" src="{% static 'img/logo-sm.svg' %}" alt="Logo Marmut-15" style="width: 40%; height: 40%;">
+                <p class="header plus-jakarta-sans-extrabold mx-2" style="font-size: 2.5vw; color: var(--neutral-0); margin: auto;">
                     Marmut
                 </p>
             </a>
@@ -97,48 +186,48 @@
         </div>
     </div>
     {% endif %} -->
-    <div style="margin: auto; width: 50%; margin-top: 5em;">
-        <h1 class="plus-jakarta-sans-extrabold" style="font-size: 24px; color: var(--neutral-0); text-align: center;">
+    <div class="wrapper" style="margin: auto; width: 50%; margin-top: 10vh;">
+        <h1 class="judul plus-jakarta-sans-extrabold" style="font-size: 24px; color: var(--neutral-0); text-align: center;">
             Masuk Akun Marmut
         </h1>
         {% if error_message %}
-        <div class="d-flex justify-content-center alert alert-primary alert-dismissible fade show" role="alert"
-            style="background-color: #281E14; border: none; width: 50%; margin: auto; margin-top: 1.5em;">
+        <div class="alert d-flex justify-content-center alert alert-primary alert-dismissible fade show" role="alert"
+            style="background-color: #281E14; border: none; width: 50%; margin: auto; margin-top: 4vh;">
             <img src="{% static 'img/ExclamationCircleFill.svg' %}" alt="alert-info">
-            <p class="plus-jakarta-sans-medium" style="color:var(--neutral-0); margin: auto;">{{error_message}}</p>
+            <p class="p plus-jakarta-sans-medium" style="color:var(--neutral-0); margin: auto; font-size: 0.9vw;">{{error_message}}</p>
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
             </button>
         </div>
         {% endif %}
-        <div style="margin-top: 4em;">
+        <div style="margin-top: 8vh;">
             <form method="POST"action="{% url 'login:loginkonten' %}">
                 {% csrf_token %}
                 <div>
                     <label for="email">
-                        <p class="m-auto plus-jakarta-sans-bold" style="font-size: 15px; text-align: start;">Email
+                        <p class="p m-auto plus-jakarta-sans-bold" style="font-size: 1vw; text-align: start;">Email
                             address
                         </p>
                     </label>
-                    <input type="email" name="email" class="form-control plus-jakarta-sans-regular" id="email" placeholder="Masukkan email Anda" style="margin-top: 0.5em;" required>
+                    <input type="email" name="email" class="p form-control plus-jakarta-sans-regular" id="email" placeholder="Masukkan email Anda" style="margin-top: 0.5em;" required>
                 </div>
                 <div>
                     <label for="password">
-                        <p class="m-auto plus-jakarta-sans-bold" style="font-size: 15px;">Password
+                        <p class="p m-auto plus-jakarta-sans-bold" style="font-size: 1vw;">Password
                         </p>
                     </label>
-                    <input type="password" name="password" class="form-control plus-jakarta-sans-regular" id="password" placeholder="Masukkan password Anda" style="margin-top: 0.5em;" required>
+                    <input type="password" name="password" class="p form-control plus-jakarta-sans-regular" id="password" placeholder="Masukkan password Anda" style="margin-top: 0.5em;" required>
                 </div>
                 <div class="container-fluid d-flex justify-content-center">
                     <button type="submit"
-                        class="container d-flex align-items-center justify-content-center plus-jakarta-sans-extrabold button-primary my-4">Submit</button>
+                        class="button container d-flex align-items-center justify-content-center plus-jakarta-sans-extrabold button-primary my-4">Submit</button>
                 </div>
             </form>
             <div class="container d-flex align-items-center justify-content-center">
-                <p class="plus-jakarta-sans-bold" style="color: var(--neutral-1); font-size: 12px;">
+                <p class="p plus-jakarta-sans-bold" style="color: var(--neutral-1); font-size: 0.8vw;">
                     Belum punya akun?
                     <a class="plus-jakarta-sans-bold daftar" style="color: var(--neutral-0); text-decoration: none;"
                         href="{% url 'register:registerkonten' %}">
-                        <h7>Daftar</h7>
+                        <h7 class="p">Daftar</h7>
                     </a>
                 </p>    
             </div>

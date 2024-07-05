@@ -117,34 +117,177 @@
         .btn-close{
             color: white !important;
         }
+
+        /* mobile */
+        /* iphone se (375)
+        iphone xr (414)
+        iphone 12 pro (390)
+        iphone 14 pro max (430)
+        pixel 7 (412)
+        samsung galaxy s8+ (360)
+        samsung galaxy s20 ultra (412)
+        samsung galaxy a51/71 (412) */
+
+        @media screen and (max-width:540px) {
+            .logoheader{
+                width: 8vw !important;
+                height: 8vh !important;
+            }
+            .header{
+                font-size: 4vw !important;
+            }
+            .judul{
+                font-size: 3.5vw !important;
+            }
+            .p, ::placeholder, input, select{
+                font-size: 2.3vw !important;
+            }
+            .role{
+                font-size: 2vw !important;
+            }
+            .button{
+                font-size: 2.4vw !important;
+            }
+            .alert{
+                width: 50% !important;
+            }
+            .alert img{
+                width: 4vw !important;
+                height: 4vh !important;
+            }
+            .alert p{
+                font-size: 2.2vw !important;
+            }
+            .pills{
+                margin-top: 3vh !important;
+            }
+            .wrapper{
+                width: 90% !important;
+                margin: auto;
+            }
+            .other{
+                font-size: 2vw !important;
+            }
+            .isikonten{
+                display: block !important;
+                justify-content: center !important;
+                align-items: center !important;
+            }header{
+                padding: 2vh 2vw !important;
+            }
+            .wrapper1, .wrapper2{
+                margin: auto !important;
+                width: 90% !important;
+            }
+        }
+
+        /* iphone se (375)
+        iphone xr (414)
+        iphone 12 pro (390)
+        iphone 14 pro max (430)
+        pixel 7 (412)
+        samsung galaxy s8+ (360)
+        samsung galaxy s20 ultra (412)
+        samsung galaxy a51/71 (412) */
+        @media screen and (max-width:390px) {
+            header{
+                padding: 0vh 2.5vw !important;
+            }
+            .wrapper{
+                width: 95% !important;
+                margin: auto;
+            }
+        }
+
+        /* tablets */
+        /* asus zenbook fold (853) - 
+            surface duo (540)
+            surface pro7 (912) -
+            ipad air (820) - 
+            ipad mini (768) - */ 
+        /* +0.5 */
+        @media screen and (min-width: 541px) and (max-width: 916px) { 
+            .logoheader{
+                width: 8vw !important;
+                height: 8vh !important;
+            }
+            .header{
+                font-size: 4vw !important;
+            }
+            .judul{
+                font-size: 2.8vw !important;
+            }
+            .p, ::placeholder, input, select{
+                font-size: 1.6vw !important;
+            }
+            .role{
+                font-size: 1.3vw !important;
+            }
+            .button{
+                font-size: 1.7vw !important;
+            }
+            .alert{
+                width: 50% !important;
+            }
+            .alert img{
+                width: 3.5vw !important;
+                height: 3.5vh !important;
+            }
+            .alert p{
+                font-size: 2vw !important;
+            }
+            .pills{
+                margin-top: 3vh !important;
+            }
+            .wrapper{
+                width: 85% !important;
+            }
+            .other{
+                font-size: 1.3vw !important;
+            }
+        }
+
+        /* +0.6 */
+        @media screen and (min-width: 541px) and (max-width: 791px) {
+            .logoheader{
+                width: 7.7vw !important;
+                height: 7.7vh !important;
+            }
+        }
+
+        @media screen and (min-width: 541px) and (max-width: 666px) {
+            
+        }
     </style>
 
-    <header style="background-color: var(--neutral-5); padding: 1em 1em;">
+    <header style="background-color: var(--neutral-5); padding: 2vh 2vw; height: max-content;">
         <div style="width: max-content;">
-            <a class="d-flex" href="{% url 'preboarding:konten' %}" style="text-decoration: none;">
-                <img src="{% static 'img/logo-sm.svg' %}" alt="Logo Marmut-15" style="width: 40%; height: 40%;">
-                <p class="plus-jakarta-sans-extrabold mx-2" style="font-size: 36px; color: var(--neutral-0); margin: auto;">
+            <a class="d-flex align-items-center" href="{% url 'preboarding:konten' %}" style="text-decoration: none;">
+                <img class="logoheader" src="{% static 'img/logo-sm.svg' %}" alt="Logo Marmut-15"
+                    style="width: 40%; height: 40%;">
+                <p class="header plus-jakarta-sans-extrabold mx-2"
+                    style="font-size: 2.5vw; color: var(--neutral-0); margin: auto;">
                     Marmut
                 </p>
             </a>
         </div>
     </header>
-    <div style="margin: auto; width: 65%; margin-top: 2em;">
-        <h1 class="plus-jakarta-sans-extrabold" style="font-size: 24px; color: var(--neutral-0); text-align: center; margin-bottom: 0.5em;">
+    <div class="wrapper" style="margin: auto; width: 65%; margin-top: 2em;">
+        <h1 class="judul plus-jakarta-sans-extrabold" style="font-size: 24px; color: var(--neutral-0); text-align: center; margin-bottom: 0.5em;">
             Daftar Marmut
         </h1>
-        <div class="d-flex" style="padding: 2px; border-radius: 15px; width: min-content; border: 1px solid var(--neutral-2);  margin: auto;">
-            <button id="penggunabtn" type="button" class="button-primary plus-jakarta-sans-bold btn-active" data-toggle="modal" style="font-size: 14px; border: none;">
+        <div class="pills d-flex" style="padding: 2px; border-radius: 15px; width: min-content; border: 1px solid var(--neutral-2);  margin: auto;">
+            <button id="penggunabtn" type="button" class="button button-primary plus-jakarta-sans-bold btn-active" data-toggle="modal" style="font-size: 14px; border: none;">
                 Pengguna
             </button>
-            <button id="labelbtn" type="button" class="button-primary plus-jakarta-sans-bold btn-inactive" data-toggle="modal" style="font-size: 14px; border: none;">
+            <button id="labelbtn" type="button" class="button button-primary plus-jakarta-sans-bold btn-inactive" data-toggle="modal" style="font-size: 14px; border: none;">
                 Label
             </button>
         </div>
         <div style="margin-top: 2em; overflow-y: auto;">
             <div id="penggunadiv" class="">
                 {% if errorPengguna %}
-                <div class="d-flex justify-content-center alert alert-primary alert-dismissible fade show" role="alert" style="background-color: #281E14; border: none; width: 25%; margin: auto; margin-bottom: 1em;">
+                <div class="alert d-flex justify-content-center align-items-center alert alert-primary alert-dismissible fade show" role="alert" style="background-color: #281E14; border: none; width: 25%; margin: auto; margin-bottom: 1em;">
                     <img src="{% static 'img/ExclamationCircleFill.svg' %}" alt="alert-info">
                     <p  class="plus-jakarta-sans-medium" style="color:var(--neutral-0); margin: auto;">{{errorPengguna}}</p>
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
@@ -153,12 +296,11 @@
                 {% endif %}
                 <form action="{% url 'register:registeruser' %}" method="POST">
                     {% csrf_token %}
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div style="width: 49%;">
+                    <div class="isikonten d-flex justify-content-between align-items-center">
+                        <div class="wrapper1" style="width: 49%;">
                             <div>
                                 <label for="emailAddress">
-                                    <p class="m-auto plus-jakarta-sans-bold" style="font-size: 15px; color:var(--neutral-0)">Email
-                                        address
+                                    <p class="p m-auto plus-jakarta-sans-bold" style="font-size: 15px; color:var(--neutral-0)">Email address
                                     </p>
                                 </label>
                                 <input type="email" class="form-control plus-jakarta-sans-regular" id="emailAddress"
@@ -166,39 +308,39 @@
                             </div>
                             <div>
                                 <label for="password">
-                                    <p class="m-auto plus-jakarta-sans-bold" style="font-size: 15px;">Password</p>
+                                    <p class="p m-auto plus-jakarta-sans-bold" style="font-size: 15px;">Password</p>
                                 </label>
                                 <input type="password" class="form-control plus-jakarta-sans-regular" id="password"
                                     placeholder="Masukkan password Anda" name="password" style="margin-top: 0.5em;" required>
                             </div>
                             <div>
                                 <label for="nama">
-                                    <p class="m-auto plus-jakarta-sans-bold" style="font-size: 15px;">Nama</p>
+                                    <p class="p m-auto plus-jakarta-sans-bold" style="font-size: 15px;">Nama</p>
                                 </label>
                                 <input type="text" class="form-control plus-jakarta-sans-regular" id="nama"
                                     placeholder="Masukkan nama Anda" name="nama" style="margin-top: 0.5em;" required>
                             </div>
                             <div>
                                 <label for="gender">
-                                    <p class="m-auto plus-jakarta-sans-bold" style="font-size: 15px;">Gender</p>
+                                    <p class="p m-auto plus-jakarta-sans-bold" style="font-size: 15px;">Gender</p>
                                 </label>
                                 <select class="form-select placeholder form-select-lg mb-3 plus-jakarta-sans-semibold"
                                     style="font-size: 12px; margin-top: 0.5em" aria-label=".form-select-lg example" name="gender" required>
-                                    <option value="" selected disabled hidden class="plus-jakarta-sans-semibold"
+                                    <option value="" selected disabled hidden class="p plus-jakarta-sans-semibold"
                                         style="background-color: var(--neutral-3);">Gender</option>
-                                    <option value="0" class="plus-jakarta-sans-semibold" style="background-color: var(--neutral-3); ">
+                                    <option value="0" class="p plus-jakarta-sans-semibold" style="background-color: var(--neutral-3); ">
                                         Laki-Laki
                                     </option>
-                                    <option value="1" class="plus-jakarta-sans-semibold" style="background-color: var(--neutral-3);">
+                                    <option value="1" class="p plus-jakarta-sans-semibold" style="background-color: var(--neutral-3);">
                                         Perempuan
                                     </option>
                                 </select>
                             </div>
                         </div>
-                        <div style="width: 49%;">
+                        <div class="wrapper2" style="width: 49%;">
                             <div>
                                 <label for="tempat_lahir">
-                                    <p class="m-auto plus-jakarta-sans-bold" style="font-size: 15px;">Tempat
+                                    <p class="p m-auto plus-jakarta-sans-bold" style="font-size: 15px;">Tempat
                                         Lahir
                                     </p>
                                 </label>
@@ -207,7 +349,7 @@
                             </div>
                             <div>
                                 <label for="tanggal_lahir">
-                                    <p class="m-auto plus-jakarta-sans-bold" style="font-size: 15px;">Tanggal
+                                    <p class="p m-auto plus-jakarta-sans-bold" style="font-size: 15px;">Tanggal
                                         Lahir
                                     </p>
                                 </label>
@@ -216,7 +358,7 @@
                             </div>
                             <div>
                                 <label for="kota_asal">
-                                    <p class="m-auto plus-jakarta-sans-bold" style="font-size: 15px; color:var(--neutral-0)">Kota Asal
+                                    <p class="p m-auto plus-jakarta-sans-bold" style="font-size: 15px; color:var(--neutral-0)">Kota Asal
                                     </p>
                                 </label>
                                 <input type="text" class="form-control plus-jakarta-sans-regular" id="kota_asal"
@@ -224,26 +366,25 @@
                             </div>
                             <div>
                                 <label for="role">
-                                    <p class="m-auto plus-jakarta-sans-bold" style="font-size: 15px;">Role</p>
+                                    <p class="p m-auto plus-jakarta-sans-bold" style="font-size: 15px;">Role</p>
                                 </label>
-                                <div class="form-check" style="margin-top: 0.2em;">
+                                <div class="d-flex align-items-center justify-content-start" style="margin-top: 0.2em;">
                                     <input class="form-check-input" type="checkbox" value="artist" id="artist" name="role">
-                                    <label class="form-check-label plus-jakarta-sans-medium"
-                                        style="font-size: 12px; color: var(--neutral-1);" for="artist" cla>
+                                    <label class="role plus-jakarta-sans-medium" style="font-size: 12px; color: var(--neutral-1); margin-left: 1vw;" for="artist" cla>
                                         Artist
                                     </label>
                                 </div>
-                                <div class="form-check">
+                                <div class="d-flex align-items-center justify-content-start" style="margin-top: 0.2em;">
                                     <input class="form-check-input" type="checkbox" value="songwriter" id="songwriter" name="role">
-                                    <label class="form-check-label plus-jakarta-sans-medium"
-                                        style="font-size: 12px; color: var(--neutral-1);" for="songwriter" cla>
+                                    <label class="role plus-jakarta-sans-medium" style="font-size: 12px; color: var(--neutral-1); margin-left: 1vw;"
+                                        for="songwriter" cla>
                                         Songwriter
                                     </label>
                                 </div>
-                                <div class="form-check">
+                                <div class="d-flex align-items-center justify-content-start" style="margin-top: 0.2em;">
                                     <input class="form-check-input" type="checkbox" value="podcaster" id="podcaster" name="role">
-                                    <label class="form-check-label plus-jakarta-sans-medium"
-                                        style="font-size: 12px; color: var(--neutral-1);" for="podcaster" cla>
+                                    <label class="role plus-jakarta-sans-medium" style="font-size: 12px; color: var(--neutral-1); margin-left: 1vw;"
+                                        for="podcaster" cla>
                                         Podcaster
                                     </label>
                                 </div>
@@ -252,14 +393,14 @@
                     </div>
                     <div class="container-fluid d-flex justify-content-center">
                         <button type="submit"
-                            class="container d-flex align-items-center justify-content-center plus-jakarta-sans-extrabold button-primary my-4">Submit</button>
+                            class="button container d-flex align-items-center justify-content-center plus-jakarta-sans-extrabold button-primary my-4">Submit</button>
                     </div>
                     <div class="container d-flex align-items-center justify-content-center">
-                        <p class="plus-jakarta-sans-bold" style="color: var(--neutral-1); font-size: 12px;">
+                        <p class="other plus-jakarta-sans-bold" style="color: var(--neutral-1); font-size: 12px;">
                             Sudah punya akun?
                             <a class="plus-jakarta-sans-bold daftar" style="color: var(--neutral-0); text-decoration: none;"
                                 href="{% url 'login:loginkonten' %}">
-                                <h7>Login</h7>
+                                <h7 class="other">Login</h7>
                             </a>
                         </p>
                     </div>
@@ -267,7 +408,7 @@
             </div>
             <div id="labeldiv" class="hidden">
                 {% if errorLabel %}
-                <div class="d-flex justify-content-center alert alert-primary alert-dismissible fade show" role="alert"
+                <div class="alert d-flex justify-content-center alert alert-primary alert-dismissible fade show" role="alert"
                     style="background-color: #281E14; border: none; width: 25%; margin: auto; margin-bottom: 1em;">
                     <img src="{% static 'img/ExclamationCircleFill.svg' %}" alt="alert-info">
                     <p class="plus-jakarta-sans-medium" style="color:var(--neutral-0); margin: auto;">{{errorLabel}}</p>
@@ -279,7 +420,7 @@
                     {% csrf_token %}
                     <div>
                         <label for="email">
-                            <p class="m-auto plus-jakarta-sans-bold" style="font-size: 15px;">
+                            <p class="p m-auto plus-jakarta-sans-bold" style="font-size: 15px;">
                                 Email address
                             </p>
                         </label>
@@ -287,33 +428,33 @@
                     </div>
                     <div>
                         <label for="password">
-                            <p class="m-auto plus-jakarta-sans-bold" style="font-size: 15px;">Password
+                            <p class="p m-auto plus-jakarta-sans-bold" style="font-size: 15px;">Password
                             </p>
                         </label>
                         <input type="password" class="form-control plus-jakarta-sans-regular" id="password" placeholder="Masukkan password Anda" name="password" style="margin-top: 0.5em;" required>
                     </div>
                     <div>
                         <label for="nama">
-                            <p class="m-auto plus-jakarta-sans-bold" style="font-size: 15px;">Nama</p>
+                            <p class="p m-auto plus-jakarta-sans-bold" style="font-size: 15px;">Nama</p>
                         </label>
                         <input type="text" class="form-control plus-jakarta-sans-regular" id="nama" placeholder="Masukkan nama Anda" name="nama" style="margin-top: 0.5em;" required>
                     </div>
                     <div>
                         <label for="kontak">
-                            <p class="m-auto plus-jakarta-sans-bold" style="font-size: 15px;">Kontak</p>
+                            <p class="p m-auto plus-jakarta-sans-bold" style="font-size: 15px;">Kontak</p>
                         </label>
                         <input type="text" class="form-control plus-jakarta-sans-regular" id="kontak" placeholder="Masukkan kontak Anda" name="kontak" style="margin-top: 0.5em;" required>
                     </div>
                     <div class="container-fluid d-flex justify-content-center">
                         <button type="submit"
-                            class="container d-flex align-items-center justify-content-center plus-jakarta-sans-extrabold button-primary my-4">Submit</button>
+                            class="button container d-flex align-items-center justify-content-center plus-jakarta-sans-extrabold button-primary my-4">Submit</button>
                     </div>
                     <div class="container d-flex align-items-center justify-content-center">
-                        <p class="plus-jakarta-sans-bold" style="color: var(--neutral-1); font-size: 12px;">
+                        <p class="other plus-jakarta-sans-bold" style="color: var(--neutral-1); font-size: 12px;">
                             Sudah punya akun?
                             <a class="plus-jakarta-sans-bold daftar" style="color: var(--neutral-0); text-decoration: none;"
                                 href="{% url 'login:loginkonten' %}">
-                                <h7>Login</h7>
+                                <h7 class="other">Login</h7>
                             </a>
                         </p>
                     </div>

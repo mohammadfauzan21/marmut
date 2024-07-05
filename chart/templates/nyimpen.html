@@ -2,34 +2,253 @@
 {% load static %}
 
 {% block content %}
-<div class="container-fluid" style="background: linear-gradient(180deg, #292724, #1B1817); width: 100%; border-radius: 24px; margin-top: -2em; height: 85%; max-height: 800px; padding-bottom: 25px; padding-top: 20px;
-white-space: nowrap; overflow-y: scroll; text-overflow: ellipsis;">
-    <div class="container-fluid"
-        style="background: linear-gradient(180deg, #292724, #1B1817); width: 100%; border-radius: 24px; margin-top: -2em; height: 45em; padding-bottom: 25px; padding-top: 20px;">
-        <h1 class="plus-jakarta-sans-extrabold align-item-center"
-            style="margin-left: 15px; color: var(--neutral-0); margin-top: 10px;">Profil Saya
-        </h1>
-        <div class="nama" style="margin-top: 20px;">
-            <p class="plus-jakarta-sans-extrabold align-item-center" style="margin-left: 15px; color: #504B48;">Nama</p>
-            <p class="plus-jakarta-sans-extrabold align-item-center"
-                style="margin-left: 15px; color: var(--neutral-0); margin-top: -5px;">
-                {{ label_info.nama }}</p>
-        </div>
-        <div class="nama" style="margin-top: 20px;">
-            <p class="plus-jakarta-sans-extrabold align-item-center" style="margin-left: 15px; color: #504B48;">Email
-                Akun</p>
-            <p class="plus-jakarta-sans-extrabold align-item-center"
-                style="margin-left: 15px; color: var(--neutral-0); margin-top: -5px;">
-                {{ label_info.email }}</p>
-        </div>
-        <div class="nama" style="margin-top: 20px;">
-            <p class="plus-jakarta-sans-extrabold align-item-center" style="margin-left: 15px; color: #504B48;">Kontak
-                Label</p>
-            <p class="plus-jakarta-sans-extrabold align-item-center"
-                style="margin-left: 15px; color: var(--neutral-0); margin-top: -5px;">
-                {{ label_info.kontak }}</p>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const artistBtn = document.getElementById('artist-btn');
+        const songwriterBtn = document.getElementById('songwriter-btn');
+        const tbodyArtist = document.getElementById('tbody-artist');
+        const tbodySongwriter = document.getElementById('tbody-songwriter');
+        const troyaltiArtist = document.getElementById('troyalti-artist');
+        const troyaltiSongwriter = document.getElementById('troyalti-songwriter');
+
+        // Initialize button states based on presence of buttons
+        if (artistBtn && !songwriterBtn) {
+            artistBtn.classList.remove('btn-inactive');
+            artistBtn.classList.add('btn-active');
+        } else if (songwriterBtn && !artistBtn) {
+            songwriterBtn.classList.remove('btn-inactive');
+            songwriterBtn.classList.add('btn-active');
+        }
+
+        const toggleButtonStates = function (clickedBtn, otherBtn) {
+            if (otherBtn) {
+                clickedBtn.classList.toggle('btn-inactive');
+                clickedBtn.classList.toggle('btn-active');
+                otherBtn.classList.remove('btn-active');
+                otherBtn.classList.add('btn-inactive');
+            }
+        }
+
+        artistBtn?.addEventListener('click', function () {
+            toggleButtonStates(artistBtn, songwriterBtn);
+            tbodySongwriter.classList.add('hidden');
+            tbodyArtist.classList.remove('hidden');
+            troyaltiSongwriter.classList.add('hidden');
+            troyaltiArtist.classList.remove('hidden');
+        });
+
+        songwriterBtn?.addEventListener('click', function () {
+            toggleButtonStates(songwriterBtn, artistBtn);
+            tbodyArtist.classList.add('hidden');
+            tbodySongwriter.classList.remove('hidden');
+            troyaltiArtist.classList.add('hidden');
+            troyaltiSongwriter.classList.remove('hidden');
+        });
+    });
+</script>
+
+<style>
+    .hidden {
+        display: none;
+    }
+
+    .btn-inactive {
+        background-color: transparent !important;
+        color: var(--neutral-2) !important;
+    }
+
+    .btn-active {
+        background-color: var(--neutral-2) !important;
+        color: var(--neutral-0) !important;
+    }
+</style>
+<!-- Bagian konten royalti -->
+<div class=""
+    style="background: linear-gradient(180deg, #292724, #1B1817); border-radius: 24px; height: 80%; max-height: 82%; padding-bottom: 25px; padding-top: 20px; white-space: nowrap; overflow-y: auto; text-overflow: ellipsis; margin-top: 1em; width: 97%;">
+    <div class="row">
+        <div class="col-12" style="margin-left: 30px">
+            <h2 class="plus-jakarta-sans-extrabold" style="color: var(--neutral-0); font-size: 40px; margin-top: 20px;">
+                Cek Royalti</h2>
+            {% if 'label' not in request.session.user_type %}
+            <div
+                style="padding: 2px; border-radius: 15px; width: min-content; border: 1px solid var(--neutral-2); margin-top: 25px;">
+                {% if 'artist' in request.session.user_roles %}
+                <button id="artist-btn" type="button" class="button-primary plus-jakarta-sans-bold btn-active"
+                    data-toggle="modal" style="font-size: 14px; border: none;">
+                    Artist
+                </button>
+                {% endif %}
+                {% if 'songwriter' in request.session.user_roles %}
+                <button id="songwriter-btn" type="button" class="button-primary plus-jakarta-sans-bold btn-inactive"
+                    data-toggle="modal" style="font-size: 14px; border: none;">
+                    Songwriter
+                </button>
+                {% endif %}
+            </div>
+            {% endif %}
+
+            <p class="plus-jakarta-sans-bold" style="color: var(--neutral-1); font-size: 18px; margin-top: 15px;">Daftar
+                royalti yang diperoleh</p>
+
+            <div style="margin-top: 3em;">
+                {% if 'label' not in request.session.user_type %}
+                <p id="troyalti-artist" class="plus-jakarta-sans-bold"
+                    style="color: var(--neutral-1); font-size: 18px; margin-top: 15px; color: white;">
+                    {% for artist in total_royalti_artist %}
+                    Total royalti = <span>Rp {{artist.total_royalti}}</span>
+                    {% endfor %}
+                </p>
+                <p id="troyalti-songwriter" class="plus-jakarta-sans-bold hidden"
+                    style="color: var(--neutral-1); font-size: 18px; margin-top: 15px; color: white;">
+                    {% for songwriter in total_royalti_songwriter %}
+                    Total royalti = <span>Rp {{songwriter.total_royalti}}</span>
+                    {% endfor %}
+                </p>
+                {% else %}
+                <p id="troyalti-label" class="plus-jakarta-sans-bold"
+                    style="color: var(--neutral-1); font-size: 18px; margin-top: 15px; color: white;">
+                    {% for label in total_royalti_label %}
+                    Total royalti = <span>Rp {{label.total_royalti}}</span>
+                    {% endfor %}
+                </p>
+                {% endif %}
+            </div>
+            <!-- Tabel untuk Royalti -->
+            <table class="table-royalti"
+                style="width: 95%; border-collapse: collapse;color: var(--neutral-1); padding: 10px;">
+                <thead>
+                    <tr style="border-bottom: 1px solid var(--neutral-2);">
+                        <th style="color: var(--neutral-1); padding: 10px;">#</th>
+                        <th style="color: var(--neutral-1); padding-left: 120px;">Judul Lagu</th>
+                        <th style="color: var(--neutral-1); padding-left: 120px;">Judul Album</th>
+                        <th style="color: var(--neutral-1); padding-left: 120px;">Total Play</th>
+                        <th style="color: var(--neutral-1); padding-left: 120px;">Total Download</th>
+                        <th style="color: var(--neutral-1); padding-left: 120px;">Total Royalti yang Didapat</th>
+                    </tr>
+                </thead>
+                {% if 'label' not in request.session.user_type %}
+                <!-- Artist -->
+                <tbody id="tbody-artist" class="plus-jakarta-sans-bold">
+                    {% if royalti_artist %}
+                    <!-- Gunakan loop untuk menampilkan royalti -->
+                    {% for royalti in royalti_artist %}
+                    <tr class="plus-jakarta-sans-bold body-tr"
+                        style="border-bottom: 0px solid var(--neutral-2); font-size:14px; text-align:start;padding:10px; ">
+                        <td style="padding-top: 30px; padding-bottom: 30px;padding: 10px;color: var(--neutral-1);">
+                            {{royalti.no}}
+                        </td>
+                        <td
+                            style="padding-top: 30px; padding-bottom: 30px; padding-left: 120px;color: var(--neutral-1);">
+                            {{royalti.judul_song}}
+                        </td>
+                        <td
+                            style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">
+                            {{royalti.judul_album}}
+                        </td>
+                        <td
+                            style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">
+                            {{royalti.total_play}}
+                        </td>
+                        <td
+                            style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">
+                            {{royalti.total_download}}
+                        </td>
+                        <td
+                            style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">
+                            Rp {{royalti.jumlah_royalti}}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    {% else %}
+                    <!-- Jika tidak ada royalti, tampilkan pesan -->
+                    <tr>
+                        <td colspan="6" style="text-align: center;" class="plus-jakarta-sans-medium p-4">
+                            Belum ada karya
+                        </td>
+                    </tr>
+                    {% endif %}
+                </tbody>
+                <!-- Songwriter -->
+                <tbody id="tbody-songwriter" class="plus-jakarta-sans-bold hidden">
+                    {% if royalti_songwriter %}
+                    {% for royalti in royalti_songwriter %}
+                    <tr class="plus-jakarta-sans-bold body-tr"
+                        style="border-bottom: 0px solid var(--neutral-2); font-size:14px; text-align:start;padding:10px; ">
+                        <td style="padding-top: 30px; padding-bottom: 30px;padding: 10px;color: var(--neutral-1);">
+                            {{royalti.no}}
+                        </td>
+                        <td
+                            style="padding-top: 30px; padding-bottom: 30px; padding-left: 120px;color: var(--neutral-1);">
+                            {{royalti.judul_song}}
+                        </td>
+                        <td
+                            style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">
+                            {{royalti.judul_album}}
+                        </td>
+                        <td
+                            style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">
+                            {{royalti.total_play}}
+                        </td>
+                        <td
+                            style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">
+                            {{royalti.total_download}}
+                        </td>
+                        <td
+                            style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">
+                            Rp {{royalti.jumlah_royalti}}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    {% else %}
+                    <tr>
+                        <td colspan="6" style="text-align: center;" class="plus-jakarta-sans-medium p-4">
+                            Belum ada karya
+                        </td>
+                    </tr>
+                    {% endif %}
+                </tbody>
+                {% else %}
+                <tbody id="tbody-label" class="plus-jakarta-sans-bold">
+                    {% if royalti_label %}
+                    {% for royalti in royalti_label %}
+                    <tr class="plus-jakarta-sans-bold body-tr"
+                        style="border-bottom: 0px solid var(--neutral-2); font-size:14px; text-align:start;padding:10px; ">
+                        <td style="padding-top: 30px; padding-bottom: 30px;padding: 10px;color: var(--neutral-1);">
+                            {{royalti.no}}
+                        </td>
+                        <td
+                            style="padding-top: 30px; padding-bottom: 30px; padding-left: 120px;color: var(--neutral-1);">
+                            {{royalti.judul_song}}
+                        </td>
+                        <td
+                            style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">
+                            {{royalti.judul_album}}
+                        </td>
+                        <td
+                            style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">
+                            {{royalti.total_play}}
+                        </td>
+                        <td
+                            style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">
+                            {{royalti.total_download}}
+                        </td>
+                        <td
+                            style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">
+                            Rp {{royalti.jumlah_royalti}}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    {% else %}
+                    <tr>
+                        <td colspan="6" style="text-align: center;" class="plus-jakarta-sans-medium p-4">
+                            Belum ada karya
+                        </td>
+                    </tr>
+                    {% endif %}
+                </tbody>
+                {% endif %}
+            </table>
         </div>
     </div>
 </div>
-
 {% endblock %}

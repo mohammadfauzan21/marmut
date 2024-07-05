@@ -3,54 +3,51 @@
 
 {% block content %}
 <!-- Bagian konten dashboardnya -->
-<div class="" style="background: linear-gradient(180deg, #292724, #1B1817); border-radius: 24px; height: 80%; padding-bottom: 25px; padding-top: 20px; white-space: nowrap; overflow-y: auto; text-overflow: ellipsis; margin-top: 1em; width: 97%;">
-    <div class="col-12" style="margin-left: 20px">
+<div class="konten" style="background: linear-gradient(180deg, #292724, #1B1817); border-radius: 24px; height: 81vh; padding-bottom: 2vh; padding-top: 2vh; white-space: nowrap; overflow-y: auto; text-overflow: ellipsis; margin-top: 2vh; width: 97%;">
+    <div class="col-12" style="margin-left: 4vw; margin-top: 2vh;">
         {% if 'podcaster' in request.session.user_roles or 'songwriter' in request.session.user_roles or 'artist' in request.session.user_roles%}
-        <span class="plus-jakarta-sans-medium"
-            style="margin-left: 12px; margin-bottom: 12px; font-size: 12px; padding-inline: 8px; padding-block: 6px; color: #ffffff; background-color: #1f66ff; border-radius: 24px;">Verified</span>
+        <span class="verified plus-jakarta-sans-medium" style="margin-bottom: 5vh; font-size: 0.8vw; padding-inline: 0.5vw;padding-block: 0.5vh; color: #ffffff; background-color: #1f66ff; border-radius: 24px;">Verified</span>
         {% endif %}
-        <h1 class="plus-jakarta-sans-extrabold align-item-center"
-            style="margin-left: 15px; color: var(--neutral-0); margin-top: 10px;">Profil Saya
+        <h1 class="profilsaya plus-jakarta-sans-extrabold align-item-center"
+            style="color: var(--neutral-0); margin-top: 1vh; font-size: 2.5vw;">Profil Saya
         </h1>
-        <div class="nama" style="margin-top: 20px;">
-            <p class="plus-jakarta-sans-extrabold align-item-center" style="margin-left: 15px; color: #504B48;">Nama</p>
-            <p class="plus-jakarta-sans-extrabold align-item-center"
-                style="margin-left: 15px; color: var(--neutral-0); margin-top: -5px;">
+        <div class="nama" style="margin-top: 3vh;">
+            <p class="p plus-jakarta-sans-extrabold align-item-center" style="color: #504B48; font-size: 1vw;">Nama</p>
+            <p class="p plus-jakarta-sans-extrabold align-item-center" style="color: var(--neutral-0); margin-top: -1vh; font-size: 1vw;">
                 {{ user_data.0 }}</p>
         </div>
-        <div class="nama" style="margin-top: 20px;">
-            <p class="plus-jakarta-sans-extrabold align-item-center" style="margin-left: 15px; color: #504B48;">Email Akun</p>
-            <p class="plus-jakarta-sans-extrabold align-item-center"
-                style="margin-left: 15px; color: var(--neutral-0); margin-top: -5px;">
+        <div class="nama" style="margin-top: 3vh;">
+            <p class="p plus-jakarta-sans-extrabold align-item-center" style="color: #504B48; font-size: 1vw;">Email Akun</p>
+            <p class="p plus-jakarta-sans-extrabold align-item-center"
+                style="color: var(--neutral-0); margin-top: -1vh; font-size: 1vw;">
                 {{ user_data.1 }}</p>
         </div>
-        <div class="nama" style="margin-top: 20px;">
-            <p class="plus-jakarta-sans-extrabold align-item-center" style="margin-left: 15px; color: #504B48;">Kota Asal</p>
-            <p class="plus-jakarta-sans-extrabold align-item-center"
-                style="margin-left: 15px; color: var(--neutral-0); margin-top: -5px;">
+        <div class="nama" style="margin-top: 3vh;">
+            <p class="p plus-jakarta-sans-extrabold align-item-center" style="color: #504B48; font-size: 1vw;">Kota Asal</p>
+            <p class="p plus-jakarta-sans-extrabold align-item-center"
+                style="color: var(--neutral-0); margin-top: -1vh; font-size: 1vw;">
                 {{ user_data.2 }}</p>
         </div>
-        <div class="nama" style="margin-top: 20px;">
-            <p class="plus-jakarta-sans-extrabold align-item-center" style="margin-left: 15px; color: #504B48;">Gender</p>
-            <p class="plus-jakarta-sans-extrabold align-item-center"
-                style="margin-left: 15px; color: var(--neutral-0); margin-top: -5px;">
+        <div class="nama" style="margin-top: 3vh;">
+            <p class="p plus-jakarta-sans-extrabold align-item-center" style="color: #504B48; font-size: 1vw;">Gender</p>
+            <p class="p plus-jakarta-sans-extrabold align-item-center"
+                style="color: var(--neutral-0); margin-top: -1vh; font-size: 1vw;">
                 {{ user_data.3 }}</p>
         </div>
-        <div class="nama" style="margin-top: 20px;">
-            <p class="plus-jakarta-sans-extrabold align-item-center" style="margin-left: 15px; color: #504B48;">Tempat Lahir</p>
-            <p class="plus-jakarta-sans-extrabold align-item-center"
-                style="margin-left: 15px; color: var(--neutral-0); margin-top: -5px;">
+        <div class="nama" style="margin-top: 3vh;">
+            <p class="p plus-jakarta-sans-extrabold align-item-center" style="color: #504B48; font-size: 1vw;">Tempat Lahir</p>
+            <p class="p plus-jakarta-sans-extrabold align-item-center"
+                style="color: var(--neutral-0); margin-top: -1vh; font-size: 1vw;">
                 {{ user_data.4 }}</p>
         </div>
-        <div class="nama" style="margin-top: 20px;">
-            <p class="plus-jakarta-sans-extrabold align-item-center" style="margin-left: 15px; color: #504B48;">Role</p>
-            <ul class="nav nav-pills d-flex justify-content-start" id="pills-tab" role="tablist" style="margin-top: -5px;">
+        <div class="nama" style="margin-top: 3vh;">
+            <p class="p plus-jakarta-sans-extrabold align-item-center" style="color: #504B48; font-size: 1vw;">Role</p>
+            <ul class="nav nav-pills d-flex justify-content-start" id="pills-tab" role="tablist" style="margin-top: -1vh;">
                 {% for role in roles %}
-                <li class="nav-item p-1" style="background-color: var(--neutral-5); border-radius: 16px; margin: 0 12px;"
-                    role="presentation">
-                    <button class="nav-link active plus-jakarta-sans-extrabold disabled" id="pills-home-tab"
+                <li class="nav-item p-1" style="background-color: var(--neutral-5); border-radius: 16px;" role="presentation">
+                    <button class="button nav-link active plus-jakarta-sans-extrabold disabled" id="pills-home-tab"
                         data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home"
-                        aria-selected="true" style="border-radius: 12px; font-weight: 900; font-size: 12px;">{{ role }}</button>
+                        aria-selected="true" style="border-radius: 12px; font-weight: 900; font-size: 0.7vw;">{{ role }}</button>
                 </li>
                 {% endfor %}
             </ul>

@@ -20,83 +20,85 @@
     }
 </style>
 <!-- Bagian konten detail podcastnya -->
-<div class="" style="background: linear-gradient(180deg, #292724, #1B1817); border-radius: 24px; height: 80%; max-height: 82%; padding-bottom: 25px; padding-top: 20px; white-space: nowrap; overflow-y: auto; text-overflow: ellipsis; margin-top: 1em; width: 97%;">
+<div class="konten" style="background: linear-gradient(180deg, #292724, #1B1817); border-radius: 24px; height: 81vh; padding-bottom: 2vh; padding-top: 2vh; white-space: nowrap; overflow-y: auto; text-overflow: ellipsis; margin-top: 2vh; width: 97%;">
     <!-- Daftar podcast -->
-    <!-- {{ podcast }} -->
     <div class="row">
-        <div class="col-12" style="margin-left: 30px;">
-            <div style="height: 40px; margin-top: 10px;">
+        <div class="col-12" style="margin-left: 4vw">
+            <div style="height: 4vh; margin-top: 1vh; background-color: aqua;">
                 <button class="btn btn-secondary dropdown-toggle-iconless" type="button" id="dropdownMenuButton" data-toggle=""
                     aria-haspopup="true" aria-expanded="false" style="background-color: transparent; border: none;" onclick="goBack()">
                     <div class="d-flex" style="">
-                        <img src="{% static 'img/back-icon.svg' %}" alt="search" style="width: 20px; height: 20px; margin-left: 5px;">
-                        <p class="plus-jakarta-sans-extrabold" style="margin-left: 10px; color: var(--neutral-0); margin-top: -2px;">
+                        <img src="{% static 'img/back-icon.svg' %}" alt="search" width="25vw" height="25vh" style="margin-left: 0.3vw;">
+                        <p class="p plus-jakarta-sans-extrabold" style="margin-left: 1vh; color: var(--neutral-0); font-size: 1vw; margin: auto;">
                             Back
                         </p>
                     </div>
                 </button>
             </div>
-            <p class="plus-jakarta-sans-bold" style="color: var(--neutral-1); font-size: 13px; margin-top:30px">Podcast, {{ tahun_podcast }}</p>
+            <p class="p plus-jakarta-sans-bold" style="color: var(--neutral-1); font-size: 0.8vw; margin-top: 3vh">Podcast, {{ tahun_podcast }}</p>
             <!-- Judul Podcast-->
-            <h2 class="plus-jakarta-sans-extrabold" style="color: var(--neutral-0); font-size: 40px; margin-top: 10px;">{{ judul_podcast }}
+            <h2 class="profilsaya plus-jakarta-sans-extrabold" style="color: var(--neutral-0); font-size: 3vw;">{{ judul_podcast }}
             </h2> 
             <!-- Nama Podcaster-->
-            <p class="plus-jakarta-sans-bold" style="color: var(--neutral-0); font-size: 20px; margin: top 20px">
-                <span style="color: var(--neutral-1); font-size: 13px; margin-right: 8px;">by</span>
+            <p class="p plus-jakarta-sans-bold" style="color: var(--neutral-0); font-size: 1vw; margin-top: 1vh;">
+                <span class="p" style="color: var(--neutral-1); font-size: 0.8vw; margin-right: 0.5vw;">by</span>
                 <span>{{ podcaster }}</span>
             </p>
             <!-- Total Episode dan Durasi Podcast-->
-            <p class="plus-jakarta-sans-bold" style="color: var(--neutral-1); font-size: 13px; margin-top:5px">
+            <p class="p plus-jakarta-sans-bold" style="color: var(--neutral-1); font-size: 0.8vw; margin-top: 1vh;">
                 {{ total_episodes }} Episodes, {{ total_duration }}
             </p>
             <!-- Genre Podcast-->
-            <p class="plus-jakarta-sans-bold" style="color: var(--neutral-1); font-size: 15px; margin-top: 10px;">
+            <p class="p plus-jakarta-sans-bold" style="color: var(--neutral-1); font-size: 1vw; margin-top: 1vh;">
                 Genre
             </p>
             {% for genre in genres_podcast %}
             {% if genre %}
-            <p class="plus-jakarta-sans-bold chip-genres" style="color: var(--neutral-0); font-size: 13px; margin-top:0px; width:fit-content;">
+            <p class="p plus-jakarta-sans-bold chip-genres" style="color: var(--neutral-0); font-size: 0.8vw; width: fit-content;">
                 {{ genre }}
             </p>
             {% else %}
-            <p class="plus-jakarta-sans-bold chip-genres"
-                style="color: var(--neutral-0); font-size: 13px; margin-top:0px; width:fit-content;">
+            <p class="p plus-jakarta-sans-bold chip-genres"
+                style="color: var(--neutral-0); font-size: 0.8vw; width: fit-content;">
                 -
             </p>
             {% endif %}
             {% endfor %}
-            <p class="plus-jakarta-sans-medium" style="color: var(--neutral-1); font-size: 13px; margin-top:5px;">
+            <p class="p plus-jakarta-sans-medium" style="color: var(--neutral-1); font-size: 0.7vw; margin-top: 1vh;">
                 Released on {{ tanggal_rilis }}
             </p>
 
             <!-- Tabel untuk podcast -->
-            <table class="table-podcast"
-                style="width: 95%; border-collapse: collapse; margin-top: 28px;color: var(--neutral-1); padding: 10px; overflow-y: scroll;">
+            <table class="table-podcast" style="width: 100%; border-collapse: collapse;color: var(--neutral-1); padding: 10px; margin-top: 20px;">
                 <thead>
                     <tr style="border-bottom: 1px solid var(--neutral-2);">
-                        <th style="color: var(--neutral-1); padding: 10px;">#</th>
-                        <th style="color: var(--neutral-1); padding-left: 120px;">Judul</th>
-                        <th style="color: var(--neutral-1); padding-left: 120px;">Deskripsi</th>
-                        <th style="color: var(--neutral-1); padding-left: 120px;">Durasi</th>
-                        <th style="color: var(--neutral-1); padding-left: 120px;">Tanggal</th>
+                        <th class="table" style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; background-color: blue; width: 4%;">#</th>
+                        <th class="table" style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; background-color: purple; width: 30%;">Judul Episode</th>
+                        <th class="table" style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; width: 30%;">Deskripsi</th>
+                        <th class="table" style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; width: 18%;">Durasi</th>
+                        <th class="table" style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; width: 18%;">Tanggal</th>
                     </tr>
                 </thead>
                 <tbody>
                     <!-- Gunakan loop untuk menampilkan episode -->
                     {% for episode in episodes %}
-                    <tr class="plus-jakarta-sans-bold body-tr"
-                        style="border-bottom: 0px solid var(--neutral-2); font-size:14px; text-align:start;padding:10px;">
-                        <td style="padding-top: 30px; padding-bottom: 30px; padding: 10px; color: var(--neutral-1);">
+                    <tr class="table plus-jakarta-sans-bold body-tr"
+                        style="border-bottom: 0px solid var(--neutral-2); font-size: 1vw; text-align: start; padding: 1vh; ">
+                        <td style="padding: 3vh 1vh; color: var(--neutral-1); ">
                             {{ forloop.counter }}</td>
-                        <td style="padding-top: 30px; padding-bottom: 30px; padding-left: 120px; color: var(--neutral-1);">
+                        <td
+                            style="padding: 3vh 1vh; color: var(--neutral-1); word-wrap: break-word; background-color: aqua; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
                             {{ episode.judul }}</td>
-                        <td style="padding-top: 30px; padding-bottom: 30px; padding-left: 120px; color: var(--neutral-1);">
+                        <td
+                            style="padding: 3vh 1vh; color: var(--neutral-1); word-wrap: break-word; background-color: blueviolet; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
                             {{ episode.deskripsi }}</td>
-                        <td style="padding-top: 30px; padding-bottom: 30px; padding-left: 120px; color: var(--neutral-1);">
+                        <td
+                            style="padding: 3vh 1vh; color: var(--neutral-1); word-wrap: break-word; background-color: pink; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
                             {{ episode.durasi }}</td>
                         <td
-                            style="padding-top: 30px; padding-bottom: 30px; padding-left: 120px; color: var(--neutral-1); padding-right: 40px;">
-                            {{ episode.tanggal_rilis|date:"d/m/Y" }}</td>
+                            style="padding: 3vh 1vh; color: var(--neutral-1); word-wrap: break-word; background-color: pink; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                            {{ episode.tanggal_rilis|date:"d/m/Y" }}
+                        </td>
                     </tr>
                     {% endfor %}
                 </tbody>

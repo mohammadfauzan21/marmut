@@ -66,7 +66,7 @@
                     nonSelectedText: 'Select Genres',
                     enableFiltering: true,
                     buttonWidth: '100%',
-                    maxHeight: 200,
+                    maxHeight: 100,
                     buttonClass: 'multiselect dropdown-toggle btn btn-info',
                     dropRight: true,
                     filterPlaceholder: 'Search...',
@@ -168,7 +168,6 @@
     </script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            sessionStorage.clear();
             // Check sessionStorage for saved tab
             var activeTab = sessionStorage.getItem('activeTab');
             var playlistTabId = 'pills-playlist-tab';
@@ -211,8 +210,30 @@
             }
         });
     </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const menuToggle = document.querySelector('.menu-toggle input');
+            const navbarSection = document.querySelector('.navbar-section');
+
+            if (menuToggle && navbarSection) {
+                menuToggle.addEventListener('click', function () {
+                    navbarSection.classList.toggle('slide');
+                });
+            } else {
+                console.log('Menu toggle or navbar section not found');
+            }
+        });
+    </script>
     
     <style>
+        body{
+            background-color: black; 
+            height: auto; 
+            width: auto;
+            overflow-x: hidden;
+            overflow-y: hidden;
+        }
+
         .card-playlist:hover,
         .card-playlist:focus,
         .card-playlist:active,
@@ -290,7 +311,8 @@
     
         /* Untuk scrollbar vertikal */
         ::-webkit-scrollbar {
-            width: 10px;
+            width: 1vw;
+            height: 2vh;
             /* Ubah lebar scrollbar sesuai keinginan */
         }
     
@@ -316,10 +338,12 @@
     
     
         input,
-        select {
+        select, textarea {
             color: var(--neutral-0) !important;
             /* Misalnya, warna teks merah */
             background-color: transparent !important;
+            width: 100% !important;
+            padding: 1vh 1vw !important;
         }
     
         /* Style untuk tab aktif */
@@ -337,67 +361,529 @@
             background-color: transparent !important;
             /* Latar belakang transparan saat nonaktif */
         }
+
+        .nav-link:hover {
+            background-color: var(--neutral-4) !important;
+        }
     
-        input.form-control:focus {
+        input.form-control:focus,
+        textarea.form-control:focus {
             background-color: var(--neutral-6) !important;
             border: 0px solid var(--neutral-2) !important;
         }
     
         ::placeholder {
             color: var(--neutral-1) !important;
-            font-size: medium;
+            font-size: 1vw;
             font-weight: 600;
+            background-color: aqua;
+            /* margin-right: 10vw !important; */
         }
 
         .nvbr:hover,
         .nvbr:focus{
             background-color: var(--neutral-4);
-            border-radius: 12px;
+            border-radius: 24px;
         }
 
         .disabled-link {
             pointer-events: none; /* Disable pointer events */
             cursor: default; /* Set the cursor to default */
         }
+
+        .multiselect.dropdown-toggle.btn.btn-info {
+            height: 4vh !important;
+            line-height: 4vh !important; /* Menyelaraskan teks secara vertikal */
+            text-align: center; /* Menyelaraskan teks secara horizontal */
+            display: flex; /* Menggunakan Flexbox untuk penyelarasan */
+            align-items: center; /* Vertikal tengah */
+            justify-content: center; /* Horizontal tengah */
+            font-size: 1vh;
+        }
+
+        .multiselect-container li a label {
+            background-color: brown !important;
+            display: flex;
+            justify-content: start;
+            margin-left: 0vh;
+            font-size: 1vw !important;
+        }
+
+        /* Mengatur ukuran item dropdown */
+        .multiselect-container {
+            width: 100%; /* Membiarkan ukuran lebar otomatis */
+        }
+
+        .menu-toggle{
+            flex-direction: column !important;
+            height: 20px;
+            justify-content: space-between !important;
+            position: relative;
+        }
+
+        .menu-toggle input{
+            position: absolute;
+            width: 40px;
+            height: 28px;
+            top: -4px;
+            opacity: 0;
+            cursor: pointer;
+            z-index: 2 !important;
+        }
+
+        .menu-toggle span{
+            display: block !important;
+            width: 28px;
+            height: 3px;
+            background-color: var(--neutral-5);
+            border-radius: 3px;
+            transition: all 0.5s;
+        }
+
+        /* Hamburger menu animation */
+        .menu-toggle span:nth-child(2){
+            transform-origin: 0 0;
+        }
+
+        .menu-toggle span:nth-child(4){
+            transform-origin: 0 100%;
+        }
+
+        .menu-toggle input:checked ~ span:nth-child(2){
+            transform: rotate(45deg) translate(-1px, -1px);
+        }
+
+        .menu-toggle input:checked ~ span:nth-child(4){
+            transform: rotate(-45deg) translate(-1px, 0);
+        }
+
+        .menu-toggle input:checked ~ span:nth-child(3){
+            transform: scale(0);
+            opacity: 0;
+        }
+
+        html{
+            font-size: 18px;
+        }
+
+        /* mobile */
+        /* iphone se (375)
+        iphone xr (414)
+        iphone 12 pro (390)
+        iphone 14 pro max (430)
+        pixel 7 (412)
+        samsung galaxy s8+ (360)
+        samsung galaxy s20 ultra (412)
+        samsung galaxy a51/71 (412) */
+
+        @media screen and (max-width:540px) {
+            .navbar-section{
+                position: absolute;
+                left: 0 !important;
+                z-index: 3;
+                margin-top: 8.5vh !important;
+                height: 91.5vh !important;
+                margin-left: 0 !important;
+                width: calc(62vw + 1rem) !important;
+                transform: translateX(-100%);
+                transition: 1s;
+            }
+            .navbar-section.slide{
+                transform: translateX(0);
+            }
+            .nav-upper{
+                margin-top: 0vh !important;
+            }
+            .wrapkonten{
+                height: 38vh !important;
+            }
+            .wrapkontenlabel{
+                height: 41.5vh !important;
+            }
+            .isikontenlabel{
+                height: 32.6vh !important;
+            }
+            .isikonten{
+                height: 29vh !important;
+            }
+            .konten{
+                margin: auto;
+            }
+            .wrapup{
+                justify-content: center !important;
+            }
+            .menu-toggle{
+                display: flex !important;
+            }
+            h6{
+                font-size: 2.5vw !important;
+            }
+            p{
+                font-size: 2.2vw !important;
+            }
+            .buttonadd, .table{
+                font-size: 2.2vw !important;
+            }
+            .nav-link, .judul{
+                font-size: 1.7vw !important;
+            }
+            .detail{
+                font-size: 1.5vw !important;
+            }
+            .imgnav{
+                width: 6vw !important;
+                height: 6vh !important;
+            }
+            .kelolaalbumdansong, .nav-pills{
+                margin-top: 0vh !important;
+            }
+            .profilsaya{
+                font-size: 7.5vw !important;
+            }
+            .verified{
+                font-size: 1.5vw !important;
+            }
+            .p, ::placeholder, input, select{
+                font-size: 2.6vw !important;
+            }
+            .footer{
+                font-size: 1.8vw !important;
+            }
+            .headermodal{ 
+                font-size: 2.5vw !important;
+            }
+            .detailmodal, .button{ 
+                font-size: 2vw !important;
+            }
+            .logout{
+                width: 10.5vw !important;
+            }
+            .logo{
+                width: 6.5vw !important;
+            }
+            .divlogo{
+                padding: 0vh 0vw !important;
+            }
+            .modalpremium{
+                width: 70% !important;
+            }
+            .action{
+                padding: 1vh 1vw !important;
+            }
+            .action a img {
+                width: 4.5vw;
+                height: 4.5vh;
+            }
+            .alert{
+                width: max-content !important;
+            }
+            .alert p{
+                margin-left: 1vw !important;
+            }
+            .addepisode a img{
+                width: 9.5vw !important;
+                height: max-content !important;
+                margin-left: 3vw !important;
+                background-color: blue;
+            }
+            .addepisode a h7{
+                font-size: 2.5vw !important;
+            }
+        }
+
+        /* iphone se (375)
+        iphone xr (414)
+        iphone 12 pro (390)
+        iphone 14 pro max (430)
+        pixel 7 (412)
+        samsung galaxy s8+ (360)
+        samsung galaxy s20 ultra (412)
+        samsung galaxy a51/71 (412) */
+        @media screen and (max-width:390px) {
+            .navbar-section{
+                width: calc(75vw + 1rem) !important;
+                margin-top: 8.5vh !important;
+                height: 91.5vh !important;
+            }
+            h6{
+                font-size: 3.5vw !important;
+            }
+            p{
+                font-size: 3vw !important;
+            }
+            .buttonadd, .table{
+                font-size: 2.7vw !important;
+            }
+            .nav-link, .judul{
+                font-size: 2.5vw !important;
+            }
+            .detail{
+                font-size: 2.3vw !important;
+            }
+            .imgnav{
+                width: 7vw !important;
+                height: 7vh !important;
+            }
+            .kelolaalbumdansong, .nav-pills{
+                margin-top: 0vh !important;
+            }
+            .profilsaya{
+                font-size: 8vw !important;
+            }
+            .verified{
+                font-size: 2vw !important;
+            }
+            .p, ::placeholder, input, select{
+                font-size: 3.1vw !important;
+            }
+            .footer{
+                font-size: 2.3vw !important;
+            }
+            .headermodal{ 
+                font-size: 3.7vw !important;
+            }
+            .detailmodal, .button{ 
+                font-size: 3vw !important;
+            }
+            .logout{
+                width: 11vw !important;
+            }
+            .logo{
+                width: 7vw !important;
+            }
+            .divlogo{
+                padding: 0vh 0vw !important;
+            }
+            .modalpremium{
+                width: 80% !important;
+            }
+            .action{
+                padding: 1vh 1vw !important;
+            }
+            .action a img {
+                width: 5vw;
+                height: 5vh;
+            }
+            .alert{
+                width: max-content !important;
+            }
+            .alert p{
+                margin-left: 1vw !important;
+            }
+            .addepisode a img{
+                width: 10vw !important;
+                height: max-content !important;
+                margin-left: 3vw !important;
+                background-color: blue;
+            }
+            .addepisode a h7{
+                font-size: 3vw !important;
+            }
+        }
+
+        /* tablets */
+        /* asus zenbook fold (853) - 
+            surface duo (540)
+            surface pro7 (912) -
+            ipad air (820) - 
+            ipad mini (768) - */ 
+        /* +0.5 */
+        @media screen and (min-width: 541px) and (max-width: 916px) { 
+            .navbar-section{
+                position: absolute;
+                left: 0 !important;
+                z-index: 3;
+                margin-top: 8.5vh !important;
+                height: 91.5vh !important;
+                margin-left: 0 !important;
+                width: calc(30vw + 1rem) !important;
+                transform: translateX(-100%);
+                transition: 1s;
+            }
+            .navbar-section.slide{
+                transform: translateX(0);
+            }
+            .nav-upper{
+                margin-top: 0vh !important;
+            }
+            .wrapkonten{
+                height: 36vh !important;
+            }
+            .wrapkontenlabel{
+                height: 41vh !important;
+            }
+            .isikontenlabel{
+                height: 32.2vh !important;
+            }
+            .isikonten{
+                height: 26.3vh !important;
+            }
+            .konten{
+                margin: auto;
+            }
+            .wrapup{
+                justify-content: center !important;
+            }
+            .menu-toggle{
+                display: flex !important;
+            }
+            h6{
+                font-size: 1.5vw !important;
+            }
+            p, .buttonadd{
+                font-size: 1.4vw !important;
+            }
+            .nav-link{
+                font-size: 1.1vw !important;
+            }
+            .judul{
+                font-size: 1.1vw !important;
+            }
+            .detail{
+                font-size: 1vw !important;
+            }
+            .profilsaya{
+                font-size: 3.9vw !important;
+            }
+            .verified, .button{
+                font-size: 0.9vw !important;
+            }
+            .p, ::placeholder, input{
+                font-size: 1.4vw !important;
+            }
+            .table{
+                font-size: 0.9vw !important
+            }
+            .footerleft{
+                margin-left: 1.5vw !important;
+            }
+            .footerright{
+                margin-right: 1.5vw !important;
+            }
+            .footer{
+                font-size: 1.4vw !important;
+            }
+            .logout{
+                width: 4vw;
+            }
+
+        }
+        /* +0.6 */
+        @media screen and (min-width: 541px) and (max-width: 791px) {
+            .navbar-section{
+                width: calc(35vw + 1rem) !important;
+            }
+            h6{
+                font-size: 1.6vw !important;
+            }
+            p, .buttonadd{
+                font-size: 1.5vw !important;
+            }
+            .nav-link, .judul{
+                font-size: 1.2vw !important;
+            }
+            .detail{
+                font-size: 1.1vw !important;
+            }
+            .profilsaya{
+                font-size: 4.4vw !important;
+            }
+            .verified, .button{
+                font-size: 1.4vw !important;
+            }
+            .p{
+                font-size: 1.9vw !important;
+            }
+            .table, ::placeholder, input{
+                font-size: 1.4vw !important
+            }
+            .footer{
+                font-size: 1.7vw !important;
+            }
+            .logout{
+                width: 5vw;
+            }
+        }
+
+        @media screen and (min-width: 541px) and (max-width: 666px) {
+            .navbar-section{
+                width: calc(41vw + 1rem) !important;
+            }
+            h6{
+                font-size: 1.7vw !important;
+            }
+            p, .buttonadd{
+                font-size: 1.6vw !important;
+            }
+            .nav-link, .judul{
+                font-size: 1.3vw !important;
+            }
+            .detail{
+                font-size: 1.2vw !important;
+            }
+            .profilsaya{
+                font-size: 4.9vw !important;
+            }
+            .verified, .button{
+                font-size: 1.9vw !important;
+            }
+            .p, .headermodal{
+                font-size: 2.4vw !important;
+            }
+            .table, ::placeholder, input, .detailmodal{
+                font-size: 1.9vw !important
+            }
+            .footer{
+                font-size: 1.7vw !important;
+            }
+            .modalpremium{
+                width: 60% !important;
+            }
+            .logout{
+                width: 6vw;
+            }
+        }
+
+
     </style>
-    <div class="base-container bg-black d-flex justify-content-between align-item-start" style="width: 100%; height: 100%;">
-        <div class="" style="width: 25%; margin-left: 2em;">
+    <div class="base-container d-flex justify-content-between" style="background-color: brown; height: 100vh;">
+        <div class="navbar-section" style="width: 26vw; margin-left: 2vw; background-color: aqua; height: 91vh;">
             <!-- Buat Kotaknya navbar -->
-            <div class="" style="width: 85%; border-radius: 24px; background-color: var(--neutral-5); margin-top: 12px; margin-left: 10px;">
+            <div class="nav-upper" style="width: 90%; border-radius: 24px; background-color: var(--neutral-5); margin-top: 1vh; margin-left: 0.5vw; padding-top: 0.5vh;">
                 {% if 'dashboard' in request.session.url or 'dashboardlabel' in request.session.url %}
-                <div class="container nvbr" style="padding: 0.8em 0.8em;">
+                <div class="container nvbr" style="padding: 1.5vh 1.5vh;">
                     {% if 'label' not in request.session.user_type %}
-                    <a href="{% url 'dashboarduser:homepage' %}" class="container d-flex align-items-center" style="text-decoration: none; height: 34px;">
-                        <img src="{% static 'img/home-active.svg' %}" alt="search" style="width: 35px; height: 35px;">
-                        <h6 class="plus-jakarta-sans-extrabold" style="color: var(--neutral-0); margin-top: 8px; margin-left: 15px">
+                    <a href="{% url 'dashboarduser:homepage' %}" class="container d-flex align-items-center" style="text-decoration: none; height: 5vh;">
+                        <img class="imgnav" src="{% static 'img/home-active.svg' %}" alt="search" style="width: 4.5vw; height: 4.5vh;">
+                        <h6 class="plus-jakarta-sans-extrabold" style="color: var(--neutral-0); margin-top: 1vh; margin-left: 0.5vw; font-size: 1vw;">
                             Beranda
                         </h6>
                     </a>
                     {% else %}
-                    <a href="{% url 'dashboardlabel:homepagelabel' %}" class="container d-flex align-items-center" style="text-decoration: none; height: 34px;">
-                        <img src="{% static 'img/home-active.svg' %}" alt="search" style="width: 35px; height: 35px;">
+                    <a href="{% url 'dashboardlabel:homepagelabel' %}" class="container d-flex align-items-center" style="text-decoration: none; height: 5vh;">
+                        <img class="imgnav" src="{% static 'img/home-active.svg' %}" alt="search" style="width: 4.5vw; height: 4.5vh;">
                         <h6 class="plus-jakarta-sans-extrabold"
-                            style="color: var(--neutral-0); margin-top: 8px; margin-left: 15px">
+                            style="color: var(--neutral-0); margin-top: 1vh; margin-left: 0.5vw; font-size: 1vw;">
                             Beranda
                         </h6>
                     </a>
                     {% endif %}
                 </div>
                 {% else %}
-                <div class="container nvbr" style="padding: 0.8em 0.8em;">
+                <div class="container nvbr" style="padding: 1.5vh 1.5vh;">
                     {% if 'label' not in request.session.user_type %}
                     <a href="{% url 'dashboarduser:homepage' %}" class="container d-flex align-items-center"
-                        style="text-decoration: none; height: 34px;">
-                        <img src="{% static 'img/home-inactive.svg' %}" alt="search" style="width: 35px; height: 35px;">
-                        <h6 class="plus-jakarta-sans-extrabold" style="color: var(--neutral-2); margin-top: 8px; margin-left: 15px">
+                        style="text-decoration: none; height: 5vh;">
+                        <img class="imgnav" src="{% static 'img/home-inactive.svg' %}" alt="search" style="width: 4.5vw; height: 4.5vh;">
+                        <h6 class="plus-jakarta-sans-extrabold" style="color: var(--neutral-2); margin-top: 1vh; margin-left: 0.5vw; font-size: 1vw;">
                             Beranda
                         </h6>
                     </a>
                     {% else %}
                     <a href="{% url 'dashboardlabel:homepagelabel' %}" class="container d-flex align-items-center"
-                        style="text-decoration: none; height: 34px;">
-                        <img src="{% static 'img/home-inactive.svg' %}" alt="search" style="width: 35px; height: 35px;">
-                        <h6 class="plus-jakarta-sans-extrabold" style="color: var(--neutral-2); margin-top: 8px; margin-left: 15px">
+                        style="text-decoration: none; height: 5vh;">
+                        <img class="imgnav" src="{% static 'img/home-inactive.svg' %}" alt="search" style="width: 4.5vw; height: 4.5vh;">
+                        <h6 class="plus-jakarta-sans-extrabold" style="color: var(--neutral-2); margin-top: 1vh; margin-left: 0.5vw; font-size: 1vw;">
                             Beranda
                         </h6>
                     </a>
@@ -406,22 +892,22 @@
                 {% endif %}
 
                 {% if 'chart' in request.session.url %}
-                <div class="container nvbr" style="padding: 0.8em 0.8em;">
+                <div class="container nvbr" style="padding: 1.5vh 1.5vh;">
                     <a href="{% url 'chart:chart' %}" class="container d-flex align-items-center"
-                        style="text-decoration: none; height: 34px;">
-                        <img src="{% static 'img/chart-active.svg' %}" alt="search" style="width: 35px; height: 35px;">
+                        style="text-decoration: none; height: 5vh;">
+                        <img class="imgnav" src="{% static 'img/chart-active.svg' %}" alt="search" style="width: 4.5vw; height: 4.5vh;">
                         <h6 class="plus-jakarta-sans-extrabold"
-                            style="color: var(--neutral-0); margin-top: 8px; margin-left: 15px">
+                            style="color: var(--neutral-0); margin-top: 1vh; margin-left: 0.5vw; font-size: 1vw;">
                             Chart
                         </h6>
                     </a>
                 </div>
                 {% else %}
-                <div class="container nvbr" style="padding: 0.8em 0.8em;">
+                <div class="container nvbr" style="padding: 1.5vh 1.5vh;">
                     <a href="{% url 'chart:chart' %}" class="container d-flex align-items-center"
-                        style="text-decoration: none; height: 34px;">
-                        <img src="{% static 'img/chart-inactive.svg' %}" alt="search" style="width: 35px; height: 35px;">
-                        <h6 class="plus-jakarta-sans-extrabold" style="color: var(--neutral-2); margin-top: 8px; margin-left: 15px">
+                        style="text-decoration: none; height: 5vh;">
+                        <img class="imgnav" src="{% static 'img/chart-inactive.svg' %}" alt="search" style="width: 4.5vw; height: 4.5vh;">
+                        <h6 class="plus-jakarta-sans-extrabold" style="color: var(--neutral-2); margin-top: 1vh; margin-left: 0.5vw; font-size: 1vw;">
                             Chart
                         </h6>
                     </a>
@@ -430,22 +916,22 @@
 
                 {% if 'label' not in request.session.user_type %}
                     {% if 'podcast' in request.session.url %}
-                    <div class="container nvbr" style="padding: 0.8em 0.8em;">
+                    <div class="container nvbr" style="padding: 1.5vh 1.5vh;">
                         <a href="{% url 'podcast:podcast' %}" class="container d-flex align-items-center"
-                            style="text-decoration: none; height: 34px;">
-                            <img src="{% static 'img/podcast-active.svg' %}" alt="search" style="width: 35px; height: 35px;">
+                            style="text-decoration: none; height: 5vh;">
+                            <img class="imgnav" src="{% static 'img/podcast-active.svg' %}" alt="search" style="width: 4.5vw; height: 4.5vh;">
                             <h6 class="plus-jakarta-sans-extrabold"
-                                style="color: var(--neutral-0); margin-top: 8px; margin-left: 15px">
+                                style="color: var(--neutral-0); margin-top: 1vh; margin-left: 0.5vw; font-size: 1vw;">
                                 Podcast
                             </h6>
                         </a>
                     </div>
                     {% else %}
-                    <div class="container nvbr" style="padding: 0.8em 0.8em;">
+                    <div class="container nvbr" style="padding: 1.5vh 1.5vh;">
                         <a href="{% url 'podcast:podcast' %}" class="container d-flex align-items-center"
-                            style="text-decoration: none; height: 34px;">
-                            <img src="{% static 'img/podcast-inactive.svg' %}" alt="search" style="width: 35px; height: 35px;">
-                            <h6 class="plus-jakarta-sans-extrabold" style="color: var(--neutral-2); margin-top: 8px; margin-left: 15px">
+                            style="text-decoration: none; height: 5vh;">
+                            <img class="imgnav" src="{% static 'img/podcast-inactive.svg' %}" alt="search" style="width: 4.5vw; height: 4.5vh;">
+                            <h6 class="plus-jakarta-sans-extrabold" style="color: var(--neutral-2); margin-top: 1vh; margin-left: 0.5vw; font-size: 1vw;">
                                 Podcast
                             </h6>
                         </a>
@@ -454,22 +940,22 @@
                 {% endif %}
 
                 {% if 'playlist' in request.session.url %}
-                <div class="container nvbr" style="padding: 0.8em 0.8em;">
+                <div class="container nvbr" style="padding: 1.5vh 1.5vh;">
                     <a href="{% url 'playlist:userplaylist' %}" class="container d-flex align-items-center"
-                        style="text-decoration: none; height: 34px;">
-                        <img src="{% static 'img/playlist-active.svg' %}" alt="search" style="width: 35px; height: 35px;">
+                        style="text-decoration: none; height: 5vh;">
+                        <img class="imgnav" src="{% static 'img/playlist-active.svg' %}" alt="search" style="width: 4.5vw; height: 4.5vh;">
                         <h6 class="plus-jakarta-sans-extrabold"
-                            style="color: var(--neutral-0); margin-top: 8px; margin-left: 15px">
+                            style="color: var(--neutral-0); margin-top: 1vh; margin-left: 0.5vw; font-size: 1vw;">
                             Playlist
                         </h6>
                     </a>
                 </div>
                 {% else %}
-                <div class="container nvbr" style="padding: 0.8em 0.8em;">
+                <div class="container nvbr" style="padding: 1.5vh 1.5vh;">
                     <a href="{% url 'playlist:userplaylist' %}" class="container d-flex align-items-center"
-                        style="text-decoration: none; height: 34px;">
-                        <img src="{% static 'img/playlist-inactive.svg' %}" alt="search" style="width: 35px; height: 35px;">
-                        <h6 class="plus-jakarta-sans-extrabold" style="color: var(--neutral-2); margin-top: 8px; margin-left: 15px">
+                        style="text-decoration: none; height: 5vh;">
+                        <img class="imgnav" src="{% static 'img/playlist-inactive.svg' %}" alt="search" style="width: 4.5vw; height: 4.5vh;">
+                        <h6 class="plus-jakarta-sans-extrabold" style="color: var(--neutral-2); margin-top: 1vh; margin-left: 0.5vw; font-size: 1vw;">
                             Playlist
                         </h6>
                     </a>
@@ -478,22 +964,22 @@
 
                 {% if 'label' in request.session.user_type or 'artist' in request.session.user_roles or 'songwriter' in request.session.user_roles %}
                     {% if 'royalti' in request.session.url %}
-                    <div class="container nvbr" style="padding: 0.8em 0.8em;">
+                    <div class="container nvbr" style="padding: 1.5vh 1.5vh;">
                         <a href="{% url 'royalti:royalti' %}" class="container d-flex align-items-center"
-                            style="text-decoration: none; height: 34px;">
-                            <img src="{% static 'img/royalti-active.svg' %}" alt="search" style="width: 35px; height: 35px;">
+                            style="text-decoration: none; height: 5vh;">
+                            <img class="imgnav" src="{% static 'img/royalti-active.svg' %}" alt="search" style="width: 4.5vw; height: 4.5vh;">
                             <h6 class="plus-jakarta-sans-extrabold"
-                                style="color: var(--neutral-0); margin-top: 8px; margin-left: 15px">
+                                style="color: var(--neutral-0); margin-top: 1vh; margin-left: 0.5vw; font-size: 1vw;">
                                 Cek Royalti
                             </h6>
                         </a>
                     </div>
                     {% else %}
-                    <div class="container nvbr" style="padding: 0.8em 0.8em;">
+                    <div class="container nvbr" style="padding: 1.5vh 1.5vh;">
                         <a href="{% url 'royalti:royalti' %}" class="container d-flex align-items-center"
-                            style="text-decoration: none; height: 34px;">
-                            <img src="{% static 'img/royalti-inactive.svg' %}" alt="search" style="width: 35px; height: 35px;">
-                            <h6 class="plus-jakarta-sans-extrabold" style="color: var(--neutral-2); margin-top: 8px; margin-left: 15px">
+                            style="text-decoration: none; height: 5vh;">
+                            <img class="imgnav" src="{% static 'img/royalti-inactive.svg' %}" alt="search" style="width: 4.5vw; height: 4.5vh;">
+                            <h6 class="plus-jakarta-sans-extrabold" style="color: var(--neutral-2); margin-top: 1vh; margin-left: 0.5vw; font-size: 1vw;">
                                 Cek Royalti
                             </h6>
                         </a>
@@ -502,129 +988,86 @@
                 {% endif %}
             </div>
             <!-- Buat Kotaknya kelola album dan song -->
-            {% if 'label' in request.session.user_roles or 'artist' in request.session.user_roles or 'songwriter' in request.session.user_roles %}
-            <div class="" style="width: 85%; border-radius: 24px; padding-bottom: 24px; background-color: var(--neutral-5); padding-top: 8px; margin-top: 12px; margin-left: 10px;">
+            {% if 'label' in request.session.user_type or 'artist' in request.session.user_roles or 'songwriter' in request.session.user_roles or 'podcaster' in request.session.user_roles %}
+            <div class="kotakkelola" style="width: 90%; border-radius: 24px; padding-bottom: 3vh; background-color: var(--neutral-5); padding-top: 1vh; margin-top: 0.5vh; margin-left: 0.5vw; height: 58.5vh;">
                 {% else %}
-                <div class="" style="width: 85%; border-radius: 24px; padding-bottom: 24px; background-color: var(--neutral-5); padding-top: 8px; margin-top: 12px; margin-left: 10px; height: 58%;">
+                <div class="kotakkelola" style="width: 90%; border-radius: 24px; padding-bottom: 3vh; background-color: var(--neutral-5); padding-top: 1vh; margin-top: 0.5vh; margin-left: 0.5vw; height: 50vh;">
                     {% endif %}
-                    <div class="container" style="margin-top: 10px;">
-                        <a href="" class="container d-flex disabled-link" style="text-decoration: none; margin-bottom: 0px;">
-                            <img src="{% static 'img/playlist-collection.svg' %}" alt="kelola"
-                                style="width: 35px; height: 35px;">
-                            <p class="plus-jakarta-sans-extrabold align-item-center"
-                                style="margin-left: 15px; color: var(--neutral-0); margin-top: 5px;">
+                    <div class="container kelolaalbumdansong" style="margin-top: 2vh;">
+                        <a href="" class="container d-flex disabled-link" style="text-decoration: none; margin: auto;">
+                            <img class="imgnav" src="{% static 'img/playlist-collection.svg' %}" alt="kelola"
+                                style="width: 4.5vw; height: 4.5vh;">
+                            <p class="plus-jakarta-sans-extrabold"
+                                style="color: var(--neutral-0); margin: auto; font-size: 0.9vw; margin-left: 0vw; font-weight: 900;">
                                 Kelola album dan song</p>
                         </a>
                     </div>
                     <!-- chips -->
-                    <ul class="nav nav-pills d-flex justify-content-around" id="pills-tab" role="tablist">
+                    <ul class="nav nav-pills d-flex justify-content-around" id="pills-tab" role="tablist" style="margin-top: 1vh;">
                         {% if 'label' not in request.session.user_type  %}
                         <li class="nav-item p-1" style="background-color: var(--neutral-5); border-radius: 16px;" role="presentation">
                             <button class="nav-link plus-jakarta-sans-extrabold" id="pills-playlist-tab" data-bs-toggle="pill"
                                 data-bs-target="#pills-playlist" type="button" role="tab" aria-controls="pills-playlist"
                                 aria-selected="true"
-                                style="font-size: 16px; border-radius: 12px; font-weight: 900; font-size: 12px;">Playlist</button>
+                                style="border-radius: 12px; font-weight: 900; font-size: 0.8vw">Playlist</button>
                         </li>
                         {% endif %}
                         {% if 'artist' in request.session.user_roles or 'label' in request.session.user_type or 'songwriter' in request.session.user_roles %}
                         <li class="nav-item p-1" style="background-color: var(--neutral-5); border-radius: 16px;" role="presentation">
                             <button class="nav-link plus-jakarta-sans-extrabold" id="pills-album-tab" data-bs-toggle="pill"
                                 data-bs-target="#pills-album" type="button" role="tab" aria-controls="pills-album" aria-selected="false"
-                                style="font-size: 16px; border-radius: 12px; font-weight: 900; font-size: 12px;">Album</button>
+                                style="border-radius: 12px; font-weight: 900; font-size: 0.8vw">Album</button>
                         </li>
                         {% endif %}
                         {% if 'podcaster' in request.session.user_roles %}
                         <li class="nav-item p-1" style="background-color: var(--neutral-5); border-radius: 16px;" role="presentation">
                             <button class="nav-link plus-jakarta-sans-extrabold" id="pills-podcast-tab" data-bs-toggle="pill"
                                 data-bs-target="#pills-podcast" type="button" role="tab" aria-controls="pills-podcast" aria-selected="false"
-                                style="font-size: 16px; border-radius: 12px; font-weight: 900; font-size: 12px;">Podcast</button>
+                                style="border-radius: 12px; font-weight: 900; font-size: 0.8vw">Podcast</button>
                         </li>
                         {% endif %}
                     </ul>
-                    <div class="tab-content d-flex justify-content-center" id="pills-tabContent">
+                    <div class="tab-content d-flex justify-content-center" id="pills-tabContent" style="background-color: purple; position: relative;">
                         <!-- Playlist -->
-                        <div class="tab-pane fade" id="pills-playlist" role="tabpanel"
-                            aria-labelledby="pills-playlist-tab" style="height: 272px;">
+                        {% if 'label' in request.session.user_type or 'podcaster' in request.session.user_roles %}
+                        <div class="wrapkontenlabel tab-pane fade" id="pills-playlist" role="tabpanel" aria-labelledby="pills-playlist-tab" style="height: 90vh; background-color: pink; width: 100%;">
+                        {% else %}
+                        <div class="wrapkonten tab-pane fade" id="pills-playlist" role="tabpanel" aria-labelledby="pills-playlist-tab" style="height: 33vh; background-color: pink; width: 100%;">
+                        {% endif %}
                             <!-- Tambah Button -->
                             <div class="container d-flex justify-content-center" style="">
-                                <a href="#" class="mx-1" style="text-decoration: none;" data-toggle="modal"
-                                    data-target="#tambahPlaylist">
-                                    <button type="button"
-                                        class=" container d-flex align-items-center justify-content-center plus-jakarta-sans-extrabold button-primary my-3"
-                                        style="width: 297px;">
+                                <a href="#" class="" style="text-decoration: none; background-color: aquamarine; width: 100%;height: min-content;" data-toggle="modal" data-target="#tambahPlaylist">
+                                    <button type="button" class="buttonadd plus-jakarta-sans-extrabold button-primary my-3" style="width: 100%; margin-top: 1vh !important; font-size: 0.9vw;">
                                         Tambah Playlist
                                     </button>
                                 </a>
-                                <!-- modal -->
-                                <div class="modal fade" id="tambahPlaylist" tabindex="-1" role="dialog"
-                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog" role="document">
-                                        <div class="modal-content"
-                                            style="background-color: var(--neutral-4); border-radius: 40px !important; padding: 20px;">
-                                            <form method="POST" action="{% url 'kelola:add_playlist' %}">
-                                                {% csrf_token %}
-                                                <div class="modal-header" style="border-bottom: none;">
-                                                    <h5 class="modal-title plus-jakarta-sans-extrabold"
-                                                        id="exampleModalLabel" style="color: var(--neutral-0); margin: auto;">
-                                                        Tambah Playlist
-                                                    </h5>
-                                                </div>
-                                                <div class="modal-body plus-jakarta-sans-medium"
-                                                    style="color: var(--neutral-1);">
-                                                    <div class="form-group">
-                                                        <label for="judulPlaylist" style="color: var(--neutral-0)">Judul:</label>
-                                                        <input name="judul" type="text" class="form-control"
-                                                            id="judulPlaylist" placeholder="Masukkan judul playlist" required>
-                                                    </div>
-                                                    <div class="form-group" style="margin-top: 20px;">
-                                                        <label for="deskripsiPlaylist" style="color: var(--neutral-0)">Deskripsi:</label>
-                                                        <textarea name="deskripsi" class="form-control"
-                                                            id="deskripsiPlaylist" rows="3"
-                                                            placeholder="Masukkan deskripsi playlist"
-                                                            style="background-color:#292724; color: white;" required></textarea>
-                                                    </div>
-                                                </div>
-                                                <div class="modal-footer" style="border-top: none;">
-                                                    <button type="button"
-                                                        class="button-modal-secondary plus-jakarta-sans-bold secondary-button"
-                                                        style="border: none !important; border-radius: 16px; padding-block: 12px; padding-inline: 24px; text-decoration: 2px solid var(--neutral-1); background-color: var(--neutral-3); color: white;"
-                                                        data-dismiss="modal">Batal</button>
-                                                    <button type="submit"
-                                                        class="button-modal-danger plus-jakarta-sans-bold button-primary"
-                                                        style="border: none !important; border-radius: 16px; padding-block: 12px; padding-inline: 24px; color: var(--neutral-0);">Submit</button>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
+                                <!-- disini -->
                             </div>
                             <!-- isinya seperti playlist, album, atau podcast-->
-                            <div class="container" style="height: 200px; overflow-y: auto; width: 100%;">
+                            {% if 'label' in request.session.user_type or 'podcaster' in request.session.user_roles %}
+                            <div class="isikontenlabel container" style="height: 41vh; overflow-y: auto; width: 100%;">
+                            {% else %}
+                            <div class="isikonten container" style="height: 26vh; overflow-y: auto; width: 100%;">
+                            {% endif %}
                                 {% if detail_playlist_kelola %}
                                 {% for detail in detail_playlist_kelola %}
-                                <div class="container d-flex card-playlist"
-                                    style="height: 68px; border-radius: 16px; margin-top: 4px;">
-                                    <div class="container col-1" style="align-content: center; margin-inline: -12px;">
-                                        <div class="justify-content-center align-content-center d-flex"
-                                            style="border-radius: 12px; height: 32px; width: 32px; background-color: var(--neutral-2);">
-                                            <img src="{% static 'img/default.png' %}" alt="kelola"
-                                                style="width: 24px; height: 24px;">
+                                <div class="container d-flex card-playlist" style="height: 10vh; border-radius: 16px; margin-top: 0.2vh;">
+                                    <div class="container col-1" style="align-content: center; margin-inline: -0.5vw;">
+                                        <div class="" style="border-radius: 12px; width: max-content; background-color: var(--neutral-2); padding: 0.8vh 0.5vw;">
+                                            <img src="{% static 'img/default.png' %}" alt="kelola" width="25vw" height="25vh"
+                                                style="margin: auto;">
                                         </div>
                                     </div>
-                                    <div class="container col-7" style="align-content: center;">
+                                    <div class="container col-7" style="align-content: center; margin-left: 2vw;">
                                         <div class="row d-flex">
-                                            <div class="plus-jakarta-sans-medium"
-                                                style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
-                                                <p class="d-inline"
-                                                    style="margin: 0; color: var(--neutral-0); font-size: 12px; font-weight: 900;">
+                                            <div class="plus-jakarta-sans-medium" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                                                <p class="judul d-inline" style="color: var(--neutral-0); font-size: 0.9vw; font-weight: 900;">
                                                     {{detail.namaPlaylist}}</p>
                                             </div>
-                                            <div style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
-                                                <p class="d-inline plus-jakarta-sans-medium"
-                                                    style="margin: 0; color: var(--neutral-1); font-size: 10px;">
+                                            <div style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-top: -1vh;">
+                                                <p class="detail d-inline plus-jakarta-sans-medium" style="color: var(--neutral-1); font-size: 0.6vw;">
                                                     {{detail.jumlahLagu}} lagu</p>
-                                                <p class="d-inline plus-jakarta-sans-medium"
-                                                    style="margin: 0; color: var(--neutral-1); font-size: 10px;">
+                                                <p class="detail d-inline plus-jakarta-sans-medium" style="color: var(--neutral-1); font-size: 0.6vw;">
                                                     | {{detail.durasi}}</p>
                                             </div>
                                         </div>
@@ -634,98 +1077,19 @@
                                             id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
                                             aria-expanded="false" style="background-color: transparent; border: none;">
                                             <img src="{% static 'img/threedots.svg' %}" alt="kelola"
-                                                style="width: 20px; height: 20px;">
+                                                style="width: 3vw; height: 3vh;">
                                         </button>
                                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton"
-                                            style="background-color: var(--neutral-3); border-radius: 16px; padding: 4px; width: max-content !important;">
-                                            <a class="dropdown-item plus-jakarta-sans-bold m-auto"
-                                                style="color: var(--neutral-1); font-size: 12px; font-weight: 600;"
+                                            style="background-color: var(--neutral-3); border-radius: 16px; padding: 1vh; width: max-content !important;">
+                                            <a class="p dropdown-item plus-jakarta-sans-bold m-auto" style="color: var(--neutral-1); font-size: 0.8vw; font-weight: 600;"
                                                 href="{% url 'kelola:playlist' detail.id_playlist %}">Detail</a>
-                                            <a class="dropdown-item plus-jakarta-sans-bold m-auto"
-                                                style="color: var(--neutral-1); font-size: 12px; font-weight: 600;" href="#"
-                                                data-toggle="modal"
-                                                data-target="#ubahPlaylist{{detail.id_playlist}}">Ubah</a>
-                                            <a class="dropdown-item plus-jakarta-sans-bold m-auto"
-                                                style="color: var(--neutral-1); font-size: 12px; font-weight: 600;" href="#"
+                                            <a class="p dropdown-item plus-jakarta-sans-bold m-auto"
+                                                style="color: var(--neutral-1); font-size: 0.8vw; font-weight: 600;" href="#"
+                                                data-toggle="modal" data-target="#ubahPlaylist{{detail.id_playlist}}">Ubah</a>
+                                            <a class="p dropdown-item plus-jakarta-sans-bold m-auto"
+                                                style="color: var(--neutral-1); font-size: 0.8vw; font-weight: 600;" href="#"
                                                 data-toggle="modal"
                                                 data-target="#modalHapusPlaylist{{detail.id_playlist}}">Hapus</a>
-    
-                                        </div>
-                                        <!-- Modal Hapus -->
-                                        <div class="modal fade" id="modalHapusPlaylist{{detail.id_playlist}}" tabindex="-1"
-                                            role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                            <div class="modal-dialog" role="document">
-                                                <div class="modal-content"
-                                                    style="background-color: var(--neutral-4); border-radius: 40px !important; padding: 20px;">
-                                                    <div class="modal-header" style="border-bottom: none;">
-                                                        <h5 class="modal-title plus-jakarta-sans-extrabold"
-                                                            id="exampleModalLabel" style="color: var(--neutral-0);">
-                                                            Konfirmasi
-                                                            Hapus
-                                                        </h5>
-                                                    </div>
-                                                    <div class="modal-body plus-jakarta-sans-medium"
-                                                        style="color: var(--neutral-1);">
-                                                        Apakah Anda yakin ingin menghapus item ini?
-                                                    </div>
-                                                    <div class="modal-footer" style="border-top: none;">
-                                                        <button type="button"
-                                                            class="button-modal-secondary plus-jakarta-sans-bold secondary-button"
-                                                            style="border: none !important; border-radius: 16px; padding-block: 12px; padding-inline: 24px; text-decoration: 2px solid var(--neutral-1); background-color: var(--neutral-3); color: white;"
-                                                            data-dismiss="modal">Batal</button>
-                                                        <form method="POST"
-                                                            action="{% url 'kelola:delete_playlist' detail.id_user_playlist %}">
-                                                            {% csrf_token %}
-                                                            <button type="submit"
-                                                                class="button-modal-danger plus-jakarta-sans-bold danger-button"
-                                                                style="border: none !important; border-radius: 16px; padding-block: 12px; padding-inline: 24px; background-color: rgb(255, 47, 47); color: var(--neutral-0);">Hapus</button>
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- Modal Ubah -->
-                                        <div class="modal fade" id="ubahPlaylist{{detail.id_playlist}}" tabindex="-1"
-                                            role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                            <div class="modal-dialog" role="document">
-                                                <div class="modal-content"
-                                                    style="background-color: var(--neutral-4); border-radius: 40px !important; padding: 20px;">
-                                                    <form method="POST"
-                                                        action="{% url 'kelola:ubah_playlist' detail.id_playlist %}">
-                                                        {% csrf_token %}
-                                                        <div class="modal-header" style="border-bottom: none;">
-                                                            <h5 class="modal-title plus-jakarta-sans-extrabold"
-                                                                id="exampleModalLabel" style="color: var(--neutral-0);">
-                                                                Ubah Playlist
-                                                            </h5>
-                                                        </div>
-                                                        <div class="modal-body plus-jakarta-sans-medium"
-                                                            style="color: var(--neutral-1);">
-                                                            <div class="form-group">
-                                                                <label for="judulPlaylist" style="color: var(--neutral-0)">Judul:</label>
-                                                                <input name="judul" type="text" class="form-control"
-                                                                    id="judulPlaylist" placeholder={{detail.namaPlaylist}} required>
-                                                            </div>
-                                                            <div class="form-group" style="margin-top: 20px;">
-                                                                <label for="deskripsiPlaylist" style="color: var(--neutral-0)">Deskripsi:</label>
-                                                                <textarea name="deskripsi" class="form-control"
-                                                                    id="deskripsiPlaylist" rows="3"
-                                                                    placeholder={{detail.deskripsi}}
-                                                                    style="background-color:#292724; color: white;" required></textarea>
-                                                            </div>
-                                                        </div>
-                                                        <div class="modal-footer" style="border-top: none;">
-                                                            <button type="button"
-                                                                class="button-modal-secondary plus-jakarta-sans-bold secondary-button"
-                                                                style="border: none !important; border-radius: 16px; padding-block: 12px; padding-inline: 24px; text-decoration: 2px solid var(--neutral-1); background-color: var(--neutral-3); color: white;"
-                                                                data-dismiss="modal">Batal</button>
-                                                            <button type="submit"
-                                                                class="button-modal-danger plus-jakarta-sans-bold button-primary"
-                                                                style="border: none !important; border-radius: 16px; padding-block: 12px; padding-inline: 24px; color: var(--neutral-0);">Submit</button>
-                                                        </div>
-                                                    </form>
-                                                </div>
-                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -733,591 +1097,149 @@
                                 {% else %}
                                 <div class="container d-flex justify-content-center"
                                     style="height: 68px; border-radius: 16px; margin-top: 4px;">
-                                    <h1 class="d-inline"
-                                        style="margin: 0; color: var(--neutral-0); font-size: 12px; font-weight: 900;">
+                                    <h1 class="p d-inline" style="margin: 0; color: var(--neutral-0); font-size: 0.8vw; font-weight: 900;">
                                         Belum memiliki playlist</h1>
                                 </div>
                                 {% endif %}
                             </div>
                         </div>
                         <!-- Album -->
-                        <div class="tab-pane fade" id="pills-album" role="tabpanel" aria-labelledby="pills-album-tab"
-                            style="height: 272px;">
+                        {% if 'label' in request.session.user_type or 'podcaster' in request.session.user_roles %}
+                        <div class="wrapkontenlabel tab-pane fade" id="pills-album" role="tabpanel" aria-labelledby="pills-playlist-tab" style="height: 41vh; background-color: pink; width: 100%;">
+                        {% else %}
+                        <div class="wrapkonten tab-pane fade" id="pills-album" role="tabpanel" aria-labelledby="pills-album-tab" style="height: 33vh; background-color: pink; width: 100%;">
+                        {% endif %}
                             <!-- Tambah Button -->
                             <div class="container d-flex justify-content-center" style="">
-                                <a href="#" class="mx-1" style="text-decoration: none;" data-toggle="modal"
-                                    data-target="#tambahAlbum">
-                                    <button type="button"
-                                        class=" container d-flex align-items-center justify-content-center plus-jakarta-sans-extrabold button-primary my-3"
-                                        style="width: 297px;">
+                                <a href="#" class="" style="text-decoration: none; background-color: aquamarine; width: 100%;height: min-content"
+                                    data-toggle="modal" data-target="#tambahAlbum">
+                                    <button type="button" class="buttonadd plus-jakarta-sans-extrabold button-primary my-3"
+                                        style="width: 100%; margin-top: 1vh !important; font-size: 0.9vw;">
                                         Tambah Album
                                     </button>
                                 </a>
-                                <!-- modal -->
-                                <div class="modal fade" id="tambahAlbum" tabindex="-1" role="dialog"
-                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog" role="document">
-                                        <div class="modal-content"
-                                            style="background-color: var(--neutral-4); border-radius: 40px !important; padding: 20px;">
-                                            <!-- Harus diganti karena masih playlist harusnya album -->
-                                            <form method="POST" action="{% url 'kelola:create_album' %}">
-                                                {% csrf_token %}
-                                                <div>
-                                                    <div class="modal-header" style="border-bottom: none;">
-                                                        <h5 class="modal-title plus-jakarta-sans-extrabold"
-                                                            id="exampleModalLabel" style="color: var(--neutral-0); margin: auto;">
-                                                            Create Album
-                                                        </h5>
-                                                    </div>
-                                                    <div class="modal-body plus-jakarta-sans-medium"
-                                                        style="color: var(--neutral-1); margin-top: -1em;">
-                                                        <div class="form-group">
-                                                            <label for="judulAlbum" style="color: var(--neutral-0)">Judul
-                                                                Album:</label>
-                                                            <input name="judulAlbum" type="text" class="form-control"
-                                                                id="judulAlbum" placeholder="Masukkan judul album" required>
-                                                        </div>
-                                                        <div class="form-group" style="margin-top: 10px;">
-                                                            <!-- Dropdown untuk Label -->
-                                                            <div class="form-group">
-                                                                <label for="labelDropdown"
-                                                                    style="color: var(--neutral-0)">Label:</label>
-                                                                <select class="form-control" id="labelDropdown" name="label"
-                                                                    style="margin-top: 5px;" required>
-                                                                    {% for label in labels %}
-                                                                    <option value="{{label.id}}">{{label.nama}}</option>
-                                                                    {% endfor %}
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div>
-                                                    <div class="modal-header" style="border-bottom: none;">
-                                                        <h5 class="modal-title plus-jakarta-sans-extrabold"
-                                                            id="exampleModalLabel" style="color: var(--neutral-0); margin: auto;">
-                                                            Lagu Pertama
-                                                        </h5>
-                                                    </div>
-                                                    <div class="modal-body plus-jakarta-sans-medium"
-                                                        style="color: var(--neutral-1); margin-top: -1em;">
-                                                        <div class="form-group">
-                                                            <label for="judulLagu" style="color: var(--neutral-0)">Judul
-                                                                Lagu:</label>
-                                                            <input name="judulLagu" type="text" class="form-control"
-                                                                id="judulLagu" placeholder="Masukkan judul lagu" required>
-                                                        </div>
-                                                        <div class="form-group" style="margin-top: 10px;">
-                                                            {% if 'artist' in request.session.user_roles %}
-                                                            <label for="labelDropdown"
-                                                                style="color: var(--neutral-0)">Artist:</label>
-                                                            <input name="artist" type="text" class="form-control"
-                                                                id="artist" value="{{ user_data.0 }}" disabled>
-                                                            {% else %}
-                                                            <!-- Dropdown untuk Artist or Songwriter -->
-                                                            <div class="form-group">
-                                                                <label for="labelDropdown"
-                                                                    style="color: var(--neutral-0)">Artist:</label>
-                                                                <select class="form-control" id="artistDropdown"
-                                                                    name="artist" style="margin-top: 5px;" required>
-                                                                    {% for artist in artists %}
-                                                                    <option value="{{artist.id}}">{{artist.nama}}</option>
-                                                                    {% endfor %}
-                                                                </select>
-                                                            </div>
-                                                            {% endif %}
-                                                        </div>
-                                                        <div class="form-group" style="margin-top: 10px;">
-                                                            {% if 'songwriter' in request.session.user_roles %}
-                                                            <label for="songwriterSelect" style="color: var(--neutral-0)">Songwriter:</label>
-                                                            <input name="songwriter" type="text" class="form-control" id="songwriter" value="{{ user_data.0 }}" disabled>
-                                                            {% else %}
-                                                            <!-- Dropdown untuk Songwriter -->
-                                                            <div class="form-group">
-                                                                <label for="songwriterSelect"
-                                                                    style="color: var(--neutral-0)">Songwriter:</label>
-                                                                <select data-mdb-select-init multiple
-                                                                    data-mdb-clear-button="true" id="songwriterSelect"
-                                                                    name="songwriter" required>
-                                                                    {% for songwriter in songwriters %}
-                                                                    <option value="{{songwriter.id}}">{{songwriter.nama}}
-                                                                    </option>
-                                                                    {% endfor %}
-                                                                </select>
-                                                            </div>
-                                                            {% endif %}
-                                                        </div>
-                                                        <div class="form-group" style="margin-top: 10px;">
-                                                            <!-- Dropdown untuk Genre -->
-                                                            <div class="form-group">
-                                                                <label for="genreSelect"
-                                                                    style="color: var(--neutral-0)">Genre:</label>
-                                                                <select data-mdb-select-init multiple
-                                                                    data-mdb-clear-button="true" id="genreSelect"
-                                                                    name="genreSelect" required>
-                                                                    {% for genre in genres %}
-                                                                    <option value="{{genre.genre}}">{{genre.genre}}</option>
-                                                                    {% endfor %}
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                        <div class="form-group" style="margin-top: 10px;">
-                                                            <label for="durasiLagu" style="color: var(--neutral-0)">Durasi
-                                                                Lagu:</label>
-                                                            <div style="display: flex;">
-                                                                <div>
-                                                                    <label for="">Menit</label>
-                                                                    <input name="durasiMenit" type="number" id="durasiMenit"
-                                                                        class="form-control" min="0" max="60" step="1"
-                                                                        value="3" required>
-                                                                </div>
-                                                                <div>
-                                                                    <label for="">Detik</label>
-                                                                    <input name="durasiDetik" type="number" id="durasiDetik"
-                                                                        class="form-control" min="0" max="60" step="1"
-                                                                        value="15" required>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="modal-footer" style="border-top: none;">
-                                                    <button type="button"
-                                                        class="button-modal-secondary plus-jakarta-sans-bold secondary-button"
-                                                        style="border: none !important; border-radius: 16px; padding-block: 12px; padding-inline: 24px; text-decoration: 2px solid var(--neutral-1); background-color: var(--neutral-3); color: white;"
-                                                        data-dismiss="modal">Batal</button>
-                                                    <button type="submit"
-                                                        class="button-modal-danger plus-jakarta-sans-bold button-primary"
-                                                        style="border: none !important; border-radius: 16px; padding-block: 12px; padding-inline: 24px; color: var(--neutral-0);">Submit</button>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
-                            <!-- isinya seperti playlist, album, atau podcast-->
-                            <div class="container" style="height: 200px; overflow-y: auto; width: 100%;">
+                            {% if 'label' in request.session.user_type or 'podcaster' in request.session.user_roles %}
+                            <div class="isikontenlabel container" style="height: 41vh; overflow-y: auto; width: 100%;">
+                            {% else %}
+                            <div class="isikonten container" style="height: 26vh; overflow-y: auto; width: 100%;">
+                            {% endif %}
                                 {% if albums %}
                                 {% for detail in albums %}
-                                <div class="container d-flex card-album" style="height: 68px; border-radius: 16px; margin-top: 4px;">
-                                    <div class="container col-1" style="align-content: center; margin-inline: -12px;">
-                                        <div class="justify-content-center align-content-center d-flex"
-                                            style="border-radius: 12px; height: 32px; width: 32px; background-color: var(--neutral-2);">
-                                            <img src="{% static 'img/default.png' %}" alt="kelola"
-                                                style="width: 24px; height: 24px;">
+                                <div class="container d-flex justify-content-center align-items-center card-album" style="height: 10vh; border-radius: 16px; margin-top: 0.2vh;">
+                                    <div class="container col-1" style="align-content: center; margin-inline: -0.5vw;">
+                                        <div class="" style="border-radius: 12px; width: max-content; background-color: var(--neutral-2); padding: 0.8vh 0.5vw;">
+                                            <img src="{% static 'img/default.png' %}" alt="kelola" width="25vw" height="25vh" style="margin: auto;">
                                         </div>
                                     </div>
-                                    <div class="container col-7" style="align-content: center;">
+                                    <div class="container col-7" style="align-content: center; margin-left: 2vw;">
                                         <div class="row d-flex">
-                                            <div class="plus-jakarta-sans-medium"
-                                                style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
-                                                <p class="d-inline"
-                                                    style="margin: 0; color: var(--neutral-0); font-size: 12px; font-weight: 900;">
+                                            <div class="plus-jakarta-sans-medium" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                                                <p class="judul d-inline" style="color: var(--neutral-0); font-size: 0.9vw; font-weight: 900;">
                                                     {{detail.judul}}</p>
                                             </div>
-                                            <div style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
-                                                <p class="d-inline plus-jakarta-sans-medium"
-                                                    style="margin: 0; color: var(--neutral-1); font-size: 10px;">
-                                                    {{detail.jumlah_lagu}} lagu</p>
-                                                <p class="d-inline plus-jakarta-sans-medium"
-                                                    style="margin: 0; color: var(--neutral-1); font-size: 10px;">
+                                            <div style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-top: -1vh;">
+                                                <p class="detail d-inline plus-jakarta-sans-medium" style="color: var(--neutral-1); font-size: 0.6vw;">
+                                                    {{detail.jumlahLagu}} lagu</p>
+                                                <p class="detail d-inline plus-jakarta-sans-medium" style="color: var(--neutral-1); font-size: 0.6vw;">
                                                     | {{detail.total_durasi}}</p>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="dropdown d-flex">
-                                        <button class="btn btn-secondary dropdown-toggle-iconless" type="button"
-                                            id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
-                                            aria-expanded="false" style="background-color: transparent; border: none;">
-                                            <img src="{% static 'img/threedots.svg' %}" alt="kelola"
-                                                style="width: 20px; height: 20px;">
+                                        <button class="btn btn-secondary dropdown-toggle-iconless" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                                            aria-haspopup="true" aria-expanded="false" style="background-color: transparent; border: none;">
+                                            <img src="{% static 'img/threedots.svg' %}" alt="kelola" style="width: 3vw; height: 3vh;">
                                         </button>
                                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton"
-                                            style="background-color: var(--neutral-3); border-radius: 16px; padding: 4px; width: max-content !important;">
-                                            <a class="dropdown-item plus-jakarta-sans-bold m-auto"
-                                                style="color: var(--neutral-1); font-size: 12px; font-weight: 600;"
+                                            style="background-color: var(--neutral-3); border-radius: 16px; padding: 1vh; width: max-content !important;">
+                                            <a class="p dropdown-item plus-jakarta-sans-bold m-auto"
+                                                style="color: var(--neutral-1); font-size: 0.8vw; font-weight: 600;"
                                                 href="{% url 'kelola:album' detail.id %}">Detail</a>
-                                            <a class="dropdown-item plus-jakarta-sans-bold m-auto"
-                                                style="color: var(--neutral-1); font-size: 12px; font-weight: 600;" href="#"
-                                                data-toggle="modal" data-target="#tambahLagu{{detail.id}}{{detail.id_pemilik_hak_cipta}}">Tambah Lagu</a>
-                                            <a class="dropdown-item plus-jakarta-sans-bold m-auto"
-                                                style="color: var(--neutral-1); font-size: 12px; font-weight: 600;" href="#"
-                                                data-toggle="modal" data-target="#modalHapusAlbum{{detail.id}}">Hapus</a>
-                                        </div>
-                                        <!-- Modal Hapus -->
-                                        <!-- Harus diganti karena masih playlist harusnya album -->
-                                        <div class="modal fade" id="modalHapusAlbum{{detail.id}}" tabindex="-1"
-                                            role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                            <div class="modal-dialog" role="document">
-                                                <div class="modal-content"
-                                                    style="background-color: var(--neutral-4); border-radius: 40px !important; padding: 20px;">
-                                                    <div class="modal-header" style="border-bottom: none;">
-                                                        <h5 class="modal-title plus-jakarta-sans-extrabold"
-                                                            id="exampleModalLabel" style="color: var(--neutral-0);">
-                                                            Konfirmasi
-                                                            Hapus
-                                                        </h5>
-                                                    </div>
-                                                    <div class="modal-body plus-jakarta-sans-medium"
-                                                        style="color: var(--neutral-1);">
-                                                        Apakah Anda yakin ingin menghapus item ini?
-                                                    </div>
-                                                    <div class="modal-footer" style="border-top: none;">
-                                                        <button type="button"
-                                                            class="button-modal-secondary plus-jakarta-sans-bold secondary-button"
-                                                            style="border: none !important; border-radius: 16px; padding-block: 12px; padding-inline: 24px; text-decoration: 2px solid var(--neutral-1); background-color: var(--neutral-3); color: white;"
-                                                            data-dismiss="modal">Batal</button>
-                                                        <!-- Harus diganti karena masih playlist harusnya album -->
-                                                        <form method="POST"
-                                                            action="{% url 'kelola:delete_album' detail.id %}">
-                                                            {% csrf_token %}
-                                                            <button type="submit"
-                                                                class="button-modal-danger plus-jakarta-sans-bold danger-button"
-                                                                style="border: none !important; border-radius: 16px; padding-block: 12px; padding-inline: 24px; background-color: rgb(255, 47, 47); color: var(--neutral-0);">
-                                                                Hapus
-                                                            </button>
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- Modal Tambah Lagu -->
-                                        <!-- Harus diganti karena masih playlist harusnya album -->
-                                        <div class="modal fade" id="tambahLagu{{detail.id}}{{detail.id_pemilik_hak_cipta}}" tabindex="-1" role="dialog"
-                                            aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                            <div class="modal-dialog" role="document">
-                                                <div class="modal-content"
-                                                    style="background-color: var(--neutral-4); border-radius: 40px !important; padding: 20px;">
-                                                    <!-- Harus diganti karena masih playlist harusnya album -->
-                                                    <form method="POST"
-                                                        action="{% url 'kelola:create_song' detail.id detail.id_pemilik_hak_cipta %}">
-                                                        {% csrf_token %}
-                                                        <div class="modal-header" style="border-bottom: none;">
-                                                            <h5 class="modal-title plus-jakarta-sans-extrabold"
-                                                                id="exampleModalLabel" style="color: var(--neutral-0); margin: auto;">
-                                                                Create Lagu
-                                                            </h5>
-                                                        </div>
-                                                        <div class="modal-body plus-jakarta-sans-medium"
-                                                            style="color: var(--neutral-1); margin-top: -1em;">
-                                                            <div class="form-group" style="margin-bottom: 1em;">
-                                                                <label for="albumLagunya"
-                                                                    style="color: var(--neutral-0);">Album:
-                                                                    {{detail.judul}}</label>
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label for="judulLagu" style="color: var(--neutral-0)">Judul
-                                                                    Lagu:</label>
-                                                                <input name="judulLagu" type="text" class="form-control"
-                                                                    id="judulLagu" placeholder="Masukkan judul lagu" required>
-                                                            </div>
-                                                            <div class="form-group" style="margin-top: 10px;">
-                                                                {% if 'artist' in request.session.user_roles %}
-                                                                <label for="labelDropdown"
-                                                                    style="color: var(--neutral-0)">Artist:</label>
-                                                                <input name="artist" type="text" class="form-control"
-                                                                    id="artist" value="{{ user_data.0 }}" disabled>
-                                                                {% else %}
-                                                                <!-- Dropdown untuk Artist or Songwriter -->
-                                                                <div class="form-group">
-                                                                    <label for="labelDropdown"
-                                                                        style="color: var(--neutral-0)">Artist:</label>
-                                                                    <select class="form-control" id="artistDropdown"
-                                                                        name="artist" style="margin-top: 5px;" required>
-                                                                        {% for artist in artists %}
-                                                                        <option value="{{artist.id}}">{{artist.nama}}
-                                                                        </option>
-                                                                        {% endfor %}
-                                                                    </select>
-                                                                </div>
-                                                                {% endif %}
-                                                            </div>
-                                                            <div class="form-group" style="margin-top: 10px;">
-                                                                {% if 'songwriter' in request.session.user_roles %}
-                                                                <label for="songwriterSelect"
-                                                                    style="color: var(--neutral-0)">Songwriter:</label>
-                                                                <input name="songwriter" type="text" class="form-control"
-                                                                    id="songwriter" value="{{ user_data.0 }}" disabled>
-                                                                {% else %}
-                                                                <!-- Dropdown untuk Songwriter -->
-                                                                <div class="form-group">
-                                                                    <label for="songwriterSelect"
-                                                                        style="color: var(--neutral-0)">Songwriter:</label>
-                                                                    <select data-mdb-select-init multiple
-                                                                        data-mdb-clear-button="true" id="songwriterSelect2"
-                                                                        name="songwriter" required>
-                                                                        {% for songwriter in songwriters %}
-                                                                        <option value="{{songwriter.id}}">
-                                                                            {{songwriter.nama}}</option>
-                                                                        {% endfor %}
-                                                                    </select>
-                                                                </div>
-                                                                {% endif %}
-                                                            </div>
-                                                            <div class="form-group" style="margin-top: 10px;">
-                                                                <!-- Dropdown untuk Genre -->
-                                                                <div class="form-group">
-                                                                    <label for="genreSelect"
-                                                                        style="color: var(--neutral-0)">Genre:</label>
-                                                                    <select data-mdb-select-init multiple
-                                                                        data-mdb-clear-button="true" id="genreSelect2"
-                                                                        name="genreSelect" required>
-                                                                        {% for genre in genres %}
-                                                                        <option value="{{genre.genre}}">{{genre.genre}}
-                                                                        </option>
-                                                                        {% endfor %}
-                                                                    </select>
-                                                                </div>
-                                                            </div>
-                                                            <div class="form-group" style="margin-top: 10px;">
-                                                                <label for="durasiLagu" style="color: var(--neutral-0)">Durasi
-                                                                    Lagu:</label>
-                                                                <div style="display: flex;">
-                                                                    <div>
-                                                                        <label for="">Menit</label>
-                                                                        <input name="durasiMenit" type="number"
-                                                                            id="durasiMenit" class="form-control" min="0"
-                                                                            max="60" step="1" value="3" required>
-                                                                    </div>
-                                                                    <div>
-                                                                        <label for="">Detik</label>
-                                                                        <input name="durasiDetik" type="number"
-                                                                            id="durasiDetik" class="form-control" min="0"
-                                                                            max="60" step="1" value="15" required>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="modal-footer" style="border-top: none;">
-                                                            <button type="button"
-                                                                class="button-modal-secondary plus-jakarta-sans-bold secondary-button"
-                                                                style="border: none !important; border-radius: 16px; padding-block: 12px; padding-inline: 24px; text-decoration: 2px solid var(--neutral-1); background-color: var(--neutral-3); color: white;"
-                                                                data-dismiss="modal">Batal</button>
-                                                            <button type="submit"
-                                                                class="button-modal-danger plus-jakarta-sans-bold button-primary"
-                                                                style="border: none !important; border-radius: 16px; padding-block: 12px; padding-inline: 24px; color: var(--neutral-0);">Submit</button>
-                                                        </div>
-                                                    </form>
-                                                </div>
-                                            </div>
+                                            <a class="p dropdown-item plus-jakarta-sans-bold m-auto"
+                                                style="color: var(--neutral-1); font-size: 0.8vw; font-weight: 600;" href="#" data-toggle="modal"
+                                                data-target="#tambahLagu{{detail.id}}{{detail.id_pemilik_hak_cipta}}">Tambah Lagu</a>
+                                            <a class="p dropdown-item plus-jakarta-sans-bold m-auto"
+                                                style="color: var(--neutral-1); font-size: 0.8vw; font-weight: 600;" href="#" data-toggle="modal"
+                                                data-target="#modalHapusAlbum{{detail.id}}">Hapus</a>
                                         </div>
                                     </div>
                                 </div>
                                 {% endfor %}
                                 {% else %}
-                                <div class="container d-flex justify-content-center"
-                                    style="height: 68px; border-radius: 16px; margin-top: 4px;">
-                                    <h1 class="d-inline"
-                                        style="margin: 0; color: var(--neutral-0); font-size: 12px; font-weight: 900;">
+                                <div class="container d-flex justify-content-center" style="height: 68px; border-radius: 16px; margin-top: 4px;">
+                                    <h1 class="p d-inline" style="margin: 0; color: var(--neutral-0); font-size: 0.8vw; font-weight: 900;">
                                         Belum memiliki album</h1>
                                 </div>
                                 {% endif %}
                             </div>
                         </div>
                         <!-- Podcast -->
-                        <div class="tab-pane fade" id="pills-podcast" role="tabpanel" aria-labelledby="pills-podcast-tab"
-                            style="height: 272px;">
+                        {% if 'label' in request.session.user_type or 'podcaster' in request.session.user_roles %}
+                        <div class="wrapkontenlabel tab-pane fade" id="pills-podcast" role="tabpanel" aria-labelledby="pills-podcast-tab" style="height: 41vh; background-color: pink; width: 100%;">
+                        {% else %}
+                        <div class="wrapkonten tab-pane fade" id="pills-podcast" role="tabpanel" aria-labelledby="pills-podcast-tab" style="height: 33vh; background-color: pink; width: 100%;">
+                        {% endif %}
                             <!-- Tambah Button -->
                             <div class="container d-flex justify-content-center" style="">
-                                <a href="#" class="mx-1" style="text-decoration: none;" data-toggle="modal"
-                                    data-target="#tambahPodcast">
-                                    <button type="button"
-                                        class=" container d-flex align-items-center justify-content-center plus-jakarta-sans-extrabold button-primary my-3"
-                                        style="width: 297px;">
+                                <a href="#" class="" style="text-decoration: none; background-color: aquamarine; width: 100%;height: min-content"
+                                    data-toggle="modal" data-target="#tambahPodcast">
+                                    <button type="button" class="buttonadd plus-jakarta-sans-extrabold button-primary my-3"
+                                        style="width: 100%; margin-top: 1vh !important; font-size: 0.9vw;">
                                         Tambah Podcast
                                     </button>
                                 </a>
-                                <!-- modal -->
-                                <div class="modal fade" id="tambahPodcast" tabindex="-1" role="dialog"
-                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog" role="document">
-                                        <div class="modal-content"
-                                            style="background-color: var(--neutral-4); border-radius: 40px !important; padding: 20px;">
-                                            <form method="POST" action="{% url 'kelola:add_podcast' %}">
-                                                {% csrf_token %}
-                                                <div class="modal-header" style="border-bottom: none;">
-                                                    <h5 class="modal-title plus-jakarta-sans-extrabold"
-                                                        id="exampleModalLabel" style="color: var(--neutral-0); margin: auto;">
-                                                        Tambah Podcast
-                                                    </h5>
-                                                </div>
-                                                <div class="modal-body plus-jakarta-sans-medium"
-                                                    style="color: var(--neutral-1);">
-                                                    <div class="form-group">
-                                                        <label for="judulPodcast" style="color: var(--neutral-0)">Judul:</label>
-                                                        <input name="judul" type="text" class="form-control"
-                                                            id="judulPodcast" placeholder="Masukkan judul podcast" required>
-                                                    </div>
-                                                    <div class="form-group" style="margin-top: 20px;">
-                                                        <label for="deskripsiPodcast" style="color: var(--neutral-0)">Genre:</label>
-                                                        <select data-mdb-select-init multiple data-mdb-clear-button="true"
-                                                            id="genreSelect2" name="genreSelect" required>
-                                                            {% for genre in genres %}
-                                                            <option value="{{genre.genre}}">{{genre.genre}}</option>
-                                                            {% endfor %}
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div class="modal-footer" style="border-top: none;">
-                                                    <button type="button"
-                                                        class="button-modal-secondary plus-jakarta-sans-bold secondary-button"
-                                                        style="border: none !important; border-radius: 16px; padding-block: 12px; padding-inline: 24px; text-decoration: 2px solid var(--neutral-1); background-color: var(--neutral-3); color: white;"
-                                                        data-dismiss="modal">Batal</button>
-                                                    <button type="submit"
-                                                        class="button-modal-danger plus-jakarta-sans-bold button-primary"
-                                                        style="border: none !important; border-radius: 16px; padding-block: 12px; padding-inline: 24px; color: var(--neutral-0);">Submit</button>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
                             <!-- isinya seperti playlist, album, atau podcast-->
-                            <div class="container" style="height: 200px;overflow-y: auto; width: 100%;">
+                            {% if 'label' in request.session.user_type or 'podcaster' in request.session.user_roles %}
+                            <div class="isikontenlabel container" style="height: 41vh; overflow-y: auto; width: 100%;">
+                            {% else %}
+                            <div class="isikonten container" style="height: 26vh; overflow-y: auto; width: 100%;">
+                            {% endif %}
                                 {% if podcasts %}
                                 {% for podcast in podcasts %}
-                                <div class="container d-flex card-podcast"
-                                    style="height: 68px; border-radius: 16px; margin-top: 4px;">
-                                    <div class="container col-1" style="align-content: center; margin-inline: -12px;">
-                                        <div class="justify-content-center align-content-center d-flex"
-                                            style="border-radius: 12px; height: 32px; width: 32px; background-color: var(--neutral-2);">
-                                            <img src="{% static 'img/default.png' %}" alt="kelola"
-                                                style="width: 24px; height: 24px;">
+                                <div class="container d-flex justify-content-center align-items-center card-podcast" style="height: 10vh; border-radius: 16px; margin-top: 0.2vh;">
+                                    <div class="container col-1" style="align-content: center; margin-inline: -0.5vw;">
+                                        <div class=""
+                                            style="border-radius: 12px; width: max-content; background-color: var(--neutral-2); padding: 0.8vh 0.5vw;">
+                                            <img src="{% static 'img/default.png' %}" alt="kelola" width="25vw" height="25vh" style="margin: auto;">
                                         </div>
                                     </div>
-                                    <div class="container col-7" style="align-content: center;">
+                                    <div class="container col-7" style="align-content: center; margin-left: 2vw;">
                                         <div class="row d-flex">
-                                            <div class="plus-jakarta-sans-medium"
-                                                style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
-                                                <!-- Judul Podcast -->
-                                                <p class="d-inline"
-                                                    style="margin: 0; color: var(--neutral-0); font-size: 12px; font-weight: 900;">
+                                            <div class="plus-jakarta-sans-medium" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                                                <p class="judul d-inline" style="color: var(--neutral-0); font-size: 0.9vw; font-weight: 900;">
                                                     {{ podcast.1 }}</p>
                                             </div>
-                                            <div style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
-                                                <!-- Jumlah Podcast -->
-                                                <p class="d-inline plus-jakarta-sans-medium"
-                                                    style="margin: 0; color: var(--neutral-1); font-size: 10px;">
+                                            <div style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-top: -1vh;">
+                                                <p class="detail d-inline plus-jakarta-sans-medium" style="color: var(--neutral-1); font-size: 0.6vw;">
                                                     {{ podcast.2 }} Episode</p>
-                                                <!-- Durasi Podcast -->
-                                                <p class="d-inline plus-jakarta-sans-medium"
-                                                    style="margin: 0; color: var(--neutral-1); font-size: 10px;">
-                                                    | {{ podcast.3 }}
-                                                    </p>
+                                                <p class="detail d-inline plus-jakarta-sans-medium" style="color: var(--neutral-1); font-size: 0.6vw;">
+                                                    | {{ podcast.3 }}</p>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="dropdown d-flex">
-                                        <button class="btn btn-secondary dropdown-toggle-iconless" type="button"
-                                            id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
-                                            aria-expanded="false" style="background-color: transparent; border: none;">
-                                            <img src="{% static 'img/threedots.svg' %}" alt="kelola"
-                                                style="width: 20px; height: 20px;">
+                                        <button class="btn btn-secondary dropdown-toggle-iconless" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                                            aria-haspopup="true" aria-expanded="false" style="background-color: transparent; border: none;">
+                                            <img src="{% static 'img/threedots.svg' %}" alt="kelola" style="width: 3vw; height: 3vh;">
                                         </button>
                                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton"
-                                            style="background-color: var(--neutral-3); border-radius: 16px; padding: 4px; width: max-content !important;">
-                                            <a class="dropdown-item plus-jakarta-sans-bold m-auto"
-                                                style="color: var(--neutral-1); font-size: 12px; font-weight: 600;"
+                                            style="background-color: var(--neutral-3); border-radius: 16px; padding: 1vh; width: max-content !important;">
+                                            <a class="p dropdown-item plus-jakarta-sans-bold m-auto"
+                                                style="color: var(--neutral-1); font-size: 0.8vw; font-weight: 600;"
                                                 href="{% url 'kelola:podcast' podcast.0 %}">Detail</a>
-                                            <a class="dropdown-item plus-jakarta-sans-bold m-auto"
-                                                style="color: var(--neutral-1); font-size: 12px; font-weight: 600;" href="#"
-                                                data-toggle="modal" data-target="#ubahPodcast{{podcast.0}}">Ubah</a>
-                                            <a class="dropdown-item plus-jakarta-sans-bold m-auto"
-                                                style="color: var(--neutral-1); font-size: 12px; font-weight: 600;" href="#"
-                                                data-toggle="modal" data-target="#modalHapusPodcast{{podcast.0}}">Hapus</a>
-                                        </div>
-                                        <!-- Modal Hapus -->
-                                        <!-- Harus diganti karena masih playlist harusnya podcast -->
-                                        <div class="modal fade" id="modalHapusPodcast{{podcast.0}}" tabindex="-1"
-                                            role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                            <div class="modal-dialog" role="document">
-                                                <div class="modal-content"
-                                                    style="background-color: var(--neutral-4); border-radius: 40px !important; padding: 20px;">
-                                                    <div class="modal-header" style="border-bottom: none;">
-                                                        <h5 class="modal-title plus-jakarta-sans-extrabold"
-                                                            id="exampleModalLabel" style="color: var(--neutral-0);">
-                                                            Konfirmasi
-                                                            Hapus
-                                                        </h5>
-                                                    </div>
-                                                    <div class="modal-body plus-jakarta-sans-medium"
-                                                        style="color: var(--neutral-1);">
-                                                        Apakah Anda yakin ingin menghapus item ini?
-                                                    </div>
-                                                    <div class="modal-footer" style="border-top: none;">
-                                                        <button type="button"
-                                                            class="button-modal-secondary plus-jakarta-sans-bold secondary-button"
-                                                            style="border: none !important; border-radius: 16px; padding-block: 12px; padding-inline: 24px; text-decoration: 2px solid var(--neutral-1); background-color: var(--neutral-3); color: white;"
-                                                            data-dismiss="modal">Batal</button>
-                                                        <!-- Harus diganti karena masih playlist harusnya podcast -->
-                                                        <form method="POST"
-                                                            action="{% url 'kelola:delete_podcast' podcast.0 %}">
-                                                            {% csrf_token %}
-                                                            <button type="submit"
-                                                                class="button-modal-danger plus-jakarta-sans-bold danger-button"
-                                                                style="border: none !important; border-radius: 16px; padding-block: 12px; padding-inline: 24px; background-color: rgb(255, 47, 47); color: var(--neutral-0);">Hapus</button>
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- Modal Ubah -->
-                                        <!-- Harus diganti karena masih playlist harusnya podcast -->
-                                        <div class="modal fade" id="ubahPodcast{{podcast.0}}" tabindex="-1" role="dialog"
-                                            aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                            <div class="modal-dialog" role="document">
-                                                <div class="modal-content"
-                                                    style="background-color: var(--neutral-4); border-radius: 40px !important; padding: 20px;">
-                                                    <!-- Harus diganti karena masih playlist harusnya podcast -->
-                                                    <form method="POST"
-                                                        action="{% url 'kelola:update_podcast' podcast.0 %}">
-                                                        {% csrf_token %}
-                                                        <div class="modal-header" style="border-bottom: none;">
-                                                            <h5 class="modal-title plus-jakarta-sans-extrabold"
-                                                                id="exampleModalLabel" style="color: var(--neutral-0); margin: auto;">
-                                                                Ubah podcast
-                                                            </h5>
-                                                        </div>
-                                                        <div class="modal-body plus-jakarta-sans-medium"
-                                                            style="color: var(--neutral-1);">
-                                                            <div class="form-group">
-                                                                <label for="judulPodcast" style="color: var(--neutral-0)">Judul:</label>
-                                                                <!-- Harus diganti karena masih playlist harusnya album -->
-                                                                <input name="judul" type="text" class="form-control"
-                                                                    id="judulPodcast" placeholder={{podcast.1}} required>
-                                                            </div>
-                                                            <div class="form-group" style="margin-top: 20px;">
-                                                                <label for="deskripsiPlaylist" style="color: var(--neutral-0)">Genre:</label>
-                                                                <select data-mdb-select-init multiple
-                                                                    data-mdb-clear-button="true" id="genreSelect3"
-                                                                    name="genreSelect" required>
-                                                                    {% for genre in genres %}
-                                                                    <option value="{{genre.genre}}">{{genre.genre}}</option>
-                                                                    {% endfor %}
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                        <div class="modal-footer" style="border-top: none;">
-                                                            <button type="button"
-                                                                class="button-modal-secondary plus-jakarta-sans-bold secondary-button"
-                                                                style="border: none !important; border-radius: 16px; padding-block: 12px; padding-inline: 24px; text-decoration: 2px solid var(--neutral-1); background-color: var(--neutral-3); color: white;"
-                                                                data-dismiss="modal">Batal</button>
-                                                            <button type="submit"
-                                                                class="button-modal-danger plus-jakarta-sans-bold button-primary"
-                                                                style="border: none !important; border-radius: 16px; padding-block: 12px; padding-inline: 24px; color: var(--neutral-0);">Submit</button>
-                                                        </div>
-                                                    </form>
-                                                </div>
-                                            </div>
+                                            <a class="p dropdown-item plus-jakarta-sans-bold m-auto"
+                                                style="color: var(--neutral-1); font-size: 0.8vw; font-weight: 600;" href="#" data-toggle="modal" data-target="#ubahPodcast{{podcast.0}}">Ubah</a>
+                                            <a class="p dropdown-item plus-jakarta-sans-bold m-auto"
+                                                style="color: var(--neutral-1); font-size: 0.8vw; font-weight: 600;" href="#" data-toggle="modal" data-target="#modalHapusPodcast{{podcast.0}}">Hapus</a>
                                         </div>
                                     </div>
                                 </div>
                                 {% endfor %}
                                 {% else %}
-                                <div class="container d-flex justify-content-center"
-                                    style="height: 68px; border-radius: 16px; margin-top: 4px;">
-                                    <h1 class="d-inline"
-                                        style="margin: 0; color: var(--neutral-0); font-size: 12px; font-weight: 900;">
+                                <div class="container d-flex justify-content-center" style="height: 68px; border-radius: 16px; margin-top: 4px;">
+                                    <h1 class="p d-inline" style="margin: 0; color: var(--neutral-0); font-size: 0.8vw; font-weight: 900;">
                                         Belum memiliki Podcast</h1>
                                 </div>
                                 {% endif %}
@@ -1326,28 +1248,29 @@
                     </div>
                 </div>
             </div>
-            <div style="width: 73%;">
+            <div style="width: 100%; background-color: blue; height: 91vh;">
                 <!-- Bagian search dan logout -->
-                <div class="d-flex justify-content-start align-items-start tertiary-content-1"
-                    style="width: 100%; margin-top: 12px; height: 8%;">
+                <div class="wrapup d-flex justify-content-start align-items-center tertiary-content-1" style="width: 100%; margin-top: 12px; height: 7vh; background-color: cadetblue;">
+                    <!-- Burger -->
+                    <div class="menu-toggle" style="display: none; background-color: aqua; margin-right: 4vw; margin-left: 3vw;">
+                        <input type="checkbox">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
                     <!-- search -->
-                    <div class="d-flex justify-content-start align-items-center"
-                        style="background-color: var(--neutral-5); width: 87%; border-radius: 24px; padding-block: 10px; height: 100%;">
-                        <form action="{% url 'search:search' %}" method="get"
-                            class="col-md-11 row-lg-11 row-sm-6 container d-flex justify-content-between align-items-center"
-                            style="width: 100%; display: flex;">
+                    <div class="search d-flex justify-content-between align-items-center" style="background-color: var(--neutral-5); width: 90%; border-radius: 24px; height: 100%;">
+                        <form action="{% url 'search:search' %}" method="get" class="col-md-11 row-lg-11 row-sm-6 container d-flex justify-content-between align-items-center" style="width: 100%; display: flex;">
                             <input type="text" name="query" class="form-control plus-jakarta-sans-bold" id="search"
-                                placeholder="Cari lagu, album, atau playlist..." style="background-color: transparent; border: none;"
-                                required>
-                            <button type="submit" style="background: none; border: none; padding: 0; margin-left: 8px;">
-                                <img src="{% static 'img/search.svg' %}" alt="search">
+                                placeholder="Cari lagu, album, atau playlist..." style="background-color: transparent; border: none; font-size: 1vw;" required>
+                            <button type="submit" style="background: none; border: none; margin-left: 0.6vw;">
+                                <img src="{% static 'img/search.svg' %}" alt="search" width="20vw" height="20vh" style="margin-top: -1vh;">
                             </button>
                         </form>
                     </div>
                     <!-- logout -->
-                    <a href="{% url 'dashboarduser:logout' %}" class="d-flex"
-                        style="background-color: var(--neutral-5); border-radius: 24px; width: 80px; margin-left: 36px; margin-block: -1px; height: 100%;; justify-content: center; align-items: center;">
-                        <img src="{% static 'img/logout.svg' %}" alt="Logout" width="30px" height="30px">
+                    <a href="{% url 'dashboarduser:logout' %}" class="d-flex" style="background-color: var(--neutral-5); border-radius: 24px; margin-left: 1.5vw; margin-right: 2vw ; height: 100%; padding: 0 1vw; justify-content: center; align-items: center;">
+                        <img class="logout" src="{% static 'img/logout.svg' %}" alt="Logout" width="25vw" height="25vh">
                     </a>
                     {% if info_message %}
                     <div class="alert alert-info" role="alert">
@@ -1362,84 +1285,569 @@
             </div>
         </div>
     <!-- Modal play music footer -->
-    <div class="modal fade" id="modalInform" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content"
-                style="background-color: var(--neutral-4); border-radius: 40px !important; padding: 20px;">
+    <div class="modal fade" id="modalInform" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="background-color: blue;">
+        <div class="modalpremium modal-dialog" role="document" style="width: 40%; margin: auto;">
+            <div class="modal-content" style="background-color: var(--neutral-4); border-radius: 40px !important; padding: 20px;">
                 <div class="modal-header" style="border-bottom: none;">
-                    <h5 class="modal-title plus-jakarta-sans-extrabold" id="exampleModalLabel"
-                        style="color: var(--neutral-0); margin: auto;">
+                    <h5 class="headermodal modal-title plus-jakarta-sans-extrabold" id="exampleModalLabel"
+                        style="color: var(--neutral-0); margin: auto; font-size: 1.3vw;">
                         Marmut Premium
                     </h5>
                 </div>
-                <div class="modal-body plus-jakarta-sans-medium" style="color: var(--neutral-1);">
+                <div class="detailmodal modal-body plus-jakarta-sans-medium" style="color: var(--neutral-1); font-size: 1vw;">
                     Silahkan upgrade akun Anda ke premium untuk mengakses konten
                 </div>
                 <div class="modal-footer" style="border-top: none;">
-                    <button type="button" class="button-modal-danger plus-jakarta-sans-bold danger-button"
-                        style="border: none !important; border-radius: 16px; padding-block: 12px; padding-inline: 24px; background-color: rgb(255, 47, 47); color: var(--neutral-0);"
-                        data-dismiss="modal">Batal</button>
+                    <button type="button" class="button button-modal-secondary plus-jakarta-sans-bold secondary-button" style="border: none !important; border-radius: 16px; padding-block: 12px; padding-inline: 24px; text-decoration: 2px solid var(--neutral-1); background-color: var(--neutral-3); color: white; font-size: 1vw;" data-dismiss="modal">Batal</button>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Modal Premium -->
-    <div class="modal fade" id="modalPremium" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
+    <!-- Kumpulan modal -->
+    <!-- modal tambah playlist -->
+    <div class="modal fade" id="tambahPlaylist" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true" style="background-color: blue;">
+        <div class="modalpremium modal-dialog" role="document" style="background-color: aquamarine; width: 40vw; margin: auto;">
             <div class="modal-content"
-                style="background-color: var(--neutral-4); border-radius: 40px !important; padding: 20px;">
+                style="background-color: var(--neutral-4); border-radius: 40px !important; padding: 0vh; background-color: blueviolet; width: 100%;">
+                <form method="POST" action="{% url 'kelola:add_playlist' %}">
+                    {% csrf_token %}
+                    <div class="modal-header" style="border-bottom: none;">
+                        <h5 class="headermodal modal-title plus-jakarta-sans-extrabold" id="exampleModalLabel"
+                            style="color: var(--neutral-0); margin: auto; font-size: 1.3vw;">
+                            Tambah Playlist
+                        </h5>
+                    </div>
+                    <div class="modal-body plus-jakarta-sans-medium" style="color: var(--neutral-1); margin-top: -3vh;">
+                        <div class="form-group">
+                            <label class="detailmodal" for="judulPlaylist" style="color: var(--neutral-0); font-size: 1vw;">Judul:</label>
+                            <input name="judul" type="text" class="form-control" id="judulPlaylist"
+                                placeholder="Masukkan judul playlist" style="font-size: 1vw;" required>
+                        </div>
+                        <div class="form-group" style="margin-top: 2vh;">
+                            <label class="detailmodal" for="deskripsiPlaylist"
+                                style="color: var(--neutral-0); font-size: 1vw;">Deskripsi:</label>
+                            <textarea name="deskripsi" class="form-control" id="deskripsiPlaylist" rows="3"
+                                placeholder="Masukkan deskripsi playlist" style="font-size: 1vw;" required></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer" style="border-top: none;">
+                        <button type="button" class="button button-modal-secondary plus-jakarta-sans-bold secondary-button"
+                            style="border: none !important; border-radius: 16px; padding-block: 12px; padding-inline: 24px; text-decoration: 2px solid var(--neutral-1); background-color: var(--neutral-3); color: white; font-size: 1vw;"
+                            data-dismiss="modal">Batal</button>
+                        <button type="submit" class="button button-modal-danger plus-jakarta-sans-bold button-primary"
+                            style="border: none !important; border-radius: 16px; padding-block: 12px; padding-inline: 24px; color: var(--neutral-0); font-size: 1vw;">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- modal tambah album -->
+    <div class="modal fade" id="tambahAlbum" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true" style="background-color: blue;">
+        <div class="modalpremium modal-dialog" role="document" style="background-color: aquamarine; width: 40vw; margin: auto;">
+            <div class="modal-content"
+                style="background-color: var(--neutral-4); border-radius: 40px !important; padding: 0vh; background-color: blueviolet; width: 100%;">
+                <!-- Harus diganti karena masih playlist harusnya album -->
+                <form method="POST" action="{% url 'kelola:create_album' %}">
+                    {% csrf_token %}
+                    <div>
+                        <div class="modal-header" style="border-bottom: none;">
+                            <h5 class="headermodal modal-title plus-jakarta-sans-extrabold" id="exampleModalLabel"
+                                style="color: var(--neutral-0); margin: auto; font-size: 1.3vw;">
+                                Create Album
+                            </h5>
+                        </div>
+                        <div class="modal-body plus-jakarta-sans-medium" style="color: var(--neutral-1); margin-top: -3vh;">
+                            <div class="form-group">
+                                <label class="detailmodal" for="judulAlbum" style="color: var(--neutral-0); font-size: 1vw;">Judul Album:</label>
+                                <input name="judulAlbum" type="text" class="form-control" id="judulAlbum"
+                                    placeholder="Masukkan judul album" style="font-size: 1vw;" required>
+                            </div>
+                            <div class="form-group" style="margin-top: 2vh;">
+                                <!-- Dropdown untuk Label -->
+                                <div class="form-group">
+                                    <label class="detailmodal" for="labelDropdown"
+                                        style="color: var(--neutral-0); font-size: 1vw;">Label:</label>
+                                    <select class="form-control" id="labelDropdown" name="label"
+                                        style="margin-top: 5px; font-size: 1vw;" required>
+                                        {% for label in labels %}
+                                        <option value="{{label.id}}" style="font-size: 1vw;">{{label.nama}}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="margin-top: -2vh;">
+                        <div class="modal-header" style="border-bottom: none;">
+                            <h5 class="headermodal modal-title plus-jakarta-sans-extrabold" id="exampleModalLabel"
+                                style="color: var(--neutral-0); margin: auto; font-size: 1.3vw;">
+                                Lagu Pertama
+                            </h5>
+                        </div>
+                        <div class="modal-body plus-jakarta-sans-medium" style="color: var(--neutral-1); margin-top: -3vh;">
+                            <div class="form-group">
+                                <label class="detailmodal" for="judulLagu" style="color: var(--neutral-0); font-size: 1vw;">Judul Lagu:</label>
+                                <input name="judulLagu" type="text" class="form-control" id="judulLagu"
+                                    placeholder="Masukkan judul lagu" style="font-size: 1vw;" required>
+                            </div>
+                            <div class="form-group" style="margin-top: 2vh;">
+                                {% if 'artist' in request.session.user_roles %}
+                                <label class="detailmodal" for="labelDropdown" style="color: var(--neutral-0); font-size: 1vw;">Artist:</label>
+                                <input name="artist" type="text" class="form-control" id="artist" value="{{ user_data.0 }}"
+                                    style="font-size: 1vw;" disabled>
+                                {% else %}
+                                <!-- Dropdown untuk Artist or Songwriter -->
+                                <div class="form-group">
+                                    <label class="detailmodal" for="labelDropdown"
+                                        style="color: var(--neutral-0); font-size: 1vw;">Artist:</label>
+                                    <select class="form-control" id="artistDropdown" name="artist"
+                                        style="margin-top: 5px; font-size: 1vw;" required>
+                                        {% for artist in artists %}
+                                        <option value="{{artist.id}}">{{artist.nama}}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                {% endif %}
+                            </div>
+                            <div class="form-group" style="margin-top: 2vh;">
+                                {% if 'songwriter' in request.session.user_roles %}
+                                <label class="detailmodal" for="songwriterSelect"
+                                    style="color: var(--neutral-0); font-size: 1vw;">Songwriter:</label>
+                                <input name="songwriter" type="text" class="form-control" id="songwriter"
+                                    value="{{ user_data.0 }}" style="font-size: 1vw;" disabled>
+                                {% else %}
+                                <!-- Dropdown untuk Songwriter -->
+                                <div class="form-group">
+                                    <label class="detailmodal" for="songwriterSelect"
+                                        style="color: var(--neutral-0); font-size: 1vw;">Songwriter:</label>
+                                    <select data-mdb-select-init multiple data-mdb-clear-button="true" id="songwriterSelect"
+                                        name="songwriter" style="font-size: 1vw;" required>
+                                        {% for songwriter in songwriters %}
+                                        <option value="{{songwriter.id}}">{{songwriter.nama}}
+                                        </option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                {% endif %}
+                            </div>
+                            <div class="form-group" style="margin-top: 2vh;">
+                                <!-- Dropdown untuk Genre -->
+                                <div class="form-group">
+                                    <label class="detailmodal" for="genreSelect" style="color: var(--neutral-0); font-size: 1vw;">Genre:</label>
+                                    <select data-mdb-select-init multiple data-mdb-clear-button="true" id="genreSelect"
+                                        name="genreSelect" style="font-size: 1vw; height: 4vh !important;" required>
+                                        {% for genre in genres %}
+                                        <option value="{{genre.genre}}">{{genre.genre}}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group" style="margin-top: 2vh;">
+                                <label class="detailmodal" for="durasiLagu" style="color: var(--neutral-0); font-size: 1vw;">Durasi
+                                    Lagu:</label>
+                                <div style="display: flex; margin-top: -1vh;">
+                                    <div>
+                                        <label class="detailmodal" for="" style="font-size: 0.9vw;">Menit</label>
+                                        <input name="durasiMenit" type="number" id="durasiMenit" class="form-control"
+                                            min="0" max="60" step="1" value="3" style="font-size: 1vw;" required>
+                                    </div>
+                                    <div>
+                                        <label class="detailmodal" for="" style="font-size: 0.9vw;">Detik</label>
+                                        <input name="durasiDetik" type="number" id="durasiDetik" class="form-control"
+                                            min="0" max="60" step="1" value="15" style="font-size: 1vw;" required>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer" style="border-top: none;">
+                        <button type="button" class="button button-modal-secondary plus-jakarta-sans-bold secondary-button"
+                            style="border: none !important; border-radius: 16px; padding-block: 12px; padding-inline: 24px; text-decoration: 2px solid var(--neutral-1); background-color: var(--neutral-3); color: white; font-size: 1vw;"
+                            data-dismiss="modal">Batal</button>
+                        <button type="submit" class="button button-modal-danger plus-jakarta-sans-bold button-primary"
+                            style="border: none !important; border-radius: 16px; padding-block: 12px; padding-inline: 24px; color: var(--neutral-0); font-size: 1vw;">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- modal tambah podcast -->
+    <div class="modal fade" id="tambahPodcast" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true" style="background-color: blue;">
+        <div class="modalpremium modal-dialog" role="document"
+            style="background-color: aquamarine; width: 40vw; margin: auto;">
+            <div class="modal-content"
+                style="background-color: var(--neutral-4); border-radius: 40px !important; padding: 0vh; background-color: blueviolet; width: 100%;">
+                <form method="POST" action="{% url 'kelola:add_podcast' %}">
+                    {% csrf_token %}
+                    <div class="modal-header" style="border-bottom: none;">
+                        <h5 class="headermodal modal-title plus-jakarta-sans-extrabold" id="exampleModalLabel"
+                            style="color: var(--neutral-0); margin: auto; font-size: 1.3vw;">
+                            Tambah Podcast
+                        </h5>
+                    </div>
+                    <div class="modal-body plus-jakarta-sans-medium" style="color: var(--neutral-1); margin-top: -3vh;">
+                        <div class="form-group">
+                            <label class="detailmodal" for="judulPodcast" style="color: var(--neutral-0); font-size: 1vw;">Judul:</label>
+                            <input name="judul" type="text" class="form-control" id="judulPodcast"
+                                placeholder="Masukkan judul Podcast" style="font-size: 1vw;" required>
+                        </div>
+                        <div class="form-group" style="margin-top: 20px;">
+                            <label class="detailmodal" for="deskripsiPodcast" style="color: var(--neutral-0)">Genre:</label>
+                            <select data-mdb-select-init multiple data-mdb-clear-button="true" id="genreSelect2"
+                                name="genreSelect" required>
+                                {% for genre in genres %}
+                                <option value="{{genre.genre}}">{{genre.genre}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="modal-footer" style="border-top: none;">
+                        <button type="button" class="button button-modal-secondary plus-jakarta-sans-bold secondary-button"
+                            style="border: none !important; border-radius: 16px; padding-block: 12px; padding-inline: 24px; text-decoration: 2px solid var(--neutral-1); background-color: var(--neutral-3); color: white; font-size: 1vw;"
+                            data-dismiss="modal">Batal</button>
+                        <button type="submit" class="button button-modal-danger plus-jakarta-sans-bold button-primary"
+                            style="border: none !important; border-radius: 16px; padding-block: 12px; padding-inline: 24px; color: var(--neutral-0); font-size: 1vw;">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    {% for detail in detail_playlist_kelola %}
+    <!-- Modal Ubah playlist -->
+    <div class="modal fade" id="ubahPlaylist{{detail.id_playlist}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="background-color: blue;">
+        <div class="modalpremium modal-dialog" role="document" style="background-color: aquamarine; width: 40vw; margin: auto;">
+            <div class="modal-content" style="background-color: var(--neutral-4); border-radius: 40px !important; padding: 0vh; background-color: blueviolet; width: 100%;">
+                <form method="POST" action="{% url 'kelola:ubah_playlist' detail.id_playlist %}">
+                    {% csrf_token %}
+                    <div class="modal-header" style="border-bottom: none;">
+                        <h5 class="headermodal modal-title plus-jakarta-sans-extrabold" id="exampleModalLabel"
+                            style="color: var(--neutral-0); margin: auto; font-size: 1.3vw;">
+                            Ubah Playlist
+                        </h5>
+                    </div>
+                    <div class="modal-body plus-jakarta-sans-medium" style="color: var(--neutral-1); margin-top: -3vh;">
+                        <div class="form-group">
+                            <label class="detailmodal" for="judulPlaylist" style="color: var(--neutral-0); font-size: 1vw;">Judul:</label>
+                            <input name="judul" type="text" class="form-control" id="judulPlaylist"
+                                placeholder={{detail.namaPlaylist}} style="font-size: 1vw;" required>
+                        </div>
+                        <div class="form-group" style="margin-top: 2vh;">
+                            <label class="detailmodal" for="deskripsiPlaylist"
+                                style="color: var(--neutral-0); font-size: 1vw;">Deskripsi:</label>
+                            <textarea name="deskripsi" class="form-control" id="deskripsiPlaylist" rows="3"
+                                placeholder={{detail.deskripsi}} style="font-size: 1vw;" required></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer" style="border-top: none;">
+                        <button type="button" class="button button-modal-secondary plus-jakarta-sans-bold secondary-button"
+                            style="border: none !important; border-radius: 16px; padding-block: 12px; padding-inline: 24px; text-decoration: 2px solid var(--neutral-1); background-color: var(--neutral-3); color: white; font-size: 1vw;"
+                            data-dismiss="modal">Batal</button>
+                        <button type="submit" class="button button-modal-danger plus-jakarta-sans-bold button-primary"
+                            style="border: none !important; border-radius: 16px; padding-block: 12px; padding-inline: 24px; color: var(--neutral-0); font-size: 1vw;">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- Modal Hapus -->
+    <div class="modal fade" id="modalHapusPlaylist{{detail.id_playlist}}" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalLabel" aria-hidden="true" style="background-color: blue;">
+        <div class="modalpremium modal-dialog" role="document"
+            style="background-color: aquamarine; width: 40vw; margin: auto;">
+            <div class="modal-content"
+                style="background-color: var(--neutral-4); border-radius: 40px !important; padding: 0vh; background-color: blueviolet; width: 100%;">
                 <div class="modal-header" style="border-bottom: none;">
-                    <h5 class="modal-title plus-jakarta-sans-extrabold" id="exampleModalLabel"
-                        style="color: var(--neutral-0); margin: auto;">
+                    <h5 class="headermodal modal-title plus-jakarta-sans-extrabold" id="exampleModalLabel"
+                        style="color: var(--neutral-0); margin: auto; font-size: 1.6vw;">
+                        Konfirmasi Hapus
+                    </h5>
+                </div>
+                <div class="detailmodal modal-body plus-jakarta-sans-medium"
+                    style="color: var(--neutral-1); font-size: 1.2vw; margin: auto;">
+                    Apakah Anda yakin ingin menghapus item ini?
+                </div>
+                <div class="modal-footer" style="border-top: none;">
+                    <button type="button" class="button button-modal-secondary plus-jakarta-sans-bold secondary-button"
+                        style="border: none !important; border-radius: 16px; padding-block: 12px; padding-inline: 24px; text-decoration: 2px solid var(--neutral-1); background-color: var(--neutral-3); color: white; font-size: 1vw;"
+                        data-dismiss="modal">Batal</button>
+                    <form method="POST" action="{% url 'kelola:delete_playlist' detail.id_user_playlist %}">
+                        {% csrf_token %}
+                        <button type="submit" class="button button-modal-danger plus-jakarta-sans-bold button-primary"
+                            style="border: none !important; border-radius: 16px; padding-block: 12px; padding-inline: 24px; background-color: rgb(255, 47, 47) !important; color: var(--neutral-0); font-size: 1vw;">Hapus</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+
+    {% for detail in albums %}
+    <!-- Modal Tambah Lagu album -->
+    <div class="modal fade" id="tambahLagu{{detail.id}}{{detail.id_pemilik_hak_cipta}}" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalLabel" aria-hidden="true" style="background-color: blue;">
+        <div class="modalpremium modal-dialog" role="document"
+            style="background-color: aquamarine; width: 40vw; margin: auto;">
+            <div class="modal-content" style="background-color: var(--neutral-4); border-radius: 40px !important; padding: 0vh; background-color: blueviolet; width: 100%;">
+                <!-- Harus diganti karena masih playlist harusnya album -->
+                <form method="POST" action="{% url 'kelola:create_song' detail.id detail.id_pemilik_hak_cipta %}">
+                    {% csrf_token %}
+                    <div class="modal-header" style="border-bottom: none;">
+                        <h5 class="headermodal modal-title plus-jakarta-sans-extrabold" id="exampleModalLabel"
+                            style="color: var(--neutral-0); margin: auto;">
+                            Create Lagu
+                        </h5>
+                    </div>
+                    <div class="modal-body plus-jakarta-sans-medium" style="color: var(--neutral-1); margin-top: -1em;">
+                        <div class="form-group" style="margin-bottom: 1em;">
+                            <label class="detailmodal" for="albumLagunya" style="color: var(--neutral-0);">Album:
+                                {{detail.judul}}</label>
+                        </div>
+                        <div class="form-group">
+                            <label class="detailmodal" for="judulLagu" style="color: var(--neutral-0)">Judul
+                                Lagu:</label>
+                            <input name="judulLagu" type="text" class="form-control" id="judulLagu"
+                                placeholder="Masukkan judul lagu" required>
+                        </div>
+                        <div class="form-group" style="margin-top: 10px;">
+                            {% if 'artist' in request.session.user_roles %}
+                            <label class="detailmodal" for="labelDropdown" style="color: var(--neutral-0)">Artist:</label>
+                            <input name="artist" type="text" class="form-control" id="artist" value="{{ user_data.0 }}"
+                                disabled>
+                            {% else %}
+                            <!-- Dropdown untuk Artist or Songwriter -->
+                            <div class="form-group">
+                                <label class="detailmodal" for="labelDropdown" style="color: var(--neutral-0)">Artist:</label>
+                                <select class="form-control" id="artistDropdown" name="artist" style="margin-top: 5px;"
+                                    required>
+                                    {% for artist in artists %}
+                                    <option value="{{artist.id}}">{{artist.nama}}
+                                    </option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            {% endif %}
+                        </div>
+                        <div class="form-group" style="margin-top: 10px;">
+                            {% if 'songwriter' in request.session.user_roles %}
+                            <label class="detailmodal" for="songwriterSelect" style="color: var(--neutral-0)">Songwriter:</label>
+                            <input name="songwriter" type="text" class="form-control" id="songwriter"
+                                value="{{ user_data.0 }}" disabled>
+                            {% else %}
+                            <!-- Dropdown untuk Songwriter -->
+                            <div class="form-group">
+                                <label class="detailmodal" for="songwriterSelect" style="color: var(--neutral-0)">Songwriter:</label>
+                                <select data-mdb-select-init multiple data-mdb-clear-button="true" id="songwriterSelect2"
+                                    name="songwriter" required>
+                                    {% for songwriter in songwriters %}
+                                    <option value="{{songwriter.id}}">
+                                        {{songwriter.nama}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            {% endif %}
+                        </div>
+                        <div class="form-group" style="margin-top: 10px;">
+                            <!-- Dropdown untuk Genre -->
+                            <div class="form-group">
+                                <label class="detailmodal" for="genreSelect" style="color: var(--neutral-0)">Genre:</label>
+                                <select data-mdb-select-init multiple data-mdb-clear-button="true" id="genreSelect2"
+                                    name="genreSelect" required>
+                                    {% for genre in genres %}
+                                    <option value="{{genre.genre}}">{{genre.genre}}
+                                    </option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group" style="margin-top: 10px;">
+                            <label class="detailmodal" for="durasiLagu" style="color: var(--neutral-0)">Durasi
+                                Lagu:</label>
+                            <div style="display: flex;">
+                                <div>
+                                    <label class="detailmodal" for="">Menit</label>
+                                    <input name="durasiMenit" type="number" id="durasiMenit" class="form-control" min="0"
+                                        max="60" step="1" value="3" required>
+                                </div>
+                                <div>
+                                    <label class="detailmodal" for="">Detik</label>
+                                    <input name="durasiDetik" type="number" id="durasiDetik" class="form-control" min="0"
+                                        max="60" step="1" value="15" required>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer" style="border-top: none;">
+                        <button type="button" class="button button-modal-secondary plus-jakarta-sans-bold secondary-button"
+                            style="border: none !important; border-radius: 16px; padding-block: 12px; padding-inline: 24px; text-decoration: 2px solid var(--neutral-1); background-color: var(--neutral-3); color: white;"
+                            data-dismiss="modal">Batal</button>
+                        <button type="submit" class="button button-modal-danger plus-jakarta-sans-bold button-primary"
+                            style="border: none !important; border-radius: 16px; padding-block: 12px; padding-inline: 24px; color: var(--neutral-0);">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- Modal Hapus album -->
+    <div class="modal fade" id="modalHapusAlbum{{detail.id}}" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalLabel" aria-hidden="true" style="background-color: blue;">
+        <div class="modalpremium modal-dialog" role="document"
+            style="background-color: aquamarine; width: 40vw; margin: auto;">
+            <div class="modal-content"
+                style="background-color: var(--neutral-4); border-radius: 40px !important; padding: 0vh; background-color: blueviolet; width: 100%;">
+                <div class="modal-header" style="border-bottom: none;">
+                    <h5 class="headermodal modal-title plus-jakarta-sans-extrabold" id="exampleModalLabel"
+                        style="color: var(--neutral-0); margin: auto; font-size: 1.6vw;">
+                        Konfirmasi Hapus
+                    </h5>
+                </div>
+                <div class="detailmodal modal-body plus-jakarta-sans-medium"
+                    style="color: var(--neutral-1); font-size: 1.2vw; margin: auto;">
+                    Apakah Anda yakin ingin menghapus item ini?
+                </div>
+                <div class="modal-footer" style="border-top: none;">
+                    <button type="button" class="button button-modal-secondary plus-jakarta-sans-bold secondary-button"
+                        style="border: none !important; border-radius: 16px; padding-block: 12px; padding-inline: 24px; text-decoration: 2px solid var(--neutral-1); background-color: var(--neutral-3); color: white; font-size: 1vw;"
+                        data-dismiss="modal">Batal</button>
+                    <form method="POST" action="{% url 'kelola:delete_album' detail.id %}">
+                        {% csrf_token %}
+                        <button type="submit" class="button button-modal-danger plus-jakarta-sans-bold button-primary"
+                            style="border: none !important; border-radius: 16px; padding-block: 12px; padding-inline: 24px; background-color: rgb(255, 47, 47) !important; color: var(--neutral-0); font-size: 1vw;">Hapus</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+
+    {% for podcast in podcasts %}
+    <!-- Modal Ubah Podcast -->
+    <div class="modal fade" id="ubahPodcast{{podcast.0}}" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalLabel" aria-hidden="true" style="background-color: blue;">
+        <div class="modalpremium modal-dialog" role="document"
+            style="background-color: aquamarine; width: 40vw; margin: auto;">
+            <div class="modal-content"
+                style="background-color: var(--neutral-4); border-radius: 40px !important; padding: 0vh; background-color: blueviolet; width: 100%;">
+                <form method="POST" action="{% url 'kelola:update_podcast' podcast.0 %}">
+                    {% csrf_token %}
+                    <div class="modal-header" style="border-bottom: none;">
+                        <h5 class="headermodal modal-title plus-jakarta-sans-extrabold" id="exampleModalLabel"
+                            style="color: var(--neutral-0); margin: auto; font-size: 1.3vw;">
+                            Ubah Podcast
+                        </h5>
+                    </div>
+                    <div class="modal-body plus-jakarta-sans-medium" style="color: var(--neutral-1); margin-top: -3vh;">
+                        <div class="form-group">
+                            <label class="detailmodal" for="judulPodcast" style="color: var(--neutral-0); font-size: 1vw;">Judul:</label>
+                            <input name="judul" type="text" class="form-control" id="judulPodcast" placeholder={{podcast.1}}
+                                style="font-size: 1vw;" required>
+                        </div>
+                        <div class="form-group" style="margin-top: 20px;">
+                            <label class="detailmodal" for="deskripsiPlaylist" style="color: var(--neutral-0)">Genre:</label>
+                            <select data-mdb-select-init multiple data-mdb-clear-button="true" id="genreSelect3"
+                                name="genreSelect" required>
+                                {% for genre in genres %}
+                                <option value="{{genre.genre}}">{{genre.genre}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="modal-footer" style="border-top: none;">
+                        <button type="button" class="button button-modal-secondary plus-jakarta-sans-bold secondary-button"
+                            style="border: none !important; border-radius: 16px; padding-block: 12px; padding-inline: 24px; text-decoration: 2px solid var(--neutral-1); background-color: var(--neutral-3); color: white; font-size: 1vw;"
+                            data-dismiss="modal">Batal</button>
+                        <button type="submit" class="button button-modal-danger plus-jakarta-sans-bold button-primary"
+                            style="border: none !important; border-radius: 16px; padding-block: 12px; padding-inline: 24px; color: var(--neutral-0); font-size: 1vw;">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- Modal Hapus -->
+    <div class="modal fade" id="modalHapusPodcast{{podcast.0}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true" style="background-color: blue;">
+        <div class="modalpremium modal-dialog" role="document"
+            style="background-color: aquamarine; width: 40vw; margin: auto;">
+            <div class="modal-content"
+                style="background-color: var(--neutral-4); border-radius: 40px !important; padding: 0vh; background-color: blueviolet; width: 100%;">
+                <div class="modal-header" style="border-bottom: none;">
+                    <h5 class="headermodal modal-title plus-jakarta-sans-extrabold" id="exampleModalLabel"
+                        style="color: var(--neutral-0); margin: auto; font-size: 1.6vw;">
+                        Konfirmasi Hapus
+                    </h5>
+                </div>
+                <div class="detailmodal modal-body plus-jakarta-sans-medium"
+                    style="color: var(--neutral-1); font-size: 1.2vw; margin: auto;">
+                    Apakah Anda yakin ingin menghapus item ini?
+                </div>
+                <div class="modal-footer" style="border-top: none;">
+                    <button type="button" class="button button-modal-secondary plus-jakarta-sans-bold secondary-button"
+                        style="border: none !important; border-radius: 16px; padding-block: 12px; padding-inline: 24px; text-decoration: 2px solid var(--neutral-1); background-color: var(--neutral-3); color: white; font-size: 1vw;"
+                        data-dismiss="modal">Batal</button>
+                    <form method="POST" action="{% url 'kelola:delete_podcast' podcast.0 %}">
+                        {% csrf_token %}
+                        <button type="submit" class="button button-modal-danger plus-jakarta-sans-bold button-primary"
+                            style="border: none !important; border-radius: 16px; padding-block: 12px; padding-inline: 24px; background-color: rgb(255, 47, 47) !important; color: var(--neutral-0); font-size: 1vw;">Hapus</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+
+    <!-- Modal Premium -->
+    <div class="modal fade" id="modalPremium" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="background-color: blue;">
+        <div class="modalpremium modal-dialog" role="document" style="background-color: aquamarine; width: 40%; margin: auto;">
+            <div class="modal-content" style="background-color: var(--neutral-4); border-radius: 40px !important; padding: 20px;">
+                <div class="modal-header" style="border-bottom: none;">
+                    <h5 class="headermodal modal-title plus-jakarta-sans-extrabold" id="exampleModalLabel" style="color: var(--neutral-0); margin: auto; font-size: 1.3vw;">
                         Marmut Premium
                     </h5>
                 </div>
-                <div class="modal-body plus-jakarta-sans-medium" style="color: var(--neutral-1); margin: auto;">
+                <div class="detailmodal modal-body plus-jakarta-sans-medium" style="color: var(--neutral-1); margin: auto; font-size: 1vw;">
                     Fitur ini sedang dalam tahap pengembangan
                 </div>
                 <div class="modal-footer" style="border-top: none;">
-                    <button type="button" class="button-modal-danger plus-jakarta-sans-bold danger-button"
-                        style="border: none !important; border-radius: 16px; padding-block: 12px; padding-inline: 24px; background-color: rgb(255, 47, 47); color: var(--neutral-0);"
-                        data-dismiss="modal">Batal</button>
+                    <button type="button" class="button button-modal-secondary plus-jakarta-sans-bold secondary-button" style="border: none !important; border-radius: 16px; padding-block: 12px; padding-inline: 24px; text-decoration: 2px solid var(--neutral-1); background-color: red; color: white; font-size: 1vw;" data-dismiss="modal">Batal</button>
                 </div>
             </div>
         </div>
     </div>
 
-    <footer class="position-fixed d-flex justify-content-between align-items-center"
-        style="bottom: 0px; width: 100%; height: 80px; background-color: transparent; backdrop-filter: blur(100px);">
-        <div class="d-flex align-items-center" style="margin-left: 50px;">
-            <div style="width: 50px; height: 50px; background-color: #292724; border-radius: 20px;"></div>
-            <h3 class="plus-jakarta-sans" style="margin: 0 12px; margin-top: 5px; font-size: 15px; color: #ffffff;">
+    <footer class="position-fixed d-flex justify-content-between align-items-center" style="bottom: 0px; width: 100%; height: 12vh; background-color: transparent; backdrop-filter: blur(100px);">
+        <div class="footerleft d-flex align-items-center" style="margin-left: 4vw; background-color: blue; width: 30%;">
+            <div class="" style="border-radius: 12px; width: max-content; background-color: #292724; padding: 0.8vh 0.5vw; height: max-content !important;">
+                <img src="{% static 'img/logo.svg' %}" alt="Logo Mrmut-15" width="25vw" height="25vh" style="margin: auto; visibility: hidden;">
+            </div>
+            <h3 class="footer plus-jakarta-sans" style="margin-top: 1vh; font-size: 1vw; color: #ffffff; margin-left: 1vw; background-color: blueviolet;">
                 Tidak ada lagu yang diputar</h3>
         </div>
-        <div style="width: 500px;">
-            <div class="d-flex" style="width: min-content; margin: auto;">
+        <div class="footercenter" style="width: 40%; background-color: aqua;">
+            <div class="d-flex justify-content-center" style="width: min-content; margin: auto; background-color: bisque; width: 100%;">
                 <a href="" style="margin: 0 7px; pointer-events: none; cursor: not-allowed;">
-                    <img src="{% static 'img/LeftSkipStartFill.svg' %}" alt="kelola" style="width: 27px; height: 27px;">
+                    <img src="{% static 'img/LeftSkipStartFill.svg' %}" alt="kelola" width="100%" height="25vh">
                 </a>
                 <a href="#" data-toggle="modal" data-target="#modalInform">
-                    <img src="{% static 'img/PlayCircleFill.svg' %}" alt="kelola" style="width: 27px; height: 27px;">
+                    <img src="{% static 'img/PlayCircleFill.svg' %}" alt="kelola" width="100%" height="25vh">
                 </a>
                 <a href="" style="margin: 0 7px; pointer-events: none; cursor: not-allowed;">
-                    <img src="{% static 'img/RightSkipStartFill.svg' %}" alt="kelola"
-                        style="width: 27px; height: 27px;">
+                    <img src="{% static 'img/RightSkipStartFill.svg' %}" alt="kelola" width="100%" height="25vh">
                 </a>
             </div>
-            <input type="range" id="vol" name="vol" min="0" max="100">
+            <input type="range" id="vol" name="vol" min="0" max="100" style="margin-top: -0.3vh;">
         </div>
-        <div style="margin-right: 50px;">
-            <a class=" d-flex align-items-center"
-                style="color: var(--neutral-1); font-size: 12px; font-weight: 600; text-decoration: none;" href="#"
-                data-toggle="modal" data-target="#modalPremium">
-                <img src="{% static 'img/logo.svg' %}" alt="Logo Mrmut-15"
-                    style="width: 50px; height: 50px; background-color: #292724; border-radius: 20px;">
-                <h3 class="plus-jakarta-sans-bold"
-                    style="margin: 0 12px; margin-top: 5px; font-size: 15px; color: #ffffff;">Marmut
-                    Premium</h3>
+        <div class="footerright" style="margin-right: 5vw; background-color: aquamarine; width: 30%;">
+            <a class="d-flex align-items-center justify-content-center" style="color: var(--neutral-1); font-weight: 600; text-decoration: none;" href="#" data-toggle="modal" data-target="#modalPremium">
+                <div class="divlogo" style="border-radius: 20px; width: max-content; background-color: #292724; padding: 0.5vh 0.3vw; height: max-content !important;">
+                    <img class="logo" src="{% static 'img/logo.svg' %}" alt="Logo Marmut-15" width="40vw !important" height="40vw !important" style="margin: auto;">
+                </div>
+                <h3 class="footer plus-jakarta-sans-bold" style="margin-top: 1vh; font-size: 1vw; color: #ffffff; margin-left: 0.5vw;">Marmut Premium</h3>
             </a>
         </div>
     </footer>

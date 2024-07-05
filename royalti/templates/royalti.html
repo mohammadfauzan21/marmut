@@ -63,41 +63,46 @@
     }
 </style>
 <!-- Bagian konten royalti -->
-<div class="" style="background: linear-gradient(180deg, #292724, #1B1817); border-radius: 24px; height: 80%; max-height: 82%; padding-bottom: 25px; padding-top: 20px; white-space: nowrap; overflow-y: auto; text-overflow: ellipsis; margin-top: 1em; width: 97%;">
+<div class="konten" style="background: linear-gradient(180deg, #292724, #1B1817); border-radius: 24px; height: 81vh; padding-bottom: 2vh; padding-top: 2vh; white-space: nowrap; overflow-y: auto; text-overflow: ellipsis; margin-top: 2vh; width: 97%;">
     <div class="row">
-        <div class="col-12" style="margin-left: 30px">
-            <h2 class="plus-jakarta-sans-extrabold" style="color: var(--neutral-0); font-size: 40px; margin-top: 20px;">Cek Royalti</h2>
+        <div class="col-12" style="margin-left: 4vw">
+            <h2 class="profilsaya plus-jakarta-sans-extrabold" style="color: var(--neutral-0); font-size: 2vw; margin-top: 2vh;">
+                Royalti
+            </h2>
             {% if 'label' not in request.session.user_type %}
-            <div style="padding: 2px; border-radius: 15px; width: min-content; border: 1px solid var(--neutral-2); margin-top: 25px;">
+            <div class="d-flex justify-content-center" style="padding: 0.5vh; border-radius: 15px; border: 1px solid var(--neutral-2); margin-top: 4vh; width: min-content;">
                 {% if 'artist' in request.session.user_roles %}
-                <button id="artist-btn" type="button" class="button-primary plus-jakarta-sans-bold btn-active" data-toggle="modal" style="font-size: 14px; border: none;">
+                <button id="artist-btn" type="button" class="button button-primary plus-jakarta-sans-bold btn-active"
+                    style="font-size: 1vw; border: none; text-align: center; display: flex; align-items: center; justify-content: center; width: 8vw;">
                     Artist
                 </button>
                 {% endif %}
                 {% if 'songwriter' in request.session.user_roles %}
-                <button id="songwriter-btn" type="button" class="button-primary plus-jakarta-sans-bold btn-inactive" data-toggle="modal" style="font-size: 14px; border: none;">
+                <button id="songwriter-btn" type="button" class="button button-primary plus-jakarta-sans-bold btn-inactive"
+                    style="font-size: 1vw; border: none; text-align: center; display: flex; align-items: center; justify-content: center; width: 8vw; margin-left: 0.5vw;">
                     Songwriter
                 </button>
                 {% endif %}
             </div>
             {% endif %}
+            <p class="p plus-jakarta-sans-bold" style="color: var(--neutral-1); font-size: 1.2vw; margin-top: 2vh;">
+                Daftar royalti yang diperoleh
+            </p>
 
-            <p class="plus-jakarta-sans-bold" style="color: var(--neutral-1); font-size: 18px; margin-top: 15px;">Daftar royalti yang diperoleh</p>
-
-            <div style="margin-top: 3em;">
+            <div style="margin-top: 5vh;">
                 {% if 'label' not in request.session.user_type %}
-                <p id="troyalti-artist" class="plus-jakarta-sans-bold" style="color: var(--neutral-1); font-size: 18px; margin-top: 15px; color: white;">
+                <p id="troyalti-artist" class="p plus-jakarta-sans-bold" style="color: var(--neutral-1); font-size: 1.2vw; color: white;">
                     {% for artist in total_royalti_artist %}
                     Total royalti = <span>Rp {{artist.total_royalti}}</span>
                     {% endfor %}
                 </p>
-                <p id="troyalti-songwriter" class="plus-jakarta-sans-bold hidden" style="color: var(--neutral-1); font-size: 18px; margin-top: 15px; color: white;">
+                <p id="troyalti-songwriter" class="p plus-jakarta-sans-bold hidden" style="color: var(--neutral-1); font-size: 1.2vw; color: white;">
                     {% for songwriter in total_royalti_songwriter %}
                     Total royalti = <span>Rp {{songwriter.total_royalti}}</span>
                     {% endfor %}
                 </p>
                 {% else %}
-                <p id="troyalti-label" class="plus-jakarta-sans-bold" style="color: var(--neutral-1); font-size: 18px; margin-top: 15px; color: white;">
+                <p id="troyalti-label" class="p plus-jakarta-sans-bold" style="color: var(--neutral-1); font-size: 1.2vw; color: white;">
                     {% for label in total_royalti_label %}
                     Total royalti = <span>Rp {{label.total_royalti}}</span>
                     {% endfor %}
@@ -105,15 +110,15 @@
                 {% endif %}
             </div>
             <!-- Tabel untuk Royalti -->
-            <table class="table-royalti" style="width: 95%; border-collapse: collapse;color: var(--neutral-1); padding: 10px;">
+            <table class="table-royalti" style="width: 100%; border-collapse: collapse;color: var(--neutral-1); padding: 10px; margin-top: 20px;">
                 <thead>
                     <tr style="border-bottom: 1px solid var(--neutral-2);">
-                        <th style="color: var(--neutral-1); padding: 10px;">#</th>
-                        <th style="color: var(--neutral-1); padding-left: 120px;">Judul Lagu</th>
-                        <th style="color: var(--neutral-1); padding-left: 120px;">Judul Album</th>
-                        <th style="color: var(--neutral-1); padding-left: 120px;">Total Play</th>
-                        <th style="color: var(--neutral-1); padding-left: 120px;">Total Download</th>
-                        <th style="color: var(--neutral-1); padding-left: 120px;">Total Royalti yang Didapat</th>
+                        <th class="table" style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; background-color: blue; width: 5%;">#</th>
+                        <th class="table" style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; background-color: purple; width: 25%;">Judul Lagu</th>
+                        <th class="table" style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; width: 25%;">Judul Album</th>
+                        <th class="table" style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; width: 13%;">Total Play</th>
+                        <th class="table" style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; width: 18%;">Total Download</th>
+                        <th class="table" style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; width: 14%; background-color: aquamarine;">Royalti</th>
                     </tr>
                 </thead>
                 {% if 'label' not in request.session.user_type %}
@@ -122,98 +127,101 @@
                     {% if royalti_artist %}
                     <!-- Gunakan loop untuk menampilkan royalti -->
                     {% for royalti in royalti_artist %}
-                    <tr class="plus-jakarta-sans-bold body-tr" style="border-bottom: 0px solid var(--neutral-2); font-size:14px; text-align:start;padding:10px; ">
-                        <td style="padding-top: 30px; padding-bottom: 30px;padding: 10px;color: var(--neutral-1);">
-                            {{royalti.no}}
-                        </td>
-                        <td style="padding-top: 30px; padding-bottom: 30px; padding-left: 120px;color: var(--neutral-1);">
-                            {{royalti.judul_song}}
-                        </td>
-                        <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">
-                            {{royalti.judul_album}}
-                        </td>
-                        <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">
-                            {{royalti.total_play}}
-                        </td>
-                        <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">
-                            {{royalti.total_download}}
-                        </td>
-                        <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">
-                            Rp {{royalti.jumlah_royalti}}
-                        </td>
+                    <tr class="table plus-jakarta-sans-bold body-tr" style="border-bottom: 0px solid var(--neutral-2); font-size: 1vw; text-align: start; padding: 1vh;">
+                        <td style="padding: 3vh 1vh; color: var(--neutral-1); ">
+                            {{royalti.no}}</td>
+                        <td
+                            style="padding: 3vh 1vh; color: var(--neutral-1); word-wrap: break-word; background-color: aqua; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                            {{royalti.judul_song}}</td>
+                        <td
+                            style="padding: 3vh 1vh; color: var(--neutral-1); word-wrap: break-word; background-color: blueviolet; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                            {{royalti.judul_album}}</td>
+                        <td
+                            style="padding: 3vh 1vh; color: var(--neutral-1); word-wrap: break-word; background-color: pink; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                            {{royalti.total_play}}</td>
+                        <td
+                            style="padding: 3vh 1vh; color: var(--neutral-1); word-wrap: break-word; background-color: pink; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                            {{royalti.total_download}}</td>
+                        <td
+                            style="padding: 3vh 1vh; color: var(--neutral-1); word-wrap: break-word; background-color: pink; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                            Rp {{royalti.jumlah_royalti}}</td>
                     </tr>
                     {% endfor %}
                     {% else %}
                     <!-- Jika tidak ada royalti, tampilkan pesan -->
-                    <tr>
+                    <tr class="table plus-jakarta-sans-bold" style="border-bottom: 0px solid var(--neutral-2); font-size: 1vw; text-align: start; padding: 1vh; ">
                         <td colspan="6" style="text-align: center;" class="plus-jakarta-sans-medium p-4">
                             Belum ada karya
                         </td>
                     </tr>
                     {% endif %}
                 </tbody>
+
                 <!-- Songwriter -->
                 <tbody id="tbody-songwriter" class="plus-jakarta-sans-bold hidden">
                     {% if royalti_songwriter %}
                     {% for royalti in royalti_songwriter %}
-                    <tr class="plus-jakarta-sans-bold body-tr"
-                        style="border-bottom: 0px solid var(--neutral-2); font-size:14px; text-align:start;padding:10px; ">
-                        <td style="padding-top: 30px; padding-bottom: 30px;padding: 10px;color: var(--neutral-1);">
-                            {{royalti.no}}
-                        </td>
-                        <td style="padding-top: 30px; padding-bottom: 30px; padding-left: 120px;color: var(--neutral-1);">
-                            {{royalti.judul_song}}
-                        </td>
-                        <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">
-                            {{royalti.judul_album}}
-                        </td>
-                        <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">
-                            {{royalti.total_play}}
-                        </td>
-                        <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">
-                            {{royalti.total_download}}
-                        </td>
-                        <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">
-                            Rp {{royalti.jumlah_royalti}}
-                        </td>
+                    <tr class="table plus-jakarta-sans-bold body-tr"
+                        style="border-bottom: 0px solid var(--neutral-2); font-size: 1vw; text-align: start; padding: 1vh;">
+                        <td style="padding: 3vh 1vh; color: var(--neutral-1); ">
+                            {{royalti.no}}</td>
+                        <td
+                            style="padding: 3vh 1vh; color: var(--neutral-1); word-wrap: break-word; background-color: aqua; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                            {{royalti.judul_song}}</td>
+                        <td
+                            style="padding: 3vh 1vh; color: var(--neutral-1); word-wrap: break-word; background-color: blueviolet; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                            {{royalti.judul_album}}</td>
+                        <td
+                            style="padding: 3vh 1vh; color: var(--neutral-1); word-wrap: break-word; background-color: pink; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                            {{royalti.total_play}}</td>
+                        <td
+                            style="padding: 3vh 1vh; color: var(--neutral-1); word-wrap: break-word; background-color: pink; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                            {{royalti.total_download}}</td>
+                        <td
+                            style="padding: 3vh 1vh; color: var(--neutral-1); word-wrap: break-word; background-color: pink; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                            Rp {{royalti.jumlah_royalti}}</td>
                     </tr>
                     {% endfor %}
                     {% else %}
-                    <tr>
+                    <!-- Jika tidak ada royalti, tampilkan pesan -->
+                    <tr class="table plus-jakarta-sans-bold"
+                        style="border-bottom: 0px solid var(--neutral-2); font-size: 1vw; text-align: start; padding: 1vh; ">
                         <td colspan="6" style="text-align: center;" class="plus-jakarta-sans-medium p-4">
                             Belum ada karya
                         </td>
                     </tr>
                     {% endif %}
                 </tbody>
+
                 {% else %}
                 <tbody id="tbody-label" class="plus-jakarta-sans-bold">
                     {% if royalti_label %}
                     {% for royalti in royalti_label %}
-                    <tr class="plus-jakarta-sans-bold body-tr"
-                        style="border-bottom: 0px solid var(--neutral-2); font-size:14px; text-align:start;padding:10px; ">
-                        <td style="padding-top: 30px; padding-bottom: 30px;padding: 10px;color: var(--neutral-1);">
-                            {{royalti.no}}
-                        </td>
-                        <td style="padding-top: 30px; padding-bottom: 30px; padding-left: 120px;color: var(--neutral-1);">
-                            {{royalti.judul_song}}
-                        </td>
-                        <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">
-                            {{royalti.judul_album}}
-                        </td>
-                        <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">
-                            {{royalti.total_play}}
-                        </td>
-                        <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">
-                            {{royalti.total_download}}
-                        </td>
-                        <td style="padding-top: 30px; padding-bottom: 30px;padding-left: 120px;color: var(--neutral-1);">
-                            Rp {{royalti.jumlah_royalti}}
-                        </td>
+                    <tr class="table plus-jakarta-sans-bold body-tr"
+                        style="border-bottom: 0px solid var(--neutral-2); font-size: 1vw; text-align: start; padding: 1vh;">
+                        <td style="padding: 3vh 1vh; color: var(--neutral-1); ">
+                            {{royalti.no}}</td>
+                        <td
+                            style="padding: 3vh 1vh; color: var(--neutral-1); word-wrap: break-word; background-color: aqua; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                            {{royalti.judul_song}}</td>
+                        <td
+                            style="padding: 3vh 1vh; color: var(--neutral-1); word-wrap: break-word; background-color: blueviolet; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                            {{royalti.judul_album}}</td>
+                        <td
+                            style="padding: 3vh 1vh; color: var(--neutral-1); word-wrap: break-word; background-color: pink; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                            {{royalti.total_play}}</td>
+                        <td
+                            style="padding: 3vh 1vh; color: var(--neutral-1); word-wrap: break-word; background-color: pink; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                            {{royalti.total_download}}</td>
+                        <td
+                            style="padding: 3vh 1vh; color: var(--neutral-1); word-wrap: break-word; background-color: pink; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                            Rp {{royalti.jumlah_royalti}}</td>
                     </tr>
                     {% endfor %}
                     {% else %}
-                    <tr>
+                    <!-- Jika tidak ada royalti, tampilkan pesan -->
+                    <tr class="table plus-jakarta-sans-bold"
+                        style="border-bottom: 0px solid var(--neutral-2); font-size: 1vw; text-align: start; padding: 1vh; ">
                         <td colspan="6" style="text-align: center;" class="plus-jakarta-sans-medium p-4">
                             Belum ada karya
                         </td>
