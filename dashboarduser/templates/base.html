@@ -66,7 +66,7 @@
                     nonSelectedText: 'Select Genres',
                     enableFiltering: true,
                     buttonWidth: '100%',
-                    maxHeight: 100,
+                    maxHeight: 200,
                     buttonClass: 'multiselect dropdown-toggle btn btn-info',
                     dropRight: true,
                     filterPlaceholder: 'Search...',
@@ -214,14 +214,24 @@
         document.addEventListener('DOMContentLoaded', function () {
             const menuToggle = document.querySelector('.menu-toggle input');
             const navbarSection = document.querySelector('.navbar-section');
+            const searchSection = document.querySelector('.search');
+            const menuCheckbox = document.getElementById('menuCheckbox');
 
             if (menuToggle && navbarSection) {
                 menuToggle.addEventListener('click', function () {
                     navbarSection.classList.toggle('slide');
                 });
-            } else {
+            } 
+            else {
                 console.log('Menu toggle or navbar section not found');
             }
+
+            document.addEventListener('click', function(e) {
+                if(!menuToggle.contains(e.target) && !navbarSection.contains(e.target) && !searchSection.contains(e.target)){
+                    navbarSection.classList.remove('slide');
+                    menuCheckbox.checked = false;
+                }
+            })
         });
     </script>
     
@@ -336,7 +346,6 @@
             /* Ubah warna thumb saat hover sesuai keinginan */
         }
     
-    
         input,
         select, textarea {
             color: var(--neutral-0) !important;
@@ -391,27 +400,19 @@
             cursor: default; /* Set the cursor to default */
         }
 
-        .multiselect.dropdown-toggle.btn.btn-info {
-            height: 4vh !important;
-            line-height: 4vh !important; /* Menyelaraskan teks secara vertikal */
-            text-align: center; /* Menyelaraskan teks secara horizontal */
-            display: flex; /* Menggunakan Flexbox untuk penyelarasan */
-            align-items: center; /* Vertikal tengah */
-            justify-content: center; /* Horizontal tengah */
-            font-size: 1vh;
-        }
-
-        .multiselect-container li a label {
-            background-color: brown !important;
-            display: flex;
-            justify-content: start;
-            margin-left: 0vh;
-            font-size: 1vw !important;
-        }
-
         /* Mengatur ukuran item dropdown */
         .multiselect-container {
             width: 100%; /* Membiarkan ukuran lebar otomatis */
+            background-color: brown !important;
+        }
+
+        .multiselect-container li a label {
+            font-size: 1vw !important;
+        }
+
+        .multiselect-container li a label input {
+            width: 2.8vw !important;
+            height: 2.8vh !important;
         }
 
         .menu-toggle{
@@ -589,6 +590,21 @@
             .addepisode a h7{
                 font-size: 2.5vw !important;
             }
+            .multiselect-container li a label {
+                font-size: 2.6vw !important;
+            }
+            .multiselect-container li a label input {
+                width: 3vw !important;
+                height: 3vh !important;
+            }
+            button.multiselect.dropdown-toggle.btn.btn-info{
+                display: flex;
+                align-items: center;
+            }
+            .multiselect-selected-text{
+                margin: auto;
+                font-size: 2.6vw !important
+            }
         }
 
         /* iphone se (375)
@@ -679,6 +695,21 @@
             .addepisode a h7{
                 font-size: 3vw !important;
             }
+            .multiselect-container li a label {
+                font-size: 3.5vw !important;
+            }
+            .multiselect-container li a label input{
+                width: 4.5vw !important;
+                height: 4.5vh !important;
+            }
+            button.multiselect.dropdown-toggle.btn.btn-info{
+                display: flex;
+                align-items: center;
+            }
+            .multiselect-selected-text{
+                margin: auto;
+                font-size: 3.1vw !important
+            }
         }
 
         /* tablets */
@@ -748,7 +779,13 @@
             .verified, .button{
                 font-size: 0.9vw !important;
             }
-            .p, ::placeholder, input{
+            .headermodal{
+                font-size: 1.7vw !important;
+            }
+            .detailmodal{
+                font-size: 1.4vw !important;
+            }
+            .p, ::placeholder, input, .multiselect-container li a label, select{
                 font-size: 1.4vw !important;
             }
             .table{
@@ -765,6 +802,21 @@
             }
             .logout{
                 width: 4vw;
+            }
+            .multiselect-container li a label {
+            font-size: 1.7vw !important;
+            }
+            .multiselect-container li a label input {
+                width: 2.4vw !important;
+                height: 2.4vh !important;
+            }
+            button.multiselect.dropdown-toggle.btn.btn-info{
+                display: flex;
+                align-items: center;
+            }
+            .multiselect-selected-text{
+                margin: auto;
+                font-size: 1.4vw !important
             }
 
         }
@@ -794,7 +846,7 @@
             .p{
                 font-size: 1.9vw !important;
             }
-            .table, ::placeholder, input{
+            .table, ::placeholder, input, select{
                 font-size: 1.4vw !important
             }
             .footer{
@@ -802,6 +854,21 @@
             }
             .logout{
                 width: 5vw;
+            }
+            .multiselect-container li a label {
+            font-size: 1.9vw !important;
+            }
+            .multiselect-container li a label input {
+                width: 2.4vw !important;
+                height: 2.4vh !important;
+            }
+            button.multiselect.dropdown-toggle.btn.btn-info{
+                display: flex;
+                align-items: center;
+            }
+            .multiselect-selected-text{
+                margin: auto;
+                font-size: 1.4vw !important
             }
         }
 
@@ -830,7 +897,7 @@
             .p, .headermodal{
                 font-size: 2.4vw !important;
             }
-            .table, ::placeholder, input, .detailmodal{
+            .table, ::placeholder, input, .detailmodal, select{
                 font-size: 1.9vw !important
             }
             .footer{
@@ -841,6 +908,21 @@
             }
             .logout{
                 width: 6vw;
+            }
+            .multiselect-container li a label {
+            font-size: 2.1vw !important;
+            }
+            .multiselect-container li a label input {
+                width: 2.7vw !important;
+                height: 2.7vh !important;
+            }
+            button.multiselect.dropdown-toggle.btn.btn-info{
+                display: flex;
+                align-items: center;
+            }
+            .multiselect-selected-text{
+                margin: auto;
+                font-size: 1.9vw !important
             }
         }
 
@@ -1253,7 +1335,7 @@
                 <div class="wrapup d-flex justify-content-start align-items-center tertiary-content-1" style="width: 100%; margin-top: 12px; height: 7vh; background-color: cadetblue;">
                     <!-- Burger -->
                     <div class="menu-toggle" style="display: none; background-color: aqua; margin-right: 4vw; margin-left: 3vw;">
-                        <input type="checkbox">
+                        <input type="checkbox" id="menuCheckbox">
                         <span></span>
                         <span></span>
                         <span></span>
@@ -1371,10 +1453,13 @@
                                 <div class="form-group">
                                     <label class="detailmodal" for="labelDropdown"
                                         style="color: var(--neutral-0); font-size: 1vw;">Label:</label>
-                                    <select class="form-control" id="labelDropdown" name="label"
-                                        style="margin-top: 5px; font-size: 1vw;" required>
+                                    <select class="form-select plus-jakarta-sans-semibold"
+                                        style="font-size: 12px; margin-top: 5px; font-size: 1vw;" name="label" required>
+                                        <option value="{{label.id}}" selected disabled hidden class="detailmodal plus-jakarta-sans-semibold" style="background-color: var(--neutral-3); font-size: 1vw;">Label</option>
                                         {% for label in labels %}
-                                        <option value="{{label.id}}" style="font-size: 1vw;">{{label.nama}}</option>
+                                        <option value="{{label.id}}" class="detailmodal plus-jakarta-sans-semibold" style="background-color: var(--neutral-3); font-size: 1vw;">
+                                            {{label.nama}}
+                                        </option>
                                         {% endfor %}
                                     </select>
                                 </div>
@@ -1404,10 +1489,13 @@
                                 <div class="form-group">
                                     <label class="detailmodal" for="labelDropdown"
                                         style="color: var(--neutral-0); font-size: 1vw;">Artist:</label>
-                                    <select class="form-control" id="artistDropdown" name="artist"
-                                        style="margin-top: 5px; font-size: 1vw;" required>
+                                    <select class="form-select plus-jakarta-sans-semibold" style="font-size: 12px; margin-top: 5px; font-size: 1vw;" name="artist" required>
+                                        <option value="{{label.id}}" selected disabled hidden class="detailmodal plus-jakarta-sans-semibold" style="background-color: var(--neutral-3); font-size: 1vw;">Artist</option>
                                         {% for artist in artists %}
-                                        <option value="{{artist.id}}">{{artist.nama}}</option>
+                                        <option value="{{artist.id}}" class="detailmodal plus-jakarta-sans-semibold"
+                                            style="background-color: var(--neutral-3); font-size: 1vw;">
+                                            {{artist.nama}}
+                                        </option>
                                         {% endfor %}
                                     </select>
                                 </div>
@@ -1427,7 +1515,7 @@
                                     <select data-mdb-select-init multiple data-mdb-clear-button="true" id="songwriterSelect"
                                         name="songwriter" style="font-size: 1vw;" required>
                                         {% for songwriter in songwriters %}
-                                        <option value="{{songwriter.id}}">{{songwriter.nama}}
+                                        <option value="{{songwriter.id}}" class="detailmodal">{{songwriter.nama}}
                                         </option>
                                         {% endfor %}
                                     </select>
@@ -1447,8 +1535,7 @@
                                 </div>
                             </div>
                             <div class="form-group" style="margin-top: 2vh;">
-                                <label class="detailmodal" for="durasiLagu" style="color: var(--neutral-0); font-size: 1vw;">Durasi
-                                    Lagu:</label>
+                                <label class="detailmodal" for="durasiLagu" style="color: var(--neutral-0); font-size: 1vw;">Durasi Lagu:</label>
                                 <div style="display: flex; margin-top: -1vh;">
                                     <div>
                                         <label class="detailmodal" for="" style="font-size: 0.9vw;">Menit</label>
