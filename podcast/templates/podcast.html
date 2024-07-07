@@ -17,8 +17,8 @@
             <table class="table-podcast" style="width: 95%; border-collapse: collapse;color: var(--neutral-1); padding: 10px; margin-top: 20px;">
                 <thead>
                     <tr style="border-bottom: 1px solid var(--neutral-2);">
-                        <th class="table" style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; background-color: blue; width: 5%;">#</th>
-                        <th class="table" style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; background-color: purple; width: 30%;">Judul Podcast</th>
+                        <th class="table" style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; width: 5%;">#</th>
+                        <th class="table" style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; width: 30%;">Judul Podcast</th>
                         <th class="table" style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; width: 30%;">Podcaster</th>
                         <th class="table" style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; width: 25%;">Durasi</th>
                         <th class="table" style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; width: 5%;">Actions</th>
@@ -30,19 +30,19 @@
                     <tr class="table plus-jakarta-sans-bold body-tr" style="border-bottom: 0px solid var(--neutral-2); font-size: 1vw; text-align: start; padding: 1vh; ">
                         <td style="padding: 3vh 1vh; color: var(--neutral-1); ">
                             {{ index|add:1 }}</td>
-                        <td style="padding: 3vh 1vh; color: var(--neutral-1); word-wrap: break-word; background-color: aqua; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                        <td style="padding: 3vh 1vh; color: var(--neutral-1); word-wrap: break-word; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
                             {{ podcast_data.1 }}</td>
-                        <td style="padding: 3vh 1vh; color: var(--neutral-1); word-wrap: break-word; background-color: blueviolet; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                        <td style="padding: 3vh 1vh; color: var(--neutral-1); word-wrap: break-word; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
                             {{ podcast_data.2 }}</td>
-                        <td style="padding: 3vh 1vh; color: var(--neutral-1); word-wrap: break-word; background-color: pink; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                        <td style="padding: 3vh 1vh; color: var(--neutral-1); word-wrap: break-word; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
                             {{ podcast_data.3 }}</td>
                         <td class="action" style="padding: 3vh 1vh; color: var(--neutral-1);">
                             <div class="dropdown d-flex">
-                                <button class="btn btn-secondary dropdown-toggle-iconless" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: transparent; border: none;">
+                                <button class="threedots btn btn-secondary dropdown-toggle-iconless" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: transparent; border: none; margin-top: -2vh;">
                                     <img src="{% static 'img/threedots.svg' %}" alt="kelola" width="25vw" height="25vh">
                                 </button>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="background-color: var(--neutral-3); border-radius: 16px;">
-                                    <a class="p dropdown-item plus-jakarta-sans-bold m-auto" style="color: var(--neutral-1); font-size: 0.8vw; font-weight: 600; background-color: blue;" href="{% url 'podcast:detail_podcast' podcast_data.0%}">Lihat
+                                    <a class="p dropdown-item plus-jakarta-sans-bold m-auto" style="color: var(--neutral-1); font-size: 0.8vw; font-weight: 600;" href="{% url 'podcast:detail_podcast' podcast_data.0%}">Lihat
                                         daftar episode</a>
                                 </div>
                             </div>

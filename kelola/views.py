@@ -274,7 +274,6 @@ def update_episode(request, id_konten, id_episode):
         # Render form untuk update episode
         return render(request, 'episodes.html')
 
-@never_cache
 def podcast(request, id_konten):
     #Mengambil url dari page yang sedang ditampilkan
     url_now = request.build_absolute_uri()
@@ -439,7 +438,6 @@ def podcast(request, id_konten):
     except OperationalError:
         return HttpResponseNotFound("Database connection error")
 
-@never_cache
 def album(request, id_album):
     #Mengambil url dari page yang sedang ditampilkan
     url_now = request.build_absolute_uri()
@@ -746,7 +744,6 @@ def delete_album(request, id_album):
             return HttpResponseNotFound("Database connection error")
     return HttpResponseNotFound("Invalid request method")
 
-@never_cache
 def playlist(request, id_playlist):
     #Mengambil url dari page yang sedang ditampilkan
     url_now = request.build_absolute_uri()

@@ -24,7 +24,7 @@
     <!-- Daftar podcast -->
     <div class="row">
         <div class="col-12" style="margin-left: 4vw">
-            <div style="height: 4vh; margin-top: 1vh; background-color: aqua;">
+            <div style="height: 4vh; margin-top: 1vh;">
                 <button class="btn btn-secondary dropdown-toggle-iconless" type="button" id="dropdownMenuButton" data-toggle=""
                     aria-haspopup="true" aria-expanded="false" style="background-color: transparent; border: none;" onclick="goBack()">
                     <div class="d-flex" style="">
@@ -72,8 +72,8 @@
             <table class="table-podcast" style="width: 100%; border-collapse: collapse;color: var(--neutral-1); padding: 10px; margin-top: 20px;">
                 <thead>
                     <tr style="border-bottom: 1px solid var(--neutral-2);">
-                        <th class="table" style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; background-color: blue; width: 4%;">#</th>
-                        <th class="table" style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; background-color: purple; width: 30%;">Judul Episode</th>
+                        <th class="table" style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; width: 4%;">#</th>
+                        <th class="table" style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; width: 30%;">Judul Episode</th>
                         <th class="table" style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; width: 30%;">Deskripsi</th>
                         <th class="table" style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; width: 18%;">Durasi</th>
                         <th class="table" style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; width: 18%;">Tanggal</th>
@@ -87,16 +87,16 @@
                         <td style="padding: 3vh 1vh; color: var(--neutral-1); ">
                             {{ forloop.counter }}</td>
                         <td
-                            style="padding: 3vh 1vh; color: var(--neutral-1); word-wrap: break-word; background-color: aqua; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                            style="padding: 3vh 1vh; color: var(--neutral-1); word-wrap: break-word; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
                             {{ episode.judul }}</td>
                         <td
-                            style="padding: 3vh 1vh; color: var(--neutral-1); word-wrap: break-word; background-color: blueviolet; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                            style="padding: 3vh 1vh; color: var(--neutral-1); word-wrap: break-word; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
                             {{ episode.deskripsi }}</td>
                         <td
-                            style="padding: 3vh 1vh; color: var(--neutral-1); word-wrap: break-word; background-color: pink; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                            style="padding: 3vh 1vh; color: var(--neutral-1); word-wrap: break-word; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
                             {{ episode.durasi }}</td>
                         <td
-                            style="padding: 3vh 1vh; color: var(--neutral-1); word-wrap: break-word; background-color: pink; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                            style="padding: 3vh 1vh; color: var(--neutral-1); word-wrap: break-word; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
                             {{ episode.tanggal_rilis|date:"d/m/Y" }}
                         </td>
                     </tr>

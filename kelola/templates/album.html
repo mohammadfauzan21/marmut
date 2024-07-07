@@ -4,6 +4,7 @@
 {% block content %}
 <script>
     function goBack() {
+        menuCheckbox.checked = false;
         window.history.back();
     }
 </script>
@@ -13,7 +14,7 @@
     <!-- Detail album -->
     <div class="row">
         <div class="col-12" style="margin-left: 4vw">
-            <div style="height: 4vh; margin-top: 1vh; background-color: aqua;">
+            <div style="height: 4vh; margin-top: 1vh;">
                 <button class="btn btn-secondary dropdown-toggle-iconless" type="button" id="dropdownMenuButton" data-toggle=""
                     aria-haspopup="true" aria-expanded="false" style="background-color: transparent; border: none;"
                     onclick="goBack()">
@@ -31,8 +32,7 @@
                 <div style="">
                     <p class="p plus-jakarta-sans-bold" style="color: var(--neutral-1); font-size: 13px; margin-top:30px">
                         {{label}} | {{durasi}} | {{jumlah_lagu}} lagu </p>
-                    <h1 class="profilsaya plus-jakarta-sans-extrabold align-item-center"
-                        style="color: var(--neutral-0); font-size: 40px; margin-top: 10px;">
+                    <h1 class="profilsaya plus-jakarta-sans-extrabold" style="color: var(--neutral-0); font-size: 3vw; width: 50vw; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
                         {{judul_album}}
                     </h1>
                 </div>
@@ -43,9 +43,9 @@
                 <thead>
                     <tr style="border-bottom: 1px solid var(--neutral-2);">
                         <th class="table"
-                            style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; background-color: blue; width: 5%;">#</th>
+                            style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; width: 5%;">#</th>
                         <th class="table"
-                            style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; background-color: purple; width: 30%;">Judul
+                            style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; width: 30%;">Judul
                             Lagu</th>
                         <th class="table" style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; width: 20%;">Durasi</th>
                         <th class="table" style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; width: 20%;">Total Plays</th>
@@ -61,22 +61,22 @@
                         <td style="padding: 3vh 1vh; color: var(--neutral-1); ">
                             {{ detail.no }}</td>
                         <td
-                            style="padding: 3vh 1vh; color: var(--neutral-1); word-wrap: break-word; background-color: aqua; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                            style="padding: 3vh 1vh; color: var(--neutral-1); word-wrap: break-word; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
                             {{ detail.judul }}</td>
                         <td
-                            style="padding: 3vh 1vh; color: var(--neutral-1); word-wrap: break-word; background-color: blueviolet; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                            style="padding: 3vh 1vh; color: var(--neutral-1); word-wrap: break-word; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
                             {{ detail.durasi }}</td>
                         <td
-                            style="padding: 3vh 1vh; color: var(--neutral-1); word-wrap: break-word; background-color: pink; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                            style="padding: 3vh 1vh; color: var(--neutral-1); word-wrap: break-word; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
                             {{ detail.total_play }}</td>
                         <td
-                            style="padding: 3vh 1vh; color: var(--neutral-1); word-wrap: break-word; background-color: pink; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                            style="padding: 3vh 1vh; color: var(--neutral-1); word-wrap: break-word; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
                             {{ detail.total_download }}</td>
                         <td class="action" style="padding: 3vh 1vh; color: var(--neutral-1);">
                             <div class="dropdown d-flex justify-content-center align-items-center">
-                                <button class="btn btn-secondary dropdown-toggle-iconless" type="button" id="dropdownMenuButton"
+                                <button class="threedots btn btn-secondary dropdown-toggle-iconless" type="button" id="dropdownMenuButton"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-                                    style="background-color: transparent; border: none;">
+                                    style="background-color: transparent; border: none; margin-top: -2vh;">
                                     <img src="{% static 'img/threedots.svg' %}" alt="kelola" width="25vw" height="25vh">
                                 </button>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton"

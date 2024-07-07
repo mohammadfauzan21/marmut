@@ -16,8 +16,8 @@
             <table class="table-playlist" style="width: 100%; border-collapse: collapse;color: var(--neutral-1); padding: 10px; margin-top: 20px;">
                 <thead>
                     <tr style="border-bottom: 1px solid var(--neutral-2);">
-                        <th class="table" style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; background-color: blue; width: 5%;">#</th>
-                        <th class="table" style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; background-color: purple; width: 30%;">Judul Playlist</th>
+                        <th class="table" style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; width: 5%;">#</th>
+                        <th class="table" style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; width: 30%;">Judul Playlist</th>
                         <th class="table" style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; width: 30%;">Pembuat</th>
                         <th class="table" style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; width: 25%;">Durasi</th>
                         <th class="table" style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; width: 10%;">Actions</th>
@@ -31,22 +31,22 @@
                         <td style="padding: 3vh 1vh; color: var(--neutral-1); ">
                             {{ playlist.no }}</td>
                         <td
-                            style="padding: 3vh 1vh; color: var(--neutral-1); word-wrap: break-word; background-color: aqua; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                            style="padding: 3vh 1vh; color: var(--neutral-1); word-wrap: break-word; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
                             {{ playlist.judulPlaylist }}</td>
                         <td
-                            style="padding: 3vh 1vh; color: var(--neutral-1); word-wrap: break-word; background-color: blueviolet; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                            style="padding: 3vh 1vh; color: var(--neutral-1); word-wrap: break-word; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
                             {{ playlist.pembuat }}</td>
                         <td
-                            style="padding: 3vh 1vh; color: var(--neutral-1); word-wrap: break-word; background-color: pink; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                            style="padding: 3vh 1vh; color: var(--neutral-1); word-wrap: break-word; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
                             {{ playlist.durasi }}</td>
                         <td class="action" style="padding: 3vh 1vh; color: var(--neutral-1);">
                             <div class="dropdown d-flex justify-content-center align-items-center">
-                                <a href="#" data-toggle="modal" data-target="#modalInform" style="text-decoration: none;">
+                                <a class="playcirclefill" href="#" data-toggle="modal" data-target="#modalInform" style="text-decoration: none; background-color: transparent; margin-top: -1vh;">
                                     <img src="{% static 'img/PlayCircleFill.svg' %}" alt="kelola" width="25vw" height="25vh">
                                 </a>
-                                <button class="btn btn-secondary dropdown-toggle-iconless" type="button" id="dropdownMenuButton"
+                                <button class="threedots btn btn-secondary dropdown-toggle-iconless" type="button" id="dropdownMenuButton"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-                                    style="background-color: transparent; border: none;">
+                                    style="background-color: transparent; border: none; margin-top: -2vh;">
                                     <img src="{% static 'img/threedots.svg' %}" alt="kelola" width="25vw" height="25vh">
                                 </button>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton"

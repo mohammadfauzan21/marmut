@@ -4,6 +4,7 @@
 {% block content %}
 <script>
     function goBack() {
+        menuCheckbox.checked = false;
         window.history.back();
     }
 </script>
@@ -14,7 +15,7 @@
     <!-- Detail Playlist -->
     <div class="row">
         <div class="col-12" style="margin-left: 4vw">
-            <div style="height: 4vh; margin-top: 1vh; background-color: aqua;">
+            <div style="height: 4vh; margin-top: 1vh;">
                 <button class="btn btn-secondary dropdown-toggle-iconless" type="button" id="dropdownMenuButton" data-toggle=""
                     aria-haspopup="true" aria-expanded="false" style="background-color: transparent; border: none;"
                     onclick="goBack()">
@@ -33,35 +34,34 @@
                     <p class="p plus-jakarta-sans-bold" style="color: var(--neutral-1); font-size: 13px; margin-top:30px">
                         {{pembuat}} | {{jumlah_lagu}} lagu |
                         {{durasi}} | {{tanggal_buat}}</p>
-                    <h1 class="profilsaya plus-jakarta-sans-extrabold align-item-center"
-                        style="color: var(--neutral-0); font-size: 40px; margin-top: 10px;">
+                    <h1 class="profilsaya plus-jakarta-sans-extrabold" style="color: var(--neutral-0); font-size: 3vw; width: 50vw; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
                         {{judul_playlist}}
                     </h1>
                     <h6 class="p plus-jakarta-sans-extrabold align-item-center"
-                        style="color: var(--neutral-1); margin-top: 10px;">
+                        style="color: var(--neutral-1); margin-top: 10px; width: 50vw; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
                         {{deskripsi_playlist}}
                     </h6>
                 </div>
-                <div class="my-2 d-flex justify-content-center" style="margin-top: 4vh; background-color: blue; width: 55%;">
-                    <div style="background-color: aqua; margin-right: 1vw;">
+                <div class="my-2 d-flex justify-content-center" style="margin-top: 4vh; width: 55%;">
+                    <div style="margin-right: 1vw;">
                         <a href="" class="" style="text-decoration: none;" data-target="#modalInform" data-toggle="modal">
                             <div style="margin: auto; width: max-content;">
                                 <img src="{% static 'img/PlayCircleFill.svg' %}" alt="kelola"
                                     style="margin: auto; width: 9vw; height: 9vh;">
                             </div>
                             <p class="p plus-jakarta-sans-extrabold"
-                                style="color: var(--neutral-1); font-size: 1vw; margin-top: 1vh !important; background-color: aquamarine; margin: auto; width: max-content;">
+                                style="color: var(--neutral-1); font-size: 1vw; margin-top: 1vh !important; margin: auto; width: max-content;">
                                 Putar Acak
                             </p>
                         </a>
                     </div>
-                    <div style="background-color: brown; margin-right: 1vw;">
+                    <div style="margin-right: 1vw;">
                         <a href="" class="" style="text-decoration: none;" data-target="#tambahLaguModal" data-toggle="modal">
                             <div style="margin: auto; width: max-content;">
                                 <img src="{% static 'img/PlusCircleAdd.svg' %}" alt="kelola" style="margin: auto; width: 9vw; height: 9vh;">
                             </div>
                             <p class="p plus-jakarta-sans-extrabold"
-                                style="color: var(--neutral-1); font-size: 1vw; margin-top: 1vh !important; background-color: aquamarine; margin: auto; width: max-content;">
+                                style="color: var(--neutral-1); font-size: 1vw; margin-top: 1vh !important; margin: auto; width: max-content;">
                                 Tambah Lagu
                             </p>
                         </a>
@@ -71,10 +71,10 @@
                         action="{% url 'kelola:add_song_to_playlist' id_playlist %}">
                         {% csrf_token %}
                         <div class="modal fade" id="tambahLaguModal" tabindex="-1" role="dialog"
-                            aria-labelledby="exampleModalLabel" aria-hidden="true" style="background-color: blue;">
+                            aria-labelledby="exampleModalLabel" aria-hidden="true" style="">
                             <div class="modalpremium modal-dialog" role="document"
-                                style="background-color: aquamarine; width: 40vw; margin: auto;">
-                                <div class="modal-content" style="background-color: var(--neutral-4); border-radius: 40px !important; padding: 0vh; background-color: blueviolet; width: 100%;">
+                                style="width: 40vw; margin: auto;">
+                                <div class="modal-content" style="background-color: var(--neutral-4); border-radius: 40px !important; padding: 0vh; width: 100%;">
                                     <div class="modal-header" style="border-bottom: none;">
                                         <h5 class="headermodal modal-title plus-jakarta-sans-extrabold" id="exampleModalLabel"
                                             style="color: var(--neutral-0); margin: auto;">
@@ -121,9 +121,9 @@
                 <thead>
                     <tr style="border-bottom: 1px solid var(--neutral-2);">
                         <th class="table"
-                            style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; background-color: blue; width: 5%;">#</th>
+                            style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; width: 5%;">#</th>
                         <th class="table"
-                            style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; background-color: purple; width: 30%;">Judul Lagu</th>
+                            style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; width: 30%;">Judul Lagu</th>
                         <th class="table" style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; width: 30%;">Nama Artist</th>
                         <th class="table" style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; width: 25%;">Durasi</th>
                         <th class="table" style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; width: 10%;">Actions</th>
@@ -138,20 +138,20 @@
                         <td style="padding: 3vh 1vh; color: var(--neutral-1); ">
                             {{ detail.no }}</td>
                         <td
-                            style="padding: 3vh 1vh; color: var(--neutral-1); word-wrap: break-word; background-color: aqua; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                            style="padding: 3vh 1vh; color: var(--neutral-1); word-wrap: break-word; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
                             {{ detail.judulLagu }}</td>
                         <td
-                            style="padding: 3vh 1vh; color: var(--neutral-1); word-wrap: break-word; background-color: blueviolet; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                            style="padding: 3vh 1vh; color: var(--neutral-1); word-wrap: break-word; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
                             {{ detail.artist }}</td>
                         <td
-                            style="padding: 3vh 1vh; color: var(--neutral-1); word-wrap: break-word; background-color: pink; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                            style="padding: 3vh 1vh; color: var(--neutral-1); word-wrap: break-word; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
                             {{ detail.durasi }}</td>
                         <td class="action" style="padding: 3vh 1vh; color: var(--neutral-1);">
-                            <div>
-                                <a href="#" data-toggle="modal" data-target="#modalInform" style="text-decoration: none;">
+                            <div style="margin-top: -2vh;">
+                                <a class="playcirclefill" href="#" data-toggle="modal" data-target="#modalInform" style="text-decoration: none; background-color: transparent;">
                                     <img src="{% static 'img/PlayCircleFill.svg' %}" alt="kelola" width="25vw" height="25vh">
                                 </a>
-                                <button class="btn btn-secondary dropdown-toggle-iconless" type="button" id="dropdownMenuButton"
+                                <button class="threedots btn btn-secondary dropdown-toggle-iconless" type="button" id="dropdownMenuButton"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
                                     style="background-color: transparent; border: none;">
                                     <img src="{% static 'img/threedots.svg' %}" alt="kelola" width="25vw" height="25vh">
@@ -168,8 +168,8 @@
                                 <!-- Modal Hapus -->
                                 <div class="modal fade" id="modalHapusSong{{detail.id_konten}}" tabindex="-1" role="dialog"
                                     aria-labelledby="exampleModalLabel" aria-hidden="true" style="background-color: transparent;">
-                                    <div class="modalpremium modal-dialog" role="document" style="background-color: aquamarine; width: 40vw; margin: auto;">
-                                        <div class="modal-content" style="background-color: var(--neutral-4); border-radius: 40px !important; padding: 0vh; background-color: blueviolet; width: 100%;">
+                                    <div class="modalpremium modal-dialog" role="document" style="width: 40vw; margin: auto;">
+                                        <div class="modal-content" style="background-color: var(--neutral-4); border-radius: 40px !important; padding: 0vh; width: 100%;">
                                             <div class="modal-header" style="border-bottom: none;">
                                                 <h5 class="headermodal modal-title plus-jakarta-sans-extrabold" id="exampleModalLabel"
                                                     style="color: var(--neutral-0); margin: auto; font-size: 1.3vw;">

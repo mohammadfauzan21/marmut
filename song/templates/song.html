@@ -4,6 +4,7 @@
 {% block content %}
 <script>
     function goBack() {
+        menuCheckbox.checked = false;
         window.history.back();
     }
 </script>
@@ -27,7 +28,7 @@
 <!-- Bagian konten detail songnya -->
 <div class="konten" style="background: linear-gradient(180deg, #292724, #1B1817); border-radius: 24px; height: 81vh; padding-bottom: 2vh; padding-top: 2vh; white-space: nowrap; overflow-y: auto; text-overflow: ellipsis; margin-top: 2vh; width: 97%;">
     <div class="col-12" style="margin-left: 4vw; margin-top: 2vh;">
-        <div style="height: 4vh; margin-top: 1vh; background-color: aqua;">
+        <div style="height: 4vh; margin-top: 1vh;">
             <button class="btn btn-secondary dropdown-toggle-iconless" type="button" id="dropdownMenuButton" data-toggle=""
                 aria-haspopup="true" aria-expanded="false" style="background-color: transparent; border: none;"
                 onclick="goBack()">
@@ -41,41 +42,41 @@
                 </div>
             </button>
         </div>
-        <div class="d-flex justify-content-between align-items-center" style="width: 90%;">
+        <div class="d-flex justify-content-between align-items-center" style="">
             <div style="">
-                <h1 class="profilsaya plus-jakarta-sans-extrabold align-item-center" style="margin-left: 1vw; color: var(--neutral-0); margin-top: 10px; font-size: 3vw;">
+                <h1 class="profilsaya plus-jakarta-sans-extrabold align-item-center" style="margin-left: 1vw; color: var(--neutral-0); margin-top: 10px; font-size: 3vw; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; width: 42vw;">
                     {{judul_lagu}}
                 </h1>
             </div>
-            <div class="my-2 d-flex justify-content-center" style="margin-top: 4vh; background-color: blue; width: 55%;">
-                <div style="background-color: aqua; margin-right: 1vw;">
+            <div class="my-2 d-flex justify-content-center" style="margin-top: 4vh; width: 55%;">
+                <div style="margin-right: 1vw;">
                     <a href="" class="" style="text-decoration: none;" data-target="#modalInform" data-toggle="modal">
                         <div style="margin: auto; width: max-content;">
                             <img src="{% static 'img/PlayCircleFill.svg' %}" alt="kelola" style="margin: auto; width: 9vw; height: 9vh;">
                         </div>
                         <p class="p plus-jakarta-sans-extrabold"
-                            style="color: var(--neutral-1); font-size: 1vw; margin-top: 1vh !important; background-color: aquamarine; margin: auto; width: max-content;">
+                            style="color: var(--neutral-1); font-size: 1vw; margin-top: 1vh !important; margin: auto; width: max-content;">
                             Putar
                         </p>
                     </a>
                 </div>
-                <div style="background-color: brown; margin-right: 1vw;">
+                <div style="margin-right: 1vw;">
                     <a href="" class="" style="text-decoration: none;" data-target="#modalAddSong" data-toggle="modal">
                         <div style="margin: auto; width: max-content;">
                             <img src="{% static 'img/PlusCircleAdd.svg' %}" alt="kelola" style="margin: auto; width: 9vw; height: 9vh;">
                         </div>
                         <p class="p plus-jakarta-sans-extrabold"
-                            style="color: var(--neutral-1); font-size: 1vw; margin-top: 1vh !important; background-color: aquamarine; margin: auto; width: max-content;">
+                            style="color: var(--neutral-1); font-size: 1vw; margin-top: 1vh !important; margin: auto; width: max-content;">
                             Tambah ke Playlist
                         </p>
                     </a>
                 </div>
-                <div style="background-color: azure;">
+                <div style="">
                     <a href="" class="" style="text-decoration: none;" data-target="#modalInform" data-toggle="modal">
                         <div style="margin: auto; width: max-content;">
                             <img src="{% static 'img/PlusCircleAdd.svg' %}" alt="kelola" style="margin: auto; width: 9vw; height: 9vh;">
                         </div>
-                        <p class="p plus-jakarta-sans-extrabold" style="color: var(--neutral-1); font-size: 1vw; margin-top: 1vh !important; background-color: aquamarine; margin: auto; width: max-content;">
+                        <p class="p plus-jakarta-sans-extrabold" style="color: var(--neutral-1); font-size: 1vw; margin-top: 1vh !important; margin: auto; width: max-content;">
                             Download
                         </p>
                     </a>
@@ -84,16 +85,16 @@
                     {% csrf_token %}
                     <!-- modal buat add lagu ke playlist -->
                     <div class="modal fade" id="modalAddSong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-                        aria-hidden="true" style="background-color: blue;">
-                        <div class="modal-dialog" role="document" style="background-color: aquamarine; width: 40vw; height: 40vh;">
-                            <div class="modal-content" style="background-color: var(--neutral-4); border-radius: 40px !important; padding: 0vh; background-color: blueviolet; width: 100%; height: 40vh;">
+                        aria-hidden="true" style="">
+                        <div class="modal-dialog" role="document" style="width: 40vw; height: 40vh;">
+                            <div class="modal-content" style="background-color: var(--neutral-4); border-radius: 40px !important; padding: 0vh; width: 100%; height: 40vh;">
                                 <div class="modal-header" style="border-bottom: none;">
                                     <h5 class="modal-title plus-jakarta-sans-extrabold" id="exampleModalLabel"
                                         style="color: var(--neutral-0); margin: auto; font-size: 1.3vw;">
                                         Tambah Lagu ke Playlist
                                     </h5>
                                 </div>
-                                <div class="d-flex align-items-center justify-content-center" style="margin-top: 1vh; background-color: aquamarine; width: max-content; margin: auto;">
+                                <div class="d-flex align-items-center justify-content-center" style="margin-top: 1vh; width: max-content; margin: auto;">
                                     <div class="" style="border-radius: 12px; width: max-content; background-color: var(--neutral-4); padding: 0.8vh 0.5vw;">
                                         <img src="{% static 'img/default.png' %}" alt="kelola" width="25vw" height="25vh" style="margin: auto;">
                                     </div>

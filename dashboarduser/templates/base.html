@@ -237,7 +237,7 @@
     
     <style>
         body{
-            background-color: black; 
+            background-color: #110F0E; 
             height: auto; 
             width: auto;
             overflow-x: hidden;
@@ -385,7 +385,6 @@
             color: var(--neutral-1) !important;
             font-size: 1vw;
             font-weight: 600;
-            background-color: aqua;
             /* margin-right: 10vw !important; */
         }
 
@@ -403,11 +402,12 @@
         /* Mengatur ukuran item dropdown */
         .multiselect-container {
             width: 100%; /* Membiarkan ukuran lebar otomatis */
-            background-color: brown !important;
+            background-color: #504B48 !important;
         }
 
         .multiselect-container li a label {
             font-size: 1vw !important;
+            color: var(--neutral-0) !important;
         }
 
         .multiselect-container li a label input {
@@ -436,7 +436,7 @@
             display: block !important;
             width: 28px;
             height: 3px;
-            background-color: var(--neutral-5);
+            background-color: #FF7816;
             border-radius: 3px;
             transition: all 0.5s;
         }
@@ -483,29 +483,40 @@
                 left: 0 !important;
                 z-index: 3;
                 margin-top: 8.5vh !important;
-                height: 91.5vh !important;
+                height: 91.6vh !important;
                 margin-left: 0 !important;
                 width: calc(62vw + 1rem) !important;
                 transform: translateX(-100%);
                 transition: 1s;
+                background-color: #110F0E !important;
+                border-radius: 12px !important;
             }
             .navbar-section.slide{
                 transform: translateX(0);
             }
             .nav-upper{
                 margin-top: 0vh !important;
+                width: calc(59vw + 1rem) !important;
             }
             .wrapkonten{
-                height: 38vh !important;
+                height: 35vh !important;
             }
             .wrapkontenlabel{
-                height: 41.5vh !important;
+                height: 44vh !important;
             }
             .isikontenlabel{
-                height: 32.6vh !important;
+                height: 34.5vh !important;
             }
             .isikonten{
-                height: 29vh !important;
+                height: 25.5vh !important;
+            }
+            .kotakkelola{
+                height: 51vh !important;
+                width: calc(59vw + 1rem) !important;
+            }
+            .kotakkelolalabel{
+                height: 60vh !important;
+                width: calc(59vw + 1rem) !important;
             }
             .konten{
                 margin: auto;
@@ -547,6 +558,12 @@
             .p, ::placeholder, input, select{
                 font-size: 2.6vw !important;
             }
+            .footerleft{
+                margin-left: 1.5vw !important;
+            }
+            .footerright{
+                margin-right: 1.5vw !important;
+            }
             .footer{
                 font-size: 1.8vw !important;
             }
@@ -585,7 +602,6 @@
                 width: 9.5vw !important;
                 height: max-content !important;
                 margin-left: 3vw !important;
-                background-color: blue;
             }
             .addepisode a h7{
                 font-size: 2.5vw !important;
@@ -605,6 +621,9 @@
                 margin: auto;
                 font-size: 2.6vw !important
             }
+            .threedots{
+                margin-top: -0.7vh !important;
+            }
         }
 
         /* iphone se (375)
@@ -620,6 +639,33 @@
                 width: calc(75vw + 1rem) !important;
                 margin-top: 8.5vh !important;
                 height: 91.5vh !important;
+            }
+            .nav-upper{
+                width: calc(70vw + 1rem) !important;
+            }
+            .kotakkelola{
+                width: calc(70vw + 1rem) !important;
+            }
+            .kotakkelolalabel{
+                width: calc(70vw + 1rem) !important;
+            }
+            .wrapkonten{
+                height: 35vh !important;
+            }
+            .wrapkontenlabel{
+                height: 43vh !important;
+            }
+            .isikontenlabel{
+                height: 33.8vh !important;
+            }
+            .isikonten{
+                height: 25.5vh !important;
+            }
+            .kotakkelola{
+                height: 51vh !important;
+            }
+            .kotakkelolalabel{
+                height: 60vh !important;
             }
             h6{
                 font-size: 3.5vw !important;
@@ -690,7 +736,6 @@
                 width: 10vw !important;
                 height: max-content !important;
                 margin-left: 3vw !important;
-                background-color: blue;
             }
             .addepisode a h7{
                 font-size: 3vw !important;
@@ -730,24 +775,35 @@
                 width: calc(30vw + 1rem) !important;
                 transform: translateX(-100%);
                 transition: 1s;
+                background-color: #110F0E !important;
+                border-radius: 12px !important;
             }
             .navbar-section.slide{
                 transform: translateX(0);
             }
             .nav-upper{
                 margin-top: 0vh !important;
+                width: calc(28vw + 1rem) !important;
             }
             .wrapkonten{
-                height: 36vh !important;
+                height: 34.5vh !important;
             }
             .wrapkontenlabel{
-                height: 41vh !important;
+                height: 42.5vh !important;
             }
             .isikontenlabel{
-                height: 32.2vh !important;
+                height: 32.8vh !important;
             }
             .isikonten{
-                height: 26.3vh !important;
+                height: 24.8vh !important;
+            }
+            .kotakkelola{
+                height: 52vh !important;
+                width: calc(28vw + 1rem) !important;
+            }
+            .kotakkelolalabel{
+                height: 60vh !important;
+                width: calc(28vw + 1rem) !important;
             }
             .konten{
                 margin: auto;
@@ -818,12 +874,24 @@
                 margin: auto;
                 font-size: 1.4vw !important
             }
+            .threedots{
+                margin-top: -3vh !important;
+            }
 
         }
         /* +0.6 */
         @media screen and (min-width: 541px) and (max-width: 791px) {
             .navbar-section{
                 width: calc(35vw + 1rem) !important;
+            }
+            .nav-upper{
+                width: calc(33vw + 1rem) !important;
+            }
+            .kotakkelola{
+                width: calc(33vw + 1rem) !important;
+            }
+            .kotakkelolalabel{
+                width: calc(33vw + 1rem) !important;
             }
             h6{
                 font-size: 1.6vw !important;
@@ -875,6 +943,15 @@
         @media screen and (min-width: 541px) and (max-width: 666px) {
             .navbar-section{
                 width: calc(41vw + 1rem) !important;
+            }
+            .nav-upper{
+                width: calc(39vw + 1rem) !important;
+            }
+            .kotakkelola{
+                width: calc(39vw + 1rem) !important;
+            }
+            .kotakkelolalabel{
+                width: calc(39vw + 1rem) !important;
             }
             h6{
                 font-size: 1.7vw !important;
@@ -928,10 +1005,10 @@
 
 
     </style>
-    <div class="base-container d-flex justify-content-between" style="background-color: brown; height: 100vh;">
-        <div class="navbar-section" style="width: 26vw; margin-left: 2vw; background-color: aqua; height: 91vh;">
+    <div class="base-container d-flex justify-content-between" style="height: 100vh;">
+        <div class="navbar-section" style="width: 26vw; margin-left: 2vw; height: 91vh;">
             <!-- Buat Kotaknya navbar -->
-            <div class="nav-upper" style="width: 90%; border-radius: 24px; background-color: var(--neutral-5); margin-top: 1vh; margin-left: 0.5vw; padding-top: 0.5vh;">
+            <div class="nav-upper" style="width: 18.5vw; border-radius: 24px; background-color: var(--neutral-5); margin-top: 1vh; margin-left: 0.5vw; padding-top: 0.5vh;">
                 {% if 'dashboard' in request.session.url or 'dashboardlabel' in request.session.url %}
                 <div class="container nvbr" style="padding: 1.5vh 1.5vh;">
                     {% if 'label' not in request.session.user_type %}
@@ -1070,10 +1147,10 @@
                 {% endif %}
             </div>
             <!-- Buat Kotaknya kelola album dan song -->
-            {% if 'label' in request.session.user_type or 'artist' in request.session.user_roles or 'songwriter' in request.session.user_roles or 'podcaster' in request.session.user_roles %}
-            <div class="kotakkelola" style="width: 90%; border-radius: 24px; padding-bottom: 3vh; background-color: var(--neutral-5); padding-top: 1vh; margin-top: 0.5vh; margin-left: 0.5vw; height: 58.5vh;">
+            {% if 'label' in request.session.user_type or 'podcaster' in request.session.user_roles and 'artist' not in request.session.user_roles and 'songwriter' not in request.session.user_roles %}
+            <div class="kotakkelolalabel" style="width: 18.5vw; border-radius: 24px; padding-bottom: 3vh; background-color: var(--neutral-5); padding-top: 1vh; margin-top: 0.5vh; margin-left: 0.5vw; height: 58.5vh;">
                 {% else %}
-                <div class="kotakkelola" style="width: 90%; border-radius: 24px; padding-bottom: 3vh; background-color: var(--neutral-5); padding-top: 1vh; margin-top: 0.5vh; margin-left: 0.5vw; height: 50vh;">
+                <div class="kotakkelola" style="width: 18.5vw; border-radius: 24px; padding-bottom: 3vh; background-color: var(--neutral-5); padding-top: 1vh; margin-top: 0.5vh; margin-left: 0.5vw; height: 50vh;">
                     {% endif %}
                     <div class="container kelolaalbumdansong" style="margin-top: 2vh;">
                         <a href="" class="container d-flex disabled-link" style="text-decoration: none; margin: auto;">
@@ -1109,16 +1186,16 @@
                         </li>
                         {% endif %}
                     </ul>
-                    <div class="tab-content d-flex justify-content-center" id="pills-tabContent" style="background-color: purple; position: relative;">
+                    <div class="tab-content d-flex justify-content-center" id="pills-tabContent" style="position: relative;">
                         <!-- Playlist -->
-                        {% if 'label' in request.session.user_type or 'podcaster' in request.session.user_roles %}
-                        <div class="wrapkontenlabel tab-pane fade" id="pills-playlist" role="tabpanel" aria-labelledby="pills-playlist-tab" style="height: 90vh; background-color: pink; width: 100%;">
+                        {% if 'label' in request.session.user_type or 'podcaster' in request.session.user_roles and 'artist' not in request.session.user_roles and 'songwriter' not in request.session.user_roles %}
+                        <div class="wrapkontenlabel tab-pane fade" id="pills-playlist" role="tabpanel" aria-labelledby="pills-playlist-tab" style="height: 90vh; width: 100%;">
                         {% else %}
-                        <div class="wrapkonten tab-pane fade" id="pills-playlist" role="tabpanel" aria-labelledby="pills-playlist-tab" style="height: 33vh; background-color: pink; width: 100%;">
+                        <div class="wrapkonten tab-pane fade" id="pills-playlist" role="tabpanel" aria-labelledby="pills-playlist-tab" style="height: 33vh; width: 100%;">
                         {% endif %}
                             <!-- Tambah Button -->
                             <div class="container d-flex justify-content-center" style="">
-                                <a href="#" class="" style="text-decoration: none; background-color: aquamarine; width: 100%;height: min-content;" data-toggle="modal" data-target="#tambahPlaylist">
+                                <a href="#" class="" style="text-decoration: none; width: 100%;height: min-content;" data-toggle="modal" data-target="#tambahPlaylist">
                                     <button type="button" class="buttonadd plus-jakarta-sans-extrabold button-primary my-3" style="width: 100%; margin-top: 1vh !important; font-size: 0.9vw;">
                                         Tambah Playlist
                                     </button>
@@ -1126,10 +1203,10 @@
                                 <!-- disini -->
                             </div>
                             <!-- isinya seperti playlist, album, atau podcast-->
-                            {% if 'label' in request.session.user_type or 'podcaster' in request.session.user_roles %}
-                            <div class="isikontenlabel container" style="height: 41vh; overflow-y: auto; width: 100%;">
+                            {% if 'label' in request.session.user_type or 'podcaster' in request.session.user_roles and 'artist' not in request.session.user_roles and 'songwriter' not in request.session.user_roles %}
+                            <div class="isikontenlabel container" style="height: 30vh; overflow-y: auto; width: 100%;">
                             {% else %}
-                            <div class="isikonten container" style="height: 26vh; overflow-y: auto; width: 100%;">
+                            <div class="isikonten container" style="height: 24vh; overflow-y: auto; width: 100%;">
                             {% endif %}
                                 {% if detail_playlist_kelola %}
                                 {% for detail in detail_playlist_kelola %}
@@ -1186,14 +1263,14 @@
                             </div>
                         </div>
                         <!-- Album -->
-                        {% if 'label' in request.session.user_type or 'podcaster' in request.session.user_roles %}
-                        <div class="wrapkontenlabel tab-pane fade" id="pills-album" role="tabpanel" aria-labelledby="pills-playlist-tab" style="height: 41vh; background-color: pink; width: 100%;">
+                        {% if 'label' in request.session.user_type or 'podcaster' in request.session.user_roles and 'artist' not in request.session.user_roles and 'songwriter' not in request.session.user_roles %}
+                        <div class="wrapkontenlabel tab-pane fade" id="pills-album" role="tabpanel" aria-labelledby="pills-playlist-tab" style="height: 41vh; width: 100%;">
                         {% else %}
-                        <div class="wrapkonten tab-pane fade" id="pills-album" role="tabpanel" aria-labelledby="pills-album-tab" style="height: 33vh; background-color: pink; width: 100%;">
+                        <div class="wrapkonten tab-pane fade" id="pills-album" role="tabpanel" aria-labelledby="pills-album-tab" style="height: 33vh; width: 100%;">
                         {% endif %}
                             <!-- Tambah Button -->
                             <div class="container d-flex justify-content-center" style="">
-                                <a href="#" class="" style="text-decoration: none; background-color: aquamarine; width: 100%;height: min-content"
+                                <a href="#" class="" style="text-decoration: none; width: 100%;height: min-content"
                                     data-toggle="modal" data-target="#tambahAlbum">
                                     <button type="button" class="buttonadd plus-jakarta-sans-extrabold button-primary my-3"
                                         style="width: 100%; margin-top: 1vh !important; font-size: 0.9vw;">
@@ -1201,10 +1278,10 @@
                                     </button>
                                 </a>
                             </div>
-                            {% if 'label' in request.session.user_type or 'podcaster' in request.session.user_roles %}
-                            <div class="isikontenlabel container" style="height: 41vh; overflow-y: auto; width: 100%;">
+                            {% if 'label' in request.session.user_type or 'podcaster' in request.session.user_roles and 'artist' not in request.session.user_roles and 'songwriter' not in request.session.user_roles %}
+                            <div class="isikontenlabel container" style="height: 30vh; overflow-y: auto; width: 100%;">
                             {% else %}
-                            <div class="isikonten container" style="height: 26vh; overflow-y: auto; width: 100%;">
+                            <div class="isikonten container" style="height: 24vh; overflow-y: auto; width: 100%;">
                             {% endif %}
                                 {% if albums %}
                                 {% for detail in albums %}
@@ -1222,7 +1299,7 @@
                                             </div>
                                             <div style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-top: -1vh;">
                                                 <p class="detail d-inline plus-jakarta-sans-medium" style="color: var(--neutral-1); font-size: 0.6vw;">
-                                                    {{detail.jumlahLagu}} lagu</p>
+                                                    {{detail.jumlah_lagu}} lagu</p>
                                                 <p class="detail d-inline plus-jakarta-sans-medium" style="color: var(--neutral-1); font-size: 0.6vw;">
                                                     | {{detail.total_durasi}}</p>
                                             </div>
@@ -1257,14 +1334,14 @@
                             </div>
                         </div>
                         <!-- Podcast -->
-                        {% if 'label' in request.session.user_type or 'podcaster' in request.session.user_roles %}
-                        <div class="wrapkontenlabel tab-pane fade" id="pills-podcast" role="tabpanel" aria-labelledby="pills-podcast-tab" style="height: 41vh; background-color: pink; width: 100%;">
+                        {% if 'label' in request.session.user_type or 'podcaster' in request.session.user_roles and 'artist' not in request.session.user_roles and 'songwriter' not in request.session.user_roles %}
+                        <div class="wrapkontenlabel tab-pane fade" id="pills-podcast" role="tabpanel" aria-labelledby="pills-podcast-tab" style="height: 41vh; width: 100%;">
                         {% else %}
-                        <div class="wrapkonten tab-pane fade" id="pills-podcast" role="tabpanel" aria-labelledby="pills-podcast-tab" style="height: 33vh; background-color: pink; width: 100%;">
+                        <div class="wrapkonten tab-pane fade" id="pills-podcast" role="tabpanel" aria-labelledby="pills-podcast-tab" style="height: 33vh; width: 100%;">
                         {% endif %}
                             <!-- Tambah Button -->
                             <div class="container d-flex justify-content-center" style="">
-                                <a href="#" class="" style="text-decoration: none; background-color: aquamarine; width: 100%;height: min-content"
+                                <a href="#" class="" style="text-decoration: none; width: 100%;height: min-content"
                                     data-toggle="modal" data-target="#tambahPodcast">
                                     <button type="button" class="buttonadd plus-jakarta-sans-extrabold button-primary my-3"
                                         style="width: 100%; margin-top: 1vh !important; font-size: 0.9vw;">
@@ -1273,10 +1350,10 @@
                                 </a>
                             </div>
                             <!-- isinya seperti playlist, album, atau podcast-->
-                            {% if 'label' in request.session.user_type or 'podcaster' in request.session.user_roles %}
-                            <div class="isikontenlabel container" style="height: 41vh; overflow-y: auto; width: 100%;">
+                            {% if 'label' in request.session.user_type or 'podcaster' in request.session.user_roles and 'artist' not in request.session.user_roles and 'songwriter' not in request.session.user_roles %}
+                            <div class="isikontenlabel container" style="height: 30vh; overflow-y: auto; width: 100%;">
                             {% else %}
-                            <div class="isikonten container" style="height: 26vh; overflow-y: auto; width: 100%;">
+                            <div class="isikonten container" style="height: 24vh; overflow-y: auto; width: 100%;">
                             {% endif %}
                                 {% if podcasts %}
                                 {% for podcast in podcasts %}
@@ -1330,11 +1407,11 @@
                     </div>
                 </div>
             </div>
-            <div style="width: 100%; background-color: blue; height: 91vh;">
+            <div style="width: 100%; height: 91vh;">
                 <!-- Bagian search dan logout -->
-                <div class="wrapup d-flex justify-content-start align-items-center tertiary-content-1" style="width: 100%; margin-top: 12px; height: 7vh; background-color: cadetblue;">
+                <div class="wrapup d-flex justify-content-start align-items-center tertiary-content-1" style="width: 100%; margin-top: 12px; height: 7vh;">
                     <!-- Burger -->
-                    <div class="menu-toggle" style="display: none; background-color: aqua; margin-right: 4vw; margin-left: 3vw;">
+                    <div class="menu-toggle" style="display: none; margin-right: 4vw; margin-left: 3vw;">
                         <input type="checkbox" id="menuCheckbox">
                         <span></span>
                         <span></span>
@@ -1367,7 +1444,7 @@
             </div>
         </div>
     <!-- Modal play music footer -->
-    <div class="modal fade" id="modalInform" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="background-color: blue;">
+    <div class="modal fade" id="modalInform" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="">
         <div class="modalpremium modal-dialog" role="document" style="width: 40%; margin: auto;">
             <div class="modal-content" style="background-color: var(--neutral-4); border-radius: 40px !important; padding: 20px;">
                 <div class="modal-header" style="border-bottom: none;">
@@ -1389,10 +1466,10 @@
     <!-- Kumpulan modal -->
     <!-- modal tambah playlist -->
     <div class="modal fade" id="tambahPlaylist" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true" style="background-color: blue;">
-        <div class="modalpremium modal-dialog" role="document" style="background-color: aquamarine; width: 40vw; margin: auto;">
+        aria-hidden="true" style="">
+        <div class="modalpremium modal-dialog" role="document" style="width: 40vw; margin: auto;">
             <div class="modal-content"
-                style="background-color: var(--neutral-4); border-radius: 40px !important; padding: 0vh; background-color: blueviolet; width: 100%;">
+                style="background-color: var(--neutral-4); border-radius: 40px !important; padding: 0vh; width: 100%;">
                 <form method="POST" action="{% url 'kelola:add_playlist' %}">
                     {% csrf_token %}
                     <div class="modal-header" style="border-bottom: none;">
@@ -1428,10 +1505,10 @@
 
     <!-- modal tambah album -->
     <div class="modal fade" id="tambahAlbum" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true" style="background-color: blue;">
-        <div class="modalpremium modal-dialog" role="document" style="background-color: aquamarine; width: 40vw; margin: auto;">
+        aria-hidden="true" style="">
+        <div class="modalpremium modal-dialog" role="document" style="width: 40vw; margin: auto;">
             <div class="modal-content"
-                style="background-color: var(--neutral-4); border-radius: 40px !important; padding: 0vh; background-color: blueviolet; width: 100%;">
+                style="background-color: var(--neutral-4); border-radius: 40px !important; padding: 0vh; width: 100%;">
                 <!-- Harus diganti karena masih playlist harusnya album -->
                 <form method="POST" action="{% url 'kelola:create_album' %}">
                     {% csrf_token %}
@@ -1455,7 +1532,6 @@
                                         style="color: var(--neutral-0); font-size: 1vw;">Label:</label>
                                     <select class="form-select plus-jakarta-sans-semibold"
                                         style="font-size: 12px; margin-top: 5px; font-size: 1vw;" name="label" required>
-                                        <option value="{{label.id}}" selected disabled hidden class="detailmodal plus-jakarta-sans-semibold" style="background-color: var(--neutral-3); font-size: 1vw;">Label</option>
                                         {% for label in labels %}
                                         <option value="{{label.id}}" class="detailmodal plus-jakarta-sans-semibold" style="background-color: var(--neutral-3); font-size: 1vw;">
                                             {{label.nama}}
@@ -1490,7 +1566,6 @@
                                     <label class="detailmodal" for="labelDropdown"
                                         style="color: var(--neutral-0); font-size: 1vw;">Artist:</label>
                                     <select class="form-select plus-jakarta-sans-semibold" style="font-size: 12px; margin-top: 5px; font-size: 1vw;" name="artist" required>
-                                        <option value="{{label.id}}" selected disabled hidden class="detailmodal plus-jakarta-sans-semibold" style="background-color: var(--neutral-3); font-size: 1vw;">Artist</option>
                                         {% for artist in artists %}
                                         <option value="{{artist.id}}" class="detailmodal plus-jakarta-sans-semibold"
                                             style="background-color: var(--neutral-3); font-size: 1vw;">
@@ -1565,11 +1640,11 @@
 
     <!-- modal tambah podcast -->
     <div class="modal fade" id="tambahPodcast" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true" style="background-color: blue;">
+        aria-hidden="true" style="">
         <div class="modalpremium modal-dialog" role="document"
-            style="background-color: aquamarine; width: 40vw; margin: auto;">
+            style="width: 40vw; margin: auto;">
             <div class="modal-content"
-                style="background-color: var(--neutral-4); border-radius: 40px !important; padding: 0vh; background-color: blueviolet; width: 100%;">
+                style="background-color: var(--neutral-4); border-radius: 40px !important; padding: 0vh; width: 100%;">
                 <form method="POST" action="{% url 'kelola:add_podcast' %}">
                     {% csrf_token %}
                     <div class="modal-header" style="border-bottom: none;">
@@ -1608,9 +1683,9 @@
 
     {% for detail in detail_playlist_kelola %}
     <!-- Modal Ubah playlist -->
-    <div class="modal fade" id="ubahPlaylist{{detail.id_playlist}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="background-color: blue;">
-        <div class="modalpremium modal-dialog" role="document" style="background-color: aquamarine; width: 40vw; margin: auto;">
-            <div class="modal-content" style="background-color: var(--neutral-4); border-radius: 40px !important; padding: 0vh; background-color: blueviolet; width: 100%;">
+    <div class="modal fade" id="ubahPlaylist{{detail.id_playlist}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="">
+        <div class="modalpremium modal-dialog" role="document" style=" width: 40vw; margin: auto;">
+            <div class="modal-content" style="background-color: var(--neutral-4); border-radius: 40px !important; padding: 0vh; width: 100%;">
                 <form method="POST" action="{% url 'kelola:ubah_playlist' detail.id_playlist %}">
                     {% csrf_token %}
                     <div class="modal-header" style="border-bottom: none;">
@@ -1645,19 +1720,19 @@
     </div>
     <!-- Modal Hapus -->
     <div class="modal fade" id="modalHapusPlaylist{{detail.id_playlist}}" tabindex="-1" role="dialog"
-        aria-labelledby="exampleModalLabel" aria-hidden="true" style="background-color: blue;">
+        aria-labelledby="exampleModalLabel" aria-hidden="true" style="">
         <div class="modalpremium modal-dialog" role="document"
-            style="background-color: aquamarine; width: 40vw; margin: auto;">
+            style="width: 40vw; margin: auto;">
             <div class="modal-content"
-                style="background-color: var(--neutral-4); border-radius: 40px !important; padding: 0vh; background-color: blueviolet; width: 100%;">
+                style="background-color: var(--neutral-4); border-radius: 40px !important; padding: 0vh; width: 100%;">
                 <div class="modal-header" style="border-bottom: none;">
                     <h5 class="headermodal modal-title plus-jakarta-sans-extrabold" id="exampleModalLabel"
-                        style="color: var(--neutral-0); margin: auto; font-size: 1.6vw;">
+                        style="color: var(--neutral-0); margin: auto; font-size: 1.2vw;">
                         Konfirmasi Hapus
                     </h5>
                 </div>
                 <div class="detailmodal modal-body plus-jakarta-sans-medium"
-                    style="color: var(--neutral-1); font-size: 1.2vw; margin: auto;">
+                    style="color: var(--neutral-1); font-size: 1vw; margin: auto;">
                     Apakah Anda yakin ingin menghapus item ini?
                 </div>
                 <div class="modal-footer" style="border-top: none;">
@@ -1678,10 +1753,10 @@
     {% for detail in albums %}
     <!-- Modal Tambah Lagu album -->
     <div class="modal fade" id="tambahLagu{{detail.id}}{{detail.id_pemilik_hak_cipta}}" tabindex="-1" role="dialog"
-        aria-labelledby="exampleModalLabel" aria-hidden="true" style="background-color: blue;">
+        aria-labelledby="exampleModalLabel" aria-hidden="true" style="">
         <div class="modalpremium modal-dialog" role="document"
-            style="background-color: aquamarine; width: 40vw; margin: auto;">
-            <div class="modal-content" style="background-color: var(--neutral-4); border-radius: 40px !important; padding: 0vh; background-color: blueviolet; width: 100%;">
+            style="width: 40vw; margin: auto;">
+            <div class="modal-content" style="background-color: var(--neutral-4); border-radius: 40px !important; padding: 0vh; width: 100%;">
                 <!-- Harus diganti karena masih playlist harusnya album -->
                 <form method="POST" action="{% url 'kelola:create_song' detail.id detail.id_pemilik_hak_cipta %}">
                     {% csrf_token %}
@@ -1702,39 +1777,43 @@
                             <input name="judulLagu" type="text" class="form-control" id="judulLagu"
                                 placeholder="Masukkan judul lagu" required>
                         </div>
-                        <div class="form-group" style="margin-top: 10px;">
+                        <div class="form-group" style="margin-top: 2vh;">
                             {% if 'artist' in request.session.user_roles %}
-                            <label class="detailmodal" for="labelDropdown" style="color: var(--neutral-0)">Artist:</label>
-                            <input name="artist" type="text" class="form-control" id="artist" value="{{ user_data.0 }}"
+                            <label class="detailmodal" for="labelDropdown" style="color: var(--neutral-0); font-size: 1vw;">Artist:</label>
+                            <input name="artist" type="text" class="form-control" id="artist" value="{{ user_data.0 }}" style="font-size: 1vw;"
                                 disabled>
                             {% else %}
                             <!-- Dropdown untuk Artist or Songwriter -->
                             <div class="form-group">
-                                <label class="detailmodal" for="labelDropdown" style="color: var(--neutral-0)">Artist:</label>
-                                <select class="form-control" id="artistDropdown" name="artist" style="margin-top: 5px;"
-                                    required>
+                                <label class="detailmodal" for="labelDropdown" style="color: var(--neutral-0); font-size: 1vw;">Artist:</label>
+                                <select class="form-select plus-jakarta-sans-semibold" style="font-size: 12px; margin-top: 5px; font-size: 1vw;"
+                                    name="artist" required>
                                     {% for artist in artists %}
-                                    <option value="{{artist.id}}">{{artist.nama}}
+                                    <option value="{{artist.id}}" class="detailmodal plus-jakarta-sans-semibold"
+                                        style="background-color: var(--neutral-3); font-size: 1vw;">
+                                        {{artist.nama}}
                                     </option>
                                     {% endfor %}
                                 </select>
                             </div>
                             {% endif %}
                         </div>
-                        <div class="form-group" style="margin-top: 10px;">
+                        <div class="form-group" style="margin-top: 2vh;">
                             {% if 'songwriter' in request.session.user_roles %}
-                            <label class="detailmodal" for="songwriterSelect" style="color: var(--neutral-0)">Songwriter:</label>
-                            <input name="songwriter" type="text" class="form-control" id="songwriter"
-                                value="{{ user_data.0 }}" disabled>
+                            <label class="detailmodal" for="songwriterSelect"
+                                style="color: var(--neutral-0); font-size: 1vw;">Songwriter:</label>
+                            <input name="songwriter" type="text" class="form-control" id="songwriter" value="{{ user_data.0 }}"
+                                style="font-size: 1vw;" disabled>
                             {% else %}
                             <!-- Dropdown untuk Songwriter -->
                             <div class="form-group">
-                                <label class="detailmodal" for="songwriterSelect" style="color: var(--neutral-0)">Songwriter:</label>
-                                <select data-mdb-select-init multiple data-mdb-clear-button="true" id="songwriterSelect2"
-                                    name="songwriter" required>
+                                <label class="detailmodal" for="songwriterSelect"
+                                    style="color: var(--neutral-0); font-size: 1vw;">Songwriter:</label>
+                                <select data-mdb-select-init multiple data-mdb-clear-button="true" id="songwriterSelect" name="songwriter"
+                                    style="font-size: 1vw;" required>
                                     {% for songwriter in songwriters %}
-                                    <option value="{{songwriter.id}}">
-                                        {{songwriter.nama}}</option>
+                                    <option value="{{songwriter.id}}" class="detailmodal">{{songwriter.nama}}
+                                    </option>
                                     {% endfor %}
                                 </select>
                             </div>
@@ -1783,19 +1862,19 @@
     </div>
     <!-- Modal Hapus album -->
     <div class="modal fade" id="modalHapusAlbum{{detail.id}}" tabindex="-1" role="dialog"
-        aria-labelledby="exampleModalLabel" aria-hidden="true" style="background-color: blue;">
+        aria-labelledby="exampleModalLabel" aria-hidden="true" style="">
         <div class="modalpremium modal-dialog" role="document"
-            style="background-color: aquamarine; width: 40vw; margin: auto;">
+            style="width: 40vw; margin: auto;">
             <div class="modal-content"
-                style="background-color: var(--neutral-4); border-radius: 40px !important; padding: 0vh; background-color: blueviolet; width: 100%;">
+                style="background-color: var(--neutral-4); border-radius: 40px !important; padding: 0vh; width: 100%;">
                 <div class="modal-header" style="border-bottom: none;">
                     <h5 class="headermodal modal-title plus-jakarta-sans-extrabold" id="exampleModalLabel"
-                        style="color: var(--neutral-0); margin: auto; font-size: 1.6vw;">
+                        style="color: var(--neutral-0); margin: auto; font-size: 1.2vw;">
                         Konfirmasi Hapus
                     </h5>
                 </div>
                 <div class="detailmodal modal-body plus-jakarta-sans-medium"
-                    style="color: var(--neutral-1); font-size: 1.2vw; margin: auto;">
+                    style="color: var(--neutral-1); font-size: 1vw; margin: auto;">
                     Apakah Anda yakin ingin menghapus item ini?
                 </div>
                 <div class="modal-footer" style="border-top: none;">
@@ -1816,11 +1895,11 @@
     {% for podcast in podcasts %}
     <!-- Modal Ubah Podcast -->
     <div class="modal fade" id="ubahPodcast{{podcast.0}}" tabindex="-1" role="dialog"
-        aria-labelledby="exampleModalLabel" aria-hidden="true" style="background-color: blue;">
+        aria-labelledby="exampleModalLabel" aria-hidden="true" style="">
         <div class="modalpremium modal-dialog" role="document"
-            style="background-color: aquamarine; width: 40vw; margin: auto;">
+            style="width: 40vw; margin: auto;">
             <div class="modal-content"
-                style="background-color: var(--neutral-4); border-radius: 40px !important; padding: 0vh; background-color: blueviolet; width: 100%;">
+                style="background-color: var(--neutral-4); border-radius: 40px !important; padding: 0vh; width: 100%;">
                 <form method="POST" action="{% url 'kelola:update_podcast' podcast.0 %}">
                     {% csrf_token %}
                     <div class="modal-header" style="border-bottom: none;">
@@ -1858,19 +1937,19 @@
     </div>
     <!-- Modal Hapus -->
     <div class="modal fade" id="modalHapusPodcast{{podcast.0}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true" style="background-color: blue;">
+        aria-hidden="true" style="">
         <div class="modalpremium modal-dialog" role="document"
-            style="background-color: aquamarine; width: 40vw; margin: auto;">
+            style="width: 40vw; margin: auto;">
             <div class="modal-content"
-                style="background-color: var(--neutral-4); border-radius: 40px !important; padding: 0vh; background-color: blueviolet; width: 100%;">
+                style="background-color: var(--neutral-4); border-radius: 40px !important; padding: 0vh; width: 100%;">
                 <div class="modal-header" style="border-bottom: none;">
                     <h5 class="headermodal modal-title plus-jakarta-sans-extrabold" id="exampleModalLabel"
-                        style="color: var(--neutral-0); margin: auto; font-size: 1.6vw;">
+                        style="color: var(--neutral-0); margin: auto; font-size: 1.2vw;">
                         Konfirmasi Hapus
                     </h5>
                 </div>
                 <div class="detailmodal modal-body plus-jakarta-sans-medium"
-                    style="color: var(--neutral-1); font-size: 1.2vw; margin: auto;">
+                    style="color: var(--neutral-1); font-size: 1vw; margin: auto;">
                     Apakah Anda yakin ingin menghapus item ini?
                 </div>
                 <div class="modal-footer" style="border-top: none;">
@@ -1889,8 +1968,8 @@
     {% endfor %}
 
     <!-- Modal Premium -->
-    <div class="modal fade" id="modalPremium" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="background-color: blue;">
-        <div class="modalpremium modal-dialog" role="document" style="background-color: aquamarine; width: 40%; margin: auto;">
+    <div class="modal fade" id="modalPremium" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="">
+        <div class="modalpremium modal-dialog" role="document" style="width: 40%; margin: auto;">
             <div class="modal-content" style="background-color: var(--neutral-4); border-radius: 40px !important; padding: 20px;">
                 <div class="modal-header" style="border-bottom: none;">
                     <h5 class="headermodal modal-title plus-jakarta-sans-extrabold" id="exampleModalLabel" style="color: var(--neutral-0); margin: auto; font-size: 1.3vw;">
@@ -1908,15 +1987,15 @@
     </div>
 
     <footer class="position-fixed d-flex justify-content-between align-items-center" style="bottom: 0px; width: 100%; height: 12vh; background-color: transparent; backdrop-filter: blur(100px);">
-        <div class="footerleft d-flex align-items-center" style="margin-left: 4vw; background-color: blue; width: 30%;">
+        <div class="footerleft d-flex align-items-center" style="margin-left: 4vw; width: 30%;">
             <div class="" style="border-radius: 12px; width: max-content; background-color: #292724; padding: 0.8vh 0.5vw; height: max-content !important;">
                 <img src="{% static 'img/logo.svg' %}" alt="Logo Mrmut-15" width="25vw" height="25vh" style="margin: auto; visibility: hidden;">
             </div>
-            <h3 class="footer plus-jakarta-sans" style="margin-top: 1vh; font-size: 1vw; color: #ffffff; margin-left: 1vw; background-color: blueviolet;">
+            <h3 class="footer plus-jakarta-sans" style="margin-top: 1vh; font-size: 1vw; color: #ffffff; margin-left: 1vw;">
                 Tidak ada lagu yang diputar</h3>
         </div>
-        <div class="footercenter" style="width: 40%; background-color: aqua;">
-            <div class="d-flex justify-content-center" style="width: min-content; margin: auto; background-color: bisque; width: 100%;">
+        <div class="footercenter" style="width: 40%;">
+            <div class="d-flex justify-content-center" style="width: min-content; margin: auto; width: 100%;">
                 <a href="" style="margin: 0 7px; pointer-events: none; cursor: not-allowed;">
                     <img src="{% static 'img/LeftSkipStartFill.svg' %}" alt="kelola" width="100%" height="25vh">
                 </a>
@@ -1929,7 +2008,7 @@
             </div>
             <input type="range" id="vol" name="vol" min="0" max="100" style="margin-top: -0.3vh;">
         </div>
-        <div class="footerright" style="margin-right: 5vw; background-color: aquamarine; width: 30%;">
+        <div class="footerright" style="width: 30%; margin-right: -5vw;">
             <a class="d-flex align-items-center justify-content-center" style="color: var(--neutral-1); font-weight: 600; text-decoration: none;" href="#" data-toggle="modal" data-target="#modalPremium">
                 <div class="divlogo" style="border-radius: 20px; width: max-content; background-color: #292724; padding: 0.5vh 0.3vw; height: max-content !important;">
                     <img class="logo" src="{% static 'img/logo.svg' %}" alt="Logo Marmut-15" width="40vw !important" height="40vw !important" style="margin: auto;">

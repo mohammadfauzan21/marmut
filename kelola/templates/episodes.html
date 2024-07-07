@@ -16,6 +16,7 @@
 </script>
 <script>
     function goBack() {
+        menuCheckbox.checked = false;
         window.history.back();
     }
 </script>
@@ -49,7 +50,7 @@
     <!-- Daftar podcast -->
     <div class="row">
         <div class="col-12" style="margin-left: 4vw">
-            <div style="height: 4vh; margin-top: 1vh; background-color: aqua;">
+            <div style="height: 4vh; margin-top: 1vh;">
                 <button class="btn btn-secondary dropdown-toggle-iconless" type="button" id="dropdownMenuButton" data-toggle=""
                     aria-haspopup="true" aria-expanded="false" style="background-color: transparent; border: none;"
                     onclick="goBack()">
@@ -65,8 +66,8 @@
             </div>
             <p class="p plus-jakarta-sans-bold" style="color: var(--neutral-1); font-size: 13px; margin-top:30px">Podcast,
                 {{podcast_detail.6 }}</p>
-            <h2 class="profilsaya plus-jakarta-sans-extrabold" style="color: var(--neutral-0); font-size: 40px; margin-top: 10px;">
-                {{ podcast_detail.0}}</h2> <!-- Judul Podcast-->
+            <h1 class="profilsaya plus-jakarta-sans-extrabold" style="color: var(--neutral-0); font-size: 3vw; width: 50vw; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                {{ podcast_detail.0}}</h1> <!-- Judul Podcast-->
             <p class="p plus-jakarta-sans-bold" style="color: var(--neutral-0); font-size: 20px; margin: top 20px">
                 <span style="color: var(--neutral-1); font-size: 13px; margin-right: 8px;">by</span>
                 <span>{{ podcast_detail.2 }}</span> <!-- Nama Podcaster-->
@@ -91,7 +92,7 @@
                 Released on {{ podcast_detail.5 }}
             </p>
             <div class="addepisode container" style="text-decoration: none; margin-top: 10px;">
-                <a href="#" class="container" style="text-decoration: none; margin-top: 5px; height: max-content !important; background-color: brown;" data-toggle="modal" data-target="#popupContainer2">
+                <a href="#" class="container" style="text-decoration: none; margin-top: 5px; height: max-content !important;" data-toggle="modal" data-target="#popupContainer2">
                     <img src="{% static 'img/add-icon.svg' %}" alt="add" style="width: 55px; height: 55px; margin-left: 1em; margin: auto;">
                     <br>
                     <h7 class="plus-jakarta-sans-extrabold" style="color: var(--neutral-0); margin-top: 15px; margin: auto;">
@@ -103,9 +104,9 @@
                 <thead>
                     <tr style="border-bottom: 1px solid var(--neutral-2);">
                         <th class="table"
-                            style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; background-color: blue; width: 25%;">Judul Episode</th>
+                            style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; width: 25%;">Judul Episode</th>
                         <th class="table"
-                            style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; background-color: purple; width: 25%;">Deskripsi</th>
+                            style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; width: 25%;">Deskripsi</th>
                         <th class="table" style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; width: 20%;">Durasi</th>
                         <th class="table" style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; width: 20%;">Tanggal</th>
                         <th class="table" style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; width: 10%;">Action</th>
@@ -120,10 +121,10 @@
                         <td style="padding: 3vh 1vh; color: var(--neutral-1); ">
                             {{ episode.1 }}</td>
                         <td
-                            style="padding: 3vh 1vh; color: var(--neutral-1); word-wrap: break-word; background-color: aqua; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                            style="padding: 3vh 1vh; color: var(--neutral-1); word-wrap: break-word; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
                             {{ episode.2 }}</td>
                         <td
-                            style="padding: 3vh 1vh; color: var(--neutral-1); word-wrap: break-word; background-color: blueviolet; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                            style="padding: 3vh 1vh; color: var(--neutral-1); word-wrap: break-word; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
                             {% if episode.3 %}
                             {% if episode.3 > 60 %}
                             {{ episode.3 }}
@@ -134,13 +135,13 @@
                             {{ episode.3 }}
                             {% endif %}</td>
                         <td
-                            style="padding: 3vh 1vh; color: var(--neutral-1); word-wrap: break-word; background-color: pink; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                            style="padding: 3vh 1vh; color: var(--neutral-1); word-wrap: break-word; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
                             {{ episode.4|date:"d/m/Y" }}</td>
                         <td class="action" style="padding: 3vh 1vh; color: var(--neutral-1);">
                             <div class="dropdown d-flex justify-content-center align-items-center">
-                                <button class="btn btn-secondary dropdown-toggle-iconless" type="button" id="dropdownMenuButton"
+                                <button class="threedots btn btn-secondary dropdown-toggle-iconless" type="button" id="dropdownMenuButton"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-                                    style="background-color: transparent; border: none;">
+                                    style="background-color: transparent; border: none; margin-top: -2vh;">
                                     <img src="{% static 'img/threedots.svg' %}" alt="kelola" width="25vw" height="25vh">
                                 </button>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton"
@@ -156,9 +157,8 @@
                             <!-- Modal Update Episode -->
                             <div class="modal fade" id="updateEpisodeModal{{episode.0}}" tabindex="-1" role="dialog"
                                 aria-labelledby="exampleModalLabel" aria-hidden="true" style="background-color: transparent;">
-                                <div class="modalpremium modal-dialog" role="document" style="background-color: aquamarine; width: 40vw; margin: auto;">
-                                    <div class="modal-content"
-                                        style="background-color: var(--neutral-4); border-radius: 40px !important; padding: 0vh; background-color: blueviolet; width: 100%;">
+                                <div class="modalpremium modal-dialog" role="document" style="width: 40vw; margin: auto; background-color: transparent;">
+                                    <div class="modal-content" style="background-color: var(--neutral-4); border-radius: 40px !important; padding: 0vh; width: 100%;">
                                         <form method="POST" action="{% url 'kelola:update_episode' id_konten=id_konten id_episode=episode.0 %}">
                                             {% csrf_token %}
                                             <div>
@@ -215,9 +215,8 @@
                             <!-- Modal Hapus -->
                             <div class="modal fade" id="modalHapusEpisodes{{episode.0}}" tabindex="-1" role="dialog"
                                 aria-labelledby="exampleModalLabel" aria-hidden="true" style="background-color: transparent;">
-                                <div class="modalpremium modal-dialog" role="document" style="background-color: aquamarine; width: 40vw; margin: auto;">
-                                    <div class="modal-content"
-                                        style="background-color: var(--neutral-4); border-radius: 40px !important; padding: 0vh; background-color: blueviolet; width: 100%;">
+                                <div class="modalpremium modal-dialog" role="document" style="width: 40vw; margin: auto; background-color: transparent;">
+                                    <div class="modal-content" style="background-color: var(--neutral-4); border-radius: 40px !important; padding: 0vh; width: 100%;">
                                         <div class="modal-header" style="border-bottom: none;">
                                             <h5 class="headermodal modal-title plus-jakarta-sans-extrabold" id="exampleModalLabel"
                                                 style="color: var(--neutral-0); margin: auto;">
@@ -255,9 +254,9 @@
             </table>
             <!-- Modal Add Episode -->
             <div class="modal fade" id="popupContainer2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modalpremium modal-dialog" role="document" style="background-color: aquamarine; width: 40vw; margin: auto;">
+                <div class="modalpremium modal-dialog" role="document" style="width: 40vw; margin: auto;">
                     <div class="modal-content"
-                        style="background-color: var(--neutral-4); border-radius: 40px !important; padding: 0vh; background-color: blueviolet; width: 100%;">
+                        style="background-color: var(--neutral-4); border-radius: 40px !important; padding: 0vh; width: 100%;">
                         <form method="POST" action="{% url 'kelola:add_episodes' id_konten=id_konten %}">
                             {% csrf_token %}
                             <input type="hidden" name="id_konten" value="{{ id_konten }}">

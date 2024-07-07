@@ -4,6 +4,7 @@
 {% block content %}
 <script>
     function goBack() {
+        menuCheckbox.checked = false;
         window.history.back();
     }
 </script>
@@ -12,7 +13,7 @@
     <!-- Detail Playlist -->
     <div class="row">
         <div class="col-12" style="margin-left: 4vw">
-            <div style="height: 4vh; margin-top: 1vh; background-color: aqua;">
+            <div style="height: 4vh; margin-top: 1vh;">
                 <button class="btn btn-secondary dropdown-toggle-iconless" type="button" id="dropdownMenuButton" data-toggle=""
                     aria-haspopup="true" aria-expanded="false" style="background-color: transparent; border: none;"
                     onclick="goBack()">
@@ -31,19 +32,19 @@
                     <p class="p plus-jakarta-sans-bold" style="color: var(--neutral-1); font-size: 1vw; margin-top: 1vh;">
                         {{pembuat}} | {{jumlah_lagu}} lagu |
                         {{durasi}} | {{tanggal_buat}}</p>
-                    <h1 class="profilsaya plus-jakarta-sans-extrabold" style="color: var(--neutral-0); font-size: 3vw;">
+                    <h1 class="profilsaya plus-jakarta-sans-extrabold" style="color: var(--neutral-0); font-size: 3vw; width: 60vw; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
                         {{judul_playlist}}
                     </h1>
-                    <p class="p plus-jakarta-sans-bold" style="color: var(--neutral-1); font-size: 1.5vw; margin-top: 1vh;">
+                    <p class="p plus-jakarta-sans-bold" style="color: var(--neutral-1); font-size: 1.5vw; margin-top: 1vh; width: 60vw; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
                         {{deskripsi_playlist}}
                     </p>
                 </div>
-                <div style="margin-top: 4vh; background-color: blue;">
+                <div style="margin-top: 4vh;">
                     <a href="" class="" style="text-decoration: none;" data-target="#modalInform" data-toggle="modal">
                         <div style="margin: auto; width: max-content;">
                             <img src="{% static 'img/PlayCircleFill.svg' %}" alt="kelola" style="margin: auto; width: 9vw; height: 9vh;">
                         </div>
-                        <p class="p plus-jakarta-sans-bold" style="color: var(--neutral-1); font-size: 1vw; margin-top: 1vh !important; background-color: aquamarine; margin: auto; width: max-content;">
+                        <p class="p plus-jakarta-sans-bold" style="color: var(--neutral-1); font-size: 1vw; margin-top: 1vh !important; margin: auto; width: max-content;">
                             Putar Acak
                         </p>
                     </a>
@@ -51,11 +52,11 @@
             </div>
     
             <!-- Tabel untuk lagu -->
-            <table class="table-lagu" style="width: 100%; border-collapse: collapse;color: var(--neutral-1); padding: 10px; margin-top: 20px;">
+            <table class="table-lagu" style="width: 100%; border-collapse: collapse; color: var(--neutral-1); padding: 10px; margin-top: 20px;">
                 <thead>
                     <tr style="border-bottom: 1px solid var(--neutral-2);">
-                        <th class="table" style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; background-color: blue; width: 5%;">#</th>
-                        <th class="table" style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; background-color: purple; width: 30%;">Judul Lagu</th>
+                        <th class="table" style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; width: 5%;">#</th>
+                        <th class="table" style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; width: 30%;">Judul Lagu</th>
                         <th class="table" style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; width: 30%;">Nama Artist</th>
                         <th class="table" style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; width: 25%;">Durasi</th>
                         <th class="table" style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; width: 10%;">Actions</th>
@@ -70,21 +71,21 @@
                         <td style="padding: 3vh 1vh; color: var(--neutral-1); ">
                             {{ detail.no }}</td>
                         <td
-                            style="padding: 3vh 1vh; color: var(--neutral-1); word-wrap: break-word; background-color: aqua; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                            style="padding: 3vh 1vh; color: var(--neutral-1); word-wrap: break-word; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
                             {{ detail.judulLagu }}</td>
                         <td
-                            style="padding: 3vh 1vh; color: var(--neutral-1); word-wrap: break-word; background-color: blueviolet; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                            style="padding: 3vh 1vh; color: var(--neutral-1); word-wrap: break-word; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
                             {{ detail.artist }}</td>
                         <td
-                            style="padding: 3vh 1vh; color: var(--neutral-1); word-wrap: break-word; background-color: pink; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                            style="padding: 3vh 1vh; color: var(--neutral-1); word-wrap: break-word; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
                             {{ detail.durasi }}</td>
                         <td class="action" style="padding: 3vh 1vh; color: var(--neutral-1);">
                             <div class="dropdown d-flex justify-content-center align-items-center">
-                                <a href="#" data-toggle="modal" data-target="#modalInform" style="text-decoration: none;">
+                                <a class="playcirclefill" href="#" data-toggle="modal" data-target="#modalInform" style="text-decoration: none; background-color: transparent; margin-top: -1vh;">
                                     <img src="{% static 'img/PlayCircleFill.svg' %}" alt="kelola" width="25vw" height="25vh">
                                 </a>
-                                <button class="btn btn-secondary dropdown-toggle-iconless" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-                                    style="background-color: transparent; border: none;">
+                                <button class="threedots btn btn-secondary dropdown-toggle-iconless" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                                    style="background-color: transparent; border: none; margin-top: -2vh;">
                                     <img src="{% static 'img/threedots.svg' %}" alt="kelola" width="25vw" height="25vh">
                                 </button>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton"
