@@ -73,6 +73,9 @@ def add_podcast(request):
     if request.method == 'POST':
         url_now = request.session.get('url_now')
         judul = request.POST['judul']
+        if len(judul) > 100:
+            messages.error(request, "Judul terlalu panjang. Maksimum 100 karakter.")
+            return redirect(url_now)
         genre = request.POST.getlist('genreSelect')
 
         # Buat UUID baru untuk podcast ini
@@ -163,6 +166,10 @@ def update_podcast(request, id_konten):
         print("id_konten")
         print(id_konten)
         judul = request.POST['judul']
+        if len(judul) > 100:
+            messages.error(request, "Judul terlalu panjang. Maksimum 100 karakter.")
+            return redirect(url_now)
+        
         genre = request.POST.getlist('genreSelect')
 
         with connection.cursor() as cursor:
@@ -252,6 +259,7 @@ def update_episode(request, id_konten, id_episode):
         return redirect('login:loginkonten')
     if request.method == 'POST':
         judul = request.POST['judulEpisode']
+
         deskripsi = request.POST['deskripsi']
         durasi_menit = request.POST['durasiMenit']
         print(durasi_menit)
@@ -591,6 +599,11 @@ def create_album(request):
         print("id_album:")
         print(id_album)
         judul_album = request.POST.get('judulAlbum')
+
+        if len(judul_album) > 100:
+            messages.error(request, "Judul terlalu panjang. Maksimum 100 karakter.")
+            return redirect(url_now)
+        
         id_label = request.POST.get('label')
         try:
             with connection.cursor() as cursor:
@@ -628,6 +641,10 @@ def create_song(request, id_album, id_pemilik_hak_cipta_label):
 
         #konten
         judul_lagu = request.POST.get('judulLagu')
+        if len(judul_lagu) > 100:
+            messages.error(request, "Judul terlalu panjang. Maksimum 100 karakter.")
+            return redirect(url_now)
+        
         tanggal_dibuat = datetime.now()
         durasi_menit = request.POST.get('durasiMenit')
         print(durasi_menit)
@@ -943,6 +960,11 @@ def add_playlist(request):
         # Memeriksa apakah judul dan deskripsi ada dalam permintaan POST
         if not judul or not deskripsi:
             return HttpResponseBadRequest("Judul dan/atau deskripsi tidak ada dalam permintaan POST")
+        
+        if len(judul) > 100:
+            messages.error(request, "Judul terlalu panjang. Maksimum 100 karakter.")
+            return redirect(url_now)
+
         jumlah_lagu = 0
         tanggal_dibuat = datetime.now()
         total_durasi = 0
@@ -971,6 +993,10 @@ def ubah_playlist(request, id_playlist):
         url_now = request.session.get('url_now')
         judul = request.POST.get('judul')
         deskripsi = request.POST.get('deskripsi')
+
+        if len(judul) > 100:
+            messages.error(request, "Judul terlalu panjang. Maksimum 100 karakter.")
+            return redirect(url_now)
 
         # Memeriksa apakah judul dan deskripsi ada dalam permintaan POST
         if not judul or not deskripsi:

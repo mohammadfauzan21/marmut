@@ -86,22 +86,23 @@
                     <!-- modal buat add lagu ke playlist -->
                     <div class="modal fade" id="modalAddSong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
                         aria-hidden="true" style="">
-                        <div class="modal-dialog" role="document" style="width: 40vw; height: 40vh;">
-                            <div class="modal-content" style="background-color: var(--neutral-4); border-radius: 40px !important; padding: 0vh; width: 100%; height: 40vh;">
+                        <div class="modalpremium modal-dialog" role="document" style="width: 40vw; margin: auto;">
+                            <div class="modal-content"
+                                style="background-color: var(--neutral-4); border-radius: 40px !important; padding: 0vh; width: 100%;">
                                 <div class="modal-header" style="border-bottom: none;">
-                                    <h5 class="modal-title plus-jakarta-sans-extrabold" id="exampleModalLabel"
+                                    <h5 class="headermodal plus-jakarta-sans-extrabold" id="exampleModalLabel"
                                         style="color: var(--neutral-0); margin: auto; font-size: 1.3vw;">
                                         Tambah Lagu ke Playlist
                                     </h5>
                                 </div>
                                 <div class="d-flex align-items-center justify-content-center" style="margin-top: 1vh; width: max-content; margin: auto;">
                                     <div class="" style="border-radius: 12px; width: max-content; background-color: var(--neutral-4); padding: 0.8vh 0.5vw;">
-                                        <img src="{% static 'img/default.png' %}" alt="kelola" width="25vw" height="25vh" style="margin: auto;">
+                                        <img class="imgmoney" src="{% static 'img/default.png' %}" alt="kelola" style="margin: auto; width: 2vw; height: 5vh;">
                                     </div>
                                     <div style="margin-left: 1vw; margin-top: 0.9vh;">
-                                        <h3 class="plus-jakarta-sans-extrabold" style="font-size: 1vw; color: #ffffff;">
+                                        <h3 class="detailmodal plus-jakarta-sans-extrabold" style="font-size: 1vw; color: #ffffff;">
                                             {{judul_lagu}}</h3>
-                                        <h3 class="plus-jakarta-sans-medium" style="font-size: 0.7vw; color: var(--neutral-1)">
+                                        <h3 class="detailmodal plus-jakarta-sans-medium" style="font-size: 0.7vw; color: var(--neutral-1)">
                                             {{artist}}
                                         </h3>
                                     </div>
@@ -110,10 +111,10 @@
                                 <div class="modal-body plus-jakarta-sans-medium" style="color: var(--neutral-1);">
                                     <!-- Dropdown untuk judul -->
                                     <div class="form-group">
-                                        <label for="judulDropdown" style="color: #ffffff; font-size: 1vw;">Playlist</label>
+                                        <label class="detailmodal" for="judulDropdown" style="color: #ffffff; font-size: 1vw;">Playlist</label>
                                         <select name="id_playlist" class="form-control" id="judulDropdown" style="margin-top: 5px; font-size: 0.9vw;">
                                             {% for detail in detail_playlist_kelola %}
-                                            <option value="{{ detail.id_playlist }}" style="font-size: 0.9vw;">{{detail.namaPlaylist}}
+                                            <option value="{{ detail.id_playlist }}" style="font-size: 0.9vw;" class="p">{{detail.namaPlaylist}}
                                             </option>
                                             {% endfor %}
                                         </select>
@@ -123,23 +124,23 @@
                                 <div class="modal-body plus-jakarta-sans-medium" style="color: var(--neutral-1);">
                                     <!-- Dropdown untuk judul -->
                                     <div class="form-group">
-                                        <label for="judulDropdown" style="color: #ffffff; font-size: 1vw;">Playlist</label>
-                                        <p style="font-size: 0.9vw;">Anda belum punya Playlist. Silahkan Tambah Playlist</p>
+                                        <label class="detailmodal" for="judulDropdown" style="color: #ffffff; font-size: 1vw;">Playlist</label>
+                                        <p class="p" style="font-size: 0.9vw;">Anda belum punya Playlist. Silahkan Tambah Playlist</p>
                                     </div>
                                 </div>
                                 {% endif %}
                                 {% if detail_playlist_kelola %}
                                 <div class="modal-footer" style="border-top: none;">
-                                    <button type="button" class="button-modal-secondary plus-jakarta-sans-bold secondary-button"
+                                    <button type="button" class="button button-modal-secondary plus-jakarta-sans-bold secondary-button"
                                         style="border: none !important; border-radius: 16px; padding-block: 12px; padding-inline: 24px; text-decoration: 2px solid var(--neutral-1); background-color: var(--neutral-3); color: white; font-size: 1vw;"
                                         data-dismiss="modal">Kembali</button>
-                                    <button type="submit" class="button-modal-danger plus-jakarta-sans-bold button-primary"
+                                    <button type="submit" class="button button-modal-danger plus-jakarta-sans-bold button-primary"
                                         style="border: none !important; border-radius: 16px; padding-block: 12px; padding-inline: 24px; color: var(--neutral-0); font-size: 1vw;">Tambah
                                         ke Playlist</button>
                                 </div>
                                 {% else %}
                                 <div class="modal-footer" style="border-top: none;">
-                                    <button type="button" class="button-modal-secondary plus-jakarta-sans-bold secondary-button" style="border: none !important; border-radius: 16px; padding-block: 12px; padding-inline: 24px; text-decoration: 2px solid var(--neutral-1); background-color: var(--neutral-3); color: white; font-size: 1vw;"
+                                    <button type="button" class="button button-modal-secondary plus-jakarta-sans-bold secondary-button" style="border: none !important; border-radius: 16px; padding-block: 12px; padding-inline: 24px; text-decoration: 2px solid var(--neutral-1); background-color: var(--neutral-3); color: white; font-size: 1vw;"
                                         data-dismiss="modal">Kembali</button>
                                 </div>
                                 {% endif %}

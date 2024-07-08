@@ -624,6 +624,10 @@
             .threedots{
                 margin-top: -0.7vh !important;
             }
+            .imgmoney{
+                width: 9vw !important;
+                height: 5vh !important;
+            }
         }
 
         /* iphone se (375)
@@ -717,7 +721,7 @@
                 padding: 0vh 0vw !important;
             }
             .modalpremium{
-                width: 80% !important;
+                width: 90% !important;
             }
             .action{
                 padding: 1vh 1vw !important;
@@ -754,6 +758,9 @@
             .multiselect-selected-text{
                 margin: auto;
                 font-size: 3.1vw !important
+            }
+            .alertkelola{
+                width: 90% !important;
             }
         }
 
@@ -876,6 +883,10 @@
             }
             .threedots{
                 margin-top: -3vh !important;
+            }
+            .imgmoney{
+                width: 5vw !important;
+                height: 5vh !important;
             }
 
         }
@@ -1208,6 +1219,19 @@
                             {% else %}
                             <div class="isikonten container" style="height: 24vh; overflow-y: auto; width: 100%;">
                             {% endif %}
+                                {% if messages %}
+                                <div class="alertkelola d-flex justify-content-center alert alert-primary alert-dismissible fade show" role="alert"
+                                    style="background-color: #281E14; border: none; width: 100%; margin: auto; margin-top: 0vh;">
+                                    <img src="{% static 'img/ExclamationCircleFill.svg' %}" alt="alert-info">
+                                    {% for message in messages %}
+                                    <p class="detail plus-jakarta-sans-medium"
+                                        style="color:var(--neutral-0); margin: auto; font-size: 0.7vw; margin-left: 1vw;">
+                                        {{message}}</p>
+                                    {% endfor %}
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                                    </button>
+                                </div>
+                                {% endif %}
                                 {% if detail_playlist_kelola %}
                                 {% for detail in detail_playlist_kelola %}
                                 <div class="container d-flex card-playlist" style="height: 10vh; border-radius: 16px; margin-top: 0.2vh;">
@@ -1283,6 +1307,19 @@
                             {% else %}
                             <div class="isikonten container" style="height: 24vh; overflow-y: auto; width: 100%;">
                             {% endif %}
+                                {% if messages %}
+                                <div class="alertkelola d-flex justify-content-center alert alert-primary alert-dismissible fade show" role="alert"
+                                    style="background-color: #281E14; border: none; width: 100%; margin: auto; margin-top: 0vh;">
+                                    <img src="{% static 'img/ExclamationCircleFill.svg' %}" alt="alert-info">
+                                    {% for message in messages %}
+                                    <p class="detail plus-jakarta-sans-medium"
+                                        style="color:var(--neutral-0); margin: auto; font-size: 0.7vw; margin-left: 1vw;">
+                                        {{message}}</p>
+                                    {% endfor %}
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                                    </button>
+                                </div>
+                                {% endif %}
                                 {% if albums %}
                                 {% for detail in albums %}
                                 <div class="container d-flex justify-content-center align-items-center card-album" style="height: 10vh; border-radius: 16px; margin-top: 0.2vh;">
@@ -1355,6 +1392,19 @@
                             {% else %}
                             <div class="isikonten container" style="height: 24vh; overflow-y: auto; width: 100%;">
                             {% endif %}
+                                {% if messages %}
+                                <div class="alertkelola d-flex justify-content-center alert alert-primary alert-dismissible fade show" role="alert"
+                                    style="background-color: #281E14; border: none; width: 100%; margin: auto; margin-top: 0vh;">
+                                    <img src="{% static 'img/ExclamationCircleFill.svg' %}" alt="alert-info">
+                                    {% for message in messages %}
+                                    <p class="detail plus-jakarta-sans-medium"
+                                        style="color:var(--neutral-0); margin: auto; font-size: 0.7vw; margin-left: 1vw;">
+                                        {{message}}</p>
+                                    {% endfor %}
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                                    </button>
+                                </div>
+                                {% endif %}
                                 {% if podcasts %}
                                 {% for podcast in podcasts %}
                                 <div class="container d-flex justify-content-center align-items-center card-podcast" style="height: 10vh; border-radius: 16px; margin-top: 0.2vh;">
@@ -1985,6 +2035,8 @@
             </div>
         </div>
     </div>
+
+    
 
     <footer class="position-fixed d-flex justify-content-between align-items-center" style="bottom: 0px; width: 100%; height: 12vh; background-color: transparent; backdrop-filter: blur(100px);">
         <div class="footerleft d-flex align-items-center" style="margin-left: 4vw; width: 30%;">
