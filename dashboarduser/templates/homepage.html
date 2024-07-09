@@ -3,7 +3,7 @@
 
 {% block content %}
 <!-- Bagian konten dashboardnya -->
-<div class="konten" style="background: linear-gradient(180deg, #292724, #1B1817); border-radius: 24px; height: 81vh; padding-bottom: 2vh; padding-top: 2vh; white-space: nowrap; overflow-y: auto; text-overflow: ellipsis; margin-top: 2vh; width: 97%;">
+<div class="konten" style="background: linear-gradient(180deg, #292724, #1B1817); border-radius: 24px; height: 79vh; padding-bottom: 2vh; padding-top: 2vh; white-space: nowrap; overflow-y: auto; text-overflow: ellipsis; margin-top: 2vh; width: 97%;">
     <div class="col-12" style="margin-left: 4vw; margin-top: 2vh;">
         {% if 'podcaster' in request.session.user_roles or 'songwriter' in request.session.user_roles or 'artist' in request.session.user_roles%}
         <span class="verified plus-jakarta-sans-medium" style="margin-bottom: 5vh; font-size: 0.8vw; padding-inline: 0.5vw;padding-block: 0.5vh; color: #ffffff; background-color: #1f66ff; border-radius: 24px;">Verified</span>
