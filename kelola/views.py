@@ -613,7 +613,7 @@ def create_album(request):
                 print(judul_album)
                 cursor.execute(get_id_pemilik_hak_cipta_label(id_label))
                 id_pemilik_hak_cipta_label = cursor.fetchone()
-                cursor.execute(create_new_album(id_album, judul_album, id_label))
+                cursor.execute(create_new_album(), [id_album, judul_album, id_label])
                 create_song(request, id_album, id_pemilik_hak_cipta_label[0])
                 return redirect(url_now)
         except OperationalError:

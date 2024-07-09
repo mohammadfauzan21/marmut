@@ -69,14 +69,14 @@
             </p>
 
             <!-- Tabel untuk podcast -->
-            <table class="table-podcast" style="width: 100%; border-collapse: collapse;color: var(--neutral-1); padding: 10px; margin-top: 20px;">
+            <table class="table-podcast" style="width: 100%; border-collapse: collapse;color: var(--neutral-1); padding: 10px; margin-top: 20px; table-layout: fixed;">
                 <thead>
                     <tr style="border-bottom: 1px solid var(--neutral-2);">
-                        <th class="table" style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; width: 4%;">#</th>
-                        <th class="table" style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; width: 30%;">Judul Episode</th>
-                        <th class="table" style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; width: 30%;">Deskripsi</th>
-                        <th class="table" style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; width: 18%;">Durasi</th>
-                        <th class="table" style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; width: 18%;">Tanggal</th>
+                        <th class="table" style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; width: 4%; word-wrap: break-word; overflow-wrap: break-word; white-space: normal;">#</th>
+                        <th class="table" style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; width: 33%; word-wrap: break-word; overflow-wrap: break-word; white-space: normal;">Judul Episode</th>
+                        <th class="table" style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; width: 33%; word-wrap: break-word; overflow-wrap: break-word; white-space: normal;">Deskripsi</th>
+                        <th class="table" style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; width: 18%; word-wrap: break-word; overflow-wrap: break-word; white-space: normal;">Durasi</th>
+                        <th class="table" style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; width: 12%; word-wrap: break-word; overflow-wrap: break-word; white-space: normal;">Tanggal</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -84,19 +84,19 @@
                     {% for episode in episodes %}
                     <tr class="table plus-jakarta-sans-bold body-tr"
                         style="border-bottom: 0px solid var(--neutral-2); font-size: 1vw; text-align: start; padding: 1vh; ">
-                        <td style="padding: 3vh 1vh; color: var(--neutral-1); ">
+                        <td style="padding: 3vh 1vh; color: var(--neutral-1); word-wrap: break-word; overflow-wrap: break-word; white-space: normal;">
                             {{ forloop.counter }}</td>
                         <td
-                            style="padding: 3vh 1vh; color: var(--neutral-1); word-wrap: break-word; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                            style="padding: 3vh 1vh; color: var(--neutral-1); word-wrap: break-word; overflow-wrap: break-word; white-space: normal;">
                             {{ episode.judul }}</td>
                         <td
-                            style="padding: 3vh 1vh; color: var(--neutral-1); word-wrap: break-word; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                            style="padding: 3vh 1vh; color: var(--neutral-1); word-wrap: break-word; overflow-wrap: break-word; white-space: normal;">
                             {{ episode.deskripsi }}</td>
                         <td
-                            style="padding: 3vh 1vh; color: var(--neutral-1); word-wrap: break-word; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                            style="padding: 3vh 1vh; color: var(--neutral-1); word-wrap: break-word; overflow-wrap: break-word; white-space: normal;">
                             {{ episode.durasi }}</td>
                         <td
-                            style="padding: 3vh 1vh; color: var(--neutral-1); word-wrap: break-word; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                            style="padding: 3vh 1vh; color: var(--neutral-1); word-wrap: break-word; overflow-wrap: break-word; white-space: normal;">
                             {{ episode.tanggal_rilis|date:"d/m/Y" }}
                         </td>
                     </tr>

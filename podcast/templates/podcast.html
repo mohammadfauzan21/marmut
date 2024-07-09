@@ -14,27 +14,27 @@
                 Podcast hadir untuk menemani harimu
             </p>
             <!-- Tabel untuk podcast -->
-            <table class="table-podcast" style="width: 95%; border-collapse: collapse;color: var(--neutral-1); padding: 10px; margin-top: 20px;">
+            <table class="table-podcast" style="width: 95%; border-collapse: collapse;color: var(--neutral-1); padding: 10px; margin-top: 20px; table-layout: fixed;">
                 <thead>
                     <tr style="border-bottom: 1px solid var(--neutral-2);">
-                        <th class="table" style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; width: 5%;">#</th>
-                        <th class="table" style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; width: 30%;">Judul Podcast</th>
-                        <th class="table" style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; width: 30%;">Podcaster</th>
-                        <th class="table" style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; width: 25%;">Durasi</th>
-                        <th class="table" style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; width: 5%;">Actions</th>
+                        <th class="table" style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; width: 5%; word-wrap: break-word; overflow-wrap: break-word; white-space: normal;">#</th>
+                        <th class="table" style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; width: 30%; word-wrap: break-word; overflow-wrap: break-word; white-space: normal;">Judul Podcast</th>
+                        <th class="table" style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; width: 30%; word-wrap: break-word; overflow-wrap: break-word; white-space: normal;">Podcaster</th>
+                        <th class="table" style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; width: 20%; word-wrap: break-word; overflow-wrap: break-word; white-space: normal;">Durasi</th>
+                        <th class="table" style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; width: 10%; word-wrap: break-word; overflow-wrap: break-word; white-space: normal;">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for index, podcast_data in all_podcasts %}
                     <!-- {{ podcast_data.0 }} -->
                     <tr class="table plus-jakarta-sans-bold body-tr" style="border-bottom: 0px solid var(--neutral-2); font-size: 1vw; text-align: start; padding: 1vh; ">
-                        <td style="padding: 3vh 1vh; color: var(--neutral-1); ">
+                        <td style="padding: 3vh 1vh; color: var(--neutral-1); word-wrap: break-word; overflow-wrap: break-word; white-space: normal;">
                             {{ index|add:1 }}</td>
-                        <td style="padding: 3vh 1vh; color: var(--neutral-1); word-wrap: break-word; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                        <td style="padding: 3vh 1vh; color: var(--neutral-1); word-wrap: break-word; overflow-wrap: break-word; white-space: normal;">
                             {{ podcast_data.1 }}</td>
-                        <td style="padding: 3vh 1vh; color: var(--neutral-1); word-wrap: break-word; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                        <td style="padding: 3vh 1vh; color: var(--neutral-1); word-wrap: break-word; overflow-wrap: break-word; white-space: normal;">
                             {{ podcast_data.2 }}</td>
-                        <td style="padding: 3vh 1vh; color: var(--neutral-1); word-wrap: break-word; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                        <td style="padding: 3vh 1vh; color: var(--neutral-1); word-wrap: break-word; overflow-wrap: break-word; white-space: normal;">
                             {{ podcast_data.3 }}</td>
                         <td class="action" style="padding: 3vh 1vh; color: var(--neutral-1);">
                             <div class="dropdown d-flex">

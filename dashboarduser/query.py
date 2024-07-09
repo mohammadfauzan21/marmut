@@ -22,9 +22,10 @@ def show_songwriter():
 
 def show_genre():
     return f"""
-        SELECT id_konten, genre
+        SELECT DISTINCT ON (g.genre) g.id_konten, g.genre
         FROM genre g
         JOIN konten k ON k.id=g.id_konten
+        ORDER BY g.genre ASC, g.id_konten;
     """
 
 def user_info(email):

@@ -13,14 +13,14 @@
             </p>
     
             <!-- Tabel untuk playlist -->
-            <table class="table-playlist" style="width: 100%; border-collapse: collapse;color: var(--neutral-1); padding: 10px; margin-top: 20px;">
+            <table class="table-playlist" style="width: 100%; border-collapse: collapse;color: var(--neutral-1); padding: 10px; margin-top: 20px; table-layout: fixed;">
                 <thead>
                     <tr style="border-bottom: 1px solid var(--neutral-2);">
-                        <th class="table" style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; width: 5%;">#</th>
-                        <th class="table" style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; width: 30%;">Judul Playlist</th>
-                        <th class="table" style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; width: 30%;">Pembuat</th>
-                        <th class="table" style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; width: 25%;">Durasi</th>
-                        <th class="table" style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; width: 10%;">Actions</th>
+                        <th class="table" style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; width: 5%; word-wrap: break-word; overflow-wrap: break-word; white-space: normal;">#</th>
+                        <th class="table" style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; width: 30%; word-wrap: break-word; overflow-wrap: break-word; white-space: normal;">Judul Playlist</th>
+                        <th class="table" style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; width: 30%; word-wrap: break-word; overflow-wrap: break-word; white-space: normal;">Pembuat</th>
+                        <th class="table" style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; width: 25%; word-wrap: break-word; overflow-wrap: break-word; white-space: normal;">Durasi</th>
+                        <th class="table" style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; width: 10%; word-wrap: break-word; overflow-wrap: break-word; white-space: normal;">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -28,16 +28,16 @@
                     {% for playlist in list_all_playlist %}
                     <tr class="table plus-jakarta-sans-bold body-tr"
                         style="border-bottom: 0px solid var(--neutral-2); font-size: 1vw; text-align: start; padding: 1vh; ">
-                        <td style="padding: 3vh 1vh; color: var(--neutral-1); ">
+                        <td style="padding: 3vh 1vh; color: var(--neutral-1); word-wrap: break-word; overflow-wrap: break-word; white-space: normal;">
                             {{ playlist.no }}</td>
                         <td
-                            style="padding: 3vh 1vh; color: var(--neutral-1); word-wrap: break-word; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                            style="padding: 3vh 1vh; color: var(--neutral-1); word-wrap: break-word; overflow-wrap: break-word; white-space: normal;">
                             {{ playlist.judulPlaylist }}</td>
                         <td
-                            style="padding: 3vh 1vh; color: var(--neutral-1); word-wrap: break-word; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                            style="padding: 3vh 1vh; color: var(--neutral-1); word-wrap: break-word; overflow-wrap: break-word; white-space: normal;">
                             {{ playlist.pembuat }}</td>
                         <td
-                            style="padding: 3vh 1vh; color: var(--neutral-1); word-wrap: break-word; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                            style="padding: 3vh 1vh; color: var(--neutral-1); word-wrap: break-word; overflow-wrap: break-word; white-space: normal;">
                             {{ playlist.durasi }}</td>
                         <td class="action" style="padding: 3vh 1vh; color: var(--neutral-1);">
                             <div class="dropdown d-flex justify-content-center align-items-center">

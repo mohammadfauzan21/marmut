@@ -105,9 +105,9 @@ def check_song(id_song, id_playlist):
         SELECT * FROM playlist_song WHERE id_playlist = '{id_playlist}' AND id_song = '{id_song}'
     """
 
-def create_new_album(id_album, judul, id_label):
+def create_new_album():
     return f"""
-        INSERT INTO album (id, judul, id_label) VALUES ('{id_album}', '{judul}', '{id_label}')
+        INSERT INTO album (id, judul, id_label) VALUES (%s, %s, %s)
     """
 
 def add_song_to_album(id_konten, id_artist, id_album):

@@ -88,15 +88,15 @@
                 </button>
             </div>
             <!-- Tabel untuk Result song -->
-            <table class="table-song" id="songToptbody" style="width: 100%; border-collapse: collapse; color: var(--neutral-1); padding: 10px; margin-top: 20px;">
+            <table class="table-song" id="songToptbody" style="width: 100%; border-collapse: collapse; color: var(--neutral-1); padding: 10px; margin-top: 20px; table-layout: fixed;">
                 <thead>
                     <tr style="border-bottom: 1px solid var(--neutral-2);">
-                        <th class="table" style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; width: 5%;">#</th>
-                        <th class="table" style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; width: 25%;">Judul Lagu</th>
-                        <th class="table" style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; width: 25%;">Artist</th>
-                        <th class="table" style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; width: 22%;">Tanggal Rilis</th>
-                        <th class="table" style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; width: 13%;">Total Plays</th>
-                        <th class="table" style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; width: 10%;">Actions</th>
+                        <th class="table" style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; width: 5%; word-wrap: break-word; overflow-wrap: break-word; white-space: normal;">#</th>
+                        <th class="table" style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; width: 25%; word-wrap: break-word; overflow-wrap: break-word; white-space: normal;">Judul Lagu</th>
+                        <th class="table" style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; width: 25%; word-wrap: break-word; overflow-wrap: break-word; white-space: normal;">Artist</th>
+                        <th class="table" style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; width: 22%; word-wrap: break-word; overflow-wrap: break-word; white-space: normal;">Tanggal Rilis</th>
+                        <th class="table" style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; width: 13%; word-wrap: break-word; overflow-wrap: break-word; white-space: normal;">Total Plays</th>
+                        <th class="table" style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; width: 10%; word-wrap: break-word; overflow-wrap: break-word; white-space: normal;">Actions</th>
                     </tr>
                 </thead>
 
@@ -105,19 +105,19 @@
                     <!-- Gunakan loop untuk menampilkan song -->
                     {% for result in search_song %}
                     <tr class="table plus-jakarta-sans-bold body-tr" style="border-bottom: 0px solid var(--neutral-2); font-size: 1vw; text-align: start; padding: 1vh;">
-                        <td style="padding: 3vh 1vh; color: var(--neutral-1); ">
+                        <td style="padding: 3vh 1vh; color: var(--neutral-1); word-wrap: break-word; overflow-wrap: break-word; white-space: normal;">
                             {{result.no}}</td>
                         <td
-                            style="padding: 3vh 1vh; color: var(--neutral-1); word-wrap: break-word; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                            style="padding: 3vh 1vh; color: var(--neutral-1); word-wrap: break-word; overflow-wrap: break-word; white-space: normal;">
                             {{result.judulLagu}}</td>
                         <td
-                            style="padding: 3vh 1vh; color: var(--neutral-1); word-wrap: break-word; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                            style="padding: 3vh 1vh; color: var(--neutral-1); word-wrap: break-word; overflow-wrap: break-word; white-space: normal;">
                             {{result.artist}}</td>
                         <td
-                            style="padding: 3vh 1vh; color: var(--neutral-1); word-wrap: break-word; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                            style="padding: 3vh 1vh; color: var(--neutral-1); word-wrap: break-word; overflow-wrap: break-word; white-space: normal;">
                             {{result.tanggalRilis}}</td>
                         <td
-                            style="padding: 3vh 1vh; color: var(--neutral-1); word-wrap: break-word; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                            style="padding: 3vh 1vh; color: var(--neutral-1); word-wrap: break-word; overflow-wrap: break-word; white-space: normal;">
                             {{result.totalPlay}}</td>
                         <td style="padding: 3vh 1vh; color: var(--neutral-1);">
                             <div class="dropdown d-flex">
@@ -149,17 +149,17 @@
             </table>
 
             <!-- Tabel untuk Result album -->
-            <table class="table-album hidden" id="albumToptbody" style="width: 100%; border-collapse: collapse; color: var(--neutral-1); padding: 10px; margin-top: 20px;">
+            <table class="table-album hidden" id="albumToptbody" style="width: 100%; border-collapse: collapse; color: var(--neutral-1); padding: 10px; margin-top: 20px; table-layout: fixed;">
                 <thead>
                     <tr style="border-bottom: 1px solid var(--neutral-2);">
-                        <th class="table" style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; width: 5%;">#
+                        <th class="table" style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; width: 5%; word-wrap: break-word; overflow-wrap: break-word; white-space: normal;">#
                         </th>
-                        <th class="table" style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; width: 30%;">
+                        <th class="table" style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; width: 30%; word-wrap: break-word; overflow-wrap: break-word; white-space: normal;">
                             Judul Album</th>
-                        <th class="table" style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; width: 29%;">Label</th>
-                        <th class="table" style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; width: 13%;">Jumlah Lagu</th>
-                        <th class="table" style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; width: 13%;">Durasi</th>
-                        <th class="table" style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; width: 10%;">Actions</th>
+                        <th class="table" style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; width: 29%; word-wrap: break-word; overflow-wrap: break-word; white-space: normal;">Label</th>
+                        <th class="table" style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; width: 13%; word-wrap: break-word; overflow-wrap: break-word; white-space: normal;">Jumlah Lagu</th>
+                        <th class="table" style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; width: 13%; word-wrap: break-word; overflow-wrap: break-word; white-space: normal;">Durasi</th>
+                        <th class="table" style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; width: 10%; word-wrap: break-word; overflow-wrap: break-word; white-space: normal;">Actions</th>
                     </tr>
                 </thead>
             
@@ -169,19 +169,19 @@
                     {% for result in search_album %}
                     <tr class="table plus-jakarta-sans-bold body-tr"
                         style="border-bottom: 0px solid var(--neutral-2); font-size: 1vw; text-align: start; padding: 1vh;">
-                        <td style="padding: 3vh 1vh; color: var(--neutral-1); ">
+                        <td style="padding: 3vh 1vh; color: var(--neutral-1); word-wrap: break-word; overflow-wrap: break-word; white-space: normal;">
                             {{result.no}}</td>
                         <td
-                            style="padding: 3vh 1vh; color: var(--neutral-1); word-wrap: break-word; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                            style="padding: 3vh 1vh; color: var(--neutral-1); word-wrap: break-word; overflow-wrap: break-word; white-space: normal;">
                             {{result.judulAlbum}}</td>
                         <td
-                            style="padding: 3vh 1vh; color: var(--neutral-1); word-wrap: break-word; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                            style="padding: 3vh 1vh; color: var(--neutral-1); word-wrap: break-word; overflow-wrap: break-word; white-space: normal;">
                             {{result.label}}</td>
                         <td
-                            style="padding: 3vh 1vh; color: var(--neutral-1); word-wrap: break-word; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                            style="padding: 3vh 1vh; color: var(--neutral-1); word-wrap: break-word; overflow-wrap: break-word; white-space: normal;">
                             {{result.jumlahLagu}}</td>
                         <td
-                            style="padding: 3vh 1vh; color: var(--neutral-1); word-wrap: break-word; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                            style="padding: 3vh 1vh; color: var(--neutral-1); word-wrap: break-word; overflow-wrap: break-word; white-space: normal;">
                             {{result.durasi}}</td>
                         <td style="padding: 3vh 1vh; color: var(--neutral-1);">
                             <div class="dropdown d-flex">
@@ -215,17 +215,17 @@
 
             <!-- Tabel untuk Result playlist -->
             <table class="table-playlist hidden" id="playlistToptbody"
-                style="width: 100%; border-collapse: collapse; color: var(--neutral-1); padding: 10px; margin-top: 20px;">
+                style="width: 100%; border-collapse: collapse; color: var(--neutral-1); padding: 10px; margin-top: 20px; table-layout: fixed;">
                 <thead>
                     <tr style="border-bottom: 1px solid var(--neutral-2);">
-                        <th class="table" style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; width: 5%;">#
+                        <th class="table" style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; width: 5%; word-wrap: break-word; overflow-wrap: break-word; white-space: normal;">#
                         </th>
-                        <th class="table" style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; width: 29%;">
+                        <th class="table" style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; width: 29%; word-wrap: break-word; overflow-wrap: break-word; white-space: normal;">
                             Judul Playlist</th>
-                        <th class="table" style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; width: 25%;">Pembuat</th>
-                        <th class="table" style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; width: 13%;">Durasi</th>
-                        <th class="table" style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; width: 18%;">Tanggal Buat</th>
-                        <th class="table" style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; width: 10%;">Actions</th>
+                        <th class="table" style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; width: 25%; word-wrap: break-word; overflow-wrap: break-word; white-space: normal;">Pembuat</th>
+                        <th class="table" style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; width: 13%; word-wrap: break-word; overflow-wrap: break-word; white-space: normal;">Durasi</th>
+                        <th class="table" style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; width: 18%; word-wrap: break-word; overflow-wrap: break-word; white-space: normal;">Tanggal Buat</th>
+                        <th class="table" style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; width: 10%; word-wrap: break-word; overflow-wrap: break-word; white-space: normal;">Actions</th>
                     </tr>
                 </thead>
             
@@ -235,19 +235,19 @@
                     {% for result in search_playlist %}
                     <tr class="table plus-jakarta-sans-bold body-tr"
                         style="border-bottom: 0px solid var(--neutral-2); font-size: 1vw; text-align: start; padding: 1vh;">
-                        <td style="padding: 3vh 1vh; color: var(--neutral-1); ">
+                        <td style="padding: 3vh 1vh; color: var(--neutral-1); word-wrap: break-word; overflow-wrap: break-word; white-space: normal;">
                             {{result.no}}</td>
                         <td
-                            style="padding: 3vh 1vh; color: var(--neutral-1); word-wrap: break-word; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                            style="padding: 3vh 1vh; color: var(--neutral-1); word-wrap: break-word; overflow-wrap: break-word; white-space: normal;">
                             {{result.judulPlaylist}}</td>
                         <td
-                            style="padding: 3vh 1vh; color: var(--neutral-1); word-wrap: break-word; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                            style="padding: 3vh 1vh; color: var(--neutral-1); word-wrap: break-word; overflow-wrap: break-word; white-space: normal;">
                             {{result.pembuat}}</td>
                         <td
-                            style="padding: 3vh 1vh; color: var(--neutral-1); word-wrap: break-word; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                            style="padding: 3vh 1vh; color: var(--neutral-1); word-wrap: break-word; overflow-wrap: break-word; white-space: normal;">
                             {{result.durasi}}</td>
                         <td
-                            style="padding: 3vh 1vh; color: var(--neutral-1); word-wrap: break-word; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                            style="padding: 3vh 1vh; color: var(--neutral-1); word-wrap: break-word; overflow-wrap: break-word; white-space: normal;">
                             {{result.tanggalBuat}}</td>
                         <td style="padding: 3vh 1vh; color: var(--neutral-1);">
                             <div class="dropdown d-flex">

@@ -93,23 +93,23 @@
             </p>
             <div class="addepisode container" style="text-decoration: none; margin-top: 10px;">
                 <a href="#" class="container" style="text-decoration: none; margin-top: 5px; height: max-content !important;" data-toggle="modal" data-target="#popupContainer2">
-                    <img src="{% static 'img/add-icon.svg' %}" alt="add" style="width: 55px; height: 55px; margin-left: 1em; margin: auto;">
+                    <img src="{% static 'img/add-icon.svg' %}" alt="add" style="width: 55px; height: 55px; margin-left: 1.5vw !important; margin: auto;">
                     <br>
                     <h7 class="plus-jakarta-sans-extrabold" style="color: var(--neutral-0); margin-top: 15px; margin: auto;">
                         Tambah Episode</h7>
                 </a>
             </div>
             <!-- Tabel untuk podcast -->
-            <table class="table-podcast" style="width: 100%; border-collapse: collapse;color: var(--neutral-1); padding: 10px; margin-top: 20px;">
+            <table class="table-podcast" style="width: 100%; border-collapse: collapse;color: var(--neutral-1); padding: 10px; margin-top: 20px; table-layout: fixed;">
                 <thead>
                     <tr style="border-bottom: 1px solid var(--neutral-2);">
                         <th class="table"
-                            style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; width: 25%;">Judul Episode</th>
+                            style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; width: 25%; word-wrap: break-word; overflow-wrap: break-word; white-space: normal;">Judul Episode</th>
                         <th class="table"
-                            style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; width: 25%;">Deskripsi</th>
-                        <th class="table" style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; width: 20%;">Durasi</th>
-                        <th class="table" style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; width: 20%;">Tanggal</th>
-                        <th class="table" style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; width: 10%;">Action</th>
+                            style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; width: 32%; word-wrap: break-word; overflow-wrap: break-word; white-space: normal;">Deskripsi</th>
+                        <th class="table" style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; width: 15%; word-wrap: break-word; overflow-wrap: break-word; white-space: normal;">Durasi</th>
+                        <th class="table" style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; width: 15%; word-wrap: break-word; overflow-wrap: break-word; white-space: normal;">Tanggal</th>
+                        <th class="table" style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; width: 13%; word-wrap: break-word; overflow-wrap: break-word; white-space: normal;">Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -118,13 +118,13 @@
                     {% for episode in episodes %}
                     <tr class="table plus-jakarta-sans-bold body-tr"
                         style="border-bottom: 0px solid var(--neutral-2); font-size: 1vw; text-align: start; padding: 1vh; ">
-                        <td style="padding: 3vh 1vh; color: var(--neutral-1); ">
+                        <td style="padding: 3vh 1vh; color: var(--neutral-1); word-wrap: break-word; overflow-wrap: break-word; white-space: normal;">
                             {{ episode.1 }}</td>
                         <td
-                            style="padding: 3vh 1vh; color: var(--neutral-1); word-wrap: break-word; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                            style="padding: 3vh 1vh; color: var(--neutral-1); word-wrap: break-word; overflow-wrap: break-word; white-space: normal;">
                             {{ episode.2 }}</td>
                         <td
-                            style="padding: 3vh 1vh; color: var(--neutral-1); word-wrap: break-word; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                            style="padding: 3vh 1vh; color: var(--neutral-1); word-wrap: break-word; overflow-wrap: break-word; white-space: normal;">
                             {% if episode.3 %}
                             {% if episode.3 > 60 %}
                             {{ episode.3 }}
@@ -135,7 +135,7 @@
                             {{ episode.3 }}
                             {% endif %}</td>
                         <td
-                            style="padding: 3vh 1vh; color: var(--neutral-1); word-wrap: break-word; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                            style="padding: 3vh 1vh; color: var(--neutral-1); word-wrap: break-word; overflow-wrap: break-word; white-space: normal;">
                             {{ episode.4|date:"d/m/Y" }}</td>
                         <td class="action" style="padding: 3vh 1vh; color: var(--neutral-1);">
                             <div class="dropdown d-flex justify-content-center align-items-center">

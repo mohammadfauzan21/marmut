@@ -32,10 +32,10 @@
                     <p class="p plus-jakarta-sans-bold" style="color: var(--neutral-1); font-size: 1vw; margin-top: 1vh;">
                         {{pembuat}} | {{jumlah_lagu}} lagu |
                         {{durasi}} | {{tanggal_buat}}</p>
-                    <h1 class="profilsaya plus-jakarta-sans-extrabold" style="color: var(--neutral-0); font-size: 3vw; width: 60vw; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                    <h1 class="profilsaya plus-jakarta-sans-extrabold" style="color: var(--neutral-0); font-size: 3vw; width: 60vw; word-wrap: break-word; overflow-wrap: break-word; white-space: normal;">
                         {{judul_playlist}}
                     </h1>
-                    <p class="p plus-jakarta-sans-bold" style="color: var(--neutral-1); font-size: 1.5vw; margin-top: 1vh; width: 60vw; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                    <p class="p plus-jakarta-sans-bold" style="color: var(--neutral-1); font-size: 1.5vw; margin-top: 1vh; width: 60vw; word-wrap: break-word; overflow-wrap: break-word; white-space: normal;">
                         {{deskripsi_playlist}}
                     </p>
                 </div>
@@ -52,14 +52,14 @@
             </div>
     
             <!-- Tabel untuk lagu -->
-            <table class="table-lagu" style="width: 100%; border-collapse: collapse; color: var(--neutral-1); padding: 10px; margin-top: 20px;">
+            <table class="table-lagu" style="width: 100%; border-collapse: collapse; color: var(--neutral-1); padding: 10px; margin-top: 20px; table-layout: fixed;">
                 <thead>
                     <tr style="border-bottom: 1px solid var(--neutral-2);">
-                        <th class="table" style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; width: 5%;">#</th>
-                        <th class="table" style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; width: 30%;">Judul Lagu</th>
-                        <th class="table" style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; width: 30%;">Nama Artist</th>
-                        <th class="table" style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; width: 25%;">Durasi</th>
-                        <th class="table" style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; width: 10%;">Actions</th>
+                        <th class="table" style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; width: 5%; word-wrap: break-word; overflow-wrap: break-word; white-space: normal;">#</th>
+                        <th class="table" style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; width: 30%; word-wrap: break-word; overflow-wrap: break-word; white-space: normal;">Judul Lagu</th>
+                        <th class="table" style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; width: 30%; word-wrap: break-word; overflow-wrap: break-word; white-space: normal;">Nama Artist</th>
+                        <th class="table" style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; width: 25%; word-wrap: break-word; overflow-wrap: break-word; white-space: normal;">Durasi</th>
+                        <th class="table" style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; width: 10%; word-wrap: break-word; overflow-wrap: break-word; white-space: normal;">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -68,16 +68,16 @@
                     {% for detail in detail_playlist %}
                     <tr class="table plus-jakarta-sans-bold body-tr"
                         style="border-bottom: 0px solid var(--neutral-2); font-size: 1vw; text-align: start; padding: 1vh; ">
-                        <td style="padding: 3vh 1vh; color: var(--neutral-1); ">
+                        <td style="padding: 3vh 1vh; color: var(--neutral-1); word-wrap: break-word; overflow-wrap: break-word; white-space: normal;">
                             {{ detail.no }}</td>
                         <td
-                            style="padding: 3vh 1vh; color: var(--neutral-1); word-wrap: break-word; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                            style="padding: 3vh 1vh; color: var(--neutral-1); word-wrap: break-word; overflow-wrap: break-word; white-space: normal;">
                             {{ detail.judulLagu }}</td>
                         <td
-                            style="padding: 3vh 1vh; color: var(--neutral-1); word-wrap: break-word; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                            style="padding: 3vh 1vh; color: var(--neutral-1); word-wrap: break-word; overflow-wrap: break-word; white-space: normal;">
                             {{ detail.artist }}</td>
                         <td
-                            style="padding: 3vh 1vh; color: var(--neutral-1); word-wrap: break-word; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                            style="padding: 3vh 1vh; color: var(--neutral-1); word-wrap: break-word; overflow-wrap: break-word; white-space: normal;">
                             {{ detail.durasi }}</td>
                         <td class="action" style="padding: 3vh 1vh; color: var(--neutral-1);">
                             <div class="dropdown d-flex justify-content-center align-items-center">

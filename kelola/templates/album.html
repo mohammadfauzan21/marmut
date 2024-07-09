@@ -32,25 +32,25 @@
                 <div style="">
                     <p class="p plus-jakarta-sans-bold" style="color: var(--neutral-1); font-size: 13px; margin-top:30px">
                         {{label}} | {{durasi}} | {{jumlah_lagu}} lagu </p>
-                    <h1 class="profilsaya plus-jakarta-sans-extrabold" style="color: var(--neutral-0); font-size: 3vw; width: 50vw; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                    <h1 class="profilsaya plus-jakarta-sans-extrabold" style="color: var(--neutral-0); font-size: 3vw; width: 50vw; word-wrap: break-word; overflow-wrap: break-word; white-space: normal;">
                         {{judul_album}}
                     </h1>
                 </div>
             </div>
 
             <!-- Tabel untuk lagu -->
-            <table class="table-album" style="width: 100%; border-collapse: collapse;color: var(--neutral-1); padding: 10px; margin-top: 20px;">
+            <table class="table-album" style="width: 100%; border-collapse: collapse;color: var(--neutral-1); padding: 10px; margin-top: 20px; table-layout: fixed;">
                 <thead>
                     <tr style="border-bottom: 1px solid var(--neutral-2);">
                         <th class="table"
-                            style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; width: 5%;">#</th>
+                            style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; width: 5%; word-wrap: break-word; overflow-wrap: break-word; white-space: normal;">#</th>
                         <th class="table"
-                            style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; width: 30%;">Judul
+                            style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; width: 30%; word-wrap: break-word; overflow-wrap: break-word; white-space: normal;">Judul
                             Lagu</th>
-                        <th class="table" style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; width: 20%;">Durasi</th>
-                        <th class="table" style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; width: 20%;">Total Plays</th>
-                        <th class="table" style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; width: 15%;">Total Download</th>
-                        <th class="table" style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; width: 10%;">Action</th>
+                        <th class="table" style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; width: 20%; word-wrap: break-word; overflow-wrap: break-word; white-space: normal;">Durasi</th>
+                        <th class="table" style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; width: 20%; word-wrap: break-word; overflow-wrap: break-word; white-space: normal;">Total Plays</th>
+                        <th class="table" style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; width: 15%; word-wrap: break-word; overflow-wrap: break-word; white-space: normal;">Total Download</th>
+                        <th class="table" style="color: var(--neutral-1); padding: 3vh 1vh; font-size: 1vw; width: 10%; word-wrap: break-word; overflow-wrap: break-word; white-space: normal;">Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -58,19 +58,19 @@
                     {% for detail in detail_album %}
                     <tr class="table plus-jakarta-sans-bold body-tr"
                         style="border-bottom: 0px solid var(--neutral-2); font-size: 1vw; text-align: start; padding: 1vh; ">
-                        <td style="padding: 3vh 1vh; color: var(--neutral-1); ">
+                        <td style="padding: 3vh 1vh; color: var(--neutral-1); word-wrap: break-word; overflow-wrap: break-word; white-space: normal;">
                             {{ detail.no }}</td>
                         <td
-                            style="padding: 3vh 1vh; color: var(--neutral-1); word-wrap: break-word; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                            style="padding: 3vh 1vh; color: var(--neutral-1); word-wrap: break-word; overflow-wrap: break-word; white-space: normal;">
                             {{ detail.judul }}</td>
                         <td
-                            style="padding: 3vh 1vh; color: var(--neutral-1); word-wrap: break-word; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                            style="padding: 3vh 1vh; color: var(--neutral-1); word-wrap: break-word; overflow-wrap: break-word; white-space: normal;">
                             {{ detail.durasi }}</td>
                         <td
-                            style="padding: 3vh 1vh; color: var(--neutral-1); word-wrap: break-word; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                            style="padding: 3vh 1vh; color: var(--neutral-1); word-wrap: break-word; overflow-wrap: break-word; white-space: normal;">
                             {{ detail.total_play }}</td>
                         <td
-                            style="padding: 3vh 1vh; color: var(--neutral-1); word-wrap: break-word; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                            style="padding: 3vh 1vh; color: var(--neutral-1); word-wrap: break-word; overflow-wrap: break-word; white-space: normal;">
                             {{ detail.total_download }}</td>
                         <td class="action" style="padding: 3vh 1vh; color: var(--neutral-1);">
                             <div class="dropdown d-flex justify-content-center align-items-center">
