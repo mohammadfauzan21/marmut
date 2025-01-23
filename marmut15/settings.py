@@ -105,8 +105,8 @@ DATABASES = {
         },
         'HOST': "aws-0-ap-southeast-1.pooler.supabase.com",
         'NAME': "postgres",
-        'USER': "postgres.dajerwcduxdoplsqjhtz",
-        'PASSWORD': "Basisdata_F15",
+        'USER': "postgres.siecbhiftqrinuhsriky",
+        'PASSWORD': "_8WMWw67mYd#AcN",
         'PORT': "5432",
     }
 }
